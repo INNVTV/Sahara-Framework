@@ -1,0 +1,132 @@
+﻿<div style="margin:30px; margin-top:40px;">
+
+    <!--<h4><b>Sales Leads</b></h4>-->
+
+    <!--Sales leads
+    <div style="margin-top:5px;"> -->
+    <div style="margin-top:-15px;">
+
+        <span>
+            <img data-ng-show="vm.accountSettings.SalesSettings.UseSalesLeads" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingUseSalesLeads(false)" />
+            <img data-ng-show="!vm.accountSettings.SalesSettings.UseSalesLeads && vm.accountSettings.SalesSettings.UseSalesLeads != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingUseSalesLeads(true)" />
+            <img data-ng-show="vm.accountSettings.SalesSettings.UseSalesLeads == null" src="/Images/ui/switch/switch-loading.gif" />
+        </span>
+
+        <small style="color:black; font-size:12px">
+            <span data-ng-show="vm.accountSettings.SalesSettings.UseSalesLeads"> Sales leads are active</span>
+            <span style="color:darkgray" data-ng-show="!vm.accountSettings.SalesSettings.UseSalesLeads && vm.accountSettings.SalesSettings.UseSalesLeads != null"> Sales leads are inactive</span>
+            <span style="color:darkgray" data-ng-show="vm.accountSettings.SalesSettings.UseSalesLeads == null"> Updating...</span>
+        </small>
+
+    </div>
+
+
+    <div data-ng-show="vm.accountSettings.SalesSettings.UseSalesLeads" >
+
+
+        <hr />
+
+        <h4><b>Sales Leads Labels:</b></h4>
+        <edit-lead-labels-modal></edit-lead-labels-modal>
+        <span data-ng-repeat="label in vm.accountSettings.SalesSettings.LeadLabels">
+            <span style="margin-bottom:6px; font-size:12px; color:#3E648C">{{label}}<span data-ng-show="!$last">, </span></span>
+        </span>
+        <span>&nbsp;<button data-toggle="modal" data-target=".editLeadLabelsModalWindow" class="sahara-btn-edit-12" style="padding-top:-15px;"></button></span>
+       
+
+
+        <hr />
+
+        <h4><b>Sales Lead Button Copy:</b></h4>
+        <edit-lead-button-copy-modal></edit-lead-button-copy-modal>
+
+        <span style="margin-bottom:6px; font-size:12px; color:#3E648C">{{vm.accountSettings.SalesSettings.ButtonCopy}}</span>
+
+        <span>&nbsp;<button data-toggle="modal" data-target=".editLeadButtonCopyModalWindow" data-ng-click="vm.initializeLeadButtonCopyUpdate()" class="sahara-btn-edit-12" style="padding-top:-15px;"></button></span>
+
+        <div style="height:20px;"></div>
+
+        <h4><b>Sales Lead Description Copy:</b></h4>
+        <edit-lead-description-copy-modal></edit-lead-description-copy-modal>
+
+        <span style="margin-bottom:6px; font-size:12px; color:#3E648C">{{vm.accountSettings.SalesSettings.DescriptionCopy}}</span>
+
+        <span>&nbsp;<button data-toggle="modal" data-target=".editLeadDescriptionCopyModalWindow" data-ng-click="vm.initializeLeadDescriptionCopyUpdate()" class="sahara-btn-edit-12" style="padding-top:-15px;"></button></span>
+
+
+        <!-- <div>
+            <button style="margin-top:10px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".editLeadLabelsModalWindow">Edit</button>
+        </div>
+
+        <hr />
+
+        Advanced settings (variable width)
+        <!--Closed-- >
+        <div data-ng-show="!vm.showAdvancedSalesOptions" style="margin-top:20px; margin-bottom:-10px;">
+            <div style="clear:both;"></div>
+            <small data-ng-click="vm.displayAdvancedSalesOptions()" style="color:darkgray; cursor:pointer">Advanced options <i class="fa fa-caret-right"></i></small>
+        </div>
+        <!--Open-- >
+        <div data-ng-show="vm.showAdvancedSalesOptions" style="margin-top:20px; margin-bottom:-10px;">
+            <div style="clear:both;"></div>
+            <small data-ng-click="vm.hideAdvancedSalesOptions()" style="color:black; cursor:pointer">Advanced options <i class="fa fa-caret-down"></i></small>
+            <div style="clear:both; margin-top:10px; margin-bottom:10px; margin-left:0px;">
+
+                <!-- Advanced Sales Options - - >
+                <div style="margin-top:20px; margin-bottom:15px;">
+                    
+                    <h5><b>Sales leads labels:</b></h5>
+
+                    <span data-ng-repeat="label in vm.accountSettings.SalesSettings.LeadLabels">
+                        <span style="margin-bottom:6px; font-size:12px; color:#3E648C"><b>{{label}}</b><span data-ng-show="!$last">, </span></span>
+                    </span>
+
+                    <edit-lead-labels-modal></edit-lead-labels-modal>
+                    <div>
+                        <button style="margin-top:10px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".editLeadLabelsModalWindow">Edit</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>-->
+
+
+
+        <hr />
+
+        <h4 style="margin-bottom:0px;"><b>Sales Leads Alerts</b></h4>
+        <small style="color:#363636">Send an alert email whenever a new sales lead is generated:</small>
+
+        <!--Use sales alerts -->
+        <div style="margin-top:5px;">
+
+            <span>
+                <img data-ng-show="vm.accountSettings.SalesSettings.UseSalesAlerts" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingUseSalesAlerts(false)" />
+                <img data-ng-show="!vm.accountSettings.SalesSettings.UseSalesAlerts && vm.accountSettings.SalesSettings.UseSalesAlerts != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingUseSalesAlerts(true)" />
+                <img data-ng-show="vm.accountSettings.SalesSettings.UseSalesAlerts == null" src="/Images/ui/switch/switch-loading.gif" />
+            </span>
+
+            <small style="color:black; font-size:12px">
+                <span data-ng-show="vm.accountSettings.SalesSettings.UseSalesAlerts"> Sales Alerts are active</span>
+                <span style="color:darkgray" data-ng-show="!vm.accountSettings.SalesSettings.UseSalesAlerts && vm.accountSettings.SalesSettings.UseSalesAlerts != null"> Sales Alerts are inactive</span>
+                <span style="color:darkgray" data-ng-show="vm.accountSettings.SalesSettings.UseSalesAlerts == null"> Updating...</span>
+            </small>
+
+        </div>
+
+        <div data-ng-show="vm.accountSettings.SalesSettings.UseSalesAlerts" style="margin-top:25px;">
+
+            <h5><b>Emails that receive sales leads alerts:</b></h5>
+
+            <div data-ng-repeat="email in vm.accountSettings.SalesSettings.AlertEmails">
+                <div style="margin-bottom:6px; font-size:12px; color:#3E648C"><i class="fa fa-envelope-o"></i> {{email}}</div>
+            </div>
+
+            <edit-sales-alerts-modal></edit-sales-alerts-modal>
+            <button data-ng-show="vm.accountSettings.SalesSettings.AlertEmails.length > 0" style="margin-top:3px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".editSalesAlertsModalWindow">Edit</button>
+            <button data-ng-show="vm.accountSettings.SalesSettings.AlertEmails.length == 0 || vm.accountSettings.SalesSettings.AlertEmails == null" style="margin-top:3px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".editSalesAlertsModalWindow">Add</button>
+        </div>
+
+    </div>
+</div>

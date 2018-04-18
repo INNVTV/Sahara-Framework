@@ -1,0 +1,440 @@
+﻿@using AccountAdminSite
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--Fixes form focus zooming issue on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>@CoreServices.PlatformSettings.ApplicationName Admin 
+    @if (EnvironmentSettings.CurrentEnvironment.Site.ToLower() != "production")
+    {
+        <text>(</text>@EnvironmentSettings.CurrentEnvironment.Site<text>)</text>
+    }</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    
+    @RenderSection("Head", required: false)<!-- Allows Views to inject scripts and styles into head -->
+
+    <script>
+
+        //function for child "Imaging/Instruction" iFrame to call parent to close crop/edit image modal (view refresh is tied to modal closure)
+        var imageEditingComplete = function () {
+
+            //var cacheImage = document.createElement('img');
+            //cacheImage.src = imgToCache;
+
+            // use _xs version as this is the thumbnail we use in shared panel:
+            //var urlStart = imgToCache.slice(0, (imgToCache.length - 4));
+            //var urlEnd = imgToCache.slice(-4);
+            //imgToCache = urlStart + "_xs" + urlEnd;
+
+            //var img = new Image();
+            //img.src = imgToCache;
+
+            //console.log("imgToCache:" + imgToCache);
+
+            //angular.element(document.getElementById(controllerName)).scope().get().imageEditingCompleteNG();
+            //angular.element(document.getElementById(controllerName)).scope().$apply();
+            //$('#imageEditModal').modal({ show: false });
+            //alert("call from child: '" + varStr + "'");
+            //imageEditingCompleteNG(varStr);
+            //console.log("Parent method called.");
+            $('.modal.in').modal('hide'); //<-- Hides the active modal
+            //$('.modal.in').modal({ show: false });
+            //document.getElementById("imageEditModal").modal({ show: false });
+        }
+
+    </script>
+
+</head>
+<body style="margin:0; padding:0;">
+
+
+
+    <div id="globalLoadingBar" style="display:none; position:relative; height:3px; z-index:110; top:0px; left:0px; background-color:blue; background-image:url('/Images/Loaders/global.gif'); background-size:100%">
+
+    </div>
+
+
+    <div id="notificationBar" class="notificationBase" style="display:none; position:relative">
+
+        <!--<span class="hoverDismiss">
+            <a title="Dismiss this notification">X</a>
+        </span>-->
+        <span id="notificationIcon" class="fa fa-2" style="margin-right:5px;"></span>
+        <span class="notificationMessage"></span>
+        <span class="notificationClose"></span>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var currentNotificationType = null;
+        var currentNotificationId = null;
+
+        showGlobalLoader = function () {
+            $("#globalLoadingBar").slideDown(200);
+        }
+        hideGlobalLoader = function () {
+            $("#globalLoadingBar").slideUp(200);
+        }
+
+
+        showNotification = function (notificationMessage, notificationType, notificationId, timeout) {
+
+            var classType = "notification-" + notificationType.toLowerCase();
+            currentNotificationType = notificationType;
+            currentNotificationId = notificationId;
+
+
+            $(".notificationMessage").empty();
+
+            $("#notificationBar").removeClass();
+            $("#notificationBar").addClass("notificationBase " + classType);
+
+            if (notificationType == "Alert" || notificationType == "Warning")
+            {
+                notificationIcon = "fa-warning"
+            }
+            else if (notificationType == "Success")
+            {
+                notificationIcon = "fa-check"
+            }
+            else if (notificationType == "Information") {
+                notificationIcon = "fa-info-circle"
+            }
+            else if (notificationType == "Loading") {
+                notificationIcon = "fa-circle-o-notch fa-spin"
+            }
+
+            $("#notificationIcon").addClass(notificationIcon);
+
+            $("#notificationBar").slideDown(400);
+            $(".notificationMessage").prepend(notificationMessage);
+
+            //if (hideDismiss == "true") {
+               // $(".hoverDismiss").remove();
+            //}
+
+            if(timeout)
+            {
+                //Close notification bar after 4.25 seconds
+                setTimeout(function () { hideHoverMessage() }, 4250);
+            }
+
+        };
+
+        //$("#notificationBar").find(".hoverDismiss").click(function () {
+        //  $("#notificationBar").fadeOut("slow");
+        //});
+
+        $("#notificationBar").click(function () {
+            $("#notificationBar").slideUp(400);
+
+            //Mark as read if notification has a CoreServices based ID:
+            if (currentNotificationId != '' && currentNotificationId != null)
+            {
+                markNotificationAsRead(currentNotificationType, currentNotificationId);
+            }
+
+        });
+
+        hideHoverMessage = function () {
+            $("#notificationBar").slideUp(400);
+        }
+
+        /* UNUSED  ---------------------------------------
+        function getUnreadNotifications() {
+            var date = new Date();
+            var cacheBuster = "?cb=" + date.getTime();
+            $.ajax({ type: 'GET', url: '/Communication/Notifications/Json/GetNotifications/Unread' + cacheBuster })
+                .success(function (data, status, headers, config) {
+                    if (data.length > 0) {
+                        showNotification(data[0].NotificationMessage, data[0].NotificationType, data[0].NotificationId, false); //<--Only show the top notification until dismissed, alerts are first followed by warnings,information & success
+                    }
+                })
+                .error(function (data, status, headers, config) {
+                    
+                });
+        }
+        */
+
+        function markNotificationAsRead(notificationType, notificationId) {
+            var date = new Date();
+            var cacheBuster = "&cb=" + date.getTime();
+            $.post('/Communication/Notifications/Json/MarkNotificationRead?notificationType=' + notificationType + '&notificationId=' + notificationId + cacheBuster,
+                {
+                    notificationType: this.notificationType,
+                    notificationId: this.notificationId
+                },
+             function (data) {
+                 //
+             }
+            );
+        }
+
+        //Check for new notifications 1.5 seconds after page loads
+        /* UNUSED ---------------------------------------
+        setTimeout(function () { getUnreadNotifications() }, 1500);
+        */
+
+        //and every 4 minutes after. (provided all notifications are closed)
+        /* UNUSED ---------------------------------------
+        setInterval(function () { getUnreadNotifications() }, 250000);
+        */
+
+        //showNotification("Test, go to here <a href='test'>Test</a>", "Warning", 'notifictionId', true);
+
+
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+    //Determine which menu item should be set to 'Active'
+    $(function () {
+        var rootPath = location.pathname.split('/')[1];
+        rootPath = rootPath.toLowerCase();
+        menuName = "";
+        if (rootPath == "") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "dashboard") {
+            menuName = "dashboard";
+        }
+        else if (rootPath == "inventory") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "product") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "categories") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "category") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "subcategory") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "subsubcategory") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "subsubsubcategory") {
+            menuName = "inventory";
+        }
+        else if (rootPath == "properties") {
+            menuName = "properties";
+        }
+        else if (rootPath == "search") {
+            menuName = "search";
+        }
+        else if (rootPath == "property") {
+            menuName = "property";
+        }
+        else if (rootPath == "tags") {
+            menuName = "tags";
+        }
+        else if (rootPath == "imaging") {
+            menuName = "imaging";
+        }
+        else if (rootPath == "leads") {
+            menuName = "leads";
+        }
+        else if (rootPath == "settings") {
+            menuName = "settings";
+        }
+        else if (rootPath == "account") {
+            menuName = "account";
+        }
+        else if (rootPath == "profile") {
+            menuName = "profile";
+        }
+        else if (rootPath == "api") {
+            menuName = "api";
+        }
+        else if (rootPath == "logs") {
+            menuName = "logs";
+        }
+        else if (rootPath == "log") {
+            menuName = "logs";
+        }
+        //else if (rootPath == "marketplace") {
+            //menuName = "marketplace";
+        //}
+        $("#" + menuName + "-nav").addClass('active');
+    });
+    </script>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" style="height:70px; text-align:center; margin-left:-2px; margin-top:0;">
+                    <a href="~/inventory"><img src="~/Images/Logos/sahara-logo-menu.png" /></a>
+                </li>
+
+                <li style="height:10px; padding:0; margin:0"></li>
+
+                <!--
+                (at)if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Manager" || AuthenticationCookieManager.GetAuthenticationCookie().Role == "Admin" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    <li>
+                        <a id="dashboard-nav" href="~/dashboard">
+                            <i class="fa fa-dashboard" style="font-size:20px;"></i>
+                            <div>Dashboard</div>
+                        </a>
+                    </li>
+                }-->
+
+                <li>
+                    <a id="inventory-nav" href="~/inventory">
+                        <i class="fa fa-list-alt" style="font-size:20px;"></i>
+                        <div>Inventory</div>
+                    </a>
+                </li>
+                <li>
+                    <a id="search-nav" href="~/search">
+                        <i class="fa fa-search" style="font-size:20px;"></i>
+                        <div>Search</div>
+                    </a>
+                </li>
+                <!--<li>
+                <a id="properties-nav" href="~/properties">
+                    <i class="fa fa-bars" style="font-size:20px;"></i>
+                    <div>Properties</div>
+                </a>
+            </li>
+            <li>
+                <a id="tags-nav" href="~/tags">
+                    <i class="fa fa-tags" style="font-size:20px;"></i>
+                    <div>Tags</div>
+                </a>
+            </li>
+            <li>
+                <a id="imaging-nav" href="~/imaging">
+                    <i class="fa fa-camera-retro" style="font-size:20px;"></i>
+                    <div>Images</div>
+                </a>
+            </li>-->
+                @if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Sales" || AuthenticationCookieManager.GetAuthenticationCookie().Role == "Admin" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    if (AccountAdminSite.Controllers.AccountSettings.GetAccountSettings_Internal(AuthenticationCookieManager.GetAuthenticationCookie().AccountNameKey).SalesSettings.UseSalesLeads == true)
+                    {
+                        <li>
+                            <a id="leads-nav" href="~/leads">
+                                <i class="fa fa-list" style="font-size:22px;"></i>
+                                <div>Leads</div>
+                            </a>
+                        </li>
+                    }
+
+                }
+
+                <!--if (AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+            {
+                <li>
+                    <a id="marketplace-nav" href="~/marketplace">
+                        <i class="fa fa-shopping-cart fa-180" style="font-size:22px;"></i>
+                        <div>Marketplace</div>
+                    </a>
+                </li>
+            }
+
+                (at)if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Admin" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    <li>
+                        <a id="logs-nav" href="~/logs">
+                            <i class="fa fa-list" style="font-size:20px;"></i>
+                            <div>Logs</div>
+                        </a>
+                    </li>
+                }-->
+                @if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Admin" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    <li>
+                        <a id="account-nav" href="~/account">
+                            <i class="fa fa-bank" style="font-size:20px;"></i>
+                            <div>Account</div>
+                        </a>
+                    </li>
+                }
+
+
+                <!---->
+
+                @if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Manager" || AuthenticationCookieManager.GetAuthenticationCookie().Role == "Admin" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    <li class="hidden-xs hidden-sm">
+                        <a id="settings-nav" href="~/settings">
+                            <i class="fa fa-cogs" style="font-size:20px;"></i>
+                            <div>Settings</div>
+                        </a>
+                    </li>
+                }
+
+
+
+                @if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "Manager" || AuthenticationCookieManager.GetAuthenticationCookie().AccountOwner)
+                {
+                    <li>
+                        <a id="api-nav" href="~/api">
+                            <i class="fa fa-plug" style="font-size:20px;"></i>
+                            <div>API</div>
+                        </a>
+                    </li>
+                }
+
+
+                <li>
+                    <a id="profile-nav" href="~/profile">
+                        <i class="fa fa-user" style="font-size:20px;"></i>
+                        <div>My Profile</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Menu Toggle -->
+        <div id="menu-toggle" style="background-color:#0f2245; width:100%; padding:12px;">
+                <a href="#" style="color:lightgray">
+                    <!--<span style="font-size:24px" class="glyphicon glyphicon-align-justify"></span>-->
+                    <i class="fa fa-bars" style="font-size:20px;"></i>
+                </a>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+        });
+    </script>
+</body>
+</html>

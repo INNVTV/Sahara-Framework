@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account Public Website", "Project\Account Public Website.csproj", "{3EBC8067-1147-490D-9D14-4736C0278641}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Stage|Any CPU = Stage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Stage|Any CPU.ActiveCfg = Stage|Any CPU
+		{3EBC8067-1147-490D-9D14-4736C0278641}.Stage|Any CPU.Build.0 = Stage|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8
+	EndGlobalSection
+EndGlobal

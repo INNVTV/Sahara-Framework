@@ -1,0 +1,39 @@
+﻿@model IEnumerable<StackExchange.Redis.HashEntry>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedisServer_PlatformManager_GetHash</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body style="margin:25px" >
+    
+    <!--<h1><small style="font-size:14px;">Server:</small><br/>(AT)ViewBag.ServerName</h1>-->
+    <h3 style="margin-top:-2px;"><small style="font-size:14px;">Hash:</small><br />@ViewBag.HashKey</h3>
+
+    <hr style="border-color:black; border-width:2px; margin-bottom:0px; margin-top:30px;" />
+    <small><strong>Fields</strong></small>
+    <hr style="border-color:black; border-width:2px; margin-top:0px" />
+
+
+
+    @foreach (var hashEntry in Model)
+    {
+        <h5><strong>@hashEntry.Name</strong></h5>
+        <!--<h6 style="word-wrap:break-word">hashEntry.Value</h6>-->
+        <pre><code>@hashEntry.Value</code></pre>
+        <hr />
+    }
+
+</body>
+</html>

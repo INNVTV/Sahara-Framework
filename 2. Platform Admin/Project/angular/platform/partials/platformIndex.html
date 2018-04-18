@@ -1,0 +1,373 @@
+﻿<div data-ng-controller="platformController as vm">
+    <!--Log Details Modal-->
+    <div class="modal fade logDetailModal" tabindex="-1" role="dialog" aria-labelledby="logDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!--<div class="modal-header" style="border-width:0;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 style="margin-top:-5px; margin-bottom:-5px;">Log details</h2>
+                </div>-->
+
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h1 style="margin-top:-20px;"><small style="font-size:12px;">Category:</small><br />{{ vm.logDetail.Category }}</h1>
+                    <h3 class="hidden-xs" style="margin-top:-2px;"><small style="font-size:12px;">Avtivity:</small><br />{{ vm.logDetail.Activity }}</h3>
+                    <h5 class="visible-xs" style="margin-top:-2px;"><small style="font-size:12px;">Avtivity:</small><br /><strong>{{ vm.logDetail.Activity }}</strong></h5>
+                    <hr style="border-color:#C2C2C2; margin-bottom:4px;" />
+                    <small style="font-size:11px;"><strong><i class="fa fa-history" style="color:#A6A6A6; margin-right:5px;"></i><span am-time-ago="vm.logDetail.Timestamp"></span></strong></small>
+                    <hr style="border-color:#C2C2C2; margin-top:4px; margin-bottom:30px;" />
+
+                    <h5><strong>Description</strong></h5>
+                    <pre><code>{{ vm.logDetail.Description }}</code></pre>
+                    <hr />
+                    <div data-ng-show="vm.logDetail.Details != null">
+                        <h5><strong>Details</strong></h5>
+                        <pre><code>{{ vm.logDetail.Details }}</code></pre>
+                        <hr />
+                    </div>
+                    <div data-ng-show="vm.logDetail.AccountID != null">
+                        <h5><strong>Account</strong></h5>
+                        <pre><code>Name: {{ vm.logDetail.AccountName }}</code></pre>
+                        <pre><code>ID: {{ vm.logDetail.AccountID }}</code></pre>
+                        <hr />
+                    </div>
+                    <div data-ng-show="vm.logDetail.UserID != null">
+                        <h5><strong>User</strong></h5>
+                        <pre><code>Name: {{ vm.logDetail.UserName }}</code></pre>
+                        <pre><code>ID: {{ vm.logDetail.UserID }}</code></pre>
+                        <pre><code>Email:  {{ vm.logDetail.UserEmail }}</code></pre>
+                        <hr />
+                    </div>
+                    <div data-ng-show="vm.logDetail.IPAddress != null">
+                        <h5><strong>IP Address</strong></h5>
+                        <pre><code>{{ vm.logDetail.IPAddress }}</code></pre>
+                        <hr />
+                    </div>
+                    <div data-ng-show="vm.logDetail.Origin != null">
+                        <h5><strong>Origin</strong></h5>
+                        <pre><code>{{ vm.logDetail.Origin }}</code></pre>
+                        <hr />
+                    </div>
+                    <div data-ng-show="vm.logDetail.Object != null">
+                        <h5><strong>Serialized Object</strong></h5>
+                        <pre><code>{{ vm.logDetail.Object }}</code></pre>
+                        <hr />
+                    </div>
+                    <h5><strong>Timestamp</strong></h5>
+                    <pre><code>{{ vm.logDetail.Timestamp | date : 'EEE MMM, dd yyyy' }}<small style="color:lightgrey"> | </small><strong>{{ vm.logDetail.Timestamp | date : 'h:mm a' }}</strong></code></pre>
+
+                </div>
+                <div class="modal-footer" style="margin-top:-5px">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--End Log Details Modal-->
+    <section-loader data-ng-show="vm.showPlatformLoading" message="'Getting platform information...'" loader-type="'inline'"></section-loader>
+
+    <div id="DetailPage" data-ng-show="!vm.showPlatformLoading">
+        <div style="padding:10px; padding-bottom:0px">
+            <!---->
+            <div id="FirstColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <h4><i class="fa fa-cloud"></i> WCF Host</h4>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                    <hr class="dataCardLines" style="margin-bottom:25px;" />
+                </div>
+
+                <h4><i class="fa fa-cogs"></i> Worker(s)</h4>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="font-size:12px"><strong>Frequency:</strong></small>
+                    <small style="font-size:12px">{{ vm.platform.WorkerFrequencyDescription }}</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                    <hr class="dataCardLines" style="margin-bottom:25px;" />
+                </div>
+
+            </div>
+            <hr class="dataCardLines dark visible-xs" />
+            <div id="SecondColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <h4><i class="fa fa-history"></i> Custodian</h4>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Status:</strong></small>
+                    <small data-ng-show="vm.snapshot.Custodian.IsSleeping"><i class="fa fa-bed"></i> sleeping...</small>
+                    <small data-ng-show="vm.snapshot.Custodian.IsRunning"><i class="fa fa-cogs"></i> running...</small>
+                    <small data-ng-show="vm.snapshot == null" style="color:darkgrey"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Last run:</strong></small>
+                    <small data-ng-show="vm.snapshot == null" style="color:darkgrey"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</small>
+                    <small><span am-time-ago="vm.snapshot.Custodian.LastRun"></span></small>
+                    <small data-ng-show="vm.snapshot != null"> at: {{ vm.snapshot.Custodian.LastRun | date : 'h:mm a' }}</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Next run:</strong></small>
+                    <small data-ng-show="vm.snapshot == null" style="color:darkgrey"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</small>
+                    <small><span am-time-ago="vm.snapshot.Custodian.NextRun"></span></small>
+                    <small data-ng-show="vm.snapshot != null"> at: {{ vm.snapshot.Custodian.NextRun | date : 'h:mm a' }}</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+                </div>
+                <!--
+                <hr class="dataCardLines" style="" />
+
+                <button class="btn btn-xs btn-default">Reboot</button>
+                <hr class="dataCardLines" style="margin-bottom:15px;" />-->
+            </div>
+            <hr class="dataCardLines dark visible-xs" />
+
+            <div id="RightColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                <h4><i class="fa fa-database"></i> SQL Partitions</h4>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                    <hr class="dataCardLines" style="margin-bottom:25px;" />
+                </div>
+
+                <h4><i class="fa fa-folder-open"></i> Document Partitions</h4>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                    <hr class="dataCardLines" style="margin-bottom:25px;" />
+                </div>
+                <!--
+                <hr class="dataCardLines" style="" />
+
+                <button class="btn btn-xs btn-default">Reboot 1</button>
+                <button class="btn btn-xs btn-default">Reboot 2</button>
+                <button class="btn btn-xs btn-default">Reboot 3</button>
+
+                <hr class="dataCardLines" style="margin-bottom:15px;" />-->
+            </div>
+            <!--<hr class="dataCardLines dark visible-xs" />
+
+
+            <div id="ThirdColumn" class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+
+                <h3><i class="fa fa-cloud"></i> WCF Host</h3>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="color:green"><i class="fa fa-check"></i> OK</small>
+                </div>
+
+
+                <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+            </div>
+
+            -->
+
+        </div>
+
+        <div style="padding:5px; clear:both;"></div>
+        <div id="Tabs">
+            <tabset>
+                <tab style="cursor:pointer" id="Logs" heading="Errors/Exceptions">
+                    <div class="container-fluid" style="padding:15px">
+                        <div id="ErrorTimeframes" data-ng-show="vm.snapshot != null" style="margin-top:20px; margin-bottom:30px;">
+                            <div data-ng-show="!vm.snapshot.Errors_Last24Hours && !vm.snapshot.Errors_Last3Days && !vm.snapshot.Errors_Last7Days" style="margin-bottom:20px; color:green">
+                                <h4 class="hidden-xs"><i class="fa fa-check"></i> No exceptions recorded in the last 7 days!</h4>
+                                <h6 class="visible-xs"><i class="fa fa-check"></i> No exceptions recorded in the last 7 days!</h6>
+                            </div>
+                            <div data-ng-show="vm.snapshot.Errors_Last24Hours && vm.snapshot.Errors_Last3Days && vm.snapshot.Errors_Last7Days" style="margin-bottom:20px; color:red">
+                                <h4 class="hidden-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 24 Hours</h4>
+                                <h6 class="visible-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 24 Hours</h6>
+                            </div>
+                            <div data-ng-show="!vm.snapshot.Errors_Last24Hours && vm.snapshot.Errors_Last3Days && vm.snapshot.Errors_Last7Days" style="margin-bottom:20px; color:orange">
+                                <h4 class="hidden-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 3 days</h4>
+                                <h6 class="visible-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 3 days</h6>
+                            </div>
+                            <div data-ng-show="!vm.snapshot.Errors_Last24Hours && !vm.snapshot.Errors_Last3Days && vm.snapshot.Errors_Last7Days" style="margin-bottom:20px; color:darkgrey">
+                                <h4 class="hidden-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 7 days</h4>
+                                <h6 class="visible-xs"><i class="fa fa-warning"></i> There were exceptions recorded in the last 7 days</h6>
+                            </div>
+                        </div>
+
+                        <table class="table table-striped table-responsive" data-ng-show="vm.snapshot.Errors_Log.length > 0">
+                            <tr data-ng-repeat="error in vm.snapshot.Errors_Log">
+                                <td>
+                                    <i class="fa fa-history" style="color:#A6A6A6;"></i>&nbsp;<strong am-time-ago="error.Timestamp"></strong>
+                                </td>
+                                <!-- DESCRIPTIONS -->
+                                <td class="visible-lg">
+                                    <small>
+                                        {{ error.Description | limitTo : 90 }}<span data-ng-show="error.Description.length > 90"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="visible-md">
+                                    <small>
+                                        {{ error.Description | limitTo : 55 }}<span data-ng-show="error.Description.length > 55"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="visible-sm">
+                                    <small>
+                                        {{ error.Description | limitTo : 25 }}<span data-ng-show="error.Description.length > 25"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="visible-xs">
+                                    <small>
+                                        {{ error.Description | limitTo : 20 }}<span data-ng-show="error.Description.length > 20"><strong>...</strong></span>
+                                    </small>
+                                </td>
+
+                                <!-- DETAILS -->
+                                <td class="visible-lg">
+                                    <small>
+                                        {{ error.Details | limitTo : 80 }}<span data-ng-show="error.Details.length > 90"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="visible-md">
+                                    <small>
+                                        {{ error.Details | limitTo : 45 }}<span data-ng-show="error.Details.length > 55"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="visible-sm">
+                                    <small>
+                                        {{ error.Details | limitTo : 20 }}<span data-ng-show="error.Details.length > 25"><strong>...</strong></span>
+                                    </small>
+                                </td>
+                                <td class="hidden-xs hidden-sm">
+                                    <small>
+                                        <!--<a href="/account/{{ logItem.AccountID }}">{{ logItem.AccountName }}</a>-->
+                                        <a style="cursor:pointer" data-ng-click="vm.goToAccount(error.AccountID)">{{ error.AccountName }}</a>
+                                    </small>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".logDetailModal" data-ng-click="vm.getLogDetail($index, true)">Details</button> <!--<i class="fa fa-eye"></i>-->
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div data-ng-show="vm.snapshot.Errors_Log.length == 0">
+                            <h6><strong><i class="fa fa-asterisk" style="color:darkgrey"></i> No errors logged.</strong></h6>
+                        </div>
+                    </div>
+                </tab>
+
+
+                <tab style="cursor:pointer" id="Users" heading="Platform Users" data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.getUsers()">
+                    <div id="users-sub-menu">
+                        <ul class="sahara-nav-pills">
+                            <li>
+                                <a data-ng-class="{'active' : vm.userSubMenu.activeButton}" data-ng-click="vm.userSubMenu.update('active')" href="#">ACTIVE</a>
+                            </li>
+                            <li>
+                                <a data-ng-class="{'active' : vm.userSubMenu.invitationsButton}" data-ng-click="vm.userSubMenu.update('invitations')" href="#">INVITATIONS</a>
+                            </li>
+                            <li data-ng-show="vm.checkRole('SuperAdmin')">
+                                <a data-ng-class="{'active' : vm.userSubMenu.passwordClaimsButton}" data-ng-click="vm.userSubMenu.update('passwordClaims')" href="#">PASSWORD CLAIMS</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <platform-users-panel data-ng-show="vm.userSubMenu.activeButton"></platform-users-panel>
+                    <platform-invitations-panel data-ng-show="vm.userSubMenu.invitationsButton"></platform-invitations-panel>
+                    <platform-password-claims-panel data-ng-show="vm.userSubMenu.passwordClaimsButton"></platform-password-claims-panel>
+
+                    <!--<tabset type="pills" style="margin-top: 20px; padding-top: 20px">
+
+                            <tab style="cursor:pointer; outline: none" id="Active" heading="Active" data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.getUsers()">
+
+                                <platform-users-panel></platform-users-panel>
+
+                            </tab>
+
+                            <tab style="cursor:pointer" id="Invitations" heading="Invitations" data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.activateInvitationsPanel()">
+
+                                <platform-invitations-panel></platform-invitations-panel>
+
+                            </tab>
+
+                            <tab style="cursor:pointer" id="PasswordClaims" heading="Password Claims" data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.activatePasswordClaimsPanel()">
+
+                                <platform-password-claims-panel></platform-password-claims-panel>
+
+                            </tab>
+
+                        </tabset>-->
+                </tab>
+
+                <!--
+                <tab style="cursor:pointer" id="DocumentPartitions" heading="Document Partitions" data-ng-show="vm.checkRole('SuperAdmin')" class="visible-md visible-lg" data-ng-click="vm.documentPartitionSubMenu.update('Free')">
+                    <div class=" container-fluid" style="padding:15px">
+                        <div id="document-partitions-sub-menu">
+                            <ul class="sahara-nav-pills">
+                                <li>
+                                    <a data-ng-class="{'active' : vm.documentPartitionSubMenu.freeButton}" data-ng-click="vm.documentPartitionSubMenu.update('Free')" href="#">FREE</a>
+                                </li>
+                                <li>
+                                    <a data-ng-class="{'active' : vm.documentPartitionSubMenu.sharedButton}" data-ng-click="vm.documentPartitionSubMenu.update('Shared')" href="#">SHARED</a>
+                                </li>
+                                <li>
+                                    <a data-ng-class="{'active' : vm.documentPartitionSubMenu.dedicatedButton}" data-ng-click="vm.documentPartitionSubMenu.update('Dedicated')" href="#">DEDICATED</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <platform-document-partitions-panel></platform-document-partitions-panel>
+                    </div>
+                </tab>
+-->
+                <tab style="cursor:pointer" id="SQLPartitions" heading="SQL Partitions" data-ng-show="vm.checkRole('SuperAdmin')" class="visible-md visible-lg" data-ng-click="vm.loadSqlPartitions()">
+                    <div class="container-fluid" style="padding:15px">
+                        <platform-sql-partitions-panel></platform-sql-partitions-panel>
+                    </div>
+                </tab>
+
+                <tab style="cursor:pointer" id="StoragePartitions" heading="Storage Partitions" data-ng-show="vm.checkRole('SuperAdmin')" class="visible-md visible-lg" data-ng-click="vm.loadStoragePartitions()">
+                    <div class="container-fluid" style="padding:15px">
+                        <platform-storage-partitions-panel></platform-storage-partitions-panel>
+                    </div>
+                </tab>
+
+                <tab style="cursor:pointer" id="SearchPartitions" heading="Search Partitions" data-ng-show="vm.checkRole('SuperAdmin')" class="visible-md visible-lg" data-ng-click="vm.loadSearchPartitions()">
+                    <div class="container-fluid" style="padding:15px">
+
+                        <!--
+                        <div id="search-partitions-sub-menu">
+                            <ul class="sahara-nav-pills">
+                                <li>
+                                    <a data-ng-class="{'active' : vm.searchPartitionSubMenu.freeButton}" data-ng-click="vm.searchPartitionSubMenu.update('Free')" href="#">FREE</a>
+                                </li>
+                                <li>
+                                    <a data-ng-class="{'active' : vm.searchPartitionSubMenu.basicButton}" data-ng-click="vm.searchPartitionSubMenu.update('Basic')" href="#">BASIC</a>
+                                </li>
+                                <li>
+                                    <a data-ng-class="{'active' : vm.searchPartitionSubMenu.standardButton}" data-ng-click="vm.searchPartitionSubMenu.update('Standard')" href="#">STANDARD</a>
+                                </li>
+                            </ul>
+                        </div>-->
+                        <platform-search-partitions-panel></platform-search-partitions-panel>
+                    </div>
+                </tab>
+
+                <!-- Unused 
+                    <tab style="cursor:pointer" id="AccountsCommunication" heading="Global Account Communications" data-ng-show="vm.checkRole('SuperAdmin')" class="visible-md visible-lg">
+                    <div class="container-fluid" style="padding:15px">
+                        <platform-communications-panel></platform-communications-panel>
+                    </div>
+                </tab>-->
+
+
+            </tabset>
+        </div>
+    </div>
+</div>

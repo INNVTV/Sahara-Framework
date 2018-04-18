@@ -1,0 +1,43 @@
+﻿<div>
+    <!--New Card Modal-->
+    <div class="modal fade editCustomDomainModalWindow" tabindex="-1" role="dialog" aria-labelledby="editCustomDomainModalWindow" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:2px; margin-bottom:2px;">Custom Domain</h3>
+                    
+                </div>
+                <div class="modal-body">
+
+
+                    <div style="text-align:right;">
+
+                        <div class="form">
+                            <div class="form-group" style="text-align:left">
+                                <label style="margin-bottom:2px;">Update custom domain:</label>
+                                <div style="height:10px;"></div>
+                                <input type="text" class="form-control input" maxlength="90" data-ng-model="vm.newCustomDomain" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="font-size:9px; color:darkgrey">1) Do not include "www" or "http://".</div>
+                    <div style="font-size:9px; color:darkgrey">2) Contact support to get DNS settings.</div>
+                    <div style="font-size:9px; color:darkgrey">3) Choose between A Record or CName options.</div>
+                    <div style="font-size:9px; color:darkgrey">4) Update cloud site settings and restart.</div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                    <span style="margin-left:2px;" data-ng-show="!vm.newCustomDomainComplete">
+                        <button data-ng-show="!vm.newCustomDomainLoading" class="btn btn-md btn-primary" data-ng-click="vm.updateCustomDomain()">Update</button>
+                        <button data-ng-show="vm.newCustomDomainLoading" class="btn btn-md btn-primary disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Updating</button>
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

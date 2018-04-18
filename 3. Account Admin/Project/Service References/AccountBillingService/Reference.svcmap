@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b8d231da-48e8-4894-aff1-cee13c3fb9ef" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="4b654bac-e54a-4b73-9992-1dea76aa3f10" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="6d7bf1a8-c9a4-4eb0-ba1e-f31dbc488807" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="861e23e6-9b74-49b1-9b6c-43968f4a6025" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Sahara.Core.Platform.Billing.Models1.xsd" MetadataType="Schema" ID="c881f0e3-fd01-4b0a-aeed-c23243b87b00" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Sahara.Core.Accounts.Models1.xsd" MetadataType="Schema" ID="6cddc36d-893b-4b19-83ac-decec6fdec66" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Sahara.Core.Accounts.PaymentPlans.Models1.xsd" MetadataType="Schema" ID="6a123a24-db28-43ad-b766-63e8fbab814d" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Sahara.Core.Platform.Requests.Models1.xsd" MetadataType="Schema" ID="5516ba07-d78e-440f-a6b4-9385e4a83ead" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Sahara.Core.Common.ResponseTypes1.xsd" MetadataType="Schema" ID="7cfc0a4d-fa9e-4a3d-8c0c-54279c7f4d59" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="371c588b-9e27-4c1b-81e8-7c4cd93f3b0c" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+    <MetadataFile FileName="System1.xsd" MetadataType="Schema" ID="841a6e80-bf32-42ec-877e-a89e6a6d9fb9" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Account/Billing/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

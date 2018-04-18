@@ -1,0 +1,883 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DC8EAFE1-532C-41CD-BD52-B2EB258414D3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InventoryHawk.Account.Public.Api</RootNamespace>
+    <AssemblyName>InventoryHawk.Account.Public.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.13.2\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.3.0.1\lib\net45\Microsoft.Azure.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.4\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.4\lib\net45\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.1.1\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.0.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid, Version=8.0.5.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.8.0.5\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.3.0.0\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.1\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.1.608.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.608\lib\net46\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Browse\" />
+    <Folder Include="Views\Default\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\ImageFormats\" />
+    <Folder Include="Views\ImageRecords\" />
+    <Folder Include="Views\Infrastructure\" />
+    <Folder Include="Views\Products\" />
+    <Folder Include="Views\Properties\" />
+    <Folder Include="Views\Search\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="BackgroundTasks\SalesAlerts\SendSalesAlerts.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BrowseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\DeploymentController.cs" />
+    <Compile Include="Controllers\ImageFormatsController.cs" />
+    <Compile Include="Controllers\ImageRecordsController.cs" />
+    <Compile Include="Controllers\InfrastructureController.cs" />
+    <Compile Include="Controllers\LeadController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PropertiesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\SubcategoryController.cs" />
+    <Compile Include="Controllers\SubsubcategoryController.cs" />
+    <Compile Include="Controllers\SubsubsubcategoryController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
+    <Compile Include="CoreServices.cs" />
+    <Compile Include="DataAccess\AccountSettings.cs" />
+    <Compile Include="DataAccess\ImageFormats.cs" />
+    <Compile Include="DataAccess\ImageRecords.cs" />
+    <Compile Include="DataAccess\Product.cs" />
+    <Compile Include="DataAccess\Properties.cs" />
+    <Compile Include="DataAccess\Search.cs" />
+    <Compile Include="Dynamics\Products.cs" />
+    <Compile Include="EnvironmentSettings.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JsonNetResult.cs" />
+    <Compile Include="Models\DeploymentModel.cs" />
+    <Compile Include="Models\Json\Account\AccountDetailsJson.cs" />
+    <Compile Include="Models\Json\Account\ContactSettingsJson.cs" />
+    <Compile Include="Models\Json\Account\SalesSettingsJson.cs" />
+    <Compile Include="Models\Json\Account\SortSettingsJson.cs" />
+    <Compile Include="Models\Json\Account\ThemeSettingsJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategoriesJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategorizationJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategorizationDetailsJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategorizationListItemJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategorizationParentItemJson.cs" />
+    <Compile Include="Models\Json\Categorization\CategoryTreeJson.cs" />
+    <Compile Include="Models\Json\Common\ExecutionType.cs" />
+    <Compile Include="Models\Json\Listings\ListingImageJson.cs" />
+    <Compile Include="Models\Json\Products\ProductDetailJson.cs" />
+    <Compile Include="Models\Json\Products\ProductListItemJson.cs" />
+    <Compile Include="Models\Json\Properties\PropertiesJson.cs" />
+    <Compile Include="Models\Json\Search\ProductSearchSortableJson.cs" />
+    <Compile Include="Models\Json\Search\ProductSearchFacetJson.cs" />
+    <Compile Include="Models\Json\Search\SearchResultsJson.cs" />
+    <Compile Include="Models\Json\Tags\TagsListJson.cs" />
+    <Compile Include="Models\Search\SearchResult.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\TableEntities\Leads\SalesLeadTableEntity.cs" />
+    <Compile Include="Models\ThemeModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AccountManagementService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationApiKeysService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationCategorizationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationImageFormatsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationImageRecordsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationProductService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationPropertiesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationSearchService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationTagsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformSettingsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Transforms\Json\CategorizationTransforms.cs" />
+    <Compile Include="Dynamics\Images.cs" />
+    <Compile Include="Transforms\Json\LocationResultsTransforms.cs" />
+    <Compile Include="Transforms\Json\PropertyTransforms.cs" />
+    <Compile Include="Transforms\Json\SearchTransforms.cs" />
+    <Compile Include="WCFManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\ai.0.15.0-build58334.js" />
+    <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.AccountActivityLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.AccountCapacity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.AccountCreditCardInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.AccountUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.UserAccount.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.UserInvitation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.UserPasswordResetClaim.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.AccountSettingsDocumentModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\InventoryHawk.Account.Public.Api.AccountManagementService.ThemeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountManagementService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Capacity.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.DocumentModels1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Themes.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Logging.AccountLogs.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service1.wsdl" />
+    <None Include="Service References\AccountManagementService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\ApplicationApiKeysService\InventoryHawk.Account.Public.Api.ApplicationApiKeysService.ApiKeyModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationApiKeysService\InventoryHawk.Account.Public.Api.ApplicationApiKeysService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Application.ApiKeys.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Common.ResponseTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Platform.Requests.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\service.wsdl" />
+    <None Include="Service References\ApplicationApiKeysService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\configuration91.svcinfo" />
+    <None Include="Service References\AccountManagementService\configuration.svcinfo" />
+    <None Include="Service References\AccountManagementService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationApiKeysService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationApiKeysService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.CategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.SubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.SubsubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.SubsubsubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\InventoryHawk.Account.Public.Api.ApplicationCategorizationService.CategoryTreeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationCategorizationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Application.Categorization.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\service1.wsdl" />
+    <None Include="Service References\ApplicationCategorizationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationImageFormatsService\configuration.svcinfo" />
+    <Content Include="Service References\ApplicationImageFormatsService\InventoryHawk.Account.Public.Api.ApplicationImageFormatsService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageFormatsService\InventoryHawk.Account.Public.Api.ApplicationImageFormatsService.ImageFormatGroupModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageFormatsService\InventoryHawk.Account.Public.Api.ApplicationImageFormatsService.ImageFormatGroupTypeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationImageFormatsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationImageRecordsService\InventoryHawk.Account.Public.Api.ApplicationImageRecordsService.ImageRecordGroupModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageRecordsService\InventoryHawk.Account.Public.Api.ApplicationImageRecordsService.ImageRecordTableEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Application.Images.Formats.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\service1.wsdl" />
+    <None Include="Service References\ApplicationImageFormatsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\Microsoft.WindowsAzure.Storage.Table1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\Sahara.Core.Application.Images.Records.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\Sahara.Core.Application.Images.Records.TableEntities1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\service1.wsdl" />
+    <None Include="Service References\ApplicationImageRecordsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\ApplicationProductService\InventoryHawk.Account.Public.Api.ApplicationProductService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationProductService\InventoryHawk.Account.Public.Api.ApplicationProductService.ProductDocumentModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationProductService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Application.DocumentModels.Product1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Common.Types1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\service1.wsdl" />
+    <None Include="Service References\ApplicationProductService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\ApplicationPropertiesService\InventoryHawk.Account.Public.Api.ApplicationPropertiesService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationPropertiesService\InventoryHawk.Account.Public.Api.ApplicationPropertiesService.PropertyModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationPropertiesService\InventoryHawk.Account.Public.Api.ApplicationPropertiesService.PropertyTypeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationPropertiesService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Application.Properties.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\service1.wsdl" />
+    <None Include="Service References\ApplicationPropertiesService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationImageRecordsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationImageRecordsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationProductService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationProductService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationProductService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationPropertiesService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationPropertiesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationSearchService\InventoryHawk.Account.Public.Api.ApplicationSearchService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationSearchService\InventoryHawk.Account.Public.Api.ApplicationSearchService.ProductSearchFacet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationSearchService\InventoryHawk.Account.Public.Api.ApplicationSearchService.ProductSearchSortable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationSearchService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\Sahara.Core.Application.Search.Models.Product.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\service1.wsdl" />
+    <None Include="Service References\ApplicationSearchService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\ApplicationTagsService\InventoryHawk.Account.Public.Api.ApplicationTagsService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationTagsService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\service1.wsdl" />
+    <None Include="Service References\ApplicationTagsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformSettingsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationCategorizationService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationCategorizationService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationCategorizationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationSearchService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationSearchService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationSearchService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationTagsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationTagsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationTagsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformSettingsService\InventoryHawk.Account.Public.Api.PlatformSettingsService.CorePlatformSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformSettingsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Service References\PlatformSettingsService\Sahara.Core.Settings.Models.Partitions1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service1.wsdl" />
+    <None Include="Service References\PlatformSettingsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\WCF.WcfEndpoints.Contracts.Platform.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Stage.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AccountManagementService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationApiKeysService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationCategorizationService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationImageFormatsService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationImageRecordsService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationProductService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationPropertiesService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationSearchService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationTagsService\" />
+    <WCFMetadataStorage Include="Service References\PlatformSettingsService\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51711</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51711/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

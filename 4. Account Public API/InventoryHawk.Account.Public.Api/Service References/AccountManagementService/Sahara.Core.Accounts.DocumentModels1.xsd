@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.DocumentModels" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.DocumentModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="AccountSettingsDocumentModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContactSettings" nillable="true" type="tns:ContactSettingsModel" />
+      <xs:element minOccurs="0" name="CustomDomain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocumentType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesSettings" nillable="true" type="tns:SalesSettingsModel" />
+      <xs:element minOccurs="0" name="SelfLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Theme" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountSettingsDocumentModel" nillable="true" type="tns:AccountSettingsDocumentModel" />
+  <xs:complexType name="ContactSettingsModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContactInfo" nillable="true" type="tns:ContactInfoModel" />
+      <xs:element minOccurs="0" name="ShowAddress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ShowEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ShowPhoneNumber" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactSettingsModel" nillable="true" type="tns:ContactSettingsModel" />
+  <xs:complexType name="ContactInfoModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactInfoModel" nillable="true" type="tns:ContactInfoModel" />
+  <xs:complexType name="SalesSettingsModel">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AlertEmails" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ButtonCopy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescriptionCopy" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LeadLabels" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="UseSalesAlerts" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UseSalesLeads" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SalesSettingsModel" nillable="true" type="tns:SalesSettingsModel" />
+</xs:schema>

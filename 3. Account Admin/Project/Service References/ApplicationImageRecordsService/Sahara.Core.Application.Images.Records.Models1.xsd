@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Records.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Records.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfImageRecordGroupModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageRecordGroupModel" nillable="true" type="tns:ImageRecordGroupModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageRecordGroupModel" nillable="true" type="tns:ArrayOfImageRecordGroupModel" />
+  <xs:complexType name="ImageRecordGroupModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageRecords" nillable="true" type="tns:ArrayOfImageRecordModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageRecordGroupModel" nillable="true" type="tns:ImageRecordGroupModel" />
+  <xs:complexType name="ArrayOfImageRecordModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageRecordModel" nillable="true" type="tns:ImageRecordModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageRecordModel" nillable="true" type="tns:ArrayOfImageRecordModel" />
+  <xs:complexType name="ImageRecordModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BlobPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BlobPath_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BlobPath_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContainerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormatName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormatNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GalleryImages" nillable="true" type="tns:ArrayOfImageRecordGalleryModel" />
+      <xs:element minOccurs="0" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageRecordModel" nillable="true" type="tns:ImageRecordModel" />
+  <xs:complexType name="ArrayOfImageRecordGalleryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageRecordGalleryModel" nillable="true" type="tns:ImageRecordGalleryModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageRecordGalleryModel" nillable="true" type="tns:ArrayOfImageRecordGalleryModel" />
+  <xs:complexType name="ImageRecordGalleryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BlobPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BlobPath_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BlobPath_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath_xs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url_sm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url_xs" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageRecordGalleryModel" nillable="true" type="tns:ImageRecordGalleryModel" />
+</xs:schema>

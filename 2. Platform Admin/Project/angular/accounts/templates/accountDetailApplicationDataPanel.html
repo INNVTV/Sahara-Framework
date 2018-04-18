@@ -1,0 +1,47 @@
+﻿<div>
+        <section-loader data-ng-show="vm.accountCapacity == null" message="'Getting data...'" loader-type="'inline'"></section-loader>
+
+        <div data-ng-show="vm.accountCapacity != null">
+
+            <div style="float:left; margin-right:40px; margin-bottom:40px">
+                <small style="font-size:15px;"> {{ vm.accountCapacity.UsersCount | number }} of {{ vm.accountCapacity.UsersMax | number }} <strong>Users</strong></small>
+                <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                    <img src="/Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (vm.accountCapacity.UsersPercentageUsed * 2) | number }}" />
+                </div>
+                <small style="color:#C7C7C7; font-size:13px;"><strong>{{ vm.accountCapacity.UsersPercentageUsed | number }}%</strong></small>
+            </div>
+
+            <div style="float:left; margin-right:40px; margin-bottom:40px">
+                <small style="font-size:15px;"> {{ vm.accountCapacity.CategoriesCount | number }} of {{ vm.accountCapacity.CategoriesMax | number }} <strong>Categories</strong></small>
+                <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                    <img src="/Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (vm.accountCapacity.CategoriesPercentageUsed * 2) | number }}" />
+                </div>
+                <small style="color:#C7C7C7; font-size:13px;"><strong>{{ vm.accountCapacity.CategoriesPercentageUsed | number }}%</strong></small>
+            </div>
+
+            <div style="float:left; margin-right:40px; margin-bottom:40px">
+                <small style="font-size:15px;"> {{ vm.accountCapacity.SubcategoriesCount | number }} of {{ vm.accountCapacity.SubcategoriesMax | number }} <strong>Subcategories</strong></small>
+                <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                    <img src="/Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (vm.accountCapacity.SubcategoriesPercentageUsed * 2) | number }}" />
+                </div>
+                <small style="color:#C7C7C7; font-size:13px;"><strong>{{ vm.accountCapacity.SubcategoriesPercentageUsed | number }}%</strong></small>
+            </div>
+
+            <div style="float:left; margin-right:40px; margin-bottom:40px">
+                <small style="font-size:15px;"> {{ vm.accountCapacity.TagsCount | number }} of {{ vm.accountCapacity.TagsMax | number }} <strong>Tags</strong></small>
+                <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                    <img src="/Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (vm.accountCapacity.TagsPercentageUsed * 2) | number }}" />
+                </div>
+                <small style="color:#C7C7C7; font-size:13px;"><strong>{{ vm.accountCapacity.TagsPercentageUsed | number }}%</strong></small>
+            </div>
+
+            <div style="float:left; margin-right:40px; margin-bottom:40px">
+                <small style="font-size:15px;">{{ vm.accountCapacity.ImagesCount | number }} of {{ vm.accountCapacity.ImagesMax | number }} <strong>Images</strong></small>
+                <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                    <img src="/Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (vm.accountCapacity.ImagesPercentageUsed * 2) | number }}" />
+                </div>
+                <small style="color:#C7C7C7; font-size:13px;"><strong>{{ vm.accountCapacity.ImagesPercentageUsed | number }}%</strong></small>
+            </div>
+
+        </div>
+</div>

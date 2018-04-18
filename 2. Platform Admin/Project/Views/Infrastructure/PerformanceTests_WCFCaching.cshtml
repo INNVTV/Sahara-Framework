@@ -1,0 +1,44 @@
+﻿@{
+      
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>WCF Caching Performance Tests</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+
+</head>
+<body style="margin:25px">
+
+    <h1>WCF calls with & without caching</h1>
+    <br />
+    <br />
+
+    <iframe name="CachedIFrame" height="65" src="/Infrastructure/PerformanceTest/GetAccountsListCached"></iframe>
+    <br />
+    <button class="btn btn-default" onclick="var ifr = document.getElementsByName('CachedIFrame')[0]; ifr.src = ifr.src;">Get Accounts List (WCF: Cached)</button>
+
+
+    <br />
+    <br />
+    <br />
+
+    <iframe name="NoncachedIFrame" height="65" src="/Infrastructure/PerformanceTest/GetAccountsListNoncached"></iframe>
+    <br />
+    <button class="btn btn-default" onclick="var ifr = document.getElementsByName('NoncachedIFrame')[0]; ifr.src = ifr.src;">Get Accounts List (WCF: No Cache)</button>
+
+
+</body>
+</html>

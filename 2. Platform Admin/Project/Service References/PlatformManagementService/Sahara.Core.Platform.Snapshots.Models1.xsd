@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Snapshots.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Snapshots.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Logging.PlatformLogs.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" />
+  <xs:complexType name="AccountsSnapshot">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Counts" nillable="true" type="tns:PlatformSnapshotAccountCounts" />
+      <xs:element minOccurs="0" name="LatestClosures" nillable="true" type="tns:ArrayOfAccountClosure" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="LatestRegistered" nillable="true" type="q1:ArrayOfAccount" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="PastDue" nillable="true" type="q2:ArrayOfAccount" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="RequiresClosureApproval" nillable="true" type="q3:ArrayOfAccount" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="ScheduledForClosure" nillable="true" type="q4:ArrayOfAccount" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="Unpaid" nillable="true" type="q5:ArrayOfAccount" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountsSnapshot" nillable="true" type="tns:AccountsSnapshot" />
+  <xs:complexType name="PlatformSnapshotAccountCounts">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Delinquent" type="xs:int" />
+      <xs:element minOccurs="0" name="GlobalUsersCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Inactive" type="xs:int" />
+      <xs:element minOccurs="0" name="PaidUp" type="xs:int" />
+      <xs:element minOccurs="0" name="PastDue" type="xs:int" />
+      <xs:element minOccurs="0" name="Signups_Last24Hours" type="xs:int" />
+      <xs:element minOccurs="0" name="Signups_Last30Days" type="xs:int" />
+      <xs:element minOccurs="0" name="Signups_Last3Days" type="xs:int" />
+      <xs:element minOccurs="0" name="Signups_Last7Days" type="xs:int" />
+      <xs:element minOccurs="0" name="Subscribed" type="xs:int" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
+      <xs:element minOccurs="0" name="Unpaid" type="xs:int" />
+      <xs:element minOccurs="0" name="Unprovisioned" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlatformSnapshotAccountCounts" nillable="true" type="tns:PlatformSnapshotAccountCounts" />
+  <xs:complexType name="ArrayOfAccountClosure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountClosure" nillable="true" type="tns:AccountClosure" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccountClosure" nillable="true" type="tns:ArrayOfAccountClosure" />
+  <xs:complexType name="AccountClosure">
+    <xs:sequence>
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="Account" nillable="true" type="q6:Account" />
+      <xs:element minOccurs="0" name="Decription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountClosure" nillable="true" type="tns:AccountClosure" />
+  <xs:complexType name="InfrastructureSnapshot">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Custodian" nillable="true" type="tns:CustodianSnapshot" />
+      <xs:element minOccurs="0" name="Errors_Last24Hours" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Errors_Last30Days" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Errors_Last3Days" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Errors_Last7Days" type="xs:boolean" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Logging.PlatformLogs.Models" minOccurs="0" name="Errors_Log" nillable="true" type="q7:ArrayOfPlatformActivityLog" />
+      <xs:element minOccurs="0" name="Worker" nillable="true" type="tns:WorkerSnapshot" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InfrastructureSnapshot" nillable="true" type="tns:InfrastructureSnapshot" />
+  <xs:complexType name="CustodianSnapshot">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FrequencyDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrequencyMilliseconds" type="xs:int" />
+      <xs:element minOccurs="0" name="IsRunning" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSleeping" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastRun" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NextRun" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustodianSnapshot" nillable="true" type="tns:CustodianSnapshot" />
+  <xs:complexType name="WorkerSnapshot">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FrequencyDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrequencyMilliseconds" type="xs:int" />
+      <xs:element minOccurs="0" name="IsRunning" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSleeping" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastRun" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NextRun" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkerSnapshot" nillable="true" type="tns:WorkerSnapshot" />
+  <xs:complexType name="BillingSnapshot">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="Balance" nillable="true" type="q8:Balance" />
+      <xs:element minOccurs="0" name="CreditsInCirculation" type="xs:int" />
+      <xs:element minOccurs="0" name="CreditsInCirculationDollarAmount" type="xs:decimal" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="LatestTransfers" nillable="true" type="q9:ArrayOfTransfer" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="UpcomingTransfers" nillable="true" type="q10:ArrayOfTransfer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BillingSnapshot" nillable="true" type="tns:BillingSnapshot" />
+</xs:schema>

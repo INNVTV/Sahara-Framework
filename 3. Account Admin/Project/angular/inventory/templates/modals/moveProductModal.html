@@ -1,0 +1,187 @@
+﻿<div>
+    <!--Move Product Modal-->
+    <div class="modal fade moveProductModalWindow" tabindex="-1" role="dialog" aria-labelledby="moveProductModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Move Item</h3>
+                </div>
+
+                <!--Default Body-->
+                <div data-ng-show="!vm.productMove.Complete && !vm.productMove.Processing" class="modal-body" style="margin:10px;">
+
+                    <!--
+                    <span>Current location:<strong>{{ vm.product.LocationPath }}</strong></span>
+                    <br />
+                    <span style="margin-top:30px;">Move to:<strong>{{ vm.productMove.NewLocationPath }}</strong></span>
+
+                    <hr />
+                    -->
+                    <!--Dynamic Instructions-->
+                    <div style="margin-bottom:20px;">
+                        <!--<h5 data-ng-show="vm.productMove.Category == null">
+                            Pick a category to move this product to:
+                        </h5>
+                        <h5 data-ng-show="vm.productMove.Category != null && vm.productMove.Subcategory == null">
+                            Now pick a subcategory from within <strong>{{ vm.productMove.Category.CategoryName }}</strong> to move this product to:
+                        </h5>-->
+                        <h5 data-ng-show="vm.productMove.Ready && vm.productMove.NewLocationPath != vm.product.LocationPath">
+                            Click <strong>'Move Item'</strong> below to move this item
+                        </h5>
+                        <h5 data-ng-show="!vm.productMove.Ready || vm.productMove.NewLocationPath == vm.product.LocationPath">
+                            Choose a destintion path to move this item to...
+                        </h5>
+                    </div>
+
+                    <!--Choose Category-->
+                    <div class="btn-group" style="margin-right:5px;">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span data-ng-show="vm.productMove.Category != null">{{ vm.productMove.Category.CategoryName }} <span class="caret"></span></span>
+                            <span data-ng-show="vm.productMove.Category == null" style="color:black">Choose a category <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li data-ng-repeat="category in vm.categories">
+                                <a style="cursor:pointer" data-ng-click="vm.productMove.updateCategory(category)">{{ category.CategoryName }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--Choose Subcategory-->
+                    <div data-ng-show="vm.productMove.Category != null && vm.subcategories.length > 0" class="btn-group" style="margin-right:5px;">
+
+                        <!--<span data-ng-show="vm.subcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span data-ng-show="vm.productMove.Subcategory != null">{{ vm.productMove.Subcategory.SubcategoryName }} <span class="caret"></span></span>
+                            <span data-ng-show="vm.productMove.Subcategory == null" style="color:darkgray">Choose a subcategory <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li data-ng-repeat="subcategory in vm.subcategories">
+                                <a style="cursor:pointer" data-ng-click="vm.productMove.updateSubcategory(subcategory)">{{ subcategory.SubcategoryName }}</a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <!--Choose Subsubcategory-->
+                    <div data-ng-show="vm.productMove.Subcategory != null && vm.subsubcategories.length > 0" class="btn-group" style="margin-right:5px;">
+
+                        <!--<span data-ng-show="vm.subsubcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+
+                        <div data-ng-show="vm.subsubcategories.length > 0">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <span data-ng-show="vm.productMove.Subsubcategory != null">{{ vm.productMove.Subsubcategory.SubsubcategoryName }} <span class="caret"></span></span>
+                                <span data-ng-show="vm.productMove.Subsubcategory == null" style="color:darkgray">Choose a subsubcategory <span class="caret"></span></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li data-ng-repeat="subsubcategory in vm.subsubcategories">
+                                    <a style="cursor:pointer" data-ng-click="vm.productMove.updateSubsubcategory(subsubcategory)">{{ subsubcategory.SubsubcategoryName }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Choose Subsubsubcategory-->
+                    <div data-ng-show="vm.productMove.Subsubcategory != null && vm.subsubsubcategories.length > 0" class="btn-group" style="margin-right:5px;">
+
+                        <!--<span data-ng-show="vm.subsubsubcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+
+                        <div data-ng-show="vm.subsubsubcategories.length > 0">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <span data-ng-show="vm.productMove.Subsubsubcategory != null">{{ vm.productMove.Subsubsubcategory.SubsubsubcategoryName }} <span class="caret"></span></span>
+                                <span data-ng-show="vm.productMove.Subsubsubcategory == null" style="color:darkgray">Choose a subsubsubcategory <span class="caret"></span></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li data-ng-repeat="subsubsubcategory in vm.subsubsubcategories">
+                                    <a style="cursor:pointer" data-ng-click="vm.productMove.updateSubsubsubcategory(subsubsubcategory)">{{ subsubsubcategory.SubsubsubcategoryName }}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--Processing Body-->
+                <div data-ng-show="vm.productMove.Processing" class="modal-body" style="margin:10px;">
+                    <br />
+                    <small style="margin-left:20px; font-size:16px; margin-bottom:14px;"><strong>Moving item...</strong></small>
+                    <br />
+                    <img style="margin-left:15px;" src="/Images/Loaders/initializing.gif" />
+                    <br /><br />
+                </div>
+
+                <!--Success Body-->
+                <div data-ng-show="vm.productMove.Complete && vm.productMove.IsSuccess" class="modal-body" style="margin:10px;">
+                    <h4 style="color:green"><i class="fa fa-check"></i> {{ vm.productMove.Message }}</h4>
+                </div>
+
+                <!--Failed Body-->
+                <div data-ng-show="vm.productMove.Complete && !vm.productMove.IsSuccess" class="modal-body" style="margin:10px;">
+                    <h4 style="color:darkred"><i class="fa fa-warning"></i> {{ vm.productMove.Message }}</h4>
+                </div>
+
+                <!--Default Footer-->
+                <div data-ng-show="!vm.productMove.Complete && !vm.productMove.Processing" class="modal-footer">
+
+                    <div data-ng-show="vm.productMove.Ready">
+                        <div data-ng-show="vm.productMove.NewLocationPath != vm.product.LocationPath" style="float:left; text-align:left; margin-left:10px; margin-top:-2px; color:#565656">
+                            <div data-ng-show="vm.productMove.Category != null && vm.productMove.Subcategory == null">
+                                <div style="font-size:10px; color:darkgray; margin-bottom:2px;">Item will be moved to:</div>
+                                <div style="margin-top:-1px; font-size:13px">
+                                    <strong>{{ vm.productMove.Category.CategoryName }}</strong>
+                                </div>
+                            </div>
+                            <div data-ng-show="vm.productMove.Category != null && vm.productMove.Subcategory != null && vm.productMove.Subsubcategory == null">
+                                <div style="font-size:10px; color:darkgray; margin-bottom:2px;">Item will be moved to:</div>
+                                <div style="margin-top:-1px; font-size:13px">
+                                    <strong>{{ vm.productMove.Category.CategoryName }}</strong> / <strong>{{ vm.productMove.Subcategory.SubcategoryName }}</strong>
+                                </div>
+                            </div>
+                            <div data-ng-show="vm.productMove.Category != null && vm.productMove.Subcategory != null && vm.productMove.Subsubcategory != null && vm.productMove.Subsubsubcategory == null">
+                                <div style="font-size:10px; color:darkgray; margin-bottom:2px;">Item will be moved to:</div>
+                                <div style="margin-top:-1px; font-size:13px">
+                                    <strong>{{ vm.productMove.Category.CategoryName }}</strong> / <strong>{{ vm.productMove.Subcategory.SubcategoryName }}</strong> / <strong>{{ vm.productMove.Subsubcategory.SubsubcategoryName }}</strong>
+                                </div>
+                            </div>
+                            <div data-ng-show="vm.productMove.Category != null && vm.productMove.Subcategory != null && vm.productMove.Subsubcategory != null && vm.productMove.Subsubsubcategory != null">
+                                <div style="font-size:10px; color:darkgray; margin-bottom:2px;">Item will be moved to:</div>
+                                <div style="margin-top:-1px; font-size:13px">
+                                    <strong>{{ vm.productMove.Category.CategoryName }}</strong> / <strong>{{ vm.productMove.Subcategory.SubcategoryName }}</strong> / <strong>{{ vm.productMove.Subsubcategory.SubsubcategoryName }}</strong> / <strong>{{ vm.productMove.Subsubsubcategory.SubsubsubcategoryName }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div data-ng-show="vm.productMove.NewLocationPath == vm.product.LocationPath">
+                        <small style="float:left; color:darkgrey; margin-top:9px; margin-left:10px;"><strong>This is the current location for this item!</strong></small>
+                    </div>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button data-ng-show="!vm.productMove.Ready || vm.productMove.NewLocationPath == vm.product.LocationPath" class="btn btn-primary disabled"><i class="fa fa-arrow-right"></i> Move Item</button>
+                    <button data-ng-show="vm.productMove.Ready && vm.productMove.NewLocationPath != vm.product.LocationPath" class="btn btn-primary" data-ng-click="vm.moveProduct()"><i class="fa fa-arrow-right"></i> Move Item</button>
+
+                </div>
+
+                <!--Move Processing Footer-->
+                <div data-ng-show="vm.productMove.Processing" class="modal-footer">
+
+                </div>
+
+                <!--Move Success Footer-->
+                <div data-ng-show="vm.productMove.Complete && vm.productMove.IsSuccess" class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+
+                <!--Move Failed Footer-->
+                <div data-ng-show="vm.productMove.Complete && !vm.productMove.IsSuccess" class="modal-footer">
+                    <button type="button" class="btn btn-default" data-ng-click="vm.startProductMove()">Try again</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

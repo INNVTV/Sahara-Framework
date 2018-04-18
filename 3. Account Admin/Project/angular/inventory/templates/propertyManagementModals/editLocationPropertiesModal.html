@@ -1,0 +1,200 @@
+﻿<div>
+
+    <!--Edit Location Properties Modal-->
+    <div class="modal fade editLocationPropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="editLocationPropertiesModalWindow" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetails.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:15px;">
+
+                        <section-loader data-ng-show="vm.propertyDetails.IsSending == true" message="'Updating....'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+
+                        <div data-ng-show="vm.propertyDetails.IsSending == false">
+
+                            <!-- Lazy load Google Maps API untl needed-->
+                            <!-- Note: Google js is lazy loaded by productDetailControler.js if location properties are used -->
+                            <!-- 1. * Enable the Google Maps JAVASCRIPT API. -->
+                            <!-- 2. * Enable the Google STATIC Maps API. -->
+                            <!-- 3. * Enable the Google Maps EMBED API. -->
+                            <!-- 4. * Enable the Google Maps Geocoding API in your Google API account!-->
+                            <div style="width:538px; height:220px; margin:0; padding:0; margin-left:0px; margin-right:0px; margin-top:0px; border:1px solid lightgray" id="google-map"></div>
+
+                            <!--Sub Menu
+                            <div id="inventory-settings-sub-menu" style="margin-top:10px; margin-bottom:15px; margin-right:-25px;">
+                                <ul class="sahara-nav-pills">
+                                    <li>
+                                        <a data-ng-class="{'active' : vm.locationSubMenu.addressButton}" data-ng-click="vm.locationSubMenu.update('address')" href="#">ADDRESS</a>
+                                    </li>
+                                    <li>
+                                        <a data-ng-class="{'active' : vm.locationSubMenu.latLongButton}" data-ng-click="vm.locationSubMenu.update('latlong')" href="#">LAT/LONG</a>
+                                    </li>
+                                    <li>
+                                        <a data-ng-class="{'active' : vm.locationSubMenu.mapPointButton}" data-ng-click="vm.locationSubMenu.update('mappoint')" href="#">MAP POINT</a>
+                                    </li>
+                                </ul>
+                            </div>-->
+                            <!-- Manage By Address -->
+                            <div data-ng-show="vm.locationSubMenu.addressButton == true" style="padding-top:15px; margin-left:-15px; margin-right:-15px;">
+                                <div style="margin-bottom:-15px;" data-ng-show="vm.propertyDetails.IsSending == false && vm.propertyDetails.SendingComplete == false">
+
+                                    <!-- Location Name -->
+                                    <div class="form-group" style="clear:both; margin-top:15px;">
+                                        <div style="margin:15px;" class="input-group col-lg-12 col-md-12 col-sm-12">
+                                            <label>Location Name:</label>
+
+                                            <div class="input-group" style="margin-right:30px;">
+                                                <input maxlength="55" data-ng-model="vm.propertyDetails.LocationName" style="font-size:24px; height:42px;" type="text" class="form-control" />
+                                                <span class="input-group-btn">
+                                                    <button data-ng-click="vm.centerMapOnAddress('name')" class="btn btn-default" style="height:42px;" type="button"><i class="fa fa-crosshairs"></i></button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <div style="clear:both; height:1px;" />
+
+                                        <!--Lat/Long (View)-->
+                                        <div class="form-group" style="clear:both; font-size:12px;">
+
+                                            <!--View Lat/Long-->
+                                            <div data-ng-show="!vm.editLatLong" class="form-group col-lg-12 col-md-12 col-sm-12">
+                                                <label>Lat:</label><span> {{ vm.propertyDetails.Lat }} </span>
+                                                <label style="margin-left:5px;">Long:</label><span> {{ vm.propertyDetails.Long }} </span>
+                                                <span><button style="margin-left:4px; height:16px;" data-ng-click="vm.editLocationLatLong()" class="sahara-btn-edit-12 hidden-xs"></button></span>
+                                                <br />
+                                                <small style="color:darkgray">Click on the map to select point for location or type in an address and click "Center map".</small>
+                                            </div>
+
+                                            <!--Edit Lat/Long-->
+                                            <div data-ng-show="vm.editLatLong" class="form-group col-lg-12 col-md-12 col-sm-12">
+                                                <label style="float:left; margin-top:3px;">Lat:</label>
+                                                <input data-ng-model="vm.propertyDetails.Lat" style="float:left; font-size:11px; height:22px; width:145px; margin-left:5px; margin-right:10px;" type="text" class="form-control input" />
+                                                <label style="float:left; margin-top:3px;">Long:</label>
+                                                <input data-ng-model="vm.propertyDetails.Long" style="float:left; font-size:11px; height:22px; width:145px; margin-left:5px; margin-right:5px;" type="text" class="form-control input" />
+                                                <span><button style="margin-left:5px;" data-ng-click="vm.cancelEditLocationLatLong()" class="btn btn-default btn-xs">Cancel</button></span>
+                                                <span style="margin-left:5px;"><button data-ng-click="vm.searchLocationLatLong()" class="btn btn-primary btn-xs">Search</button></span>
+                                                <span data-ng-show="vm.propertyDetails.Lat != null && vm.propertyDetails.Lat != '' && vm.propertyDetails.Long != null && vm.propertyDetails.Long != '' && vm.searchLatLongSuccess" style="margin-left:5px;"><button style="width:42px;" data-ng-click="vm.setLocationLatLong()" class="btn btn-success btn-xs">Set</button></span>
+                                                <br style="clear:both;" />
+                                                <small style="color:darkgray">Click on the map to select point for location or type in an address and click "Center map".</small>
+                                            </div>
+
+                                        </div>
+
+                                        <hr style="clear:both" />
+
+                                    </div>
+
+                                    <!-- Addresses (1/2)-->
+                                    <div class="form-group">
+                                        <div class="form-group col-lg-8 col-md-8 col-sm-8">
+                                            <label>Street Address:</label>
+                                            <input maxlength="50" data-ng-model="vm.propertyDetails.Address1" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+                                        <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                            <label>Suite/Apt/Box:</label>
+                                            <input maxlength="50" data-ng-model="vm.propertyDetails.Address2" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+                                    </div>
+
+                                    <!-- City/State-->
+                                    <div class="form-group">
+                                        <div class="form-group col-lg-7 col-md-7 col-sm-7">
+                                            <label>City/Town:</label>
+                                            <input maxlength="50" data-ng-model="vm.propertyDetails.City" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+                                        <div class="form-group col-lg-5 col-md-5 col-sm-5">
+                                            <label>State/Provence/Region:</label>
+                                            <input maxlength="50" data-ng-model="vm.propertyDetails.State" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+                                    </div>
+
+                                    <!-- PostalCode/Country-->
+                                    <div class="form-group">
+                                        <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                            <label>Postal Code:</label>
+                                            <input maxlength="40" data-ng-model="vm.propertyDetails.PostalCode" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+                                        <div class="form-group col-lg-4 col-md-4 col-sm-4">
+                                            <label>Country:</label>
+                                            <input maxlength="40" data-ng-model="vm.propertyDetails.Country" style="font-size:16px; height:32px;" type="text" class="form-control input" />
+                                        </div>
+
+                                        <div class="form-group col-lg-4 col-md-4 col-sm-4" data-ng-show="vm.propertyDetails.Address1 != null || vm.propertyDetails.City != null || vm.propertyDetails.State != null || vm.propertyDetails.PostalCode != null">
+                                            <div style="height:23px;"></div>
+                                            <button style="display: block; width: 100%; background-color:#F0F7FC" class="btn btn-default" data-ng-click="vm.centerMapOnAddress('address')"><i class="fa fa-map-marker"></i> Center to map</button>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div data-ng-show="vm.locationSubMenu.latLongButton == true" style="padding-top:15px">
+
+                            </div>
+
+                            <div data-ng-show="vm.locationSubMenu.mapPointButton == true" style="padding-top:15px">
+
+                            </div>
+
+
+
+
+                            <!-- Show Address -->
+                            <div>
+
+                            </div>
+
+                            <div style="clear:both;"></div>
+
+                            <!-- Error -->
+                            <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                                <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.propertyDetails.Results.Message }}</span>
+                            </div>
+                        </div>
+
+                        <!-- More Options -->
+                        <div data-ng-show="vm.propertyDetails.SendingComplete == false && vm.propertyDetails.AssignedValue != null && vm.propertyDetails.IsSending == false" style="clear:both; margin-left:-15px; margin-top:15px; margin-bottom:-20px;">
+                            <div data-ng-show="!vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.ShowMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Show more options <i class="fa fa-caret-right"></i></button>
+                            </div>
+                            <div data-ng-show="vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.HideMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Hide more options <i class="fa fa-caret-up"></i></button>
+                                <div style="clear:both; margin-top:20px; margin-bottom:30px; margin-left:25px;">
+                                    <button class="btn btn-danger" data-ng-click="vm.clearProductProperty(true)">Reset value</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div data-ng-show="vm.propertyDetails.IsSending == false" class="modal-footer">
+                    <div>
+                        <!--<button data-ng-show="vm.propertyDetails.AssignedValue != null && vm.propertyDetails.AssignedValue != ''" type="button" class="btn btn-danger" style="margin-left:10px;" data-ng-click="vm.clearProductProperty(true)">Reset value</button>-->
+                        <!--<button style="float:left; margin-left:15px;" data-ng-show="vm.propertyDetails.Address1 != null || vm.propertyDetails.City != null || vm.propertyDetails.State != null || vm.propertyDetails.PostalCode != null" type="button" class="btn btn-default" data-ng-click="vm.centerMapOnAddress()"><i class="fa fa-map-marker"></i> Center address on map</button>-->
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == false" style="margin-right:15px;">
+                            <button data-ng-show="!vm.searchLatLongOk || vm.propertyDetails.Lat == null || vm.propertyDetails.Lat == '' || vm.propertyDetails.Long == null || vm.propertyDetails.Long == ''" class="btn btn-primary disabled">Save location</button>
+                            <button data-ng-show="vm.searchLatLongOk && vm.propertyDetails.Lat != null && vm.propertyDetails.Lat != '' && vm.propertyDetails.Long != null && vm.propertyDetails.Long != ''" class="btn btn-primary" data-ng-click="vm.updateProductLocationProperty(true)">Save location</button>
+                        </span>
+
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <button type="button" class="btn btn-warning" data-ng-click="vm.retryPropertyEdit()">Try Again</button>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.ApiKeys.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:element name="GetApiKeys">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetApiKeysResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.ApiKeys.Models" minOccurs="0" name="GetApiKeysResult" nillable="true" type="q1:ArrayOfApiKeyModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerateApiKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q2:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerateApiKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GenerateApiKeyResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegenenerateApiKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="apiKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q3:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegenenerateApiKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegenenerateApiKeyResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteApiKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="apiKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q4:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteApiKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteApiKeyResult" nillable="true" type="q5:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

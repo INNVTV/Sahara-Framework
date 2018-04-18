@@ -1,0 +1,29 @@
+﻿<div data-ng-controller="homeController as vm" style="height:100%; width:100%">
+
+    <div data-ng-show="vm.loading">
+        <small>Loading</small>
+    </div>
+
+    <div data-ng-show="!vm.loading">
+
+        <div id="sideMenu" class="col-lg-2 col-md-4 col-sm-4 hidden-xs">
+            <div data-ng-repeat="category in vm.categories">
+                <p class="link" data-ng-click="vm.updateRoute('browse/' + category.nameKey)">{{ category.name }}</p>
+            </div>
+            <menu-footer></menu-footer>
+        </div>
+
+        <div class="col-lg-10 col-md-8 col-sm-8 col-xs-12">
+            <h1>Body</h1>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <hr />
+            <h1>Footer</h1>
+        </div>
+
+    </div>
+
+
+
+</div>

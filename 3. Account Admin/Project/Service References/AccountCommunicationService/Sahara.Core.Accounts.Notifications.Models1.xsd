@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="NotificationStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unread" />
+      <xs:enumeration value="Read" />
+      <xs:enumeration value="ExpiredUnread" />
+      <xs:enumeration value="ExpiredRead" />
+      <xs:enumeration value="ClearedUnread" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NotificationStatus" nillable="true" type="tns:NotificationStatus" />
+  <xs:complexType name="ArrayOfUserNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserNotification" nillable="true" type="tns:UserNotification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserNotification" nillable="true" type="tns:ArrayOfUserNotification" />
+  <xs:complexType name="UserNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExpirationDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExpirationMinutes" type="xs:double" />
+      <xs:element minOccurs="0" name="Expired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastUpdatedDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NotificationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserNotification" nillable="true" type="tns:UserNotification" />
+  <xs:simpleType name="NotificationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Information" />
+      <xs:enumeration value="Success" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="Alert" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NotificationType" nillable="true" type="tns:NotificationType" />
+</xs:schema>

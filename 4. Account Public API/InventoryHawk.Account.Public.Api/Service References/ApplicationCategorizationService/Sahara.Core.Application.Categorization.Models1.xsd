@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfCategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryTreeModel" nillable="true" type="tns:CategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoryTreeModel" nillable="true" type="tns:ArrayOfCategoryTreeModel" />
+  <xs:complexType name="CategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subcategories" nillable="true" type="tns:ArrayOfSubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoryTreeModel" nillable="true" type="tns:CategoryTreeModel" />
+  <xs:complexType name="ArrayOfSubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubcategoryTreeModel" nillable="true" type="tns:SubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubcategoryTreeModel" nillable="true" type="tns:ArrayOfSubcategoryTreeModel" />
+  <xs:complexType name="SubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subsubcategories" nillable="true" type="tns:ArrayOfSubsubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubcategoryTreeModel" nillable="true" type="tns:SubcategoryTreeModel" />
+  <xs:complexType name="ArrayOfSubsubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubsubcategoryTreeModel" nillable="true" type="tns:SubsubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubsubcategoryTreeModel" nillable="true" type="tns:ArrayOfSubsubcategoryTreeModel" />
+  <xs:complexType name="SubsubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subsubsubcategories" nillable="true" type="tns:ArrayOfSubsubsubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubcategoryTreeModel" nillable="true" type="tns:SubsubcategoryTreeModel" />
+  <xs:complexType name="ArrayOfSubsubsubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubsubsubcategoryTreeModel" nillable="true" type="tns:SubsubsubcategoryTreeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubsubsubcategoryTreeModel" nillable="true" type="tns:ArrayOfSubsubsubcategoryTreeModel" />
+  <xs:complexType name="SubsubsubcategoryTreeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubsubcategoryTreeModel" nillable="true" type="tns:SubsubsubcategoryTreeModel" />
+  <xs:complexType name="ArrayOfCategoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryModel" nillable="true" type="tns:CategoryModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoryModel" nillable="true" type="tns:ArrayOfCategoryModel" />
+  <xs:complexType name="CategoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="Subcategories" nillable="true" type="tns:ArrayOfSubcategoryListModel" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoryModel" nillable="true" type="tns:CategoryModel" />
+  <xs:complexType name="ArrayOfSubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubcategoryListModel" nillable="true" type="tns:SubcategoryListModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubcategoryListModel" nillable="true" type="tns:ArrayOfSubcategoryListModel" />
+  <xs:complexType name="SubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="SubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubcategoryListModel" nillable="true" type="tns:SubcategoryListModel" />
+  <xs:complexType name="SubcategoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category" nillable="true" type="tns:CategoryParentModel" />
+      <xs:element minOccurs="0" name="CategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="SubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subsubcategories" nillable="true" type="tns:ArrayOfSubsubcategoryListModel" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubcategoryModel" nillable="true" type="tns:SubcategoryModel" />
+  <xs:complexType name="CategoryParentModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoryParentModel" nillable="true" type="tns:CategoryParentModel" />
+  <xs:complexType name="ArrayOfSubsubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubsubcategoryListModel" nillable="true" type="tns:SubsubcategoryListModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubsubcategoryListModel" nillable="true" type="tns:ArrayOfSubsubcategoryListModel" />
+  <xs:complexType name="SubsubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="SubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubcategoryListModel" nillable="true" type="tns:SubsubcategoryListModel" />
+  <xs:complexType name="SubsubcategoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category" nillable="true" type="tns:CategoryParentModel" />
+      <xs:element minOccurs="0" name="CategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="Subcategory" nillable="true" type="tns:SubcategoryParentModel" />
+      <xs:element minOccurs="0" name="SubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subsubsubcategories" nillable="true" type="tns:ArrayOfSubsubsubcategoryListModel" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubcategoryModel" nillable="true" type="tns:SubsubcategoryModel" />
+  <xs:complexType name="SubcategoryParentModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubcategoryParentModel" nillable="true" type="tns:SubcategoryParentModel" />
+  <xs:complexType name="ArrayOfSubsubsubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubsubsubcategoryListModel" nillable="true" type="tns:SubsubsubcategoryListModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubsubsubcategoryListModel" nillable="true" type="tns:ArrayOfSubsubsubcategoryListModel" />
+  <xs:complexType name="SubsubsubcategoryListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubsubcategoryListModel" nillable="true" type="tns:SubsubsubcategoryListModel" />
+  <xs:complexType name="SubsubsubcategoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category" nillable="true" type="tns:CategoryParentModel" />
+      <xs:element minOccurs="0" name="CategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="Subcategory" nillable="true" type="tns:SubcategoryParentModel" />
+      <xs:element minOccurs="0" name="SubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Subsubcategory" nillable="true" type="tns:SubsubcategoryParentModel" />
+      <xs:element minOccurs="0" name="SubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubsubcategoryModel" nillable="true" type="tns:SubsubsubcategoryModel" />
+  <xs:complexType name="SubsubcategoryParentModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubsubcategoryParentModel" nillable="true" type="tns:SubsubcategoryParentModel" />
+</xs:schema>

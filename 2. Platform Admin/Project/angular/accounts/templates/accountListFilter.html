@@ -1,0 +1,56 @@
+﻿<span>
+    <!-- FILTER Buttton Dropdown -->
+    <small>Show:</small>
+    <div class="btn-group" style="margin-right:10px;">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            {{ vm.currentFilter.label }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="filter in vm.filters" style="cursor:pointer">
+                <a data-ng-show="filter.label != 'hr'" data-ng-click="vm.updateCurrentFilter(filter)">{{ filter.label }}</a>
+                <hr data-ng-show="filter.label == 'hr'" style="margin:5px;padding:0;border-color:#E6E6E6" />
+            </li>
+        </ul>
+    </div>
+
+    <small>Order by:</small>
+    <!-- SORT Dropdown -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            {{ vm.currentSortBy.label }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="sorter in vm.sortBy" style="cursor:pointer">
+                <a data-ng-click="vm.updateCurrentSortBy(sorter)" href="">{{ sorter.label }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Direction Dropdown -->
+    <div class="btn-group" style="margin-right:10px;">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            {{ vm.currentSortDirection.label }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="direction in vm.sortDirection" style="cursor:pointer">
+                <a data-ng-click="vm.updateCurrentSortDirection(direction)" href="">{{ direction.label }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Settings -->
+    <small>Results per page:</small>
+    <div class="btn-group" style="margin-right:10px;">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            {{ vm.currentAmountPerPage.label }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="amountPerPage in vm.amountsPerPage" style="cursor:pointer">
+                <a data-ng-click="vm.updateCurrentAmountPerPage(amountPerPage)">{{ amountPerPage.label }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-sm" data-ng-click="vm.updateResults()">Update</button>
+
+</span>

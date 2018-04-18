@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3e6e6e1d-a29a-405d-8a1e-4b9b05e11a18" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="35a56895-1b1c-4dae-9b49-3e364404bed1" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="f8c3fd93-c4c3-4843-ace8-ac149d75cda6" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="c1918c66-91d0-43e9-829e-c13ef97fd080" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+    <MetadataFile FileName="Sahara.Core.Platform.Requests.Models1.xsd" MetadataType="Schema" ID="b5ae5bc9-6467-4222-a987-8599087a711e" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+    <MetadataFile FileName="Sahara.Core.Common.ResponseTypes1.xsd" MetadataType="Schema" ID="270eb766-a736-4034-8fae-99352775eaf9" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="01a96604-400e-4251-ac8c-2a10664aaa2a" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/DataInjection/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

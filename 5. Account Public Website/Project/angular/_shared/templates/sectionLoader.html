@@ -1,0 +1,24 @@
+﻿<div style="text-align:left">
+    <div data-ng-show="loaderType == 'inline'">
+        <br />
+        <small>{{ message }}</small>
+        <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:#2c2c2c; background-image:url('/Images/Loaders/global.gif'); background-size:100%"></div>
+        <br />
+        <!--
+        <br />
+        <small style="margin-left:4px;"><strong>{{ message }}</strong></small>
+        <br />
+        <img src="/Images/Loaders/initializing.gif" />
+        <br />-->
+    </div>
+    <div data-ng-show="loaderType == 'overlay'">
+        <br />
+        <small style="margin-left:4px;"><strong>{{ message }}</strong></small>
+        <br />
+        <img src="/Images/Loaders/initializing.gif" />
+        <br />
+    </div>
+    <div data-ng-show="loaderType == 'circle'">
+        <div style="color:#12203b; font-weight:bold; font-size:16px"><i class="fa fa-circle-o-notch fa-spin"></i> {{ message }}</div>
+    </div>
+</div>

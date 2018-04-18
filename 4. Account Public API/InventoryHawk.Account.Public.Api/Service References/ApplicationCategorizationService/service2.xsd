@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="GetCategoryTree">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoryTreeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetCategoryTreeResult" nillable="true" type="q1:ArrayOfCategoryTreeModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isVisible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q2:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreateCategoryResult" nillable="true" type="q3:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameCategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newCategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q4:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameCategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RenameCategoryResult" nillable="true" type="q5:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCategoryVisibleState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="visibleState" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q6:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCategoryVisibleStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateCategoryVisibleStateResult" nillable="true" type="q7:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCategoryDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q8:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCategoryDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateCategoryDescriptionResult" nillable="true" type="q9:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderCategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="categoryOrderingDictionary" nillable="true" type="q10:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q11:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderCategoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderCategoriesResult" nillable="true" type="q12:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetCategoryOrdering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q13:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetCategoryOrderingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ResetCategoryOrderingResult" nillable="true" type="q14:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetCategoriesResult" nillable="true" type="q15:ArrayOfCategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoryByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHiddenSubcategories" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoryByNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetCategoryByNameResult" nillable="true" type="q16:CategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q17:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteCategoryResult" nillable="true" type="q18:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isVisible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q19:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreateSubcategoryResult" nillable="true" type="q20:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newSubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q21:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RenameSubcategoryResult" nillable="true" type="q22:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubcategoryVisibleState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="visibleState" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q23:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubcategoryVisibleStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubcategoryVisibleStateResult" nillable="true" type="q24:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubcategoryDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q25:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubcategoryDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubcategoryDescriptionResult" nillable="true" type="q26:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubcategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="subcategoryOrderingDictionary" nillable="true" type="q27:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q28:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubcategoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderSubcategoriesResult" nillable="true" type="q29:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubcategoryOrdering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q30:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubcategoryOrderingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ResetSubcategoryOrderingResult" nillable="true" type="q31:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubcategoryByNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubcategoryByNamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubcategoryByNamesResult" nillable="true" type="q32:SubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubcategoryByFullyQualifiedName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQaulifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubcategoryByFullyQualifiedNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubcategoryByFullyQualifiedNameResult" nillable="true" type="q33:SubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q34:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteSubcategoryResult" nillable="true" type="q35:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isVisible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q36:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreateSubsubcategoryResult" nillable="true" type="q37:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newSubsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q38:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RenameSubsubcategoryResult" nillable="true" type="q39:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubcategoryVisibleState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="visibleState" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q40:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubcategoryVisibleStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubsubcategoryVisibleStateResult" nillable="true" type="q41:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubcategoryDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q42:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubcategoryDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubsubcategoryDescriptionResult" nillable="true" type="q43:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubsubcategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q44="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="subsubcategoryOrderingDictionary" nillable="true" type="q44:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q45:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubsubcategoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderSubsubcategoriesResult" nillable="true" type="q46:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubsubcategoryOrdering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q47:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubsubcategoryOrderingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ResetSubsubcategoryOrderingResult" nillable="true" type="q48:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubcategoryByNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubcategoryByNamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubsubcategoryByNamesResult" nillable="true" type="q49:SubsubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubcategoryByFullyQualifiedName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="includeHidden" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubcategoryByFullyQualifiedNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubsubcategoryByFullyQualifiedNameResult" nillable="true" type="q50:SubsubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q51:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteSubsubcategoryResult" nillable="true" type="q52:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubsubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isVisible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q53:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateSubsubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreateSubsubsubcategoryResult" nillable="true" type="q54:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubsubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newSubsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q55:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameSubsubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RenameSubsubsubcategoryResult" nillable="true" type="q56:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubsubcategoryVisibleState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="visibleState" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q57:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubsubcategoryVisibleStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubsubsubcategoryVisibleStateResult" nillable="true" type="q58:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubsubcategoryDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q59:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSubsubsubcategoryDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateSubsubsubcategoryDescriptionResult" nillable="true" type="q60:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubsubsubcategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q61="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="subsubsubcategoryOrderingDictionary" nillable="true" type="q61:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q62:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderSubsubsubcategoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderSubsubsubcategoriesResult" nillable="true" type="q63:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubsubsubcategoryOrdering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q64:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetSubsubsubcategoryOrderingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ResetSubsubsubcategoryOrderingResult" nillable="true" type="q65:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubsubcategoryByNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="categoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubsubcategoryByNamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubsubsubcategoryByNamesResult" nillable="true" type="q66:SubsubsubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubsubcategoryByFullyQualifiedName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQUalifiedDame" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSubsubsubcategoryByFullyQualifiedNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" minOccurs="0" name="GetSubsubsubcategoryByFullyQualifiedNameResult" nillable="true" type="q67:SubsubsubcategoryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubsubsubcategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subsubsubcategoryId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q68:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteSubsubsubcategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteSubsubsubcategoryResult" nillable="true" type="q69:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategorizationCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategorizationCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCategorizationCountResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,491 @@
+﻿<div data-ng-controller="accountIndexController as vm">
+    <section-loader data-ng-show="vm.pageLoading" loader-type="'circle'" message="'Loading'"></section-loader>
+
+    <!--The Image Uploader-->
+    <input id="imageUploader" type="file" style="display:none" />
+
+    <!--<section-loader data-ng-show="vm.showGetAccountLoading && !vm.showGetAccountNull" message="'Loading account...'" loader-type="'inline'"></section-loader>
+
+    <div data-ng-show="vm.showGetAccountNull">
+        <strong>"{{vm.routeId}}"</strong> does not exist
+    </div>-->
+    <div id="DetailPage" data-ng-show="!vm.pageLoading">
+        <!--data-ng-show="!vm.showGetAccountLoading">-->
+        <div id="Main" class="container-fluid">
+            <div class="row">
+
+                <div id="LeftColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <h3>Plan Info</h3>
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+                    <div id="CurrentPlanSubscribe" data-ng-show="vm.account.PaymentPlanName != 'Unprovisioned'">
+                        <div id="CurrentPlanCreditCard">
+                            <span><small>Your Current Plan:</small><br /><strong style="font-size:24px; margin-top:15px;">{{ vm.account.PaymentPlan.PaymentPlanName }}</strong></span>
+
+                            <div style="margin-top:5px;">
+                                <small>Payment frequency: <b>{{ vm.account.PaymentFrequency.PaymentFrequencyName }}</b></small>
+                            </div>
+
+                            <!--
+                            <div style="margin-top:5px;">
+                                <small style="color:darkgray"><i>Contact support for upgrades.</i></small>
+                            </div>-->
+
+                            <!--<manage-plans-modal></manage-plans-modal>
+                            <button data-ng-show="vm.account.AccountEndDate == null  && vm.checkRole('Admin')" style="margin-top:10px;" class="btn btn-default btn-md" data-toggle="modal" data-ng-click="vm.activateManagePlanModal()"><i class="fa fa-cog"></i> Manage your plan</button> <!--Modal is open in JS to allow for internal modal calls from User Contraints-- >
+                            -->
+                            <!-- MANAGED BY PLATFORM ADMINS<manage-plans-modal></manage-plans-modal>
+                            <button data-ng-show="vm.account.AccountEndDate == null  && vm.checkRole('Admin')" style="margin-top:7px;" class="btn btn-default btn-sm" data-toggle="modal" data-ng-click="vm.activateManagePlanModal()"><i class="fa fa-cog"></i> Change your plan</button> <!--Modal is open in JS to allow for internal modal calls from User Contraints-- >
+                            -->
+
+                            <div style="height:15px;"></div>
+
+                            <h3>Payment Method</h3>
+                            <hr class="dataCardLines" style="margin-bottom:15px;" />
+                            <div data-ng-show="vm.creditCardLoading">
+                                Loading Card
+                            </div>
+                            <div data-ng-show="vm.creditCardInfo != null">
+                                <div>
+                                    <small><strong>Card on file:</strong></small>
+                                    <small>{{ vm.creditCardInfo.CardDescription }}</small>
+                                </div>
+                                <div>
+                                    <small><strong>Expiration:</strong></small>
+                                    <small>{{ vm.creditCardInfo.ExpirationDescription }}</small>
+                                </div>
+
+                                <button data-ng-show="vm.account.AccountEndDate == null" style="margin-top:10px; font-size:12px" class="btn btn-default button-xs" data-toggle="modal" data-ng-click="vm.actvateNewCreditCardModal()"><i class="fa fa-credit-card"></i> Update card</button> <!--Modal is open in JS to allow for internal modal calls from User Contraints-->
+                            </div>
+
+                            <div data-ng-show="vm.creditCardInfo == null">
+                                <div>
+                                    <small><strong>No card on file</strong></small><br />
+                                    <button style="margin-top:10px; font-size:12px" class="btn btn-default button-xs" data-toggle="modal" data-ng-click="vm.actvateNewCreditCardModal()"><i class="fa fa-credit-card"></i> Add card</button> <!--Modal is open in JS to allow for internal modal calls from User Contraints-->
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="visible-xs col-xs-12">
+                    <hr style="border-width:thin; border-color:darkgray" />
+                </div>
+
+                <div id="CenterColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                    <h3>Plan Usage</h3>
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+                    <div data-ng-show="vm.accountCapacity == null">
+                        <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                    </div>
+
+                    <div data-ng-show="vm.accountCapacity != null">
+
+                        <div style="margin-bottom:20px">
+                            <div><small>Users: <strong>{{vm.accountCapacity.UsersCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxUsers | number }} <!--<span style="color:#C2C2C2; font-size:10px;"> (includes you)</span>--></small></div>
+                            <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.UsersPercentageUsed * 2) | number }}" />
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:20px">
+                            <div><small>Products: <strong>{{vm.accountCapacity.ProductsCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxProducts | number }}</small></div>
+                            <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.ProductsPercentageUsed * 2) | number }}" />
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:20px">
+                            <div><small>Properties: <strong>{{vm.accountCapacity.PropertiesCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxProperties | number }}</small></div>
+                            <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.PropertiesPercentageUsed * 2) | number }}" />
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:20px">
+                            <div><small>Tags: <strong>{{vm.accountCapacity.TagsCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxTags | number }}</small></div>
+                            <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.TagsPercentageUsed * 2) | number }}" />
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:20px">
+                            <div><small>Categorizations: <strong>{{vm.accountCapacity.CategorizationsCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxCategorizations | number }}</small></div>
+                            <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.CategorizationsPercentageUsed * 2) | number }}" />
+                            </div>
+                        </div>
+
+                        <div style="margin-top:20px;"><small>Categorizations Per Set: <span style="font-size:14px"><strong>{{ vm.account.PaymentPlan.MaxCategorizationsPerSet | number }}</strong></span></small></div>
+                        <div style="margin-top:10px;"><small>Products Per Set: <span style="font-size:14px"><strong>{{ vm.account.PaymentPlan.MaxProductsPerSet | number }}</strong></span></small></div>
+
+
+
+                    </div>
+
+
+                    
+                    <!--
+                    <div style="height:20px;"></div>
+
+                    <h3>Support Plan</h3>
+                    <hr class="dataCardLines" style="margin-bottom:10px;" />
+                    <div>
+                        <h5 data-ng-show="!vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">No Support Plan</h5>
+                        <h5 data-ng-show="vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">Basic Support</h5>
+                        <h5 data-ng-show="vm.account.PaymentPlan.BasicSupport && vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">Enhanced Support</h5>
+                    </div>-->
+
+                </div>
+
+
+                <div class="visible-xs col-xs-12">
+                    <hr style="border-width:thin; border-color:darkgray" />
+                </div>
+
+
+                <add-update-card-modal></add-update-card-modal>
+                <div id="RightColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+
+
+
+                    <h3>Custom Images</h3>
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+                    <div data-ng-show="vm.accountCapacity == null">
+                        <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                    </div>
+
+                    <div data-ng-show="vm.accountCapacity != null">
+
+                        <div style="margin-top:-5px;" data-ng-show="vm.account.PaymentPlan.MaxImageGroups == 0 && vm.account.PaymentPlan.MaxImageFormats == 0">
+                            <h5 style="font-weight:bold; color:darkgray;">Your plan does not allow for custom image formats</h5>
+                        </div>
+
+
+                        <div data-ng-show="vm.account.PaymentPlan.MaxImageGroups > 0 || vm.account.PaymentPlan.MaxImageFormats > 0">
+
+                            <div style="margin-bottom:10px">
+                                <div><small>Custom Image Groups: <strong>{{vm.accountCapacity.CustomImageGroupsCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxImageGroups | number }}</small></div>
+                                <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                    <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.CustomImageGroupsPercentageUsed * 2) | number }}" />
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom:10px">
+                                <div><small>Custom Image Formats: <strong>{{vm.accountCapacity.CustomImageFormatsCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxImageFormats | number }}</small></div>
+                                <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                    <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.CustomImageFormatsPercentageUsed * 2) | number }}" />
+                                </div>
+                            </div>
+
+
+                            <div style="margin-bottom:10px">
+                                <div><small>Custom Image Galleries: <strong>{{vm.accountCapacity.CustomImageGalleriesCount | number }}</strong> of {{ vm.account.PaymentPlan.MaxImageGalleries | number }}</small></div>
+                                <div style="width:200px; height:4px; background-color:#DBDBDB; margin-top:2px; padding:0px">
+                                    <img src="Images/ui/bars/blue.jpg" style="margin-top:-18px; padding:0px;" height="4" width="{{ (vm.accountCapacity.CustomImageGalleriesPercentageUsed * 2) | number }}" />
+                                </div>
+                            </div>
+
+                            <div style="margin-top:20px;"><small>Max Images Per Gallery: <span style="font-size:14px"><strong>{{ vm.account.PaymentPlan.MaxImagesPerGallery | number }}</strong></span></small></div>
+                            <!--<div style="margin-top:20px;"><small>Max Images Per Gallery: <span style="background-color:lightblue; padding:6px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; "><strong>{{ vm.account.PaymentPlan.MaxImagesPerGallery | number }}</strong></span></small></div>-->
+                            
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div style="height:20px;"></div>
+
+                    <h3>Other Plan Features</h3>
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+                    <!-- Does not apply at launch
+                    <div style="margin-bottom:1px">
+                        <small>
+                            <strong data-ng-show="vm.account.PaymentPlan.AllowThemes"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                            <strong data-ng-show="!vm.account.PaymentPlan.AllowThemes"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                            Themes
+                        </small>
+                    </div>-->
+
+                    <div style="margin-bottom:1px">
+                        <small>
+                            <strong data-ng-show="vm.account.PaymentPlan.AllowCustomOrdering"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                            <strong data-ng-show="!vm.account.PaymentPlan.AllowCustomOrdering"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                            Custom Ordering
+                        </small>
+                    </div>
+
+                    <div style="margin-bottom:1px">
+                        <small>
+                            <strong data-ng-show="vm.account.PaymentPlan.AllowLocationData"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                            <strong data-ng-show="!vm.account.PaymentPlan.AllowLocationData"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                            Location Data
+                        </small>
+                    </div>
+
+                    <div style="margin-bottom:1px">
+                        <small>
+                            <strong data-ng-show="vm.account.PaymentPlan.AllowSalesLeads"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                            <strong data-ng-show="!vm.account.PaymentPlan.AllowSalesLeads"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                            Sales Leads
+                        </small>
+                    </div>
+
+                    <!--<div>
+                        <small>
+                            Image Enhancements:
+                            <strong data-ng-show="vm.account.PaymentPlan.AllowImageEnhancements"><i class="fa fa-check" style="color:green; font-size:16px"></i></strong>
+                            <strong data-ng-show="!vm.account.PaymentPlan.AllowImageEnhancements"><i class="fa fa-times" style="color:red; font-size:16px"></i></strong>
+                        </small>
+                    </div>-->
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div style="margin:50px"></div>
+        <div id="Tabs">
+            <tabset>
+
+                <tab style="cursor:pointer" id="basic" heading="Basics" active="vm.accountInfoTabActive">
+                    <div class="container-fluid" style="padding:15px">
+
+                        <h3>Account Info</h3>
+                        <div data-ng-show="vm.account.AccountEndDate != null" style="margin-bottom:15px">
+                            <hr class="dataCardLines" style="margin-bottom:15px;" />
+                            <small style="color:#D10000"><i class="fa fa-warning" style="font-size:13px; margin-left:2px; margin-top:2px"></i>&nbsp;&nbsp;Your account is scheduled to close: <strong am-time-ago="vm.account.AccountEndDate"></strong></small>
+                            <div>
+                                <i class="fa fa-clock-o" style="color:#AB6D6D; font-size:10px; margin-left:22px;"></i>
+                                <small style="color:#AB6D6D;"> {{ vm.account.AccountEndDate | date : 'h:mm a' }} on {{ vm.account.AccountEndDate | date : 'EEE MMM dd, yyyy' }}</small>
+                            </div>
+                        </div>
+                        <hr class="dataCardLines" style="margin-bottom:15px;" />
+                        <div><strong>Name: </strong>{{ vm.account.AccountName }}</div>
+                        <div><strong>Key: </strong>{{ vm.account.AccountNameKey }}</div>
+                        <div><strong>ID: </strong>{{ vm.account.AccountID }}</div>
+                        <div><strong>Site: </strong><a href="https://{{ vm.account.AccountSiteUrl }}" target="_blank">https://{{ vm.account.AccountSiteUrl }}</a></div>
+                        <div><strong>API: </strong><a href="https://{{ vm.account.AccountApiUrl}}/account" target="_blank">https://{{ vm.account.AccountApiUrl}}</a></div>
+                        <!--<div>URL: <a href="http://{{ vm.account.AccountURL }}">{{ vm.account.AccountURL }}</a></div>-->
+
+                        <hr />
+                        <add-update-contact-modal></add-update-contact-modal>
+
+
+
+                        <h3>Contact Info</h3>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.PhoneNumber">Phone: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.PhoneNumber }}</strong></div>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.Address1">Address: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.Address1 }} {{ vm.accountSettings.ContactSettings.ContactInfo.Address2 }}</strong></div>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.City">City: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.City }}</strong></div>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.State">State: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.State }}</strong></div>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.PostalCode">PostalCode: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.PostalCode }}</strong></div>
+                        <div data-ng-show="vm.accountSettings.ContactSettings.ContactInfo.Email">Email: <strong>{{ vm.accountSettings.ContactSettings.ContactInfo.Email }}</strong></div>
+
+                        <button style="margin-top:10px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".addUpdateContactModalWindow" data-ng-click="vm.editContactInfo()">Edit</button>
+
+                    </div>
+                </tab>
+
+                <!--
+                <tab style="cursor:pointer" id="Logs" heading="Activity Logs" class="hidden-xs">
+                    <div class="container-fluid" style="padding:15px">
+                        <h6><strong><span class="glyphicon glyphicon-star branding-accent-color"></span> Displays account specific application & activity logs.</strong></h6>
+                    </div>
+                </tab>-->
+
+                <tab style="cursor:pointer" id="" heading="Users" data-ng-click="vm.getUsers()">
+                    <div class="container-fluid" style="padding:15px">
+                        <account-users-panel></account-users-panel>
+                        <account-invitations-panel></account-invitations-panel>
+                    </div>
+                </tab>
+
+                <tab style="cursor:pointer" id="billing" heading="Billing" data-ng-show="vm.currentUserProfile.AccountOwner && vm.account.PaymentPlanName != 'Trial' && vm.account.PaymentPlanName != 'Free'" data-ng-click="vm.activateBillingPanel()">
+
+                    <div id="billing-sub-menu" data-ng-show="vm.account.PaymentPlan.MonthlyRate > 0">
+                        <ul class="sahara-nav-pills">
+                            <li data-ng-show="vm.account.Delinquent">
+                                <a data-ng-class="{'active' : vm.billingSubMenu.dunningButton}" data-ng-click="vm.billingSubMenu.update('dunningAttempts')" href="#">DUNNING ATTEMPTS</a>
+                            </li>
+                            <li>
+                                <a data-ng-class="{'active' : vm.billingSubMenu.activeButton}" data-ng-click="vm.billingSubMenu.update('active')" href="#">UPCOMING INVOICE</a>
+                            </li>
+                            <li>
+                                <a data-ng-class="{'active' : vm.billingSubMenu.paymentHistoryButton}" data-ng-click="vm.billingSubMenu.update('paymentHistory')" href="#">PAYMENT HISTORY</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="subMenuPadding" style="padding-bottom:20px;" data-ng-show="vm.account.PaymentPlan.MonthlyRate == 0">
+                    </div>
+                    <account-billing-dunning-attempts-panel data-ng-show="vm.billingSubMenu.dunningButton"></account-billing-dunning-attempts-panel>
+                    <account-billing-invoice-next-panel data-ng-show="vm.billingSubMenu.activeButton && vm.account.PaymentPlan.PaymentPlanName != 'Unprovisioned'"></account-billing-invoice-next-panel>
+                    <account-billing-payment-history-panel class="container-fluid" style="padding-left:15px; padding-right:15px" data-ng-show="vm.billingSubMenu.paymentHistoryButton || vm.account.PaymentPlan.PaymentPlanName == 'Free'"></account-billing-payment-history-panel>
+
+                    <div style="padding-left:20px;" data-ng-show="vm.account.StripeCardID == null && vm.payments == null">
+                        <h6><strong><i class="fa fa-times-circle branding-accent-color"></i> No card on file.</strong></h6>
+                    </div>
+                </tab>
+
+                <tab class="hidden-xs" id="images" heading="Images" style="cursor:pointer" data-ng-click="vm.getImageRecords()">
+                    <div style="margin:30px; margin-top:40px;">
+                        <shared-image-management-panel></shared-image-management-panel>
+                    </div>
+                </tab>
+
+
+                <tab style="cursor:pointer" id="support" heading="Support">
+
+                    <div class="container-fluid" style="padding:15px; margin-top:25px;">
+
+                        <div style="font-size:18px;">
+                            <label style="color:darkgray">Monthly support hours included in your plan:</label>
+                            <span style="font-weight:bold; color:black;">{{vm.account.PaymentPlan.MonthlySupportHours}}</span>
+                        </div>
+
+                        <hr />
+
+                        <!--<div style="font-size:18px;">
+                            <label style="color:darkgray">Your support plan:</label>
+                            <span data-ng-show="!vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:black;">No Support Plan</span>
+                            <span data-ng-show="vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:black;">Basic Support</span>
+                            <span data-ng-show="vm.account.PaymentPlan.BasicSupport && vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:black;">Enhanced Support</span>
+                        </div>
+
+                        <hr />
+
+                        
+                        <h3>Your Support Plan</h3>
+                        <hr class="dataCardLines" style="margin-bottom:10px;" />
+                        <div>
+                            <h5 data-ng-show="!vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">No Support Plan</h5>
+                            <h5 data-ng-show="vm.account.PaymentPlan.BasicSupport && !vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">Basic Support</h5>
+                            <h5 data-ng-show="vm.account.PaymentPlan.BasicSupport && vm.account.PaymentPlan.EnhancedSupport" style="font-weight:bold; color:darkgray;">Enhanced Support</h5>
+                        </div>-->
+
+                        <h4 style="margin-top:30px;"><strong>Email us for all your support needs:</strong></h4>
+                        <a style="font-size:medium" href="mailto:[Config_Email]">[Config_Email]</a>
+                        <br />
+                        <p style="margin-top:10px;">Please include your account name along with the details of your support request.</p>
+                    </div>
+                </tab>
+
+                
+                <tab style="cursor:pointer" id="legal" heading="Terms of Service">
+
+                    <div class="container-fluid" style="padding:15px; margin-top:5px;">
+
+                        <h4 style="margin-top:30px;"><strong>Terms of Service & Associated Policies:</strong></h4>
+                        <small>
+                            <a style="font-size:medium" href="{{ vm.serviceAgreement }}" target="_blank">Service Agreement</a>
+                            <br />
+
+                            <a style="font-size:medium" href="{{ vm.privacyLink }}" target="_blank">Privacy Policy</a>
+                            <br />
+
+                            <a style="font-size:medium" href="{{ vm.termsLink }}" target="_blank">Terms & Conditions</a>
+                            <br />
+
+                            <a style="font-size:medium" href="{{ vm.acceptableUseLink }}" target="_blank">Acceptable Use Policy</a>
+                            <br />
+                        </small>
+                    </div>
+                </tab>
+
+
+                <!--
+                <tab style="cursor:pointer" id="Invitations" heading="User Invitations" data-ng-click="vm.activateInvitationsPanel()">
+                    <div class="container-fluid" style="padding:15px">
+
+                        <account-invitations-panel></account-invitations-panel>
+
+                    </div>
+                </tab>-->
+                <!--<tab style="cursor:pointer" id="manageplan" class="hidden-xs" heading="Manage Your Plan" data-ng-show="vm.currentUserProfile.AccountOwner && vm.account.PaymentPlanName != 'Trial' && vm.account.PaymentPlanName != 'Free'" data-ng-click="vm.activatePaymentPlansPanel()">
+                    <div class="container-fluid" style="padding:15px">
+                        <payment-plans-panel></payment-plans-panel>
+                    </div>
+                </tab>-->
+                <!--
+                <tab style="cursor:pointer" id="ActivityLogs" heading="Activity Logs" data-ng-click="">
+                    <div class="container-fluid" style="padding:15px">
+
+
+
+                    </div>
+                </tab>
+
+                <tab style="cursor:pointer" id="ApplicationSettings" heading="Application Settings" data-ng-click="">
+                    <div class="container-fluid" style="padding:15px">
+
+
+
+                    </div>
+                </tab>
+                <tab style="cursor:pointer" class="hidden-xs" heading="Advanced" data-ng-show="vm.currentUserProfile.AccountOwner && vm.account.AccountEndDate == null">
+                    <div class="container-fluid" style="padding:30px">
+
+                        <!--<div id="CurrentPlanCrediCard" data-ng-show="vm.account.PaymentPlanName != 'Trial' && vm.account.PaymentPlanName != 'Free'">
+
+                            <span><small>Your Current Plan: </small><strong margin-left:15px;">{{ vm.account.PaymentPlan.PaymentPlanName }} ({{ vm.account.PaymentFrequency.PaymentFrequencyName }})</strong></span>
+
+                            <manage-plans-modal></manage-plans-modal>
+                            <button data-ng-show="vm.account.AccountEndDate == null  && vm.checkRole('Admin')" style="margin-top:10px;" class="btn btn-primary btn-lg" data-toggle="modal" data-ng-click="vm.activateManagePlanModal()"><i class="fa fa-cog"></i> Change your plan</button> <!--Modal is open in JS to allow for internal modal calls from User Contraints-- >
+
+                        </div>-->
+                <!-- NO LONGER ALLOWED | MANAGED BY PLATFORM ADMIN
+                        <div data-ng-show="vm.account.AccountEndDate == null">
+                            <div data-ng-show="vm.accountClosure.defaultState">
+                                <small>Close your account:</small>
+                                <br />
+                                <button style="margin-top:10px;" data-ng-click="vm.startAccountClosure()" type="button" class="btn btn-danger btn-md"><i class="glyphicon glyphicon-remove"></i> Close account</button>
+                            </div>
+                            <div data-ng-show="vm.accountClosure.warningState">
+                                <h2 style="color:red"><i class="fa fa-warning"></i> <strong>WAIT!</strong> Are you absolutely sure you want to permanently close your account?!</h2>
+                                <h5 data-ng-show="vm.account.PaymentPlanName != 'Trial' && vm.account.PaymentPlanName != 'Free'" style=" color:red">Your account will remain active for the remainder of your paid subcription plan cycle. After this date all your account data will be deleted.</h5>
+                                <h5 data-ng-show="vm.account.PaymentPlanName == 'Trial' || vm.account.PaymentPlanName == 'Free'" style=" color:red">Your account will be immediately closed.</h5>
+                                <hr />
+                                <button data-ng-click="vm.cancelAccountClosure()" class="btn btn-primary btn-lg">No. Please keep my account open!</button>
+                                <hr />
+                                <label>Type 'YES' to confirm:</label><input type="text" class="form-control input" data-ng-model="vm.closeAccountVerification" placeholder=""  style="width:120px"/>
+                                <br />
+                                <button data-ng-show="vm.closeAccountVerification != 'YES'" class="btn btn-danger btn-sm disabled">Type 'YES' above to confirm</button>
+                                <button data-ng-show="vm.closeAccountVerification == 'YES'" data-ng-click="vm.processAccountClosure()" class="btn btn-danger btn-sm"><strong>YES!</strong> I am sure. Close my account immediately</button>
+                            </div>
+                            <div data-ng-show="vm.accountClosure.processingState">
+                                <section-loader message="'Closing your account...'" loader-type="'inline'"></section-loader>
+                            </div>
+                            <div data-ng-show="vm.accountClosure.completedState">
+                                <div data-ng-show="vm.accountClosure.isSuccess">
+                                    <p style="color:green">{{ vm.accountClosure.message }}</p>
+                                </div>
+                                <div data-ng-show="!vm.accountClosure.isSuccess">
+                                    <p style="color:red">{{ vm.accountClosure.message }}</p>
+                                </div>
+                            </div>
+                        </div>-- >
+
+                    </div>
+                </tab>-->
+
+            </tabset>
+        </div>
+    </div>
+
+
+    <legal-footer></legal-footer>
+
+</div>

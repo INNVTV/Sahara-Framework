@@ -1,0 +1,760 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApplicationCategorizationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IApplicationCategorizationService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Categorization.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IApplicationCategorizationService_GetCategoryTree_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoryTree" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategoryTree_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoryTreeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameCategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateCategoryVisibleState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategoryVisibleState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateCategoryVisibleState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategoryVisibleStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateCategoryDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategoryDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateCategoryDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategoryDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderCategories" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetCategoryOrdering_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetCategoryOrdering" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetCategoryOrdering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetCategoryOrderingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategories" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategoryByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoryByName" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategoryByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategoryByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubcategoryVisibleState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubcategoryVisibleState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubcategoryVisibleState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubcategoryVisibleStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubcategoryDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubcategoryDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubcategoryDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubcategoryDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubcategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubcategories" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubcategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubcategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubcategoryOrdering_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubcategoryOrdering" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubcategoryOrdering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubcategoryOrderingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubcategoryByNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubcategoryByNames" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubcategoryByNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubcategoryByNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubcategoryByFullyQualifiedName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubcategoryByFullyQualifiedName" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubcategoryByFullyQualifiedName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubcategoryByFullyQualifiedNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubcategoryVisibleState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubcategoryVisibleState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubcategoryVisibleState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubcategoryVisibleStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubcategoryDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubcategoryDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubcategoryDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubcategoryDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubsubcategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubsubcategories" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubsubcategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubsubcategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubsubcategoryOrdering_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubsubcategoryOrdering" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubsubcategoryOrdering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubsubcategoryOrderingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubcategoryByNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubcategoryByNames" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubcategoryByNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubcategoryByNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubcategoryByFullyQualifiedName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubcategoryByFullyQualifiedName" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubcategoryByFullyQualifiedName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubcategoryByFullyQualifiedNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubsubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubsubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_CreateSubsubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSubsubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubsubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubsubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_RenameSubsubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSubsubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubsubcategoryVisibleState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubsubcategoryVisibleState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubsubcategoryVisibleState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubsubcategoryVisibleStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubsubcategoryDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubsubcategoryDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_UpdateSubsubsubcategoryDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateSubsubsubcategoryDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubsubsubcategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubsubsubcategories" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ReorderSubsubsubcategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderSubsubsubcategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubsubsubcategoryOrdering_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubsubsubcategoryOrdering" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_ResetSubsubsubcategoryOrdering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetSubsubsubcategoryOrderingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubsubcategoryByNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubsubcategoryByNames" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubsubcategoryByNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubsubcategoryByNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubsubcategoryByFullyQualifiedName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubsubcategoryByFullyQualifiedName" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetSubsubsubcategoryByFullyQualifiedName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubsubsubcategoryByFullyQualifiedNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubsubsubcategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubsubsubcategory" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_DeleteSubsubsubcategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSubsubsubcategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategorizationCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategorizationCount" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationCategorizationService_GetCategorizationCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCategorizationCountResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IApplicationCategorizationService">
+    <wsdl:operation name="GetCategoryTree">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategoryTree" message="tns:IApplicationCategorizationService_GetCategoryTree_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategoryTreeResponse" message="tns:IApplicationCategorizationService_GetCategoryTree_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateCategory" message="tns:IApplicationCategorizationService_CreateCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateCategoryResponse" message="tns:IApplicationCategorizationService_CreateCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameCategory" message="tns:IApplicationCategorizationService_RenameCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameCategoryResponse" message="tns:IApplicationCategorizationService_RenameCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategoryVisibleState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryVisibleState" message="tns:IApplicationCategorizationService_UpdateCategoryVisibleState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryVisibleStateResponse" message="tns:IApplicationCategorizationService_UpdateCategoryVisibleState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategoryDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryDescription" message="tns:IApplicationCategorizationService_UpdateCategoryDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryDescriptionResponse" message="tns:IApplicationCategorizationService_UpdateCategoryDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderCategories" message="tns:IApplicationCategorizationService_ReorderCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderCategoriesResponse" message="tns:IApplicationCategorizationService_ReorderCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetCategoryOrdering">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetCategoryOrdering" message="tns:IApplicationCategorizationService_ResetCategoryOrdering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetCategoryOrderingResponse" message="tns:IApplicationCategorizationService_ResetCategoryOrdering_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategories" message="tns:IApplicationCategorizationService_GetCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategoriesResponse" message="tns:IApplicationCategorizationService_GetCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoryByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategoryByName" message="tns:IApplicationCategorizationService_GetCategoryByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategoryByNameResponse" message="tns:IApplicationCategorizationService_GetCategoryByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteCategory" message="tns:IApplicationCategorizationService_DeleteCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteCategoryResponse" message="tns:IApplicationCategorizationService_DeleteCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubcategory" message="tns:IApplicationCategorizationService_CreateSubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubcategoryResponse" message="tns:IApplicationCategorizationService_CreateSubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubcategory" message="tns:IApplicationCategorizationService_RenameSubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubcategoryResponse" message="tns:IApplicationCategorizationService_RenameSubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubcategoryVisibleState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryVisibleState" message="tns:IApplicationCategorizationService_UpdateSubcategoryVisibleState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryVisibleStateResponse" message="tns:IApplicationCategorizationService_UpdateSubcategoryVisibleState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubcategoryDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryDescription" message="tns:IApplicationCategorizationService_UpdateSubcategoryDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryDescriptionResponse" message="tns:IApplicationCategorizationService_UpdateSubcategoryDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubcategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubcategories" message="tns:IApplicationCategorizationService_ReorderSubcategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubcategoriesResponse" message="tns:IApplicationCategorizationService_ReorderSubcategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubcategoryOrdering">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubcategoryOrdering" message="tns:IApplicationCategorizationService_ResetSubcategoryOrdering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubcategoryOrderingResponse" message="tns:IApplicationCategorizationService_ResetSubcategoryOrdering_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubcategoryByNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByNames" message="tns:IApplicationCategorizationService_GetSubcategoryByNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByNamesResponse" message="tns:IApplicationCategorizationService_GetSubcategoryByNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubcategoryByFullyQualifiedName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByFullyQualifiedName" message="tns:IApplicationCategorizationService_GetSubcategoryByFullyQualifiedName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByFullyQualifiedNameResponse" message="tns:IApplicationCategorizationService_GetSubcategoryByFullyQualifiedName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubcategory" message="tns:IApplicationCategorizationService_DeleteSubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubcategoryResponse" message="tns:IApplicationCategorizationService_DeleteSubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubsubcategory" message="tns:IApplicationCategorizationService_CreateSubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubsubcategoryResponse" message="tns:IApplicationCategorizationService_CreateSubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubsubcategory" message="tns:IApplicationCategorizationService_RenameSubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubsubcategoryResponse" message="tns:IApplicationCategorizationService_RenameSubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubcategoryVisibleState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryVisibleState" message="tns:IApplicationCategorizationService_UpdateSubsubcategoryVisibleState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryVisibleStateResponse" message="tns:IApplicationCategorizationService_UpdateSubsubcategoryVisibleState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubcategoryDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryDescription" message="tns:IApplicationCategorizationService_UpdateSubsubcategoryDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryDescriptionResponse" message="tns:IApplicationCategorizationService_UpdateSubsubcategoryDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubsubcategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubcategories" message="tns:IApplicationCategorizationService_ReorderSubsubcategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubcategoriesResponse" message="tns:IApplicationCategorizationService_ReorderSubsubcategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubsubcategoryOrdering">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubsubcategoryOrdering" message="tns:IApplicationCategorizationService_ResetSubsubcategoryOrdering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubsubcategoryOrderingResponse" message="tns:IApplicationCategorizationService_ResetSubsubcategoryOrdering_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubcategoryByNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByNames" message="tns:IApplicationCategorizationService_GetSubsubcategoryByNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByNamesResponse" message="tns:IApplicationCategorizationService_GetSubsubcategoryByNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubcategoryByFullyQualifiedName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByFullyQualifiedName" message="tns:IApplicationCategorizationService_GetSubsubcategoryByFullyQualifiedName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByFullyQualifiedNameResponse" message="tns:IApplicationCategorizationService_GetSubsubcategoryByFullyQualifiedName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubcategory" message="tns:IApplicationCategorizationService_DeleteSubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubcategoryResponse" message="tns:IApplicationCategorizationService_DeleteSubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubsubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubsubsubcategory" message="tns:IApplicationCategorizationService_CreateSubsubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/CreateSubsubsubcategoryResponse" message="tns:IApplicationCategorizationService_CreateSubsubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubsubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubsubsubcategory" message="tns:IApplicationCategorizationService_RenameSubsubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/RenameSubsubsubcategoryResponse" message="tns:IApplicationCategorizationService_RenameSubsubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubsubcategoryVisibleState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryVisibleState" message="tns:IApplicationCategorizationService_UpdateSubsubsubcategoryVisibleState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryVisibleStateResponse" message="tns:IApplicationCategorizationService_UpdateSubsubsubcategoryVisibleState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubsubcategoryDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryDescription" message="tns:IApplicationCategorizationService_UpdateSubsubsubcategoryDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryDescriptionResponse" message="tns:IApplicationCategorizationService_UpdateSubsubsubcategoryDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubsubsubcategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubsubcategories" message="tns:IApplicationCategorizationService_ReorderSubsubsubcategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubsubcategoriesResponse" message="tns:IApplicationCategorizationService_ReorderSubsubsubcategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubsubsubcategoryOrdering">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubsubsubcategoryOrdering" message="tns:IApplicationCategorizationService_ResetSubsubsubcategoryOrdering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/ResetSubsubsubcategoryOrderingResponse" message="tns:IApplicationCategorizationService_ResetSubsubsubcategoryOrdering_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubsubcategoryByNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByNames" message="tns:IApplicationCategorizationService_GetSubsubsubcategoryByNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByNamesResponse" message="tns:IApplicationCategorizationService_GetSubsubsubcategoryByNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubsubcategoryByFullyQualifiedName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByFullyQualifiedName" message="tns:IApplicationCategorizationService_GetSubsubsubcategoryByFullyQualifiedName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByFullyQualifiedNameResponse" message="tns:IApplicationCategorizationService_GetSubsubsubcategoryByFullyQualifiedName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubsubsubcategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubsubcategory" message="tns:IApplicationCategorizationService_DeleteSubsubsubcategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubsubcategoryResponse" message="tns:IApplicationCategorizationService_DeleteSubsubsubcategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCategorizationCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategorizationCount" message="tns:IApplicationCategorizationService_GetCategorizationCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationCategorizationService/GetCategorizationCountResponse" message="tns:IApplicationCategorizationService_GetCategorizationCount_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IApplicationCategorizationService" type="tns:IApplicationCategorizationService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IApplicationCategorizationService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetCategoryTree">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetCategoryTree" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/CreateCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameCategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/RenameCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategoryVisibleState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryVisibleState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategoryDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateCategoryDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderCategories">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ReorderCategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetCategoryOrdering">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ResetCategoryOrdering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategories">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetCategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoryByName">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetCategoryByName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/DeleteCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/CreateSubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/RenameSubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubcategoryVisibleState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryVisibleState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubcategoryDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubcategoryDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubcategories">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ReorderSubcategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubcategoryOrdering">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ResetSubcategoryOrdering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubcategoryByNames">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubcategoryByFullyQualifiedName">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubcategoryByFullyQualifiedName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/DeleteSubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/CreateSubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/RenameSubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubcategoryVisibleState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryVisibleState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubcategoryDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubcategoryDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubsubcategories">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubcategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubsubcategoryOrdering">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ResetSubsubcategoryOrdering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubcategoryByNames">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubcategoryByFullyQualifiedName">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubsubcategoryByFullyQualifiedName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSubsubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/CreateSubsubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameSubsubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/RenameSubsubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubsubcategoryVisibleState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryVisibleState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSubsubsubcategoryDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/UpdateSubsubsubcategoryDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderSubsubsubcategories">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ReorderSubsubsubcategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetSubsubsubcategoryOrdering">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/ResetSubsubsubcategoryOrdering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubsubcategoryByNames">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubsubsubcategoryByFullyQualifiedName">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetSubsubsubcategoryByFullyQualifiedName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSubsubsubcategory">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/DeleteSubsubsubcategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategorizationCount">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationCategorizationService/GetCategorizationCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApplicationCategorizationService">
+    <wsdl:port name="NetTcpBinding_IApplicationCategorizationService" binding="tns:NetTcpBinding_IApplicationCategorizationService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Categorization" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Categorization</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

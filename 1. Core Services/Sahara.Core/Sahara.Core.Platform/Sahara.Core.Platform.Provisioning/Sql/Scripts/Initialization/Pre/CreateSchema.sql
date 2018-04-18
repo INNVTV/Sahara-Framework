@@ -1,0 +1,2 @@
+﻿Create Schema [#schema#]
+Go

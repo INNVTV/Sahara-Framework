@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html style="height:100%;">
+<!--Required to fill the full HTML Height with the background image-->
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500" rel="stylesheet" type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Bitter:700" rel="stylesheet">
+    <meta charset="utf-8" />
+
+    <!--Fixes form focus zooming issue on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@CoreServices.PlatformSettings.ApplicationName Registration</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+        @@media(max-width:767px) {
+            #signUpWrapper {
+                background-image: url('/Images/Backgrounds/login-background-xs.jpg');
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                margin-top: 0px;
+                padding: 0;
+                background-position: top;
+                background-size: 100%;
+                height: 100%;
+            }
+
+            #signUpControls {
+                margin-top: 0%;
+            }
+        }
+
+        @@media(min-width:768px) {
+            #signUpWrapper {
+                background-image: url('/Images/Backgrounds/login-background-sm.jpg');
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                padding: 0;
+                background-position: top;
+                background-size: 100%;
+                height: 100%;
+            }
+
+            #signUpControls {
+                margin-top: 0%;
+            }
+        }
+
+        @@media(min-width:992px) {
+            #signUpWrapper {
+                background-image: url('/Images/Backgrounds/login-background-lg.jpg');
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                padding: 0;
+                background-position: top;
+                background-size: 100%;
+                height: 100%;
+            }
+
+            #signUpControls {
+                margin-top: 0%;
+            }
+        }
+
+        @@media(min-width:1200px) {
+            #signUpWrapper {
+                background-image: url('/Images/Backgrounds/login-background-lg.jpg');
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                padding: 0;
+                background-position: top;
+                background-size: 100%;
+                height: 100%;
+            }
+
+            #signUpControls {
+                margin-top: 0%;
+            }
+        }
+    </style>
+
+
+</head>
+<body style="height:100%;">
+
+    <script>
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-98264566-1', 'auto');
+      ga('send', 'pageview');
+        
+    </script>
+
+    <div> <!--id="signUpWrapper">-->
+        <div id="signUpControls">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

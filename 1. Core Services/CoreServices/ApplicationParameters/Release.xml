@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/CoreServices" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <!-- Custodial (tests/references)-->
+    <Parameter Name="CustodialConfigSetting" Value="Conf-Production" />
+    <Parameter Name="CustodialEnvVariable" Value="Env-Cloud" />
+    <!-- Service Enviornments -->
+    <Parameter Name="CustodialEnv" Value="Production" />
+    <Parameter Name="WorkerEnv" Value="Production" />
+    <Parameter Name="WebhooksEnv" Value="Production" />
+    <Parameter Name="WcfEnv" Value="Production" />
+    <!-- Instance Counts -->
+    <Parameter Name="AccountRegistrationApi_InstanceCount" Value="1" />
+    <Parameter Name="WebhooksApi_InstanceCount" Value="2" />
+    <Parameter Name="PlatformWorker_InstanceCount" Value="2" />
+    <Parameter Name="CustodianWorker_InstanceCount" Value="1" />
+    <Parameter Name="WcfEndpoints_InstanceCount" Value="3" />
+  </Parameters>
+</Application>

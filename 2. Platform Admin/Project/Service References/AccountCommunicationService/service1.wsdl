@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AccountCommunicationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IAccountCommunicationService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAccountCommunicationService_GetAccountUserNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountUserNotifications" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_GetAccountUserNotifications_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountUserNotificationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_GetAccountUserNotificationsByType_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountUserNotificationsByType" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_GetAccountUserNotificationsByType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountUserNotificationsByTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_UpdateNotificationStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateNotificationStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_UpdateNotificationStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateNotificationStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToUser" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToBulkAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToBulkAccounts" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendNotificationToBulkAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToBulkAccountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToUser" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToBulkAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToBulkAccounts" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommunicationService_SendEmailToBulkAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToBulkAccountsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAccountCommunicationService">
+    <wsdl:operation name="GetAccountUserNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotifications" message="tns:IAccountCommunicationService_GetAccountUserNotifications_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotificationsResponse" message="tns:IAccountCommunicationService_GetAccountUserNotifications_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountUserNotificationsByType">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotificationsByType" message="tns:IAccountCommunicationService_GetAccountUserNotificationsByType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotificationsByTypeResponse" message="tns:IAccountCommunicationService_GetAccountUserNotificationsByType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNotificationStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/UpdateNotificationStatus" message="tns:IAccountCommunicationService_UpdateNotificationStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/UpdateNotificationStatusResponse" message="tns:IAccountCommunicationService_UpdateNotificationStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToUser" message="tns:IAccountCommunicationService_SendNotificationToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToUserResponse" message="tns:IAccountCommunicationService_SendNotificationToUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToAccount" message="tns:IAccountCommunicationService_SendNotificationToAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToAccountResponse" message="tns:IAccountCommunicationService_SendNotificationToAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToBulkAccounts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToBulkAccounts" message="tns:IAccountCommunicationService_SendNotificationToBulkAccounts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendNotificationToBulkAccountsResponse" message="tns:IAccountCommunicationService_SendNotificationToBulkAccounts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToUser" message="tns:IAccountCommunicationService_SendEmailToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToUserResponse" message="tns:IAccountCommunicationService_SendEmailToUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToAccount" message="tns:IAccountCommunicationService_SendEmailToAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToAccountResponse" message="tns:IAccountCommunicationService_SendEmailToAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToBulkAccounts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToBulkAccounts" message="tns:IAccountCommunicationService_SendEmailToBulkAccounts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommunicationService/SendEmailToBulkAccountsResponse" message="tns:IAccountCommunicationService_SendEmailToBulkAccounts_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IAccountCommunicationService" type="tns:IAccountCommunicationService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IAccountCommunicationService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetAccountUserNotifications">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotifications" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountUserNotificationsByType">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/GetAccountUserNotificationsByType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNotificationStatus">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/UpdateNotificationStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToUser">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendNotificationToUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToAccount">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendNotificationToAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNotificationToBulkAccounts">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendNotificationToBulkAccounts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToUser">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendEmailToUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToAccount">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendEmailToAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEmailToBulkAccounts">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommunicationService/SendEmailToBulkAccounts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountCommunicationService">
+    <wsdl:port name="NetTcpBinding_IAccountCommunicationService" binding="tns:NetTcpBinding_IAccountCommunicationService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Communication" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Communication</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

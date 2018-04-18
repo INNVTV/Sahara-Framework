@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d521d57f-0758-4fd4-b2ac-3c367df03ba8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="0aa03cfc-7cef-41eb-b115-925c80619342" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="d61f5b14-b196-4cf5-a87d-dfe4c9d5d8c4" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="cac99bea-91fc-4b2e-a808-767a4cdc8b13" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="Sahara.Core.Application.Images.Formats.Models1.xsd" MetadataType="Schema" ID="0da61549-8743-42d4-a2ee-b44d4ba8def0" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="Sahara.Core.Platform.Requests.Models1.xsd" MetadataType="Schema" ID="b081c4ab-937b-42d1-b973-1dc65ca9b443" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="Sahara.Core.Common.ResponseTypes1.xsd" MetadataType="Schema" ID="c7c01f36-5e3b-49c0-868d-33a093e7b60d" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="96866d2b-34cd-4192-a315-cf7e2dd6d8f9" SourceId="1" SourceUrl="net.tcp://sahara.westus2.cloudapp.azure.com:8081/Services/Application/ImageFormats/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

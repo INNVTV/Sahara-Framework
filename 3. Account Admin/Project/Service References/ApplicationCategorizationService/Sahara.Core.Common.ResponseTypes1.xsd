@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="DataAccessResponseType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ErrorMessages" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Results" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="RoleInstance" type="xs:int" />
+      <xs:element minOccurs="0" name="RoleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuccessCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuccessMessage" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SuccessMessages" nillable="true" type="q3:ArrayOfstring" />
+      <xs:element minOccurs="0" name="isSuccess" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DataAccessResponseType" nillable="true" type="tns:DataAccessResponseType" />
+</xs:schema>

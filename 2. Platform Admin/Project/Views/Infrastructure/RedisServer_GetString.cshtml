@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedisServer_PlatformManager_GetHash</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body style="margin:25px">
+
+    <h1><small style="font-size:14px;">Server:</small><br />@ViewBag.ServerName</h1>
+    <h3 style="margin-top:-2px;"><small style="font-size:14px;">Key:</small><br />@ViewBag.Key</h3>
+
+    <hr style="border-color:black; border-width:2px; margin-bottom:0px; margin-top:30px;" />
+    <small><strong>Value</strong></small>
+    <hr style="border-color:black; border-width:2px; margin-top:0px" />
+
+    <!--<h6 style="word-wrap:break-word"><pre><code>ViewBag.KeyValue</code></pre></h6>-->
+    <pre><code>@ViewBag.KeyValue</code></pre>
+
+</body>
+</html>

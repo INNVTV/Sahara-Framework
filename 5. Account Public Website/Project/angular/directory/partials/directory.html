@@ -1,0 +1,99 @@
+﻿<div data-ng-controller="directoryController as vm" style="height:100%; width:100%">
+    <style>
+        .otherColor {
+            background-color:#373737; /*#450202;*/
+            color:white;
+        }
+        
+    </style>
+
+    <div> <!-- style="float:left;">-->
+
+        <!-- Side Menu
+        <div id="sideMenu" style="overflow-y: auto; overflow-x:hidden; padding:-5px; width:260px; height:100%; position: fixed; z-index: 1000; left:0; top:0;">
+            <!--style="position:fixed;left:0;top:0"-- >
+
+            <div data-ng-show="vm.account.images.logos.square.url != null" style="text-align:left; margin-bottom:40px;">
+                <img data-ng-src="-- vm.account.images.logos.square.url --" height="120" width="120" />
+            </div>
+
+            <div data-ng-repeat="subcategorization in vm.categorization.subcategorizations">
+                <p class="link" data-ng-click="vm.updateRoute('browse/' + subcategorization.fullyQualifiedName)">{{ subcategorization.name }}</p>
+            </div>
+            <menu-footer></menu-footer>
+        </div>-->
+
+        <!-- Body -->
+        <div style="text-align:center"> <!-- style="margin-left:280px;">-->
+
+        <img ng-src="{{vm.account.images.logos.wide.url}}" height="120" />
+
+        <div style="padding:20px">
+            <h1>{{vm.account.accountName}}</h1>
+            <h2>Full Directory</h2>
+        </div>
+
+
+            <p>{{vm.depth}}</p>
+
+            <!-- Depth = 0 -->
+            <div data-ng-show="vm.depth == 0">
+                <div class="col-lg-3 col-md-4" data-ng-repeat="category in vm.categories">
+                    <h3>{{category.name}}</h3>
+                </div>
+            </div>
+
+            <!-- Depth = 1 -->
+            <div data-ng-show="vm.depth == 1">
+                <div style="margin-bottom:30px;" class="col-lg-3 col-md-4" data-ng-repeat="category in vm.categories">
+                    <h3>{{category.name}}</h3>
+                    <div data-ng-repeat="subcategory in category.subcategories">
+                        <small>{{subcategory.name}}</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depth = 2 -->
+            <div data-ng-show="vm.depth == 2">
+                <div style="margin-bottom:30px;" data-ng-repeat="category in vm.categories">
+                    <h2>{{category.name}}</h2>
+                    <div style="margin-bottom:30px;" class="col-lg-3 col-md-4" data-ng-repeat="subcategory in category.subcategories">
+                        <h3>{{category.name}}</h3>
+                        <div data-ng-repeat="subsubcategory in category.subsubcategories">
+                            <small>{{subsubcategory.name}}</small>
+                        </div>
+                    </div>
+                    <hr style="clear:both" />
+                    <br />
+                    <br />
+                </div>
+            </div>
+
+            <!-- Depth = 3 -->
+            <div data-ng-show="vm.depth == 3">
+                <div style="margin-bottom:30px; padding:40px;" data-ng-repeat="category in vm.categories" ng-class-odd="'otherColor'">
+                    <h2><b>{{category.name}}</b></h2>
+                    <div style="height:20px;"></div>
+                    <div style="margin-bottom:30px; text-align:left" class="col-lg-3 col-md-4" data-ng-repeat="subcategory in category.subcategories">
+                        <h3><b>{{subcategory.name}}</b></h3>
+                        <div style="margin-bottom:30px; text-align:left" data-ng-repeat="subsubcategory in subcategory.subsubcategories">
+                            <h5><b>{{subsubcategory.name}}</b></h5>
+                            <div data-ng-repeat="subsubsubcategory in subsubcategory.subsubsubcategories">
+                                <p>{{subsubsubcategory.name}}</p>
+                            </div>
+                        </div>
+                        <hr style="clear:both" />
+                        <br />
+                        <br />
+                    </div>
+                    <hr style="clear:both" />
+                    <br />
+                    <br />
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,64 @@
+﻿<div>
+    <!--Create Tag Modal-->
+    <div class="modal fade createTagModalWindow" tabindex="-1" role="dialog" aria-labelledby="createTagModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Create Tag</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div id="TagForm" data-ng-show="!vm.newTag.IsSending && !vm.newTag.SendingComplete">
+                        <div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label>Tag Name:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newTag.Name" placeholder="Tag Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Loading State-->
+                    <section-loader message="'Creating tag...'" loader-type="'inline'" data-ng-show="vm.newTag.IsSending && !vm.newTag.SendingComplete"></section-loader>
+                    <!--Results State-->
+                    <div id="CreateTagResults" data-ng-show="!vm.newTag.IsSending && vm.newTag.SendingComplete">
+                        <div ng-class="vm.newTag.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newTag.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newTag.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.newTag.Results.Message }}
+                            </div>
+                        </div>
+                        <!-- If the error is due to a constraint on the plan -->
+                        <div data-ng-show="vm.tagConstraint">
+                            <p>Contact support to upgrade your plan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newTag.IsSending && !vm.newTag.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.createTag()">Create Tag</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newTag.IsSending && !vm.newTag.SendingComplete">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newTag.SendingComplete && vm.newTag.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newTag.Clear()">Create Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newTag.SendingComplete && !vm.newTag.Results.IsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button data-ng-show="!vm.userConstraint" class="btn btn-warning" data-ng-click="vm.newTag.Retry()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

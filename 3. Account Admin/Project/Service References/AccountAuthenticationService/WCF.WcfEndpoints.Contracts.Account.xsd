@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF.WcfEndpoints.Contracts.Account" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF.WcfEndpoints.Contracts.Account" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Security.Claims" />
+  <xs:complexType name="AuthenticationResponse">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="AccountUser" nillable="true" type="q1:AccountUser" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Security.Claims" minOccurs="0" name="ClaimsIdentity" nillable="true" type="q2:ClaimsIdentity" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isSuccess" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticationResponse" nillable="true" type="tns:AuthenticationResponse" />
+</xs:schema>

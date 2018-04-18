@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.Types" />
+  <xs:element name="CreateProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="locationPath" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isVisible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q1:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreateProductResult" nillable="true" type="q2:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" minOccurs="0" name="GetProductResult" nillable="true" type="q3:ProductDocumentModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductVisibleState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="visibleState" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q4:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductVisibleStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateProductVisibleStateResult" nillable="true" type="q5:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="oldName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q6:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RenameProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RenameProductResult" nillable="true" type="q7:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderProducts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="productOrderingDictionary" nillable="true" type="q8:ArrayOfKeyValueOfstringint" />
+        <xs:element minOccurs="0" name="locationPath" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q9:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderProductsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderProductsResult" nillable="true" type="q10:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetProductOrdering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="locationPath" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q11:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetProductOrderingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ResetProductOrderingResult" nillable="true" type="q12:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductProperty">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="propertyNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="propertyValue" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.Types" minOccurs="0" name="updateType" type="q13:ProductPropertyUpdateType" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q14:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductPropertyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateProductPropertyResult" nillable="true" type="q15:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductLocationProperty">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="propertyNameKey" nillable="true" type="xs:string" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" minOccurs="0" name="propertyLocationValue" nillable="true" type="q16:PropertyLocationValue" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q17:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductLocationPropertyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateProductLocationPropertyResult" nillable="true" type="q18:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveProductPropertyCollectionItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="propertyNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="collectionItemIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q19:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveProductPropertyCollectionItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RemoveProductPropertyCollectionItemResult" nillable="true" type="q20:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClearProductProperty">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="propertyNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q21:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClearProductPropertyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ClearProductPropertyResult" nillable="true" type="q22:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProductTag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q23:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProductTagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="AddProductTagResult" nillable="true" type="q24:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveProductTag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fullyQualifiedName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q25:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveProductTagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="RemoveProductTagResult" nillable="true" type="q26:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MoveProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newLocationPath" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q27:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MoveProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="MoveProductResult" nillable="true" type="q28:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q29:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteProductResult" nillable="true" type="q30:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

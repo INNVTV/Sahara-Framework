@@ -1,0 +1,94 @@
+﻿/*Edit Button*/
+.sahara-btn-edit-16 {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit/off.png');
+}
+.sahara-btn-edit-16:hover {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit/on.png');
+}
+
+/*Edit Button small*/
+.sahara-btn-edit-12 {
+    width:12px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit_sm/off.png');
+}
+.sahara-btn-edit-12:hover {
+    width:12px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit_sm/on.png');
+}
+/*Edit Button small DISABLED*/
+.sahara-btn-edit-12-disabled {
+    width:12px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit_sm/off.png');
+}
+
+/*Edit Button*/
+.sahara-hidden-edit-h1 {
+    width:30px;
+    height:41px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/HiddenEdit/H1/off.gif');
+}
+.sahara-hidden-edit-h1:hover {
+    width:30px;
+    height:41px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/HiddenEdit/H1/on.gif');
+}
+
+
+
+/*Edit Button*/
+.sahara-hidden-edit-h3 {
+    width:26px;
+    height:37px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/HiddenEdit/H3/off.gif');
+}
+.sahara-hidden-edit-h3:hover {
+    width:26px;
+    height:37px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/HiddenEdit/H3/on.gif');
+}
+
+
+

@@ -1,0 +1,866 @@
+﻿<div>
+
+    <!--New Plan Modal-->
+    <div class="modal fade newPlanModal" tabindex="-1" role="dialog" aria-labelledby="newPlanModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">New Payment Plan</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div id="PlanForm" data-ng-show="!vm.newPlan.IsSending && !vm.newPlan.SendingComplete">
+                        <div>
+                            <div class="form">
+
+                                <div class="form-group" style="margin-top:-10px;">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.Name" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Monthly Rate:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MonthlyRate" placeholder="0.00" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Users:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxUsers" placeholder="" />
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group" style="margin-bottom:10px;">
+                                    <label>Max Categorizations Per Set:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxCategorizationsPerSet" placeholder="" />
+                                </div>
+
+                                <small data-ng-show="(vm.newPlan.MaxCategorizationsPerSet * vm.newPlan.MaxCategorizationsPerSet) != 0"><label>Max Categories Will Be:</label> <span style="border:1px solid black; padding:3px;">{{ (vm.newPlan.MaxCategorizationsPerSet * vm.newPlan.MaxCategorizationsPerSet) | number }}</span></small>
+
+                                <hr />
+
+                                <div class="form-group" style="margin-bottom:10px;">
+                                    <label>Max Products Per Set:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxProductsPerSet" placeholder="" />
+                                </div>
+
+                                <small data-ng-show="(vm.newPlan.MaxCategorizationsPerSet * vm.newPlan.MaxCategorizationsPerSet) * vm.newPlan.MaxProductsPerSet != 0"><label>Max Products Will Be:</label> <span style="border:1px solid black; padding:3px;">{{ (vm.newPlan.MaxCategorizationsPerSet * vm.newPlan.MaxCategorizationsPerSet) * vm.newPlan.MaxProductsPerSet | number }}</span></small>
+
+                                <hr />
+
+                                <div class="form-group">
+                                    <label>Max Properties:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxProperties" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Values Per Property:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxValuesPerProperty" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Tags:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxTags" placeholder="" />
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group">
+                                    <label>Max Image Groups:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxImageGroups" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Image Formats:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxImageFormats" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Image Galleries:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxImageGalleries" placeholder="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Max Images Per Gallery:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newPlan.MaxImagesPerGallery" placeholder="" />
+                                </div>
+
+                                <hr />
+
+                                <!-- ALLOW THEMES -->
+
+                                <span>
+                                    <img data-ng-show="vm.newPlan.AllowThemes" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetThemes(false)" />
+                                    <img data-ng-show="!vm.newPlan.AllowThemes && vm.newPlan.AllowThemes != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetThemes(true)" />
+                                    <img data-ng-show="vm.newPlan.AllowThemes == null" src="/Images/ui/switch/switch-loading.gif" />
+
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.AllowThemes">Allow Themes </span>
+                                            <span data-ng-show="!vm.newPlan.AllowThemes && vm.newPlan.AllowThemes != null">Disallow Themes </span>
+                                        </strong>
+                                    </small>
+
+                                </span>
+
+                                <hr />
+
+                                <!-- ALLOW Ordering -->
+                                <span>
+                                    <img data-ng-show="vm.newPlan.AllowCustomOrdering" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetCustomOrdering(false)" />
+                                    <img data-ng-show="!vm.newPlan.AllowCustomOrdering && vm.newPlan.AllowCustomOrdering != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetCustomOrdering(true)" />
+                                    <img data-ng-show="vm.newPlan.AllowCustomOrdering == null" src="/Images/ui/switch/switch-loading.gif" />
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.AllowCustomOrdering">Allow Custom Ordering </span>
+                                            <span data-ng-show="!vm.newPlan.AllowCustomOrdering && vm.newPlan.AllowCustomOrdering != null">Disallow Custom Ordering </span>
+                                        </strong>
+                                    </small>
+                                </span>
+
+                                <hr />
+
+
+                                <!-- ALLOW Location Data -->
+                                <span>
+                                    <img data-ng-show="vm.newPlan.AllowLocationData" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetLocationData(false)" />
+                                    <img data-ng-show="!vm.newPlan.AllowLocationData && vm.newPlan.AllowLocationData != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetLocationData(true)" />
+                                    <img data-ng-show="vm.newPlan.AllowLocationData == null" src="/Images/ui/switch/switch-loading.gif" />
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.AllowLocationData">Allow Location Data </span>
+                                            <span data-ng-show="!vm.newPlan.AllowLocationData && vm.newPlan.AllowLocationData != null">Disallow Location Data </span>
+                                        </strong>
+                                    </small>
+                                </span>
+
+                                <hr />
+
+                                <!-- ALLOW Sales Leads -->
+                                <span>
+                                    <img data-ng-show="vm.newPlan.AllowSalesLeads" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetSalesLeads(false)" />
+                                    <img data-ng-show="!vm.newPlan.AllowSalesLeads && vm.newPlan.AllowSalesLeads != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetSalesLeads(true)" />
+                                    <img data-ng-show="vm.newPlan.AllowSalesLeads == null" src="/Images/ui/switch/switch-loading.gif" />
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.AllowSalesLeads">Allow Sales Leads </span>
+                                            <span data-ng-show="!vm.newPlan.AllowSalesLeads && vm.newPlan.AllowSalesLeads != null">Disallow Sales Leads </span>
+                                        </strong>
+                                    </small>
+                                </span>
+
+                                <hr />
+
+                                <!-- Basic Support -->
+                                <span>
+                                    <img data-ng-show="vm.newPlan.BasicSupport" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetBasicSupport(false)" />
+                                    <img data-ng-show="!vm.newPlan.BasicSupport && vm.newPlan.BasicSupport != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetBasicSupport(true)" />
+                                    <img data-ng-show="vm.newPlan.BasicSupport == null" src="/Images/ui/switch/switch-loading.gif" />
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.BasicSupport">Basic Support </span>
+                                            <span data-ng-show="!vm.newPlan.BasicSupport && vm.newPlan.BasicSupport != null">Basic Support </span>
+                                        </strong>
+                                    </small>
+                                </span>
+
+                                <hr />
+
+                                <!-- Enhanced Support -->
+                                <span>
+                                    <img data-ng-show="vm.newPlan.EnhancedSupport" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetEnhancedSupport(false)" />
+                                    <img data-ng-show="!vm.newPlan.EnhancedSupport && vm.newPlan.EnhancedSupport != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetEnhancedSupport(true)" />
+                                    <img data-ng-show="vm.newPlan.EnhancedSupport == null" src="/Images/ui/switch/switch-loading.gif" />
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.EnhancedSupport">Enhanced Support </span>
+                                            <span data-ng-show="!vm.newPlan.EnhancedSupport && vm.newPlan.EnhancedSupport != null">Enhanced Support </span>
+                                        </strong>
+                                    </small>
+                                </span>
+
+                                <hr />
+
+                                <!-- ALLOW IMAGE ENHANCEMENTS Checkbox 
+                                <div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-ng-model="vm.newPlan.AllowImageEnhancementsw"> <strong>Allow Image Enhancements</strong>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <hr />-->
+
+
+                                <!-- VISIBILITY -->
+
+                                <span>
+                                    <img data-ng-show="vm.newPlan.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetVisibility(false)" />
+                                    <img data-ng-show="!vm.newPlan.Visible && vm.newPlan.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newPlan.SetVisibility(true)" />
+                                    <img data-ng-show="vm.newPlan.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+
+
+                                    <small style="color:#1C1C1C; font-size:12px">
+                                        <strong>
+                                            <span data-ng-show="vm.newPlan.Visible">Visible </span>
+                                            <span data-ng-show="!vm.newPlan.Visible && vm.newPlan.AllowImageEnhancements != null">Invisible </span>
+                                        </strong>
+                                    </small>
+
+                                </span>
+
+
+
+                                <!-- VISIBILITY Checkbox
+                                <div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-ng-model="vm.newPlan.Visible"> <strong>Visible</strong>
+                                        </label>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Loading State
+                    <div id="PlanLoading" data-ng-show="vm.newPlan.IsSending && !vm.newPlan.SendingComplete">
+                        <br />
+                        <small style="margin-left:6px;"><strong>Creating Plan...</strong></small>
+                        <br />
+                        <img src="/Images/Loaders/initializing.gif" />
+                        <br />
+                    </div>-->
+                    <!--Loading State-->
+
+                    <section-loader message="'Creating Plan...'" loader-type="'inline'" data-ng-show="vm.newPlan.IsSending && !vm.newPlan.SendingComplete"></section-loader>
+
+
+                    <!--Results State-->
+                    <div id="PlanResults" data-ng-show="!vm.newPlan.IsSending && vm.newPlan.SendingComplete">
+
+                        <div ng-class="vm.newPlan.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newPlan.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newPlan.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.newPlan.Results.Message }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newPlan.IsSending && !vm.newPlan.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.createPlan()"><i class="fa fa-envelope"></i> Create Plan</button>
+                    </div>
+
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newPlan.IsSending && !vm.newPlan.SendingComplete">
+
+                    </div>
+
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newPlan.SendingComplete && vm.newPlan.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newPlan.Clear()">Create Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newPlan.SendingComplete && !vm.newPlan.Results.IsSuccess">
+                        <button type="button" class="btn btn-warning" data-ng-click="vm.newPlan.Retry()">Try again</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End New Plan Modal-->
+
+    <!--Plan Details Modal-->
+    <div class="modal fade planDetailModal" tabindex="-1" role="dialog" aria-labelledby="planDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+
+                <div class="modal-header" data-ng-show="!vm.planDeletion.Complete">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <h2 style="margin-top:-2px; margin-bottom:-2px;">
+                        <span>
+                            <img data-ng-show="vm.planDetail.Visible" src="/Images/Icons/PaymentPlans/visible_true.png" style="margin-top:-8px; margin-right:-2px; margin-left:-4px;">
+                            <img data-ng-show="!vm.planDetail.Visible" src="/Images/Icons/PaymentPlans/visible_false.png" style="margin-top:-8px; margin-right:-2px; margin-left:-4px;">
+                        </span>
+                        {{ vm.planDetail.Name }}
+                    </h2>
+                </div>
+
+                <div class="modal-header" data-ng-show="vm.planDeletion.Complete">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2>Processing complete</h2>
+                </div>
+
+                <div class="modal-body" id="planDetailDefault" data-ng-show="!vm.planDeletion.Complete && !vm.planDeletion.Processing">
+
+                    <div>
+                        <div>
+                            <tabset>
+
+                                <tab active="vm.planDetail.DefaultTabActive" style="cursor:pointer" id="Info" heading="Info" data-ng-click="">
+
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px;">
+
+                                        <!-- Plan NAME -->
+                                        <!--
+                                        <div data-ng-show="!vm.planDetail.updateName.complete && !vm.planDetail.updateName.processing && !vm.planDetail.updateName.edit">
+                                            <small style="margin-top:30px">Name:</small>
+                                            <strong>{{ vm.planDetail.Name }} </strong>&nbsp;<button data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.editPlanName()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                        </div>
+                                        <div class="form-inline" data-ng-show="vm.planDetail.updateName.edit">
+                                            <input type="text" class="input-sm form-control" style="max-width:120px; margin-right:5px;" data-ng-model="vm.planDetail.FirstName" placeholder="First Name" />
+                                            <input type="text" class="input-sm form-control" style="max-width:130px" data-ng-model="vm.planDetail.LastName" placeholder="Last Name" />
+                                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanName()" style="margin-left:5px;">Cancel</button>
+                                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanName(vm.planDetail.Name)">Update</button>
+                                        </div>
+                                        <!--Processing--  >
+                                        <div data-ng-show="vm.planDetail.updateName.processing">
+                                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating name...</small>
+                                        </div>
+                                        <!--Result--  >
+                                        <div data-ng-show="vm.planDetail.updateName.complete">
+                                            <small data-ng-show="vm.planDetail.updateName.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateName.message }}</small>
+                                            <small data-ng-show="!vm.planDetail.updateName.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateName.message }}</small>
+                                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanNameResult()" style="margin-left:5px;">OK</button></span>
+                                        </div>
+
+                                        <hr /> -->
+                                       
+                                        <h4>Monthly Rate:</h4>
+                                        <h5 style="color:darkgreen"><strong>{{ vm.planDetail.MonthlyRate | currency }}</strong></h5>
+
+                                        <hr />
+
+                                        <h4>Plan Limitations:</h4>
+
+                                        <div class="v-line-thin">
+    
+                                            <small style="margin-top:30px">Max Users:</small>
+                                            <strong>{{ vm.planDetail.MaxUsers | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Categorizations (Per Set):</small>
+                                            <strong>{{ vm.planDetail.MaxCategorizationsPerSet | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Categorizations (Total):</small>
+                                            <strong>{{ vm.planDetail.MaxCategorizations | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Products (Per Set):</small>
+                                            <strong>{{ vm.planDetail.MaxProductsPerSet | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Products (Total):</small>
+                                            <strong>{{ vm.planDetail.MaxProducts | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Properties:</small>
+                                            <strong>{{ vm.planDetail.MaxProperties | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Values Per Property:</small>
+                                            <strong>{{ vm.planDetail.MaxValuesPerProperty | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Tags:</small>
+                                            <strong>{{ vm.planDetail.MaxTags | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Image Groups:</small>
+                                            <strong>{{ vm.planDetail.MaxImageGroups | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Image Formats:</small>
+                                            <strong>{{ vm.planDetail.MaxImageFormats | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Image Galleries:</small>
+                                            <strong>{{ vm.planDetail.MaxImageGalleries | number }} </strong>
+                                            <br /><br />
+
+                                            <small style="margin-top:30px">Max Images Per Gallery:</small>
+                                            <strong>{{ vm.planDetail.MaxImagesPerGallery | number }} </strong>
+                                            <br /><br />
+
+                                        </div>
+
+                                        <h4>Plan Features:</h4>
+                                        <div class="v-line-thin">
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.AllowThemes"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.AllowThemes"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Themes
+                                                </small>
+                                            </div>
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.AllowCustomOrdering"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.AllowCustomOrdering"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Custom Ordering
+                                                </small>
+                                            </div>
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.AllowSalesLeads"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.AllowSalesLeads"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Sales Leads
+                                                </small>
+                                            </div>
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.AllowLocationData"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.AllowLocationData"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Location Data
+                                                </small>
+                                            </div>
+
+
+                                        </div>
+
+                                        <h4>Support:</h4>
+                                        <div class="v-line-thin">
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.BasicSupport"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.BasicSupport"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Basic Support
+                                                </small>
+                                            </div>
+
+                                            
+
+                                            <div style="margin-bottom:1px">
+                                                <small>
+                                                    <strong data-ng-show="vm.planDetail.EnhancedSupport"><i class="fa fa-check" style="color:green; font-size:14px; margin-right:5px"></i></strong>
+                                                    <strong data-ng-show="!vm.planDetail.EnhancedSupport"><i class="fa fa-times" style="color:red; font-size:14px; margin-right:5px"></i></strong>
+                                                    Enhanced Support
+                                                </small>
+                                            </div>
+
+                                        </div>
+
+
+                                        <br />
+                                        <small style="color:darkgrey"><i>* Updates can be made directly on the database. Redis cache must be flushed after updates are made. Updates to plans are limited to the current environment. To replicate across environments, you must make each update individually.</i></small>
+
+                                            
+                                            <!--
+                                            <div class="v-line-thin">
+                                                <!-- Max Users -- >
+                                                <div data-ng-show="!vm.planDetail.updateMaxUsers.complete && !vm.planDetail.updateMaxUsers.processing && !vm.planDetail.updateMaxUsers.edit">
+                                                    <small style="margin-top:30px">Max Users:</small>
+                                                    <strong>{{ vm.planDetail.MaxUsers }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.editPlanMaxUsers()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                                </div>
+                                                <div class="form-inline" data-ng-show="vm.planDetail.updateMaxUsers.edit">
+                                                    <input type="text" class="input-sm form-control" style="width:300px" data-ng-model="vm.planDetail.MaxUsers" placeholder="MaxUsers" />
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanMaxUsers()" style="margin-left:5px;">Cancel</button>
+                                                    <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanMaxUsers(vm.planDetail.Name)">Update</button>
+                                                </div>
+                                                <!--Processing-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxUsers.processing">
+                                                    <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating MaxUsers...</small>
+                                                </div>
+                                                <!--Result-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxUsers.complete">
+                                                    <small data-ng-show="vm.planDetail.updateMaxUsers.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxUsers.message }}</small>
+                                                    <small data-ng-show="!vm.planDetail.updateMaxUsers.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxUsers.message }}</small>
+                                                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanMaxUsersResult()" style="margin-left:5px;">OK</button></span>
+                                                </div>
+
+                                                <br />
+
+                                                <!-- Max Categories -- >
+                                                <div data-ng-show="!vm.planDetail.updateMaxCategories.complete && !vm.planDetail.updateMaxCategories.processing && !vm.planDetail.updateMaxCategories.edit">
+                                                    <small style="margin-top:30px">Max Categories:</small>
+                                                    <strong>{{ vm.planDetail.MaxCategories }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.editPlanMaxCategories()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                                </div>
+                                                <div class="form-inline" data-ng-show="vm.planDetail.updateMaxCategories.edit">
+                                                    <input type="text" class="input-sm form-control" style="width:300px" data-ng-model="vm.planDetail.MaxCategories" placeholder="MaxCategories" />
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanMaxCategories()" style="margin-left:5px;">Cancel</button>
+                                                    <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanMaxCategories(vm.planDetail.Name)">Update</button>
+                                                </div>
+                                                <!--Processing-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxCategories.processing">
+                                                    <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating MaxCategories...</small>
+                                                </div>
+                                                <!--Result-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxCategories.complete">
+                                                    <small data-ng-show="vm.planDetail.updateMaxCategories.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxCategories.message }}</small>
+                                                    <small data-ng-show="!vm.planDetail.updateMaxCategories.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxCategories.message }}</small>
+                                                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanMaxCategoriesResult()" style="margin-left:5px;">OK</button></span>
+                                                </div>
+
+                                                <br />
+
+                                                <!-- Max Subcategories -- >
+                                                <div data-ng-show="!vm.planDetail.updateMaxSubcategories.complete && !vm.planDetail.updateMaxSubcategories.processing && !vm.planDetail.updateMaxSubcategories.edit">
+                                                    <small style="margin-top:30px">Max Subcategories:</small>
+                                                    <strong>{{ vm.planDetail.MaxSubcategories }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.editPlanMaxSubcategories()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                                </div>
+                                                <div class="form-inline" data-ng-show="vm.planDetail.updateMaxSubcategories.edit">
+                                                    <input type="text" class="input-sm form-control" style="width:300px" data-ng-model="vm.planDetail.MaxSubcategories" placeholder="MaxSubcategories" />
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanMaxSubcategories()" style="margin-left:5px;">Cancel</button>
+                                                    <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanMaxSubcategories(vm.planDetail.Name)">Update</button>
+                                                </div>
+                                                <!--Processing-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxSubcategories.processing">
+                                                    <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating MaxSubcategories...</small>
+                                                </div>
+                                                <!--Result-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxSubcategories.complete">
+                                                    <small data-ng-show="vm.planDetail.updateMaxSubcategories.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxSubcategories.message }}</small>
+                                                    <small data-ng-show="!vm.planDetail.updateMaxSubcategories.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxSubcategories.message }}</small>
+                                                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanMaxSubcategoriesResult()" style="margin-left:5px;">OK</button></span>
+                                                </div>
+                                                <br />
+                                                <!-- Max Tags -- >
+                                                <div data-ng-show="!vm.planDetail.updateMaxTags.complete && !vm.planDetail.updateMaxTags.processing && !vm.planDetail.updateMaxTags.edit">
+                                                    <small style="margin-top:30px">Max Tags:</small>
+                                                    <strong>{{ vm.planDetail.MaxTags }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.editPlanMaxTags()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                                </div>
+                                                <div class="form-inline" data-ng-show="vm.planDetail.updateMaxTags.edit">
+                                                    <input type="text" class="input-sm form-control" style="width:300px" data-ng-model="vm.planDetail.MaxTags" placeholder="MaxTags" />
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanMaxTags()" style="margin-left:5px;">Cancel</button>
+                                                    <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanMaxTags(vm.planDetail.Name)">Update</button>
+                                                </div>
+                                                <!--Processing-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxTags.processing">
+                                                    <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating MaxTags...</small>
+                                                </div>
+                                                <!--Result-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxTags.complete">
+                                                    <small data-ng-show="vm.planDetail.updateMaxTags.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxTags.message }}</small>
+                                                    <small data-ng-show="!vm.planDetail.updateMaxTags.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxTags.message }}</small>
+                                                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanMaxTagsResult()" style="margin-left:5px;">OK</button></span>
+                                                </div>
+                                                <br />
+                                                <!-- Max  Images -- >
+                                                <div data-ng-show="!vm.planDetail.updateMaxImages.complete && !vm.planDetail.updateMaxImages.processing && !vm.planDetail.updateMaxImages.edit">
+                                                    <small style="margin-top:30px">Max Images:</small>
+                                                    <strong>{{ vm.planDetail.MaxImages }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.editPlanMaxImages()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                                </div>
+                                                <div class="form-inline" data-ng-show="vm.planDetail.updateMaxImages.edit">
+                                                    <input type="text" class="input-sm form-control" style="width:300px" data-ng-model="vm.planDetail.MaxImages" placeholder="MaxImages" />
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelPlanMaxImages()" style="margin-left:5px;">Cancel</button>
+                                                    <button class="btn btn-primary btn-xs" data-ng-click="vm.updatePlanMaxImages(vm.planDetail.Name)">Update</button>
+                                                </div>
+                                                <!--Processing-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxImages.processing">
+                                                    <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating MaxImages...</small>
+                                                </div>
+                                                <!--Result-- >
+                                                <div data-ng-show="vm.planDetail.updateMaxImages.complete">
+                                                    <small data-ng-show="vm.planDetail.updateMaxImages.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxImages.message }}</small>
+                                                    <small data-ng-show="!vm.planDetail.updateMaxImages.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateMaxImages.message }}</small>
+                                                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanMaxImagesResult()" style="margin-left:5px;">OK</button></span>
+                                                </div>
+                                            </div>
+
+                                            <h4 style="margin-top:30px; margin-bottom:10px;" data-ng-show="vm.checkRole('SuperAdmin')">Image Enhancements:</h4>
+                                            <div class="v-line-thin" data-ng-show="vm.checkRole('SuperAdmin')">
+
+                                                <!-- ALLOW IMAGE ENHANCEMENTS -- >
+                                                <div>
+                                                    <span>
+                                                        <img data-ng-show="vm.planDetail.AllowImageEnhancements" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.changePlanAllowImageEnhancements(vm.planDetail.Name)" />
+                                                        <img data-ng-show="!vm.planDetail.AllowImageEnhancements && vm.planDetail.AllowImageEnhancements != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.changePlanAllowImageEnhancements(vm.planDetail.Name)" />
+                                                        <img data-ng-show="vm.planDetail.AllowImageEnhancements == null" src="/Images/ui/switch/switch-loading.gif" />
+                                                    </span>
+                                                    <small style="color:darkgrey; font-size:10px">
+                                                        <strong>
+                                                            <span data-ng-show="vm.planDetail.AllowImageEnhancements">Image enhancements allowed</span>
+                                                            <span data-ng-show="!vm.planDetail.AllowImageEnhancements && vm.planDetail.AllowImageEnhancements != null">Image enhancements not allowed</span>
+                                                        </strong>
+                                                    </small>
+                                                    <!--Result Error-- >
+                                                    <div data-ng-show="vm.planDetail.updateAllowImageEnhancements.complete && !vm.planDetail.updateAllowImageEnhancements.isSuccess" style="margin-top:5px;">
+                                                        <small style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateAllowImageEnhancements.message }}</small>
+                                                        <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanAllowImageEnhancementsResult()" style="margin-left:5px;">OK</button></span>
+                                                    </div>
+                                                </div>
+
+                                                 ALLOW IMAGE ENHANCEMENTS
+            <div class="hidden-xs" data-ng-show="vm.checkRole('SuperAdmin')">
+                <span data-ng-show="!vm.planDetail.updateAllowImageEnhancements.processing && !vm.planDetail.updateAllowImageEnhancements.complete">
+                    <span>
+                        <span data-ng-show="vm.planDetail.AllowImageEnhancements" style="color:green"><img src="/Images/Icons/PaymentPlans/visible_{{ vm.planDetail.AllowImageEnhancements }}.png" title="Visible" style="vertical-align:middle;" /> Allowed </span>
+                        <span data-ng-show="!vm.planDetail.AllowImageEnhancements" style="color:lightgrey"><img src="/Images/Icons/PaymentPlans/visible_{{ vm.planDetail.AllowImageEnhancements }}.png" title="Visible" style="vertical-align:middle;" /> Not Allowed </span>
+                    </span>
+                    &nbsp;
+                    <button data-ng-show="vm.planDetail.AllowImageEnhancements" data-ng-click="vm.changePlanAllowImageEnhancements(vm.planDetail.Name)" class="btn btn-xs btn-default hidden-xs">Disallow Image Enhanceents</button>
+                    <button data-ng-show="!vm.planDetail.AllowImageEnhancements" data-ng-click="vm.changePlanAllowImageEnhancements(vm.planDetail.Name)" class="btn btn-xs btn-default hidden-xs">Allow Image Enhanceents</button>
+                </span>
+                <!--Processing-- >
+                <small data-ng-show="vm.planDetail.updateAllowImageEnhancements.processing"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating enhancement ability...</small>
+                <!--Result- ->
+                <div data-ng-show="vm.planDetail.updateAllowImageEnhancements.complete">
+                    <small data-ng-show="vm.planDetail.updateAllowImageEnhancements.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateAllowImageEnhancements.message }}</small>
+                    <small data-ng-show="!vm.planDetail.updateAllowImageEnhancements.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateAllowImageEnhancements.message }}</small>
+                    <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanAllowImageEnhancementsResult()" style="margin-left:5px;">OK</button></span>
+                </div>
+            </div>
+                                            </div>
+                                            <br />
+                                            <small style="color:darkgrey"><i>* Updates to plans are limited to the current environment. To replicate across environments, you must make each update individually.</i></small>
+
+                                        </div>-->
+                                    
+
+                                        </div>
+
+                                </tab>
+                                
+
+
+
+                                <tab style="cursor:pointer" id="Advanced" heading="Advanced" data-ng-click="vm.setAdvancedplanDetailTab()">
+
+                                    <!-- ADVANCED -->
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px">
+
+
+                                        <!-- Stripe/Frequency Variants -->
+
+                                        <div data-ng-show="vm.planDetail.Variants.length > 0">
+                                            <h4>Stripe/Frequency Variants:</h4>
+
+                                            <div data-ng-repeat="variant in vm.planDetail.Variants" class="v-line-thin">
+                                                <i class="fa fa-cc-stripe"></i> {{ variant }} <br/>
+                                            </div>
+                                            
+                                            <hr />
+                                        </div>
+
+
+
+
+                                        <!-- VISIBLE STATE -->
+                                        <div>
+                                            <span>
+                                                <img data-ng-show="vm.planDetail.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.changePlanVisibleState(vm.planDetail.Name)" />
+                                                <img data-ng-show="!vm.planDetail.Visible && vm.planDetail.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.changePlanVisibleState(vm.planDetail.Name)" />
+                                                <img data-ng-show="vm.planDetail.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                            </span>
+
+                                            <small style="color:darkgrey; font-size:10px">
+                                                <strong>
+                                                    <span data-ng-show="vm.planDetail.Visible">Visible</span>
+                                                    <span data-ng-show="!vm.planDetail.Visible && vm.planDetail.AllowImageEnhancements != null">Invisible</span>
+                                                </strong>
+                                            </small>
+                                            <!--Result Error-->
+                                            <div data-ng-show="vm.planDetail.updateVisibleState.complete && !vm.planDetail.updateVisibleState.isSuccess" style="margin-top:5px;">
+                                                <small style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateVisibleState.message }}</small>
+                                                <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanVisibleStateResult()" style="margin-left:5px;">OK</button></span>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <!-- VISIBLE STATE
+                                        <div class="hidden-xs" data-ng-show="vm.checkRole('SuperAdmin')">
+                                            <h4 style="margin-top:30px; margin-bottom:10px;">Visibility:</h4>
+                                            <span data-ng-show="!vm.planDetail.updateVisibleState.processing && !vm.planDetail.updateVisibleState.complete">
+                                                <span>
+                                                    <span data-ng-show="vm.planDetail.Visible" style="color:green"><img src="/Images/Icons/PaymentPlans/visible_{{ vm.planDetail.Visible }}.png" title="Visible" style="vertical-align:middle;" /> Visible </span>
+                                                    <span data-ng-show="!vm.planDetail.Visible" style="color:lightgrey"><img src="/Images/Icons/PaymentPlans/visible_{{ vm.planDetail.Visible }}.png" title="Visible" style="vertical-align:middle;" /> Invisible </span>
+                                                </span>
+                                                &nbsp;
+                                                <button data-ng-show="vm.planDetail.Visible" data-ng-click="vm.changePlanVisibleState(vm.planDetail.Name)" class="btn btn-xs btn-default hidden-xs">Make invisible</button>
+                                                <button data-ng-show="!vm.planDetail.Visible" data-ng-click="vm.changePlanVisibleState(vm.planDetail.Name)" class="btn btn-xs btn-default hidden-xs">Make visible</button>
+
+                                            </span>
+                                            <!--Processing- ->
+                                            <small data-ng-show="vm.planDetail.updateVisibleState.processing"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating visibility state...</small>
+                                            <!--Result- ->
+                                            <div data-ng-show="vm.planDetail.updateVisibleState.complete">
+                                                <small data-ng-show="vm.planDetail.updateVisibleState.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.planDetail.updateVisibleState.message }}</small>
+                                                <small data-ng-show="!vm.planDetail.updateVisibleState.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.planDetail.updateVisibleState.message }}</small>
+                                                <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdatePlanVisibleStateResult()" style="margin-left:5px;">OK</button></span>
+                                            </div>
+
+                                            <br /><br />
+                                            <small style="color:darkgrey"><i>* Updates to plans are limited to the current environment. To replicate across environments, you must make each update individually.</i></small>
+
+                                        </div> -->
+
+
+
+
+
+
+                                        <div id="StartPlanDeletion" data-ng-show="!vm.planDeletion.Verify && !vm.planDeletion.Processing && vm.checkRole('SuperAdmin')">
+
+                                            <hr />
+                                            <button type="button" class="btn btn-danger" data-ng-click="vm.startPlanDeletion()"><i class="glyphicon glyphicon-remove"></i> Delete plan</button>
+                                        </div>
+
+                                        <div id="VerifyDeletion" data-ng-show="vm.planDeletion.Verify">
+                                            <hr />
+                                            <div style="margin-bottom:20px;">
+                                                <i class="fa fa-warning" style="color:red"></i> <span style="color:red"><strong>&nbsp;Are you sure you want to delete this plan?</strong></span>
+                                            </div>
+                                            <button class="btn btn-warning btn-sm" data-ng-click="vm.cancelPlanDeletion()">Cancel</button>
+                                            <button class="btn btn-danger btn-sm" data-ng-click="vm.deletePlan(vm.planDetail.Name)"><i class="glyphicon glyphicon-remove"></i> Yes, delete this plan</button>
+                                        </div>
+
+                                    </div>
+
+                                </tab>
+
+                            </tabset>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="modal-footer" data-ng-show="!vm.planDeletion.Complete" style="margin-bottom:-10px">
+
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.onplanDetailModalClose()" data-dismiss="modal">Done</button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-body" id="PlanDeleting" data-ng-show="vm.planDeletion.Processing">
+
+                    <section-loader message="'Deleting plan...'" loader-type="'inline'"></section-loader>
+                    <br /><br />
+
+                </div>
+
+                <div class="modal-body" id="PlanUpdatesComplete" data-ng-show="vm.planDeletion.Complete">
+
+                    <div ng-class="vm.planDeletion.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                        <div>
+                            <i data-ng-show="vm.planDeletion.IsSuccess" class="fa fa-check" style="color:green"></i>
+                            <i data-ng-show="!vm.planDeletion.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                            {{ vm.planDeletion.Message }}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer" id="PlanUpdatesComplete" data-ng-show="vm.planDeletion.Complete">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End Plan Details Modal-->
+
+    
+    <div id="PaymentPlanGrid" style="padding-top:25px">
+
+        <table class="table table-responsive table-striped">
+
+            <tr>
+                <th>Plan</th>
+                <th>Monthly Rate</th>
+                <th class="hidden-xs" style="text-align:center">Users</th>
+                <th class="hidden-xs" style="text-align:center">CatsPrSt</th>
+                <th class="hidden-xs" style="text-align:center">Variations</th>
+                <th class="hidden-xs" style="text-align:center">PrdsPrSt</th>
+                <th class="hidden-xs" style="text-align:center">Prods</th>
+                <th class="hidden-xs" style="text-align:center">Props/Values</th>
+                <th class="hidden-xs" style="text-align:center">Tags</th>
+                <th class="hidden-xs" style="text-align:center">ImgGrps/Frmts</th>
+
+                <th class="hidden-xs" style="text-align:center">Search Plan</th>
+
+                <th></th>
+            </tr>
+
+            <tr data-ng-repeat="plan in vm.paymentPlans" style="font-size:15px;">
+
+                <td style="color:#3B3B3B; font-size:18px"><img ng-src="/Images/Icons/PaymentPlans/visible_{{ plan.Visible }}.png"> {{ plan.PaymentPlanName }}</td>
+
+                <td data-ng-show="plan.MonthlyRate <= 0">Free</td>
+                <td data-ng-show="plan.MonthlyRate > 0"><i class="fa fa-cc-stripe"></i> {{ plan.MonthlyRate | currency }}</td>
+
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxUsers | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxCategorizationsPerSet | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxCategorizations | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxProductsPerSet | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxProducts | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxProperties | number }} / {{ plan.MaxValuesPerProperty | number }}</td>                
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxTags | number }}</td>
+                <td class="hidden-xs" style="text-align:center">{{ plan.MaxImageGroups | number }} / {{ plan.MaxImageFormats | number }}</td>
+
+                <td class="hidden-xs" style="text-align:center"><b>{{ plan.SearchPlan }}</b></td>
+
+                <!--
+                <td class="hidden-xs hidden-sm" data-ng-show="plan.AllowThemes" style="text-align:center"><i style="color:green" class="fa fa-check"></i></td>
+                <td class="hidden-xs hidden-sm" data-ng-show="!plan.AllowThemes" style="text-align:center"><i style="color:red" class="fa fa-times"></i></td>
+
+                <td class="hidden-xs hidden-sm" data-ng-show="plan.AllowCustomOrdering" style="text-align:center"><i style="color:green" class="fa fa-check"></i></td>
+                <td class="hidden-xs hidden-sm" data-ng-show="!plan.AllowCustomOrdering" style="text-align:center"><i style="color:red" class="fa fa-times"></i></td>
+
+                <td class="hidden-xs hidden-sm" data-ng-show="plan.AllowLocationData" style="text-align:center"><i style="color:green" class="fa fa-check"></i></td>
+                <td class="hidden-xs hidden-sm" data-ng-show="!plan.AllowLocationData" style="text-align:center"><i style="color:red" class="fa fa-times"></i></td>
+
+                <td class="hidden-xs hidden-sm" data-ng-show="plan.AllowSalesLeads" style="text-align:center"><i style="color:green" class="fa fa-check"></i></td>
+                <td class="hidden-xs hidden-sm" data-ng-show="!plan.AllowSalesLeads" style="text-align:center"><i style="color:red" class="fa fa-times"></i></td>
+                -->
+
+                <td style="text-align:right">
+                    <button class="btn btn-xs btn-default" data-toggle="modal" data-target=".planDetailModal" data-ng-click="vm.getPlanDetail($index, true)">Details</button>
+                </td>
+
+
+            </tr>
+
+        </table>
+
+        <hr />
+
+        <!--REMOVED WHILE PLAN REFACTORING CONTINUES-->
+        <!--<div style="text-align:right" data-ng-show="vm.checkRole('SuperAdmin')">
+            <button class="btn btn-primary btn-md" data-toggle="modal" data-target=".newPlanModal" data-ng-click="vm.newPlan.Clear()"><i class="fa fa-plus"></i> New Payment Plan</button>
+        </div>-->
+
+        <small><b> Create new plans via SQL:</b></small>
+        <div style="margin-top:8px;" class="well">INSERT INTO PaymentPlans (PaymentPlanName, MonthlyRate, MaxUsers, MaxCategorizationsPerSet, MaxProductsPerSet, MaxProducts, MaxProperties, MaxValuesPerProperty, MaxTags, AllowThemes, AllowSalesLeads, AllowImageEnhancements, AllowLocationData, AllowCustomOrdering, MonthlySupportHours, Visible, MaxImageGroups, MaxImageFormats, MaxImageGalleries, MaxImagesPerGallery, SearchPlan) VALUES	('PlanName', '000.00', '4', '80', '150', '50000', '120', '48', '220', '1', '1', '1', '1', '1','40','1','24','48', '24', '32','[Basic/Standard]')</div>
+
+    </div>
+
+</div>

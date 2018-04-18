@@ -1,0 +1,159 @@
+﻿/* VALIDATION HELPERS */
+
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 2px solid red;
+    background-color: lightyellow;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+
+/* DATA CARD LINES*/
+
+.dataCardLines {
+    margin: 3px;
+    width: 80%;
+    margin-left:-3px;
+    text-align:left;
+}
+.dataCardLines.medium {
+    border-color:#C4C4C4;
+}
+.dataCardLines.dark {
+    border-color:darkgrey;
+}
+
+
+
+
+/* VARIABLE NUMBER BOXES */
+
+.numberBox {
+    padding:7px;
+    min-width:95px;
+    max-width:145px;  
+    border-style:solid;
+    font-size:17px;
+    font-weight:bolder;
+    border-width:thin;
+    margin:0 auto;
+    margin-top:2px;
+    margin-bottom:25px;
+    text-align:center;
+    background-color:#F5F5F5;
+    border-color:#292929;
+    color:#000000;
+}
+.numberBox.blue {
+    background-color:#F2F8FF;
+    border-color:#08408A;
+    color:#025DD4;
+}
+.numberBox.red {
+    background-color:#FCF2F2;
+    border-color:#660E0E;
+    color:#8F1111;
+}
+.numberBox.green {
+    background-color:#F5FFFA;
+    border-color:#1E6324;
+    color:#226E29;
+}
+.numberBox.purple {
+    background-color:#F9F5FF;
+    border-color:#3C1E63;
+    color:#3B226E;
+}
+.numberBox.pending {
+    border-style:dashed;
+}
+
+
+
+/* TAB > PILLS SUB MENUS */
+
+.sahara-nav-pills a {
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  
+    display: inline;
+    
+}
+
+
+.sahara-nav-pills {
+  
+  top: 0;
+  
+  list-style: none;
+  margin: 15px;
+  padding: 0;
+  padding-top: 20px;
+    
+}
+
+.sahara-nav-pills li {
+  margin-bottom: 35px;
+  line-height: 23px;
+  text-indent: 0px;
+  display: inline;
+
+  margin-right: 20px;
+}
+
+.sahara-nav-pills li a {
+  color: darkgray;
+  text-decoration: none;
+  text-align:center;
+    padding-bottom: 1px;
+}
+
+.sahara-nav-pills li a:hover {
+  color:#555555;
+  font-weight: bold
+}
+
+.sahara-nav-pills li a:active,
+.sahara-nav-pills li a:focus {
+}
+
+.sahara-nav-pills li a.active {
+    font-size: 14px;
+    font-weight: bolder;
+    color:black;
+    border-bottom-color: #F57A00;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+}
+
+
+
+
+
+/* Vertical Lines */
+.v-line-thin {
+    border-left: thin solid lightgrey;
+    padding:10px;
+}

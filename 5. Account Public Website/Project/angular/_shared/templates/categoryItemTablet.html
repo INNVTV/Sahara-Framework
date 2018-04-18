@@ -1,0 +1,25 @@
+﻿<div class="category">
+
+    <!-- If full -->
+    <div data-ng-show="category.fullyQualifiedName != null">
+
+        <a style="cursor:pointer" data-ng-click="vm.loadSubcategory(category.fullyQualifiedName)">
+            <!-- Thumbnail Image -->
+            <img id="categoryThumbnail" data-ng-show="category.images.default.thumbnail.url != null && category.images.default.thumbnail.url != ''" class="img-responsive" style="width:100%" ng-src="{{category.images.default.thumbnail.url}}" />
+            <img id="categoryThumbnail" data-ng-show="category.images.default.thumbnail.url == null || category.images.default.thumbnail.url == ''" class="img-responsive" style="width:100%" src="/Images/ui/fpo/search-thumbnail.jpg" />
+            
+            <!-- Main Title -->
+            <div style="text-align:left; margin-top:2px; margin-bottom:10px;" class="categoryTitle" id="categoryTitle" data-ng-show="category.name != null && category.name != ''">{{category.name}}</div>
+        </a>
+
+
+
+    </div>
+
+
+    <!-- If empty -->
+    <div data-ng-show="category.fullyQualifiedName == null">
+        <img class="img-responsive" />
+    </div>
+
+</div>

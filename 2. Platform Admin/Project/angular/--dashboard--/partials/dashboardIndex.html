@@ -1,0 +1,281 @@
+﻿<div data-ng-controller="dashboardIndexController as vm" >
+
+    <section-loader data-ng-show="vm.showDashboardLoading" message="'Getting dashboard information...'" loader-type="'inline'"></section-loader>
+
+
+    <div id="DetailPage" data-ng-show="!vm.showDashboardLoading">
+
+
+        <div id="Main" class="container-fluid">
+            <div class="row">
+                <div id="LeftColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                    <h3><i class="fa fa-list-alt"></i> Accounts</h3>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Paying:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Trial:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Free:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Pending Verification:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Pending Provisioning:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+                </div>
+
+                <div id="SecondColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                    <h3><i class="fa fa-cubes"></i> Platform</h3>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Errors:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Next Worker Wake:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Last Worker Wake:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Next Custodian Pass:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Last Custodian Pass:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <hr class="dataCardLines" style="margin-bottom:15px;" />
+                </div>
+
+                <div id="ThirdColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                    <h3><i class="fa fa-sitemap"></i> Environment</h3>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Platform Admn:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Core Services:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                </div>
+                
+                
+                <div id="FourthColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                    <h3><i class="fa fa-usd"></i> Accounting</h3>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed today:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed this week:</strong></small>
+                        <small>xxx</small>
+                    </div>
+                    
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed this month:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                </div>
+                
+                
+                <div id="FithColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+                    <h3><i class="fa fa-cc-stripe"></i> Stripe</h3>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed today:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed this week:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Total payment processed this month:</strong></small>
+                        <small>xxx</small>
+                    </div>
+
+                </div>
+
+                <!--<div id="RightColumn" class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+
+                    <h3><i class="fa fa-comments"></i> Messaging</h3>
+
+                    <div>
+                        <div>
+                            <hr class="dataCardLines" />
+
+                            <platform-messaging-panel></platform-messaging-panel>
+
+                            <!--<small><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span> Created <strong am-time-ago="vm.account.CreatedDate"></strong></small>
+                                <br />
+                                <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                                <small style="color:#8A8A8A">{{ vm.account.CreatedDate | date : 'h:mm a' }} on {{ vm.account.CreatedDate | date : 'EEE MMM, dd yyyy' }}</small>
+
+                                <small><strong><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span> Created:</strong></small>
+                                <small>{{ vm.account.CreatedDate | date : 'MMM, dd yyyy  |  h:mm a' }}</small>- ->
+                        </div>
+
+
+                        <!--<hr class="dataCardLines" style="margin-bottom:15px;" />- ->
+
+                    </div>
+
+
+                </div>-->
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <hr/><hr/>
+
+
+    <div>
+
+        <div class="col-sm-12 col-xs-12">
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#FFD38C">
+                    <small>Total accounts</small>
+                    <h1>123</h1>
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#D4B88C">
+                    <small>Total errors</small>
+                    <h1>1</h1>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#8FB2FF">
+                    <small>Total accounts</small>
+                    <h1>123</h1>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#B3B3B3">
+                    <small>Total accounts</small>
+                    <h1>12</h1>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#FFD38C">
+                    <small>Total accounts</small>
+                    <h1>123</h1>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3 col-xs-6">
+                <div style="padding:10px; margin:5px; background-color:#FFD38C">
+                    <small>Total accounts</small>
+                    <h1>123</h1>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    
+    
+    <hr/><hr/>
+    
+
+    <div class="hidden-xs">
+        <h4>{{ vm.Property1 }} SM-LG</h4>
+    </div>
+
+    <div class="visible-xs">
+        <h6>{{ vm.Property1 }} XS</h6>
+    </div>
+
+    <hr />
+
+    <section-loader data-ng-show="vm.showLoader" message="'Getting data...'" loader-type="'inline'"></section-loader>
+
+    <button class="btn btn-default" data-ng-show="vm.showLoader" data-ng-click="vm.hideLoader()">Hide preloader</button>
+
+    <hr />
+    
+    <dashboard-test-directive message="'Hello'"></dashboard-test-directive>
+
+    <hr />
+
+    <a href="/dashboard/{{ vm.Property2.value }}" title="{{ vm.Property2.details.name }}">Go to details for {{ vm.Property2.label }}</a>
+
+</div>
+

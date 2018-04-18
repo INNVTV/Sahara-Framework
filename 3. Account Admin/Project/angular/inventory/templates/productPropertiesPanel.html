@@ -1,0 +1,245 @@
+﻿<div style="margin:20px; margin-top:40px;">
+
+
+    <!--Modals for editing property types-->
+    <edit-basic-properties-modal></edit-basic-properties-modal>
+    <edit-predefined-properties-modal></edit-predefined-properties-modal>
+    <edit-predefined-appendable-properties-modal></edit-predefined-appendable-properties-modal>
+    <edit-paragraph-properties-modal></edit-paragraph-properties-modal>
+    <edit-datetime-properties-modal></edit-datetime-properties-modal>
+    <edit-swatch-properties-modal></edit-swatch-properties-modal>
+    <edit-location-properties-modal></edit-location-properties-modal>
+
+    <section-loader data-ng-show="vm.productProperties == null" message="'Loading properties...'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+
+    <div data-ng-show="vm.productProperties != null && vm.productProperties.length == 0">
+        <h2 style="color:darkgrey">You have no properties set up just yet.</h2>
+        <h4>Go to settings or contact support to get started.</h4>
+    </div>
+
+
+    <div data-ng-show="vm.productProperties != null" style="font-size:16px;">
+
+        <!-------------- STRING value types ---------------------->
+        <div id="string-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'string'">
+
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValue == null || property.AssignedValue == ''"><button data-toggle="modal" data-target=".editBasicPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span data-ng-show="property.AssignedValue != null && property.AssignedValue != ''">
+                        <span style="color:#6c6c6c;">{{ property.AssignedValue }}</span>
+                        <button data-toggle="modal" data-target=".editBasicPropertiesModalWindow" style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- NUMBER value types ---------------------->
+        <div id="number-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'number'">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValue == null || property.AssignedValue == ''"><button data-toggle="modal" data-target=".editBasicPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span data-ng-show="property.AssignedValue != null && property.AssignedValue != ''">
+                        <span style="color:#6c6c6c;" data-ng-show="property.SymbolPlacement == 'leading'"><span style="margin-right:2px;">{{property.Symbol}}</span><span data-ng-show="property.AssignedValue >= 1000">{{ property.AssignedValue | number }}</span><span data-ng-show="property.AssignedValue < 1000">{{ property.AssignedValue }}</span></span>
+                        <span style="color:#6c6c6c;" data-ng-show="property.SymbolPlacement == 'trailing'"><span data-ng-show="property.AssignedValue >= 1000">{{ property.AssignedValue | number }}</span><span data-ng-show="property.AssignedValue < 1000">{{ property.AssignedValue }}</span> <span style="color:darkgray; margin-left:2px;">{{property.Symbol}}</span></span>
+                        <button data-toggle="modal" data-target=".editBasicPropertiesModalWindow" style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- PREDEFINED value types ---------------------->
+        <div id="predefined-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'predefined' && !property.Appendable">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValues == null || property.AssignedValues.length == 0"><button data-toggle="modal" data-target=".editPredefinedPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span data-ng-show="property.AssignedValues.length > 0">
+                        <span style="color:#6c6c6c;" data-ng-repeat="assignedValue in property.AssignedValues">{{ assignedValue }}<span data-ng-show="!$last">, </span> </span>
+                        <button data-toggle="modal" data-target=".editPredefinedPropertiesModalWindow" style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- PREDEFINED-APPENDABLE value types ---------------------->
+        <div id="predefined-appendable-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'predefined' && property.Appendable">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValues == null || property.AssignedValues.length == 0"><button data-toggle="modal" data-target=".editPredefinedAppendablePropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span style="color:#6c6c6c;" data-ng-show="property.AssignedValues.length > 0">
+                        <span data-ng-repeat="assignedValue in property.AssignedValues">{{ assignedValue }}<span data-ng-show="!$last">, </span> </span>
+                        <button data-toggle="modal" data-target=".editPredefinedAppendablePropertiesModalWindow" style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- SWATCH value types ---------------------->
+        <div id="swatch-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'swatch'">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedSwatches == null || property.AssignedSwatches.length == 0"><button data-toggle="modal" data-target=".editSwatchPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span data-ng-show="property.AssignedSwatches.length > 0">
+                        <br />
+                        <span data-ng-repeat="assignedSwatch in property.AssignedSwatches"><img height="60" width="60" ng-src="{{ assignedSwatch.Image }}" /> </span>
+                        <button data-toggle="modal" data-target=".editSwatchPropertiesModalWindow" style="margin-left:4px; height:40px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <div data-ng-show="property.AssignedSwatches.length > 0" style="height:10px;"></div>
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- DATETIME value types ---------------------->
+        <div id="datetime-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'datetime'">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValue == null || property.AssignedValue == ''"><button data-toggle="modal" data-target=".editDatetimePropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span style="color:#6c6c6c;" data-ng-show="property.AssignedValue != null && property.AssignedValue != ''">
+                        <br />
+                        <span style="font-size:18px;"><!--<i class="fa fa-calendar" style="margin-right:3px;"></i>  --><b>{{ vm.toJsDate(property.AssignedValue) | date:'MMM dd, yyyy' }}</b> </span>
+                        <button style="margin-left:4px; height:20px;" data-toggle="modal" data-target=".editDatetimePropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                        <br />
+                        <span style="font-size:14px;"><i class="fa fa-clock-o" style="margin-right:2px;"></i>  {{ vm.toJsDate(property.AssignedValue) | date:'hh:mm:ss:a' }}</span>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+        </div>
+
+        <!-------------- LOCATION value types ---------------------->
+        <div id="location-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div style="clear:both;" data-ng-show="property.ValueType == 'location'">
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!--No Value-->
+                <small data-ng-show="property.LocationData == null"><button data-toggle="modal" data-target=".editLocationPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                <!--Value-->
+                <div data-ng-show="property.LocationData != null">
+                    <!-- MAP BLOCKER <div style="background:transparent; position:relative; width:200px; height:200px;top:200px;margin-top:-200px;"></div>-->
+                    <iframe style="float:left; margin:5px; margin-left:0px; border:1px solid darkgray;" scrolling="no" frameborder="1" width="200" height="200" data-ng-src="{{ property.LocationData.MapUrl | trustAsResourceUrl }}"></iframe>
+                    <div style="float:left; margin-left:10px;">
+                        <div data-ng-show="property.LocationData.Name != null">
+                            <span><b>{{ property.LocationData.Name }}</b></span>
+                        </div>
+                        <div data-ng-show="property.LocationData.Address1 != null">
+                            <span> {{ property.LocationData.Address1 }}</span> <span> {{ property.LocationData.Address2 }}</span>
+                        </div>
+                        <div data-ng-show="property.LocationData.City != '' || property.LocationData.State != '' || property.LocationData.PostalCode != ''">
+                            <span>{{ property.LocationData.City }}</span><span data-ng-show="property.LocationData.State != null && property.LocationData.State != ''">, {{ property.LocationData.State }}</span><span data-ng-show="property.LocationData.PostalCode != null"> {{ property.LocationData.PostalCode }}</span>
+                        </div>
+                        <div data-ng-show="property.LocationData.Country != ''">
+                            <span><b>{{ property.LocationData.Country }}</b></span>
+                        </div>
+                        <div>
+                            <small style="font-size:12px"><label>Lat:</label><span> {{ property.LocationData.Lat }}</span></small>
+                        </div>
+                        <div style="margin-top:-5px;">
+                            <small style="font-size:12px"><label>Long:</label><span> {{ property.LocationData.Long }}</span></small>
+                        </div>
+
+                        <!--Edit Button-->
+                        <button data-toggle="modal" data-target=".editLocationPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-top:3px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Edit</button>
+
+                    </div>
+                </div>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+
+
+            <div style="clear:both; height:1px;"></div>
+
+        </div>
+
+        <!-------------- PARAGRAPH value types ---------------------->
+        <div id="paragraph-properties" data-ng-repeat="property in vm.productProperties">
+
+            <div data-ng-show="property.ValueType == 'paragraph'">                
+
+                <label style="color:#305085">{{ property.Name }}:</label>
+
+                <!-- Default -->
+                <span>
+                    <!--No Value-->
+                    <small data-ng-show="property.AssignedValue == null || property.AssignedValue == ''"><button data-toggle="modal" data-target=".editParagraphPropertiesModalWindow" data-ng-show="vm.checkRole('Manager')" class="btn btn-xs btn-default hidden-xs" style="margin-left:4px; margin-bottom:2px; font-size:13px" data-ng-click="vm.editProperty($index)">Create</button><br /></small>
+                    <!--Value-->
+                    <span data-ng-show="property.AssignedValue != null && property.AssignedValue != ''">
+                        <br />
+                        <span style="color:#6c6c6c;">{{ property.AssignedValue }}</span>
+                        <button data-toggle="modal" data-target=".editParagraphPropertiesModalWindow" style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editProperty($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                    </span>
+                </span>
+
+                <hr style="clear:both; border-color:#F0F0F0; margin-left:-5px; margin-bottom:15px; margin-top:10px;" />
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>

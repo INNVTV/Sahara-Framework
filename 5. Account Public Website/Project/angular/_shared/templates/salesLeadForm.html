@@ -1,0 +1,131 @@
+﻿<div>
+    <!--Create Sales Lead Modal-->
+    <div class="modal fade createSalesLeadModal" tabindex="-1" role="dialog" aria-labelledby="createSalesLeadModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <div>
+                        <div data-ng-show="vm.product.images.default.thumbnail.url != null && vm.product.images.default.thumbnail.url != ''" class="hidden-xs hidden-sm" style="float:left; margin-right:15px;">
+                            <img ng-src="{{vm.product.images.default.thumbnail.url}}" height="60" style="-moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;" />
+                        </div>
+                        <div style="float:left">
+                            <h3 style="margin-top:5px; margin-bottom:5px;"><b>{{ vm.account.salesSettings.buttonCopy }}</b></h3>
+                            <h5 data-ng-show="vm.account.salesSettings.leadsDescription != null && vm.account.salesSettings.leadsDescription != ''">{{ vm.account.salesSettings.leadsDescription }}</h5>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+
+                    
+                </div>
+                <div class="modal-body" style="clear:both">
+
+                    <!--Input State-->
+                    <div data-ng-show="!vm.salesLead.IsSending && !vm.salesLead.IsSending && vm.salesLead.IsSuccess == null">
+                        <div>
+                            <div class="row">
+
+                                <div class="col-lg-6 col-md-6" style="margin-bottom:10px;">
+                                    <label>First Name:</label>
+                                    <input style="font-size:18px; height:36px;" type="text" maxlength="60" class="form-control input" data-ng-model="vm.salesLead.firstName" />
+                                </div>
+
+                                <!--<div data-ng-show="visible-xs visible-sm" style="height:15px"></div>-->
+
+                                <div class="col-lg-6 col-md-6" style="margin-bottom:10px;">
+                                    <label>Last Name:</label>
+                                    <input style="font-size:18px; height:36px;" type="text" maxlength="60" class="form-control input" data-ng-model="vm.salesLead.lastName" />
+                                </div>
+
+                            </div>
+
+                            <!--
+                            <div class="row">
+
+                                <div class="col-lg-12 col-md-12" style="margin-bottom:10px;">
+                                    <label>Company:</label>
+                                    <input style="font-size:18px; height:36px;" type="text" maxlength="60" class="form-control input" data-ng-model="vm.salesLead.companyName" />
+                                </div>
+
+                            </div>-->
+
+
+                            <div class="row">
+
+                                <div class="col-lg-6 col-md-6" style="margin-bottom:10px; margin-top:15px;">
+                                    <label>Phone:</label>
+                                    <input style="font-size:18px; height:36px;" type="text" maxlength="60" class="form-control input" data-ng-model="vm.salesLead.phone" />
+                                </div>
+
+                                <div class="col-lg-6 col-md-6" style="margin-bottom:10px; margin-top:15px;">
+                                    <label>Email:</label>
+                                    <input style="font-size:18px; height:36px;" type="text" maxlength="60" class="form-control input" data-ng-model="vm.salesLead.email" />
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12" style="margin-bottom:10px; margin-top:15px;">
+                                    <label>Comments or questions:</label>
+                                    <textarea style="overflow:auto; resize:none; font-size:14px; height:100px;" type="text" maxlength="600" class="form-control input" data-ng-model="vm.salesLead.comments" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--Sending State-->
+                    <div data-ng-show="vm.salesLead.IsSending" style="margin-left:35px; margin-bottom:25px;">
+                        <br />
+                        <small style="margin-left:4px;"><strong>Sending</strong></small>
+                        <br />
+                        <img src="/Images/Loaders/initializing.gif" />
+                        <br />
+                    </div>
+
+                    <!--Success State-->
+                    <div id="leadSuccessMessage" style="display:none;" data-ng-show="vm.salesLead.IsSuccess == true">
+                        <div class="hidden-xs hidden-sm" style="margin-left:50px; margin-top:25px; margin-bottom:20px;">
+                            <h2 style="color:green"><i class="fa fa-check"></i> <b>Thank you!</b></h2>
+                            <div style="height:0px;"></div>
+                            <h4 style="margin-left:42px;"><b>Someone will contact you shortly</b></h4>
+                        </div>
+
+                        <div class="visible-xs visible-sm" style="margin-left:20px;">
+                            <h3 style="color:green"><i class="fa fa-check"></i> Thank you!</h3>
+                            <h5 style="margin-left:35px;">Someone will contact you shortly</h5>
+                        </div>
+
+                    </div>
+
+                    <!--Error State-->
+                    <div data-ng-show="vm.salesLead.ErrorMessage != null">
+                        <div style="margin-left:25px; margin-top:15px;">
+                            <h4 style="color:red"><b><i class="fa fa-warning"></i> {{ vm.salesLead.ErrorMessage }}</b></h4>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.salesLead.IsSending && !vm.salesLead.IsSending && vm.salesLead.IsSuccess == null">
+                        <button type="button" class="btn btn-primary" style="border-radius:0px;" data-ng-click="vm.submitLead()">Submit</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.salesLead.IsSending">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.salesLead.IsSuccess == true">
+                        <button type="button" class="btn btn-default" style="border-radius:0px;" data-dismiss="modal">OK</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.salesLead.ErrorMessage != null">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button class="btn btn-danger" style="border-radius:0px;" data-ng-click="vm.salesLead.Reset()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

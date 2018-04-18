@@ -1,0 +1,937 @@
+﻿<div data-ng-controller="leadsController as vm">
+
+    <!--Lead Details Modal-->
+    <div class="modal fade leadDetailModal" tabindex="-1" role="dialog" aria-labelledby="leadDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Default Body-->
+                <div data-ng-show="!vm.leadMove.Complete && !vm.leadMove.Processing" class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+                    <h1 style="margin-top:5px; margin-bottom:-5px;">{{ vm.leadDetail.FirstName }} {{ vm.leadDetail.LastName }}</h1>
+
+
+                    <hr style="border-color:black; border-width:2px; margin-bottom:4px;" />
+                    <div style="clear:both; height:3px;"></div>
+                    <small style="font-size:11px; float:left; margin-left:2px;"><strong><i class="fa fa-history" style="color:darkgrey; margin-right:5px;"></i><span am-time-ago="vm.leadDetail.CreatedDate"></span></strong></small>
+                    <small style="float:right;  margin-right:2px;"><span style="color:darkgrey">{{ vm.leadDetail.CreatedDate | date : 'EEE MMM dd, yyyy' }}</span><small style="color:darkgray">&nbsp;&nbsp;</small><strong>{{ vm.leadDetail.CreatedDate | date : 'h:mm a' }}</strong></small>
+                    <div style="clear:both; height:1px;"></div>
+                    <hr style="border-color:black; margin-top:4px; margin-bottom:20px;" />
+
+                    <tabset>
+
+
+
+                        <tab active="vm.detailsDefaultActiveTab" heading="{{vm.leadDetailsMainHeading}}" style="cursor:pointer;">
+
+                            <!-- Desktop -->
+                            <div class="hidden-xs hidden-sm" style="margin-left:15px; margin-bottom:30px;">
+
+
+                                <!----------------------- Phone --------------------->
+                                <div id="Phone">
+
+                                    <!------- Phone (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'Phone'">
+                                        <h3 style="margin-bottom:-12px;"><small style="font-size:12px;">Phone:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.Phone != '' && vm.leadDetail.Phone != null">
+                                            <h3>
+                                                {{ vm.leadDetail.Phone }}<span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Phone', vm.leadDetail.Phone)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.Phone == '' || vm.leadDetail.Phone == null">
+                                            <h3 style="color:lightgray">
+                                                Not given
+                                                <span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Phone', vm.leadDetail.Phone)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'Phone'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Phone:</small></h3>
+
+                                        <!-------- Phone (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <input style="float:left; font-size:20px; height:35px; width:250px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <button style="margin-right:5px; height:35px" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue != vm.leadDetail.Phone" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue == vm.leadDetail.Phone" class="btn btn-sm btn-primary disabled">Update</button>
+                                        </span>
+
+                                        <!------- Phone (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- Phone (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+                                <!----------------------- Email --------------------->
+                                <div id="Email">
+
+                                    <!------- Email (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'Email'">
+                                        <h3 style="margin-bottom:-12px;"><small style="font-size:12px;">Email:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.Email != '' && vm.leadDetail.Email != null">
+                                            <h3>
+                                                {{ vm.leadDetail.Email }}<span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Email', vm.leadDetail.Email)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.Email == '' || vm.leadDetail.Email == null">
+                                            <h3 style="color:lightgray">
+                                                Not given
+                                                <span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Email', vm.leadDetail.Email)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'Email'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Email:</small></h3>
+
+                                        <!-------- Email (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <input style="float:left; font-size:20px; height:35px; width:250px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <button style="margin-right:5px; height:35px" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue != vm.leadDetail.Email" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue == vm.leadDetail.Email" class="btn btn-sm btn-primary disabled">Update</button>
+                                        </span>
+
+                                        <!------- Email (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- Email (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!--Mobile-->
+                            <div class="visible-xs visible-sm" style="margin-left:15px; margin-bottom:30px;">
+
+                                <!----------------------- Phone --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Phone:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.Phone != '' && vm.leadDetail.Phone != null">
+                                        <h4>
+                                            <strong>{{ vm.leadDetail.Phone }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.Phone == '' || vm.leadDetail.Phone == null">
+                                        <h4 style="color:lightgray">Not given</h4>
+                                    </div>
+                                </div>
+
+
+                                <!----------------------- Email --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Email:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.Email != '' && vm.leadDetail.Email != null">
+                                        <h4>
+                                            <strong>{{ vm.leadDetail.Email }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.Email == '' || vm.leadDetail.Email == null">
+                                        <h4 style="color:lightgray">Not given</h4>
+                                    </div>
+                                </div>
+
+                                <!----------------------- CompanyName --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Company:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.CompanyName != '' && vm.leadDetail.CompanyName != null">
+                                        <h4>
+                                            <strong>{{ vm.leadDetail.CompanyName }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.CompanyName == '' || vm.leadDetail.CompanyName == null">
+                                        <h4 style="color:lightgray">Not given</h4>
+                                    </div>
+                                </div>
+
+
+                                <!----------------------- Comments --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Comments:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.Comments != '' && vm.leadDetail.Comments != null">
+                                        <h4 style="white-space: pre-line; margin-top:-12px;">
+                                            <strong>{{ vm.leadDetail.Comments }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.Comments == '' || vm.leadDetail.Comments == null">
+                                        <h4 style="color:lightgray">No comments</h4>
+                                    </div>
+                                </div>
+
+
+                                <!----------------------- Notes --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Notes:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.Notes != '' && vm.leadDetail.Notes != null">
+                                        <h4 style="white-space: pre-line; margin-top:-12px;">
+                                            <strong>{{ vm.leadDetail.Notes }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.Notes == '' || vm.leadDetail.Notes == null">
+                                        <h4 style="color:lightgray">No notes</h4>
+                                    </div>
+                                </div>
+
+
+                                <!----------------------- Origin --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Origin:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.Origin != '' && vm.leadDetail.Origin != null">
+                                        <h4>
+                                            <strong>{{ vm.leadDetail.Origin }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.Origin == '' || vm.leadDetail.Origin == null">
+                                        <h4 style="color:lightgray">Not available</h4>
+                                    </div>
+                                </div>
+
+                                <!----------------------- Associate --------------------->
+                                <div>
+                                    <h3 style="margin-bottom:-6px;"><small style="font-size:12px;">Associate:</small></h3>
+                                    <div data-ng-show="vm.leadDetail.UserName != '' && vm.leadDetail.UserName != null">
+                                        <h4>
+                                            <strong>{{ vm.leadDetail.UserName }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.leadDetail.UserName == '' || vm.leadDetail.UserName == null">
+                                        <h4 style="color:lightgray">Not available</h4>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </tab>
+
+                        <tab class="hidden-xs hidden-sm" heading="Customer Details" style="cursor:pointer;">
+
+                            <div style="margin-left:15px; margin-bottom:30px;">
+
+
+
+                                <!----------------------- FirstName --------------------->
+                                <div id="FirstName">
+
+                                    <!------- FirstName (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'FirstName'">
+                                        <h3 style="margin-bottom:-12px;"><small style="font-size:12px;">First Name:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.FirstName != '' && vm.leadDetail.FirstName != null">
+                                            <h3>
+                                                {{ vm.leadDetail.FirstName }}<span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('FirstName', vm.leadDetail.FirstName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.FirstName == '' || vm.leadDetail.FirstName == null">
+                                            <h3 style="color:lightgray">
+                                                Not given
+                                                <span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('FirstName', vm.leadDetail.FirstName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'FirstName'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">First Name:</small></h3>
+
+                                        <!-------- FirstName (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <input style="float:left; font-size:20px; height:35px; width:250px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <button style="margin-right:5px; height:35px" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue != vm.leadDetail.FirstName" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue == vm.leadDetail.FirstName" class="btn btn-sm btn-primary disabled">Update</button>
+                                        </span>
+
+                                        <!------- FirstName (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- FirstName (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!----------------------- LastName --------------------->
+                                <div id="LastName">
+
+                                    <!------- LastName (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'LastName'">
+                                        <h3 style="margin-bottom:-12px;"><small style="font-size:12px;">Last Name:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.LastName != '' && vm.leadDetail.LastName != null">
+                                            <h3>
+                                                {{ vm.leadDetail.LastName }}<span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('LastName', vm.leadDetail.LastName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.LastName == '' || vm.leadDetail.LastName == null">
+                                            <h3 style="color:lightgray">
+                                                Not given
+                                                <span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('LastName', vm.leadDetail.LastName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'LastName'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Last Name:</small></h3>
+
+                                        <!-------- LastName (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <input style="float:left; font-size:20px; height:35px; width:250px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <button style="margin-right:5px; height:35px" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue != vm.leadDetail.LastName" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue == vm.leadDetail.LastName" class="btn btn-sm btn-primary disabled">Update</button>
+                                        </span>
+
+                                        <!------- LastName (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- LastName (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+                                <!----------------------- CompanyName --------------------->
+                                <div id="CompanyName">
+
+                                    <!------- CompanyName (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'CompanyName'">
+                                        <h3 style="margin-bottom:-12px;"><small style="font-size:12px;">Company:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.CompanyName != '' && vm.leadDetail.CompanyName != null">
+                                            <h3>
+                                                {{ vm.leadDetail.CompanyName }}<span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('CompanyName', vm.leadDetail.CompanyName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.CompanyName == '' || vm.leadDetail.CompanyName == null">
+                                            <h3 style="color:lightgray">
+                                                Not given
+                                                <span>
+                                                    <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('CompanyName', vm.leadDetail.CompanyName)" style="padding-top:20px;" class="sahara-btn-edit-12 hidden-xs hidden-sm"></button>
+                                                    <button data-ng-show="vm.propertyEditing" style="padding-top:20px;" class="sahara-btn-edit-12-disabled hidden-xs hidden-sm"></button>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'CompanyName'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Company:</small></h3>
+
+                                        <!-------- CompanyName (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <input style="float:left; font-size:20px; height:35px; width:250px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <button style="margin-right:5px; height:35px" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue != vm.leadDetail.CompanyName" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                            <button style="height:35px" data-ng-show="vm.propertyEditingValue == vm.leadDetail.CompanyName" class="btn btn-sm btn-primary disabled">Update</button>
+                                        </span>
+
+                                        <!------- CompanyName (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- CompanyName (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+                        </tab>
+
+                        <tab class="hidden-xs hidden-sm" heading="Communication" style="cursor:pointer;">
+
+                            <div style="margin-left:15px; margin-bottom:30px">
+
+                                <!----------------------- Comments --------------------->
+                                <div id="Comments">
+
+                                    <!------- Comments (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'Comments'">
+                                        <h3 style="margin-bottom:12px;"><small style="font-size:12px;">Customer Comments:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.Comments != '' && vm.leadDetail.Comments != null">
+                                            <h4 style="white-space: pre-line;">{{ vm.leadDetail.Comments }}</h4>
+                                            <div style="margin-top:3px;">
+                                                <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Comments', vm.leadDetail.Comments)" class="btn btn-xs btn-default hidden-xs hidden-sm">Edit</button>
+                                                <button data-ng-show="vm.propertyEditing" class="btn btn-xs btn-default hidden-xs hidden-sm disabled">Edit</button>
+                                            </div>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.Comments == '' || vm.leadDetail.Comments == null">
+                                            <h4 style="color:lightgray">No comments given</h4>
+                                            <div style="margin-top:3px;">
+                                                <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Comments', vm.leadDetail.Comments)" class="btn btn-xs btn-default hidden-xs hidden-sm">Add comments</button>
+                                                <button data-ng-show="vm.propertyEditing" class="btn btn-xs btn-default hidden-xs hidden-sm disabled">Add comments</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'Comments'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Customer Comments:</small></h3>
+
+                                        <!-------- Comments (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <textarea style="overflow:auto; width:835px; margin-bottom:15px; resize:none; font-size:14px; height:120px;" type="text" maxlength="600" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <span style="float:right">
+                                                <button style="margin-right:5px;" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                                <button style="margin-right:20px;" data-ng-show="vm.propertyEditingValue != vm.leadDetail.Comments" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                                <button style="margin-right:20px;" data-ng-show="vm.propertyEditingValue == vm.leadDetail.Comments" class="btn btn-sm btn-primary disabled">Update</button>
+                                            </span>
+
+                                        </span>
+
+                                        <!------- Comments (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- Comments (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+                                    <div style="clear:both"></div>
+
+                                </div>
+
+                                <hr />
+
+                                <!----------------------- Notes --------------------->
+                                <div id="Notes">
+
+                                    <!------- Notes (View)------->
+                                    <div data-ng-show="vm.propertyEditingName != 'Notes'">
+                                        <h3 style="margin-bottom:12px;"><small style="font-size:12px;">Internal Notes:</small></h3>
+                                        <div data-ng-show="vm.leadDetail.Notes != '' && vm.leadDetail.Notes != null">
+                                            <h4 style="white-space: pre-line;">{{ vm.leadDetail.Notes }}</h4>
+                                            <div style="margin-top:3px;">
+                                                <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Notes', vm.leadDetail.Notes)" class="btn btn-xs btn-default hidden-xs hidden-sm">Edit</button>
+                                                <button data-ng-show="vm.propertyEditing" class="btn btn-xs btn-default hidden-xs hidden-sm disabled">Edit</button>
+                                            </div>
+                                        </div>
+
+                                        <div data-ng-show="vm.leadDetail.Notes == '' || vm.leadDetail.Notes == null">
+                                            <div style="margin-top:3px;">
+                                                <button data-ng-show="!vm.propertyEditing" data-ng-click="vm.editProperty('Notes', vm.leadDetail.Notes)" class="btn btn-xs btn-default hidden-xs hidden-sm">Add notes</button>
+                                                <button data-ng-show="vm.propertyEditing" class="btn btn-xs btn-default hidden-xs hidden-sm disabled">Add notes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div data-ng-show="vm.propertyEditingName == 'Notes'">
+
+                                        <h3 style="margin-bottom:7px;"><small style="font-size:12px;">Internal Notes:</small></h3>
+
+                                        <!-------- Notes (Edit)---------->
+                                        <span data-ng-show="!vm.propertyEditProcessing">
+                                            <textarea style="overflow:auto; width:835px; margin-bottom:15px; resize:none; font-size:14px; height:120px;" type="text" maxlength="600" class="form-control input" data-ng-model="vm.propertyEditingValue" />
+                                            <span style="float:right">
+                                                <button style="margin-right:5px;" class="btn btn-sm btn-default" data-ng-click="vm.cancelPropertyEdit()">Cancel</button>
+                                                <button style="margin-right:20px;" data-ng-show="vm.propertyEditingValue != vm.leadDetail.Notes" class="btn btn-sm btn-primary" data-ng-click="vm.updateProperty()">Update</button>
+                                                <button style="margin-right:20px;" data-ng-show="vm.propertyEditingValue == vm.leadDetail.Notes" class="btn btn-sm btn-primary disabled">Update</button>
+                                            </span>
+
+                                        </span>
+
+                                        <!------- Notes (Updating)------->
+                                        <span data-ng-show="vm.propertyEditProcessing">
+                                            <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                        </span>
+
+                                        <!------- Notes (Error)------->
+                                        <span data-ng-show="vm.propertyEditProcessingComplete && vm.propertyEditingErrorMessage != null">
+                                            <span style="color:red"><i class="fa fa-warning"></i> {{ vm.propertyEditingErrorMessage }}</span>
+                                            <button class="btn btn-xs btn-default" data-ng-click="vm.cancelPropertyEdit()">OK</button>
+                                        </span>
+
+                                    </div>
+
+                                    <div style="clear:both"></div>
+
+                                </div>
+
+
+                            </div>
+
+                        </tab>
+                        <tab data-ng-show="vm.leadDetail.ProductID != '' && vm.leadDetail.ProductID != null" heading="Product" data-ng-click="vm.loadProduct()" style="cursor:pointer;">
+
+                            <div class="hidden-xs hidden-sm" style="margin:15px; margin-top:20px; margin-left:30px; margin-right:25px;">
+
+                                <div data-ng-show="vm.product == null || vm.productImages == null">
+                                    <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                </div>
+
+
+                                <div data-ng-show="vm.product != null && vm.productImages != null">
+
+                                    <a style="text-decoration:none" href="/item/{{vm.product.FullyQualifiedName}}" target="_blank">
+                                        <img data-ng-show="vm.productThumbnail != null" ng-src="{{vm.productThumbnail}}" height="110" width="110" style="float:left; margin-right:25px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;" />
+                                        <div style="float:left; text-decoration:none; margin-top:5px;">
+                                            <h2 style="color:black">{{ vm.product.Name }}</h2>
+                                            <h5 style="margin-top:-5px; color:darkgray">{{ vm.product.FullyQualifiedName }}</h5>
+                                        </div>   
+                                    </a>
+                                    
+
+                                    <div style="float:right; margin-top:30px;margin-right:10px;">
+                                        <a class="btn btn-primary btn-lg" href="/item/{{vm.product.FullyQualifiedName}}" target="_blank">Product details</a>
+                                    </div>
+
+                                    <div style="clear:both; height:-10px;">
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="visible-xs visible-sm" style="margin:15px; margin-top:30px;">
+
+                                <div data-ng-show="vm.product == null || vm.productImages == null">
+                                    <img style="margin-left:-5px; margin-top:-15px; margin-bottom:-10px;" src="/Images/Loaders/initializing.gif" />
+                                </div>
+
+                                <div data-ng-show="vm.product != null && vm.productImages != null" style="text-align:center">
+
+                                    <img class="img-responsive" data-ng-show="vm.productThumbnail != null" ng-src="{{vm.productThumbnail}}" style="text-align:center; width:65%; margin: 0 auto; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; border:solid 5px white" />
+                                    <h2>{{ vm.product.Name }}</h2>
+                                    <h5 style="margin-top:-5px; color:darkgray">{{ vm.product.FullyQualifiedName }}</h5>
+                                    <div style="clear:both; padding-top:5px; margin-bottom:10px;">
+                                        <hr />
+                                    </div>
+
+                                    <div>
+                                        <a style="width:100%" class="btn btn-primary btn-lg" href="/item/{{vm.product.FullyQualifiedName}}" target="_blank">Product details</a>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </tab>
+                        <tab heading="More" style="cursor:pointer;">
+
+
+                            <div style="margin:15px; margin-top:30px;">
+
+                                <div>
+                                    <label>Lead ID:</label>
+                                    <span>{{ vm.leadDetail.LeadID }}</span>
+                                </div>
+
+                                <div data-ng-show="vm.leadDetail.IPAddress != null && vm.leadDetail.IPAddress != ''" style="margin-top:10px;">
+                                    <label>IP Address:</label>
+                                    <span>{{ vm.leadDetail.IPAddress }}</span>
+                                </div>
+
+                                <div data-ng-show="vm.leadDetail.UserName != null && vm.leadDetail.UserName != ''" style="margin-top:10px;">
+                                    <label>Associate:</label>
+                                    <span>{{ vm.leadDetail.UserName }}</span>
+                                </div>
+
+                                <div data-ng-show="vm.leadDetail.Origin != null && vm.leadDetail.Origin != ''" style="margin-top:10px;">
+                                    <label>Origin:</label>
+                                    <span>{{ vm.leadDetail.Origin }}</span>
+                                </div>
+
+
+                                <hr />
+
+                                <h4><b>Move Lead</b></h4>
+                                <p>Choose a label to move this lead to:</p>
+
+                                <div style="float:left; margin-top:5px;">
+                                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                                        <button type="button" class="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown">
+                                            <span data-ng-show="vm.moveLeadToLabel != null">{{ vm.moveLeadToLabel }} <span class="caret"></span></span>
+                                            <span data-ng-show="vm.moveLeadToLabel == null" style="color:black">Labels <span class="caret"></span></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <!--Account Users-->
+                                            <li data-ng-show="!vm.checkRole('PlatformAdmin')" data-ng-repeat="label in vm.leadLabels" style="cursor:pointer">
+                                                <a data-ng-show="label != 'Deleted' && label != vm.leadLabel && label != vm.moveLeadToLabel" data-ng-click="vm.updateMoveLabelToMoveTo(label)">{{ label }}</a>
+                                            </li>
+                                            <!--Platform Users (Deleted is visible)-->
+                                            <li data-ng-show="vm.checkRole('PlatformAdmin')" data-ng-repeat="label in vm.leadLabels" style="cursor:pointer">
+                                                <a data-ng-show="label != vm.leadLabel && label != vm.moveLeadToLabel" data-ng-click="vm.updateMoveLabelToMoveTo(label)">{{ label }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div style="float:left; margin-top:5px;">
+                                    <button data-ng-show="vm.moveLeadToLabel == null" class="btn btn-md btn-primary disabled"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;Move lead</button>
+                                    <button data-ng-show="vm.moveLeadToLabel != null" class="btn btn-md btn-primary" data-ng-click="vm.moveLead(false)"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;Move lead to <b>"{{vm.moveLeadToLabel}}"</b> </button>
+                                </div>
+
+                                <div style="clear:both; height:5px;"></div>
+
+
+                                <!-- Advanced settings (variable width)-->
+                                <!--Closed-->
+                                <div data-ng-show="!vm.showLeadDeleteButton" style="margin-top:10px; margin-bottom:-10px;">
+                                    <div style="clear:both;"></div>
+                                    <small data-ng-click="vm.showAdvancedLeadDetailOptions()" style="color:darkgray; cursor:pointer">Advanced options <i class="fa fa-caret-right"></i></small>
+                                </div>
+                                <!--Open-->
+                                <div data-ng-show="vm.showLeadDeleteButton" style="margin-top:10px; margin-bottom:-10px;">
+                                    <div style="clear:both;"></div>
+                                    <small data-ng-click="vm.hideAdvancedLeadDetailOptions()" style="color:black; cursor:pointer">Advanced options <i class="fa fa-caret-down"></i></small>
+                                    <div style="clear:both; margin-top:15px;">
+
+                                        <!-- Delete Button -->
+                                        <button class="btn btn-md btn-danger" data-ng-click="vm.moveLead(true)"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete This Lead Permanently</button>
+
+                                    </div>
+                                </div>
+
+                                <div style="clear:both; height:15px;"></div>
+
+                            </div>
+
+                        </tab>
+                    </tabset>
+
+
+                </div>
+
+
+                <!--Processing Body-->
+                <div data-ng-show="vm.leadMove.Processing" class="modal-body">
+
+                    <h1 style="margin-top:5px; margin-bottom:-5px;">{{ vm.leadDetail.FirstName }} {{ vm.leadDetail.LastName }}</h1>
+
+
+                    <hr style="border-color:black; border-width:2px; margin-bottom:4px;" />
+                    <div style="clear:both; height:3px;"></div>
+                    <small style="font-size:11px; float:left; margin-left:2px;"><strong><i class="fa fa-history" style="color:darkgrey; margin-right:5px;"></i><span am-time-ago="vm.leadDetail.CreatedDate"></span></strong></small>
+                    <small style="float:right;  margin-right:2px;"><span style="color:darkgrey">{{ vm.leadDetail.CreatedDate | date : 'EEE MMM dd, yyyy' }}</span><small style="color:darkgray">&nbsp;&nbsp;</small><strong>{{ vm.leadDetail.CreatedDate | date : 'h:mm a' }}</strong></small>
+                    <div style="clear:both; height:1px;"></div>
+                    <hr style="border-color:black; margin-top:4px; margin-bottom:20px;" />
+
+                    <div style="height:20px;"></div>
+
+                    <small style="margin-left:20px; font-size:16px; margin-bottom:14px; margin-top:15px;"><strong>{{ vm.leadMove.Type }} lead...</strong></small>
+                    <br />
+                    <img style="margin-left:25px;" src="/Images/Loaders/initializing.gif" />
+                    <br /><br />
+                    <div style="height:20px;"></div>
+
+                </div>
+
+                <!--Success Body-->
+                <div data-ng-show="vm.leadMove.Complete && vm.leadMove.IsSuccess" class="modal-body">
+
+                    <h1 style="margin-top:5px; margin-bottom:-5px;">{{ vm.leadDetail.FirstName }} {{ vm.leadDetail.LastName }}</h1>
+
+
+                    <hr style="border-color:black; border-width:2px; margin-bottom:4px;" />
+                    <div style="clear:both; height:3px;"></div>
+                    <small style="font-size:11px; float:left; margin-left:2px;"><strong><i class="fa fa-history" style="color:darkgrey; margin-right:5px;"></i><span am-time-ago="vm.leadDetail.CreatedDate"></span></strong></small>
+                    <small style="float:right;  margin-right:2px;"><span style="color:darkgrey">{{ vm.leadDetail.CreatedDate | date : 'EEE MMM dd, yyyy' }}</span><small style="color:darkgray">&nbsp;&nbsp;</small><strong>{{ vm.leadDetail.CreatedDate | date : 'h:mm a' }}</strong></small>
+                    <div style="clear:both; height:1px;"></div>
+                    <hr style="border-color:black; margin-top:4px; margin-bottom:20px;" />
+
+                    <div style="height:15px;"></div>
+                    <h3 style="color:green; margin-top:15px; margin-left:25px;"><i class="fa fa-check"></i> {{ vm.leadMove.Message }}</h3>
+                    <div style="height:25px;"></div>
+                </div>
+
+                <!--Failed Body-->
+                <div data-ng-show="vm.leadMove.Complete && !vm.leadMove.IsSuccess" class="modal-body">
+
+                    <h1 style="margin-top:5px; margin-bottom:-5px;">{{ vm.leadDetail.FirstName }} {{ vm.leadDetail.LastName }}</h1>
+
+
+                    <hr style="border-color:#C2C2C2; margin-bottom:4px;" />
+                    <div style="clear:both; height:3px;"></div>
+                    <small style="font-size:11px; float:left; margin-left:2px;"><strong><i class="fa fa-history" style="color:#A6A6A6; margin-right:5px;"></i><span am-time-ago="vm.leadDetail.CreatedDate"></span></strong></small>
+                    <small style="float:right;  margin-right:2px;"><span style="color:#A1A1A1">{{ vm.leadDetail.CreatedDate | date : 'EEE MMM dd, yyyy' }}</span><small style="color:lightgrey">&nbsp;&nbsp;</small><strong>{{ vm.leadDetail.CreatedDate | date : 'h:mm a' }}</strong></small>
+                    <div style="clear:both; height:1px;"></div>
+                    <hr style="border-color:#C2C2C2; margin-top:4px; margin-bottom:20px;" />
+
+                    <div style="height:15px;"></div>
+                    <h4 style="color:darkred; margin-top:15px; margin-left:25px;"><i class="fa fa-warning"></i> {{ vm.leadMove.Message }}</h4>
+                    <div style="height:25px;"></div>
+                </div>
+
+
+                <!--Default Footer-->
+                <div data-ng-show="!vm.leadMove.Processing" class="modal-footer" style="margin-top:-5px">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+                <!--Move Processing Footer-->
+                <div data-ng-show="vm.leadMove.Processing" class="modal-footer">
+                    <button type="button" class="btn btn-default disabled">Close</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <!--End Lead Details Modal-->
+    <!-- Loading -->
+    <div data-ng-show="vm.leadLabels.length <= 0 && vm.salesLeads.length <= 0" style="margin-top:20px; clear:both;">
+        <section-loader message="'Loading...'" loader-type="'inline'" style="margin-bottom:30px;"></section-loader>
+    </div>
+
+    <div class="container-fluid" style="padding:5px; padding-top:0px;">
+
+        <div style="margin-top:5px; padding-left:15px; padding-right:10px;">
+            <div class="hidden-xs" style="float:left; margin-left:5px;">
+                <h3 style="margin-top:-5px;"><b>Leads</b> ({{vm.leadLabel}})</h3>
+            </div>
+            <div class="visible-xs" style="float:left; margin-left:0px;">
+                <h3 style="margin-top:5px;"><b>Leads</b></h3>
+            </div>
+            <div style="float:right">
+                <div class="hidden-xs" style="color:lightgrey; float:left; margin-right:5px; margin-top:5px;"><b>Current label:</b>&nbsp;</div>
+                <div class="btn-group" style="margin-right:0px; margin-bottom:15px;">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                        {{vm.leadLabel}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <!--Account Users -->
+                        <li data-ng-show="!vm.checkRole('PlatformAdmin')" data-ng-repeat="label in vm.leadLabels" style="cursor:pointer">
+                            <a data-ng-show="label != 'Deleted' && label != vm.leadLabel" data-ng-click="vm.updateLeadLabel(label)">{{ label }}</a>
+                        </li>
+                        <!--Platform Users (Deleted is visible)-->
+                        <li data-ng-show="vm.checkRole('PlatformAdmin')" data-ng-repeat="label in vm.leadLabels" style="cursor:pointer">
+                            <a data-ng-show="label != vm.leadLabel" data-ng-click="vm.updateLeadLabel(label)">{{ label }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div style="float:right;">
+                    <button data-ng-show="vm.salesLeadsLoading == false" class="btn btn-primary btn-sm" data-ng-click="vm.updatesalesLeads()">Update</button>
+                    <button data-ng-show="vm.salesLeadsLoading == true" class="btn btn-primary btn-sm"><i class="fa fa-circle-o-notch fa-spin"></i> Updating</button>
+                </div>-->
+            </div>
+
+
+
+            <div class="row" data-ng-show="vm.salesLeads.length > 0">
+                <hr class="hidden-xs" style="clear:both; margin-left:15px; margin-right:15px; margin-bottom:-5px; margin-top:5px;" />
+                <div class="visible-xs" style="padding:10px;"></div>
+
+                <div class="container-fluid">
+
+                    <table class="table table-responsive table-striped" data-ng-show="vm.salesLeads.length > 0 && !vm.loadingSalesLeads">
+                        <thead class="hidden-xs">
+                            <tr>
+                                <th>Time</th>
+                                <th>Name</th>
+                                <th class="hidden-xs hidden-sm">Product</th>
+                                <th class="hidden-xs hidden-sm hidden-md">Comments</th>
+                                <th class="hidden-xs">Phone</th>
+                                <th class="hidden-xs">Email</th>
+                                <th class="hidden-xs hidden-sm">Origin</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tr data-ng-repeat="salesLead in vm.salesLeads">
+                            <td class="hidden-xs" style="width:147px; min-width:115px;">
+                                <span style="font-size:12px;"><strong><i class="fa fa-history" style="color:#A6A6A6; margin-right:5px;"></i><span am-time-ago="salesLead.CreatedDate"></span></strong></span>
+                            </td>
+                            <td class="visible-xs" style="width:112px;">
+                                <small style="font-size:10px; font-weight:bold"><span am-time-ago="salesLead.CreatedDate"></span></small>
+                            </td>
+
+                            <td class="hidden-xs">
+                                <small style="font-size:16px; font-weight:bold">
+                                    {{ salesLead.FirstName }} {{ salesLead.LastName }}
+                                </small>
+                            </td>
+                            <td class="visible-xs">
+                                <small style="font-weight:bold">
+                                    {{ salesLead.FirstName }} <span data-ng-hide="salesLead.FirstName.length > 20 || salesLead.LastName.length > 20">{{ salesLead.LastName }}</span>
+                                </small>
+                            </td>
+
+
+
+                            <td class="visible-md">
+                                <small>
+                                    {{ salesLead.ProductName }}
+                                </small>
+                            </td>
+                            <td class="visible-lg">
+                                <small style="font-size:16px;">
+                                    {{ salesLead.ProductName }}
+                                </small>
+                            </td>
+
+
+
+                            <td class="hidden-xs hidden-sm hidden-md">
+                                <small>
+                                    {{ salesLead.Comments | limitTo : 46 }}<span data-ng-show="salesLead.Comments.length > 46"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+
+
+                            <td class="hidden-xs">
+                                <small style="font-size:16px;">
+                                    {{ salesLead.Phone }}
+                                </small>
+                            </td>
+                            <td class="hidden-xs">
+                                <small style="font-size:16px;">
+                                    {{ salesLead.Email }}
+                                </small>
+                            </td>
+
+                            <td class="hidden-xs hidden-sm">
+                                <small>
+                                    {{ salesLead.Origin }}
+                                </small>
+                            </td>
+
+                            <td style="text-align:right">
+                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".leadDetailModal" data-ng-click="vm.getLeadDetail($index)">Details</button>
+                            </td>
+
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- Refreshing -->
+            <div data-ng-show="vm.leadLabels.length > 0 && vm.loadingSalesLeads" style="margin-top:20px; clear:both;">
+                <section-loader message="'Loading sales leads...'" loader-type="'inline'" style="margin-bottom:30px;"></section-loader>
+            </div>
+
+            <!-- Load More -->
+            <section-loader data-ng-if="vm.loadingMore == true" loader-type="'inline'" style="margin-left:10px; margin-right:10px; margin-bottom:10px; margin-top:-20px;"></section-loader>
+
+            <div data-ng-show="vm.salesLeads.length < 1  && !vm.loadingSalesLeads" style="clear:both; margin-left:5px; margin-bottom:15px; padding-top:0px;">
+                <hr />
+                <h4><b>No leads.</b></h4>
+                <h5 style="color:darkgray">Try a different label.</h5>
+            </div>
+        </div>
+
+        <legal-footer></legal-footer>
+
+    </div>
+
+
+
+
+</div>

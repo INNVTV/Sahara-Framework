@@ -1,0 +1,13 @@
+﻿@model Account.Public.Website.Models.MainViewModel
+<div data-ng-app="app">
+    <div data-ng-view></div>
+</div>
+
+<!-- Set in App_Start/BundleConfig -->
+@Scripts.Render("~/bundles/angular-browse")
+<script type="text/javascript">
+
+    var AccountNameKey = '@Model.AccountNameKey'
+    var ApiDomain = '@CoreServices.PlatformSettings.Urls.AccountServiceDomain'
+    var CoreServiceSettings_GoogleMapsApiKey = '@Html.Raw(Json.Encode(CoreServices.PlatformSettings.GoogleMapsAPIKey))'
+</script>

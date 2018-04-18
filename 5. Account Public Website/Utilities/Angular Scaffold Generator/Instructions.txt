@@ -1,0 +1,17 @@
+0. Copy contents of parent folder to desktop and rename to new Controller name.
+
+1. Run "fnr.exe" (http://findandreplace.codeplex.com/)
+
+2. Select the "Scaffold-Files" DIR, set to "Case sensitive".
+
+3. set find for "scaffold" and replace for "controllerName"
+
+4. Hit "Replace"
+
+5. set find for "Scaffold" and replace for "ControllerName"
+
+6. Hit "Replace"
+
+7. Manually rename filenames (YOu can do a search in the window to get files with "scaffold")
+
+8. Place files into VS and copy paste bundling script into App_Start/BundleConfig.cs

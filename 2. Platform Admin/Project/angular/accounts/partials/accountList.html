@@ -1,0 +1,101 @@
+﻿<div data-ng-controller="accountListController as vm" >
+
+    <div style="background:#F0F0F0; border-bottom:ridge; margin:-20px; padding:20px; height:68px"> <!--F5F5F5-->
+
+        <div class="hidden-xs hidden-sm">
+
+
+            <account-list-filter data-ng-show="vm.browseMode" style="padding-bottom:20px; float: left;"></account-list-filter>
+            <account-list-search data-ng-show="vm.searchMode" style="padding-bottom:20px; float: left;"></account-list-search>
+
+            <!--Toggle Button-->
+            <div style="float:right">
+                <small style="font-size:9px;">Mode:</small>
+                <div class="btn-group btn-toggle" style="margin-top:4px">
+                    <button data-ng-click="vm.toggleMode()" style="height:18px; font-size:9px;" class="btn btn-xs btn-primary active">Browse</button>
+                    <button data-ng-click="vm.toggleMode()" style="height:18px; font-size:9px;" class="btn btn-xs btn-default">Search</button>
+                </div>
+            </div>
+            <script>
+                $('.btn-toggle').click(function () {
+                    $(this).find('.btn').toggleClass('active');
+
+                    if ($(this).find('.btn-primary').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-primary');
+                    }
+                    if ($(this).find('.btn-danger').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-danger');
+                    }
+                    if ($(this).find('.btn-success').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-success');
+                    }
+                    if ($(this).find('.btn-info').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-info');
+                    }
+                    if ($(this).find('.btn-warning').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-warning');
+                    }
+                    if ($(this).find('.btn-default').size() > 0) {
+                        $(this).find('.btn').toggleClass('btn-default');
+                    }
+                });
+
+                $('form').submit(function () {
+                    alert($(this["options"]).val());
+                    return false;
+                });
+            </script>
+
+
+
+        </div>
+
+        <div class="visible-xs visible-sm">
+            <account-list-mobile-search style="padding-bottom:20px;"></account-list-mobile-search>
+        </div>
+    </div> 
+    <!--<hr class="visible-xs" style="border-width:3px; border-color:black; margin-bottom:-5px; margin-top:15px; clear:both;" />
+    <hr style="border-width:5px; border-color:black; margin-bottom:-5px; margin-top:15px; clear:both;" />-->
+
+    <!--<div data-ng-show="vm.showGetAccountsLoading">
+        <br />
+        <br />
+        <small style="margin-left:6px;"><strong>Loading...</strong></small>
+        <br />
+        <img src="/Images/Loaders/initializing.gif" />
+        <br />
+    </div>-->
+
+    <br />
+    <section-loader data-ng-show="vm.showGetAccountsLoading" message="'Getting accounts...'" loader-type="'inline'"></section-loader>
+
+    
+    <br /><br />
+    <h4 data-ng-show="vm.showAccountsListLoaded && vm.accounts.length == 0" style="color:lightgrey; margin-left:5px; margin-top:-5px"><stong>No accounts to display.</stong></h4>
+    <account-list-grid data-ng-show="vm.showAccountsListLoaded"></account-list-grid>
+    
+    <div class="hidden-xs hidden-sm">
+
+        <span data-ng-show="vm.showAccountsListLoaded">
+            <pagination data-ng-show="vm.showPagination" total-items="vm.totalAccounts" items-per-page="vm.currentAmountPerPage.value" ng-model="vm.currentPage" ng-change="vm.getAccounts()" max-size="vm.maxPaginationLinksVisible" class="pagination-sm" boundry-links="true" num-pages="vm.numPages"></pagination>
+
+            <pre data-ng-show="vm.showFilterResults">Page: {{ vm.currentPage }} / {{ vm.numPages }}      |      {{ vm.totalAccounts }} total account(s)     |      Showing: {{ ((vm.currentPage - 1) * vm.currentAmountPerPage.value) + 1 }} - {{((vm.currentPage) * vm.currentAmountPerPage.value) - (vm.currentAmountPerPage.value - vm.amountOnPage) }} </pre>
+            <pre data-ng-show="vm.showSearchResults">{{ vm.searchResultsCount }} results found out of {{ vm.maxSearchResults }} max results. Please refine your search if desired account(s) are not returned.</pre>
+        </span>
+    </div>
+
+
+        <div class="visible-xs visible-sm" data-ng-show="vm.showAccountsListLoaded" style="text-align:center">
+            <div data-ng-show="vm.showLoadMoreButton">
+                <div data-ng-show="!vm.showLoadMoreLoading">
+                    <button class="btn btn-primary btn-lg" data-ng-click="vm.loadMoreOnMobile()" style="width:100%">Load more...</button>
+                </div>
+            </div>
+            <div data-ng-show="vm.showLoadMoreLoading">
+                <button class="btn btn-primary btn-lg" style="width:100%"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp&nbsp Loading...</button>
+            </div>
+        </div>
+
+
+</div>
+

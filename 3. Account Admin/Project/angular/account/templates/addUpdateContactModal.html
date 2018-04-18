@@ -1,0 +1,93 @@
+﻿<div>
+
+    <!--New Card Modal-->
+    <div class="modal fade addUpdateContactModalWindow" tabindex="-1" role="dialog" aria-labelledby="addUpdateContactModalWindow" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:2px; margin-bottom:2px;">Contact Info</h3>
+                </div>
+
+                <div id="addUpdateContactModalBody" class="modal-body">
+
+                    <div data-ng-show="vm.newContactInfoProcessing" style="text-align:center; margin:0 auto;">
+                        <h2 style="color:darkgrey"><strong><i class="fa fa-circle-o-notch fa-spin"></i></strong></h2>
+                        <h4 style="color:darkgrey"><strong>Updating...</strong></h4>
+                    </div>
+
+                    <div data-ng-show="vm.newContactInfoSuccess" style="text-align:center; margin:0 auto;">
+                        <!--<h6 style="color:green"><strong><i class="fa fa-check"></i> New credit card has been added!</strong></h6>-->
+                        <h2 style="color:green"><strong><i class="fa fa-check"></i></strong></h2>
+                        <h4 style="color:green"><strong>Contact info updated!</strong></h4>
+                    </div>
+
+                    <div data-ng-show="vm.newContactInfoError">
+                        <h6 style="color:red"><strong><i class="fa fa-warning"></i> {{ vm.newContactInfoErrorMessage }}</strong></h6>
+                    </div>
+
+                    <div data-ng-show="!vm.newContactInfoProcessing" id="NewCardForm">
+                        <div>
+
+                            <div data-ng-show="!vm.newContactInfoSuccess" class="form">
+
+                                <div class="form-group">
+                                    <input style="font-size:18px;" type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.phoneNumber" placeholder="Phone number" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.email" placeholder="Email" />
+                                </div>
+
+                                <hr style="border-color:darkgray" />
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.address1" placeholder="Address1" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.address2" placeholder="Address2" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.city" placeholder="City" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.state" placeholder="State" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newContactInfo.postalCode" placeholder="Postal Code" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div data-ng-show="!vm.newContactInfoProcessing">
+
+                    <div data-ng-show="!vm.newContactInfoSuccess" class="modal-footer">
+                        <button class="btn btn-default btn-md" data-dismiss="modal" data-ng-click="vm.cancelEditContactInfo()">Cancel</button>
+                        <button class="btn btn-primary btn-md" data-ng-click="vm.updateAccountContactInfo()">Update</button>
+                    </div>
+
+                    <div data-ng-show="vm.newContactInfoSuccess" class="modal-footer">
+                        <button class="btn btn-primary btn-md" data-dismiss="modal" data-ng-click="vm.cancelEditContactInfo()">OK</button>
+                    </div>
+                </div>
+
+                <div data-ng-show="vm.newContactInfoProcessing">
+                    <div class="modal-footer">
+                        <button class="btn btn-default btn-md">Cancel</button>
+                        <button class="btn btn-primary btn-md"><i class="fa fa-circle-o-notch fa-spin"></i> Updating...</button>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+    </div>
+
+</div>

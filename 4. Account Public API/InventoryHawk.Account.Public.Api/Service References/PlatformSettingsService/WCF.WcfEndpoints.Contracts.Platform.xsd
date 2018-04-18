@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF.WcfEndpoints.Contracts.Platform" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF.WcfEndpoints.Contracts.Platform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Settings.Models.Partitions" />
+  <xs:complexType name="CorePlatformSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:CorePlatformSettings.AccountSettings" />
+      <xs:element minOccurs="0" name="ApplicationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Custodian" nillable="true" type="tns:CorePlatformSettings.CustodianSettings" />
+      <xs:element minOccurs="0" name="CustomDomains" nillable="true" type="tns:ArrayOfCorePlatformSettings.CustomDomain" />
+      <xs:element minOccurs="0" name="DocumentDB" nillable="true" type="tns:CorePlatformSettings.DocumentDBCredentials" />
+      <xs:element minOccurs="0" name="Environment" nillable="true" type="tns:CorePlatformSettings.EnvironmentSettings" />
+      <xs:element minOccurs="0" name="GoogleMapsAPIKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Redis" nillable="true" type="tns:CorePlatformSettings.RedisConfigurations" />
+      <xs:element minOccurs="0" name="Registration" nillable="true" type="tns:CorePlatformSettings.RegsitrationSettings" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Settings.Models.Partitions" minOccurs="0" name="SearchParitions" nillable="true" type="q1:ArrayOfSearchPartition" />
+      <xs:element minOccurs="0" name="SendGrid" nillable="true" type="tns:CorePlatformSettings.SendGridCredentials" />
+      <xs:element minOccurs="0" name="Storage" nillable="true" type="tns:CorePlatformSettings.StorageCredentials" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Settings.Models.Partitions" minOccurs="0" name="StorageParitions" nillable="true" type="q2:ArrayOfStoragePartition" />
+      <xs:element minOccurs="0" name="Urls" nillable="true" type="tns:CorePlatformSettings.URLSettings" />
+      <xs:element minOccurs="0" name="Worker" nillable="true" type="tns:CorePlatformSettings.WorkerSettings" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings" nillable="true" type="tns:CorePlatformSettings" />
+  <xs:complexType name="CorePlatformSettings.AccountSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TrialLength" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.AccountSettings" nillable="true" type="tns:CorePlatformSettings.AccountSettings" />
+  <xs:complexType name="CorePlatformSettings.CustodianSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CustodianFrequencyDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustodianFrequencyMilliseconds" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.CustodianSettings" nillable="true" type="tns:CorePlatformSettings.CustodianSettings" />
+  <xs:complexType name="ArrayOfCorePlatformSettings.CustomDomain">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CorePlatformSettings.CustomDomain" nillable="true" type="tns:CorePlatformSettings.CustomDomain" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCorePlatformSettings.CustomDomain" nillable="true" type="tns:ArrayOfCorePlatformSettings.CustomDomain" />
+  <xs:complexType name="CorePlatformSettings.CustomDomain">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Domain" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.CustomDomain" nillable="true" type="tns:CorePlatformSettings.CustomDomain" />
+  <xs:complexType name="CorePlatformSettings.DocumentDBCredentials">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountPartitionsDatabaseId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountPartitionsReadOnlyAccountKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountPartitionsReadOnlyAccountName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.DocumentDBCredentials" nillable="true" type="tns:CorePlatformSettings.DocumentDBCredentials" />
+  <xs:complexType name="CorePlatformSettings.EnvironmentSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Current" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.EnvironmentSettings" nillable="true" type="tns:CorePlatformSettings.EnvironmentSettings" />
+  <xs:complexType name="CorePlatformSettings.RedisConfigurations">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Unsecure" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.RedisConfigurations" nillable="true" type="tns:CorePlatformSettings.RedisConfigurations" />
+  <xs:complexType name="CorePlatformSettings.RegsitrationSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PasswordMinLength" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.RegsitrationSettings" nillable="true" type="tns:CorePlatformSettings.RegsitrationSettings" />
+  <xs:complexType name="CorePlatformSettings.SendGridCredentials">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApiKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.SendGridCredentials" nillable="true" type="tns:CorePlatformSettings.SendGridCredentials" />
+  <xs:complexType name="CorePlatformSettings.StorageCredentials">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IntermediaryKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IntermediaryName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.StorageCredentials" nillable="true" type="tns:CorePlatformSettings.StorageCredentials" />
+  <xs:complexType name="CorePlatformSettings.URLSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AboutUsUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AcceptableUse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountManagementDomain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountServiceDomain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountSiteDomain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountUserAcceptInvitationUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountUserPasswordClaimUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagingApiEndpoint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IntermediaryImagingBlobUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IntermediaryImagingCdnUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MasterDomain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlatformImagingBlobUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlatformImagingCdnUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlatformUserAcceptInvitationUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlatformUserPasswordClaimUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrivacyPolicyUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationApiEndpoint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationEndpoint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServiceAgreementUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TermsAndConditionsUri" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.URLSettings" nillable="true" type="tns:CorePlatformSettings.URLSettings" />
+  <xs:complexType name="CorePlatformSettings.WorkerSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="WorkerFrequencyDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkerFrequencyMilliseconds" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorePlatformSettings.WorkerSettings" nillable="true" type="tns:CorePlatformSettings.WorkerSettings" />
+</xs:schema>

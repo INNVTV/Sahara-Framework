@@ -1,0 +1,843 @@
+﻿<div>
+
+    <!--Payment Details Modal-->
+    <div class="modal fade paymentDetailModal" tabindex="-1" role="dialog" aria-labelledby="paymentDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 style="margin-top:-5px; margin-bottom:-5px;">Payment details</h2>
+                </div>
+
+                <div class="modal-body" id="PaymentDetailDefaultLoading" data-ng-show="vm.loadingPaymentDetails">
+                    <section-loader message="'Loading payment details...'" loader-type="'inline'"></section-loader>
+                </div>
+
+                    <div class="modal-body" id="PaymentDetailDefault" data-ng-show="!vm.loadingPaymentDetails">
+
+                        <tabset>
+
+                            <tab active="vm.paymentDetailsDefaultTabActive" style="cursor:pointer" heading="Charge" data-ng-click="">
+
+                                <!-- CHARGE TAB -->
+                                <div style="margin-left:15px; margin-top:25px; margin-bottom:25px;">
+
+
+                                    <!-- Charge Id -->
+                                    <strong style="margin-top:30px">Charge ID:</strong>
+                                    <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.ChargeID }} </small></p>
+
+                                    <!-- Failure Code -->
+                                    <div data-ng-show="vm.paymentDetail.FailureCode != null">
+                                        <strong style="margin-top:30px; color:darkred">Failure Code:</strong>
+                                        <p><small style="color:red;">{{ vm.paymentDetail.FailureCode }} </small></p>
+                                    </div>
+
+                                    <!-- Failure Message -->
+                                    <div data-ng-show="vm.paymentDetail.FailureMessage != null">
+                                        <strong style="margin-top:30px; color:darkred">Failure Message:</strong>
+                                        <p><small style="color:red;">{{ vm.paymentDetail.FailureMessage }} </small></p>
+                                    </div>
+
+                                    <!-- Customer Id -->
+                                    <strong style="margin-top:30px">Customer ID:</strong>
+                                    <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.StripeCustomerID }} </small></p>
+
+                                    <!-- Card Info -->
+                                    <strong style="margin-top:30px">Card Info:</strong>
+                                    <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.CardBrand }} - ****{{ vm.paymentDetail.CardLast4 }}</small></p>
+
+                                    <!-- Charge Description -->
+                                    <div data-ng-show="vm.paymentDetail.Description != null">
+                                        <strong style="margin-top:30px">Description:</strong>
+                                        <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.Description }} <span data-ng-show="vm.paymentDetail.Prorated == true" style="color:#DBDBDB"> [prorated]</span></small></p>
+                                    </div>
+
+                                    <strong style="margin-top:30px">Charge Date:</strong>
+                                    <p>
+                                        <small style="color:#A6A6A6;">
+                                            {{ vm.paymentDetail.Date | date : 'EEE, MMM dd, yyyy' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-clock-o" style="color:#DBDBDB"></i> {{ vm.paymentDetail.Date | date : 'h:mm a' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-history" style="color:#DBDBDB"></i> <span am-time-ago="vm.paymentDetail.Date"></span>
+                                        </small>
+                                    </p>
+
+                                    <br />
+                                    <!-- Charges 
+                                    <strong style="margin-top:30px">Charges:</strong>
+                                    <div data-ng-show="vm.paymentDetail.Amount > 0 && vm.paymentDetail.TotalRefunded <= 0" style="color:green">
+                                        <p class="hidden-xs hidden-sm"><small>Total Paid:</small></p>
+                                        <h4>
+                                            <strong style="color:green">{{ vm.paymentDetail.Amount  | currency }}</strong>
+                                        </h4>
+                                    </div>
+
+                                    <div data-ng-show="vm.paymentDetail.TotalRefunded > 0 && vm.paymentDetail.TotalRefunded <= vm.paymentDetail.Amount">
+                                        <h6>
+                                            <strong style="color:blue">{{ vm.paymentDetail.Amount  | currency }} Invoice Total</strong>
+                                        </h6>
+                                        <h6 data-ng-show="vm.paymentDetail.TotalRefunded > 0">
+                                            <strong style="color:red; margin-left:-6px;">- {{ vm.paymentDetail.TotalRefunded  | currency }} Refunded</strong>
+                                        </h6>
+                                        <h5>
+                                            <strong style="color:green">{{ (vm.paymentDetail.Amount - vm.paymentDetail.TotalRefunded)  | currency }} Total Paid</strong>
+                                        </h5>
+                                    </div>-->
+
+                                    <!-- Charges -->
+                                    <table class="table">
+                                        <tr>
+                                            <td class="hidden-xs">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Status:</small>
+                                                    <div data-ng-show="vm.paymentDetail.Paid == true">
+                                                        <h4 style="color:green"><strong><i class="fa fa-check"></i> Paid</strong></h4>
+                                                    </div>
+                                                    <div data-ng-show="vm.paymentDetail.Failure == true">
+                                                        <h4 style="color:red"><strong><i class="fa fa-times"></i> Failure</strong></h4>
+                                                    </div>
+                                                    <div data-ng-show="vm.paymentDetail.Paid == false && vm.paymentDetail.Failure == false">
+                                                        <h4 style="color:red"><strong><i class="fa fa-times"></i> Unpaid</strong></h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Charge Total:</small>
+                                                    <h4>
+                                                        <strong style="color:black">{{ vm.paymentDetail.Amount | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <!--<td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Amount Due:</small>
+                                                    <h4>
+                                                        <strong style="color:black">{{ vm.paymentDetail.Invoice.AmountDue | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>-->
+
+                                            <td data-ng-show="vm.paymentDetail.TotalRefunded > 0">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Refund(s):</small>
+                                                    <h4>
+                                                        <strong style="color:purple">{{ vm.paymentDetail.TotalRefunded | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" data-ng-show="vm.paymentDetail.Paid == true" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Total Paid:</small>
+                                                    <h4>
+                                                        <strong style="color:green">{{ (vm.paymentDetail.Amount - vm.paymentDetail.TotalRefunded) | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                                <div class="well" data-ng-show="vm.paymentDetail.Paid == false" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Total Due:</small>
+                                                    <h4>
+                                                        <strong style="color:red">{{ (vm.paymentDetail.Amount - vm.paymentDetail.TotalRefunded) | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                                <!-- (END) CHARGE TAB -->
+
+                            </tab>
+
+                            <tab style="cursor:pointer" heading="Invoice" data-ng-show="vm.paymentDetail.InvoiceID != null" data-ng-click="">
+
+                                <!-- INVOICE TAB -->
+                                <div style="margin-left:15px; margin-top:25px; margin-bottom:25px">
+
+                                    <!-- Invoice Id -->
+                                    <strong style="margin-top:30px">Invoice ID:</strong>
+                                    <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.InvoiceID }} </small></p>
+
+                                    <!-- Status
+                                    <strong style="margin-top:30px">Status:</strong>
+                                    <p data-ng-show="vm.paymentDetail.Invoice.Paid == true" style="color:green">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-check"></i> Paid</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetail.Invoice.Paid == false" style="color:red">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-times"></i> Unpaid</strong></small>
+                                    </p>-->
+                                    <!-- Invoice Date -->
+
+                                    <strong style="margin-top:30px">Invoice Date:</strong>
+                                    <p>
+                                        <small style="color:#A6A6A6;">
+                                            {{ vm.paymentDetail.Invoice.Date | date : 'EEE MMM, dd yyyy' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-clock-o" style="color:#DBDBDB"></i> {{ vm.paymentDetail.Invoice.Date | date : 'h:mm a' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-history" style="color:#DBDBDB"></i> <span am-time-ago="vm.paymentDetail.Invoice.Date"></span>
+                                        </small>
+                                    </p>
+
+
+                                    <!-- Invoice Description -->
+                                    <div class="visible-xs">
+                                        <strong style="margin-top:30px">Attempts:</strong>
+                                        <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.Invoice.Attempts }} </small></p>
+                                    </div>
+
+
+
+
+
+                                    <!-- Payment Attempts
+                            <strong>Payment Attempts:</strong>
+                            <p style="color:#A6A6A6;">{{ vm.paymentDetail.Invoice.Attempts }}</p> -->
+                                    <!-- Next Attempt -->
+                                    <div style="text-align:left;">
+                                        <strong style="margin-top:30px">Next Attempt:</strong>
+
+                                        <br />
+                                        <!--Unpaid (No Date)-->
+                                        <small data-ng-show="vm.paymentDetail.Invoice.Paid == false && vm.paymentDetail.Invoice.NextAttempt == null && vm.paymentDetail.Invoice.Attempts > 0" style="color:red">Attempts exhausted: Retry manually on Stripe</small>
+                                        <small data-ng-show="vm.paymentDetail.Invoice.Paid == false && vm.paymentDetail.Invoice.NextAttempt == null && vm.paymentDetail.Invoice.Attempts == 0" style="color:#A6A6A6">Attempt date pending...</small>
+                                        <!--Paid (No Date)-->
+                                        <small data-ng-show="vm.paymentDetail.Invoice.Paid == true" style="color:#A6A6A6">None: Invoice paid in full</small>
+
+                                        <!--Unpaid, Multiple attempts (With Date)-->
+                                        <p data-ng-show="vm.paymentDetail.Invoice.Paid == false && vm.paymentDetail.Invoice.NextAttempt != null && vm.paymentDetail.Invoice.Attempts > 0">
+                                            <small style="color:red;">
+                                                {{ vm.paymentDetail.Invoice.NextAttempt | date : 'EEE, MMM dd, yyyy' }}
+                                                &nbsp;&nbsp;
+                                                <i class="fa fa-clock-o"></i> {{ vm.paymentDetail.Invoice.NextAttempt | date : 'h:mm a' }}
+                                                &nbsp;&nbsp;
+                                                <i class="fa fa-history"></i> <span am-time-ago="vm.paymentDetail.Invoice.NextAttempt"></span>
+                                            </small>
+                                        </p>
+
+                                        <!--Unpaid (With Date)-->
+                                        <p data-ng-show="vm.paymentDetail.Invoice.Paid == false && vm.paymentDetail.Invoice.NextAttempt != null && vm.paymentDetail.Invoice.Attempts == 0">
+                                            <small style="color:black;">
+                                                {{ vm.paymentDetail.Invoice.NextAttempt | date : 'EEE, MMM dd, yyyy' }}
+                                                &nbsp;&nbsp;
+                                                <i class="fa fa-clock-o"></i> {{ vm.paymentDetail.Invoice.NextAttempt | date : 'h:mm a' }}
+                                                &nbsp;&nbsp;
+                                                <i class="fa fa-history"></i> <span am-time-ago="vm.paymentDetail.Invoice.NextAttempt"></span>
+                                            </small>
+                                        </p>
+
+
+                                    </div>
+
+
+                                    <!-- Invoice Description -->
+                                    <div data-ng-show="vm.paymentDetail.Invoice.Description != null">
+                                        <strong style="margin-top:30px">Description:</strong>
+                                        <p><small style="color:#A6A6A6;">{{ vm.paymentDetail.Invoice.Description }} </small></p>
+                                    </div>
+
+
+
+                                    <!-- Invoice Line Items -->
+                                    <div style="margin-top:20px; margin-bottom:5px;">
+                                        <strong>Invoice Line Items:</strong>
+                                    </div>
+
+                                    <table class="table table-striped table-responsive">
+                                        <!--<thead class="hidden-xs">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>-->
+                                        <tr data-ng-repeat="lineItem in vm.paymentDetail.Invoice.LineItems">
+
+                                            <td>
+                                                <span data-ng-show="lineItem.Description != null">
+                                                    {{ lineItem.Description }}
+                                                </span>
+                                                <span data-ng-show="lineItem.Description == null && lineItem.PlanDescription != null">
+                                                    <strong>{{ lineItem.PlanDescription }}</strong>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span data-ng-show="lineItem.Proration == true">
+                                                    <small>[Prorated]</small>
+                                                </span>
+                                            </td>
+
+                                            <td style="text-align:right;">
+                                                <strong>
+                                                    <span data-ng-show="lineItem.Description != null">
+                                                        {{ lineItem.Amount }}
+                                                    </span>
+                                                    <span data-ng-show="lineItem.Description == null && lineItem.PlanDescription != null">
+                                                        {{ lineItem.Amount }}
+                                                    </span>
+                                                </strong>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+
+
+                                    <table class="table" style="margin-top:-17px">
+                                        <tr>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Status:</small>
+                                                    <div data-ng-show="vm.paymentDetail.Invoice.Paid == true">
+                                                        <h4 style="color:green"><strong><i class="fa fa-check"></i> Paid</strong></h4>
+                                                    </div>
+                                                    <div data-ng-show="vm.paymentDetail.Invoice.Paid == false">
+                                                        <h4 style="color:red"><strong><i class="fa fa-times"></i> Unpaid</strong></h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="hidden-xs">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Attempts:</small>
+                                                    <h4>
+                                                        <strong style="color:black">{{ vm.paymentDetail.Invoice.Attempts }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td class="hidden-xs">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Total:</small>
+                                                    <h4>
+                                                        <strong style="color:black">{{ vm.paymentDetail.Invoice.Total | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td class="hidden-xs">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Starting Balance:</small>
+                                                    <h4>
+                                                        <strong style="color:#007CBA">{{ vm.paymentDetail.Invoice.StartingBalance | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td class="hidden-xs hidden-sm">
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Ending Balance:</small>
+                                                    <h4>
+                                                        <strong style="color:black">{{ vm.paymentDetail.Invoice.EndingBalance | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Amount Due:</small>
+                                                    <h4>
+                                                        <strong style="color:green">{{ vm.paymentDetail.Invoice.AmountDue | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                                <!-- (END) INVOICE TAB -->
+                            </tab>
+
+                            <tab style="cursor:pointer" heading="Transactions" data-ng-show="vm.paymentDetailBalances.Transactions.length > 0" data-ng-click="">
+
+                                <!-- BALANCE TRANSACTION TAB -->
+                                <div style="margin-left:15px; margin-top:25px; margin-bottom:25px">
+
+                                    <h5><strong>Balance Transactions:</strong></h5>
+
+                                    <table class="table table-responsive table-striped">
+
+                                        <tr>
+                                            <th style="text-align:left">Type</th>
+                                            <th>Status</th>
+                                            <th class="hidden-xs">Created</th>
+                                            <th class="hidden-xs">Available</th>
+                                            <th class="hidden-xs">Gross</th>
+                                            <th class="hidden-xs">Fee</th>
+                                            <th style="text-align:right">Net</th>
+                                        </tr>
+
+                                        <tr data-ng-repeat="btr in vm.paymentDetailBalances.Transactions">
+
+
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'refund'" style="color:purple; text-align:left; cursor:pointer"><strong><i class="fa fa-reply"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'transfer'" style="color:#007CBA; text-align:left; cursor:pointer"><strong><i class="fa fa-long-arrow-left"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'transfer_cancel'" style="color:darkgrey; text-align:left; cursor:pointer"><strong><i class="fa fa-times"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'transfer_failure'" style="color:red; text-align:left; cursor:pointer"><strong><i class="fa fa-times"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'charge'" style="color:green; text-align:left; cursor:pointer"><strong><i class="fa fa-usd"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'adjustment'" style="color:darkcyan; text-align:left; cursor:pointer"><strong><i class="fa fa-adjust"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'application_fee'" style="color:firebrick; text-align:left; cursor:pointer"><strong><i class="fa fa-tag"></i> {{ btr.Type | uppercase }}</strong></td>
+                                            <td title="{{btr.BalanceTransactionID}}" data-ng-show="btr.Type === 'application_fee_refund'" style="color:darkslateblue; text-align:left; cursor:pointer"><strong><i class="fa fa-reply"></i> {{ btr.Type | uppercase }}</strong></td>
+
+
+                                            <td data-ng-show="btr.Status=='pending'" style="cursor:pointer">
+                                                <div style="color:lightgrey">Pending</div>
+                                            </td>
+                                            <td data-ng-show="btr.Status=='available'" style="cursor:pointer">
+                                                <strong style="color:black">Available</strong>
+                                            </td>
+
+                                            <td class="hidden-xs" title="{{btr.Created | date : 'EEE MMM, dd yyyy (h:mm a)'}}" style="cursor:pointer">
+                                                <i style="color:darkgrey" class="fa fa-clock-o"></i> <strong am-time-ago="btr.Created"></strong>
+                                            </td>
+                                            <td class="hidden-xs" title="{{btr.Available | date : 'EEE MMM, dd yyyy (h:mm a)'}}" style="cursor:pointer">
+                                                <i style="color:darkgrey" class="fa fa-clock-o"></i> <strong am-time-ago="btr.Available"></strong>
+                                            </td>
+
+
+                                            <td class="hidden-xs" data-ng-show="btr.Amount >= 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:#007CBA"> <strong>{{ btr.Amount | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Amount < 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:red"><strong>{{ btr.Amount | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Type == 'transfer'" style="color:#007CBA"><strong><i class="fa fa-long-arrow-left" style="margin-left:-20px;"></i> {{ btr.Amount | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Type == 'transfer_cancel'" style="color:darkgrey"><strong><i class="fa fa-long-arrow-left" style="margin-left:-20px;"></i> {{ btr.Amount | currency }}</strong></td>
+
+
+                                            <td class="hidden-xs" data-ng-show="btr.Fee > 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:red"> <strong>{{ btr.Fee | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Fee < 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:green"><strong>{{ btr.Fee | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Type == 'transfer'" style="color:#007CBA"><strong>{{ btr.Fee | currency }}</strong></td>
+                                            <td class="hidden-xs" data-ng-show="btr.Type == 'transfer_cancel'" style="color:darkgrey"><strong>{{ btr.Fee | currency }}</strong></td>
+
+
+
+                                            <td data-ng-show="btr.Net > 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:green; text-align:right"> <strong>{{ btr.Net | currency }}</strong></td>
+                                            <td data-ng-show="btr.Net < 0 && btr.Type != 'transfer' && btr.Type != 'transfer_cancel'" style="color:red; text-align:right"><strong>{{ btr.Net | currency }}</strong></td>
+                                            <td data-ng-show="btr.Type == 'transfer'" style="color:#007CBA; text-align:right"><strong><i class="fa fa-long-arrow-left" style="margin-left:-20px;"></i>  {{ btr.Net | currency }}</strong></td>
+                                            <td data-ng-show="btr.Type == 'transfer_cancel'" style="color:darkgrey; text-align:right"><strong><i class="fa fa-long-arrow-left" style="margin-left:-20px;"></i> {{ btr.Net | currency }}</strong></td>
+
+                                        </tr>
+                                    </table>
+
+
+                                    <!-- Totals -->
+
+                                    <h5><strong>Transaction Totals:</strong></h5>
+
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Gross:</small>
+                                                    <h4>
+                                                        <strong style="color:#007CBA">{{ vm.paymentDetailBalances.TotalGross | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Fee:</small>
+                                                    <h4>
+                                                        <strong style="color:red">{{ vm.paymentDetailBalances.TotalFees | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Net:</small>
+                                                    <h4>
+                                                        <strong style="color:green">{{ vm.paymentDetailBalances.TotalNet | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+
+
+                                    <!-- Balance Transaction Id -- >
+                                    <strong style="margin-top:30px">Balance Transaction ID:</strong>
+                                    <p><small style="color:#A6A6A6;">{{ vm.paymentDetailBalanceID }} </small></p>
+
+                                     <!--Status-- >
+                                    <strong style="margin-top:30px">Status:</strong>
+                                    <p data-ng-show="vm.paymentDetailBalance.Status == 'available'" style="color:green">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-check"></i> Available</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Status == 'pending'" style="color:darkgrey">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-refresh"></i> Pending</strong></small>
+                                    </p>
+
+
+                                    <!--Type-- >
+                                    <strong style="margin-top:30px">Type:</strong>
+
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'charge'" style="color:cornflowerblue">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-credit-card"></i> Charge</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'refund'" style="color:purple">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-reply"></i> Refund</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'adjustment'" style="color:cornflowerblue">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-adjust"></i> Adjustment</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'application_fee'" style="color:blue">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-usd"></i> Application Fee</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'application_fee_refund'" style="color:purple">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-reply"></i> Application Fee Refund</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'transfer'" style="color:green">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-share"></i> Transfer</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'transfer_cancel'" style="color:darkgrey">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-times"></i> Transfer Cancel</strong></small>
+                                    </p>
+                                    <p data-ng-show="vm.paymentDetailBalance.Type == 'transfer_failure'" style="color:red">
+                                        <small style="margin-top:-5px;"><strong><i class="fa fa-times"></i> Transfer Failure</strong></small>
+                                    </p>
+
+
+                                    <!--Created-- >
+                                    <strong style="margin-top:30px">Created:</strong>
+                                    <p>
+                                        <small style="color:#A6A6A6;">
+                                            {{ vm.paymentDetailBalance.Created | date : 'EEE, MMM dd, yyyy' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-clock-o"></i> {{ vm.paymentDetailBalance.Created | date : 'h:mm a' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-history"></i> <span am-time-ago="vm.paymentDetailBalance.Created"></span>
+                                        </small>
+                                    </p>
+
+                                    <!--Available-- >
+                                    <strong style="margin-top:30px">Available:</strong>
+                                    <p>
+                                        <small style="color:#A6A6A6;">
+                                            {{ vm.paymentDetailBalance.Available | date : 'EEE, MMM dd yyyy' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-clock-o"></i> {{ vm.paymentDetailBalance.Available | date : 'h:mm a' }}
+                                            &nbsp;&nbsp;
+                                            <i class="fa fa-history"></i> <span am-time-ago="vm.paymentDetailBalance.Available"></span>
+                                        </small>
+                                    </p>
+
+                                    <!-- Totals -- >
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Amount:</small>
+                                                    <h4>
+                                                        <strong style="color:blue">{{ vm.paymentDetailBalance.Amount | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Fee:</small>
+                                                    <h4>
+                                                        <strong style="color:red">{{ vm.paymentDetailBalance.Fee | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                                    <small style="color:#A6A6A6;">Net:</small>
+                                                    <h4>
+                                                        <strong style="color:green">{{ vm.paymentDetailBalance.Net | currency }}</strong>
+                                                    </h4>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>-->
+
+                                </div>
+                                <!-- (END) BALANCE TRANSACTION TAB -->
+                            </tab>
+
+                            <tab style="cursor:pointer" heading="Refund" data-ng-click="" data-ng-show="vm.checkRole('SuperAdmin') && (vm.paymentDetail.Amount - vm.paymentDetail.TotalRefunded) > 0 && vm.showRefundsTab && vm.paymentDetail.Paid == true">
+
+                                <!-- REFUND TAB -->
+                                <div style="margin-left:15px; margin-top:25px; margin-bottom:25px">
+
+
+                                    <!-- REFUNDS -->
+                                    <!--<div class="hidden-xs" data-ng-show="vm.checkRole('SuperAdmin')">-->
+                                    <!--<h4 data-ng-show="!vm.refundPayment.update.complete && !vm.refundPayment.update.processing && !vm.refundPayment.update.edit" style="margin-top:30px; margin-bottom:10px;">Refund</h4>-->
+                                    <h4 data-ng-show="vm.refundPayment.update.edit" style="margin-top:30px; margin-bottom:10px;">Refund Amount:</h4>
+
+                                    <div data-ng-show="!vm.refundPayment.update.complete && !vm.refundPayment.update.processing && !vm.refundPayment.update.edit">
+                                        <h4 style="margin-top:30px">Total available to refund:</h4>
+                                        <h3><strong style="color:green">{{ vm.paymentDetail.Amount - vm.paymentDetail.TotalRefunded | currency }} </strong>&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin')" data-ng-click="vm.startPaymentRefund()" class="btn btn-default btn-xs">Start refund</button></h3>
+                                    </div>
+                                    <div class="form-inline" data-ng-show="vm.refundPayment.update.edit">
+                                        <input type="text" class="input-sm form-control" style="width:200px; font-size:15px; height:35px" data-ng-model="vm.refundPayment.RefundAmount" />
+                                        <br /><br />
+                                        <button class="btn btn-default btn-sm" data-ng-click="vm.cancelRefundPayment()">Cancel</button>
+                                        <button data-ng-show="vm.refundPayment.RefundAmount == vm.paymentDetail.Amount" class="btn btn-danger btn-sm" data-ng-click="vm.applyRefund()" style="margin-left:5px;"><i class="fa fa-mail-reply"></i>&nbsp;&nbsp;Apply Full Refund</button>
+                                        <button data-ng-show="vm.refundPayment.RefundAmount != vm.paymentDetail.Amount" class="btn btn-danger btn-sm" data-ng-click="vm.applyRefund()" style="margin-left:5px;"><i class="fa fa-mail-reply"></i>&nbsp;&nbsp;Apply Partial Refund</button>
+                                    </div>
+                                    <!--Processing-->
+                                    <div data-ng-show="vm.refundPayment.update.processing">
+                                        <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Applying refund...</small>
+                                    </div>
+                                    <!--Result-->
+                                    <div data-ng-show="vm.refundPayment.update.complete">
+                                        <small data-ng-show="vm.refundPayment.update.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.refundPayment.update.message }}</small>
+                                        <small data-ng-show="!vm.refundPayment.update.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.refundPayment.update.message }}</small>
+
+                                        <span data-ng-show="vm.refundPayment.update.isSuccess"><button class="btn btn-default btn-xs" data-ng-click="vm.endRefundPayment()" style="margin-left:5px;">OK</button></span>
+                                        <span data-ng-show="!vm.refundPayment.update.isSuccess"><button class="btn btn-default btn-xs" data-ng-click="vm.resetRefundPayment()" style="margin-left:5px;">Retry</button></span>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- (END) REFUND TAB -->
+                            </tab>
+
+                        </tabset>
+
+
+                    </div>
+
+                    <div class="modal-footer" style="margin-top:-5px">
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+        </div>
+    <!--End Payment Details Modal-->
+
+    <div id="PaymentHistoryPanelLoading" class="container-fluid" style="padding-top:20px" data-ng-show="vm.paymentHistoryPanelLoading">
+        <section-loader message="'Getting payment history...'" loader-type="'inline'"></section-loader>
+    </div>
+    
+    <div id="PaymentHistory" style="padding-top:20px" data-ng-show="!vm.paymentHistoryPanelLoading">
+
+        <!--<div style="text-align:right; vertical-align: text-bottom; margin-top:-20px; margin-bottom:15px" data-ng-show="vm.payments.length > 0">
+            <button data-ng-show="vm.payments_last.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getPaymentHistory_Last()"><i class="fa fa-arrow-circle-left"></i> Previous {{ vm.payments_last.length }}</button>
+            <button data-ng-show="vm.payments_last.length == 0 && !vm.paymentsPreloadingLast" class="btn btn-default btn-xs disabled"> <i class="fa fa-arrow-circle-left"></i> Previous </button>
+            <button data-ng-show="vm.paymentsPreloadingLast" class="btn btn-primary btn-xs" style="background-color:#00569C"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading </button>
+
+            <button data-ng-show="vm.payments_next.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getPaymentHistory_Next()">Next {{ vm.payments_next.length }} <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.payments_next.length == 0 && !vm.paymentsPreloadingNext" class="btn btn-default btn-xs disabled">Next <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.paymentsPreloadingNext" class="btn btn-primary btn-xs" style="background-color:#00569C">Loading <i class="fa fa-circle-o-notch fa-spin"></i> </button>
+        </div>-->
+
+            <table class="table table-striped table-responsive" data-ng-show="vm.payments.length > 0">
+            <thead>
+                <tr>
+                    <th style="text-align:left; width:23px;">Status</th>
+                    <th></th>
+                    <th>Created</th>
+                    <th class="hidden-xs">Description</th>
+                    <th class="hidden-xs" data-ng-show="vm.showAccountColumnForPayments == true">Account</th>
+                    <th style="text-align:right">Gross</th>
+                </tr>
+            </thead>
+                <tr data-ng-repeat="charge in vm.payments">
+
+                    <!-- Status -->
+                    <td style="text-align:center; text-align:left; cursor:pointer">
+
+                        <div Title="Charge Failed" data-ng-show="charge.Failure == true">
+                            <i style="color:red" class="fa  fa-times"></i>
+                        </div>
+
+                        <div title="Paid" data-ng-show="charge.TotalRefunded == 0 && charge.Amount > 0 && charge.Failure == false">
+                            <i style="color:green" class="fa fa-check"></i>
+                        </div>
+
+                        <div title="Full Refund" data-ng-show="charge.TotalRefunded > 0 && charge.TotalRefunded == charge.Amount">
+                            <i style="color:purple" class="fa fa-reply-all"></i>
+                        </div>
+
+                        <div title="Partial Refund" data-ng-show="charge.TotalRefunded > 0 && charge.TotalRefunded < charge.Amount">
+                            <i style="color:purple" class="fa fa-reply"></i>
+                        </div>
+
+
+                    </td>
+
+                    <!-- Details -->
+                    <td>
+                        <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".paymentDetailModal" data-ng-click="vm.getPaymentDetail($index, true)">Details</button>
+                    </td>
+
+                    <!-- Created -->
+                    <td title="{{ charge.Date | date : 'EEE, MMM dd, yyyy (h:mm a)' }}" style="cursor:pointer">
+                        <i class="fa fa-clock-o" style="color:#A6A6A6;"></i> <small am-time-ago="charge.Date"></small>
+                    </td>
+
+
+                    <!-- Description -->
+                    <td class="hidden-xs" data-ng-show="charge.FailureMessage == null">
+                        <small><strong>{{ charge.Description }}</strong> <span data-ng-show="charge.Prorated == true" style="color:darkgrey"> [prorated]</span></small>
+                    </td>
+
+                    <td class="hidden-xs" data-ng-show="charge.FailureMessage != null" Title="{{charge.FailureCode}}" style="cursor:pointer">
+                        <small><strong style="color:red">{{ charge.FailureMessage }}</strong></small>
+                    </td>
+
+                    <!-- Account -->
+                    <td class="hidden-xs" data-ng-show="charge.AccountID != null">
+                        <a style="cursor:pointer" data-ng-click="vm.goToAccount(charge.AccountID)">{{ charge.AccountName }}</a>
+                    </td>
+                    <!-- Account -->
+                    <td class="hidden-xs" data-ng-show="charge.AccountID == null">
+                        <small>N/A</small>
+                    </td>
+
+                    <!-- Amount -->
+                    <td style="text-align:right">
+                        <strong data-ng-show="charge.Paid == false" style="color:red">{{ charge.Amount  | currency }}</strong>
+                        <strong data-ng-show="charge.Paid == true" style="color:green">{{ charge.Amount  | currency }}</strong>
+                    </td>
+
+
+
+                    <!--
+                    <td class="hidden-xs hidden-sm">
+                        <div class="v-line-thin">
+                            <div data-ng-show="charge.InvoiceID != null">
+                                <small>Invoice ID:<br /><strong>{{ charge.InvoiceID }}</strong></small>
+                            </div>
+                            <div data-ng-show="charge.InvoiceID == null">
+                                <small>Description:<br /><strong>{{ charge.Description }}</strong></small>
+                            </div>
+                            <button style="margin-top:12px;" class="hidden-xs hidden-sm btn btn-default btn-xs" data-toggle="modal" data-target=".paymentDetailModal" data-ng-click="vm.getPaymentDetail($index, true)"><i class="fa fa-eye"></i> Details</button>
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".paymentDetailModal" data-ng-click="vm.getPaymentDetail($index, true)"><i class="fa fa-eye"></i> Details</button>
+                    </td>-->
+
+                    <!--<td style="text-align:center" data-ng-show="charge.Amount > 0">
+                        <div class="v-line-thin">
+                            <p class="hidden-xs hidden-sm"><small>Total Paid:</small></p>
+                            <h4>
+                                <strong style="color:green">{{ charge.Amount  | currency }}</strong>
+                            </h4>
+                            <h6 data-ng-show="charge.TotalRefunded > 0">
+                                <strong style="color:red">{{ charge.TotalRefunded  | currency }} Refunded</strong>
+                            </h6>
+                        </div>
+                    </td>
+
+
+
+                    <td style="text-align:right; padding-right:10px;">
+
+
+                        <div class="hidden-xs">
+
+                            <div style="float:right; text-align:center; padding:8px; margin-bottom:0px;">
+                                <small style="color:#A6A6A6;">Net:</small>
+                                <h4>
+                                    <strong style="color:green">{{ charge.BalanceTransaction.Net | currency }}</strong>
+                                </h4>
+                            </div>
+
+                            <div data-ng-show="charge.TotalRefunded > 0" style="float:right; text-align:center; padding:8px; margin-bottom:0px;">
+                                <small style="color:#A6A6A6;">Refund:</small>
+                                <h5>
+                                    <strong style="color:purple">{{ charge.TotalRefunded | currency }}</strong>
+                                </h5>
+                            </div>
+
+                            <div style="float:right; text-align:center; padding:8px; margin-bottom:0px;">
+                                <small style="color:#A6A6A6;">Fee:</small>
+                                <h5>
+                                    <strong style="color:red">{{ charge.BalanceTransaction.Fee | currency }}</strong>
+                                </h5>
+                            </div>
+
+                            <div style="float:right; text-align:center; padding:8px; margin-bottom:0px;">
+                                    <small style="color:#A6A6A6;">Amount paid:</small>
+                                    <h5>
+                                        <strong style="color:blue">{{ (charge.Amount - charge.TotalRefunded) | currency }}</strong>
+                                    </h5>
+                            </div>
+
+                        </div>
+
+                        <div class="visible-xs" data-ng-show="charge.Amount > 0  && charge.Paid" style="color:green">
+                            <small>
+                                <strong style="color:cornflowerblue">&nbsp;{{ (charge.Amount - charge.TotalRefunded)  | currency }}</strong>
+                            </small>
+                            <small data-ng-show="charge.TotalRefunded > 0">
+                                <br />
+                                <span style="color:purple">-{{ charge.TotalRefunded  | currency }}</span>
+                            </small>
+                            <small>
+                                <br />
+                                <span style="color:red">-{{ charge.BalanceTransaction.Fee  | currency }}</span>
+                            </small>
+                            <small style="font-size:18px;">
+                                <br />
+                                <strong style="color:green">{{ charge.BalanceTransaction.Net  | currency }}</strong>
+                            </small>
+                        </div>
+
+                        <div data-ng-show="charge.Paid == false" style="color:red">
+                            <p class="hidden-xs hidden-sm"><small>Total:</small></p>
+                            <h4>
+                                <strong style="color:red">{{ charge.Amount  | currency }}</strong>
+                            </h4>
+                        </div>-->
+
+                        <!--<div data-ng-show="charge.TotalRefunded > 0 && charge.TotalRefunded <= charge.Amount">
+                            <small>
+                                <span style="color:green">&nbsp;{{ charge.Amount  | currency }}</span>
+                            </small>
+                          
+                            <small data-ng-show="charge.TotalRefunded > 0">
+                                <br />
+                                <span style="color:purple">-{{ charge.TotalRefunded  | currency }}</span>
+                            </small>
+                            <small style="font-size:18px;">
+                                <br />
+                                <strong style="color:green">{{ (charge.Amount - charge.TotalRefunded)  | currency }}</strong>
+                            </small>
+                        </div>
+
+                    </td>-->
+
+
+
+
+                </tr>
+            </table>
+
+        <div style="text-align:right; vertical-align: text-bottom;" data-ng-show="vm.payments.length > 0">
+            <button data-ng-show="vm.payments_last.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getPaymentHistory_Last()"><i class="fa fa-arrow-circle-left"></i> Previous {{ vm.payments_last.length }}</button>
+            <button data-ng-show="vm.payments_last.length == 0 && !vm.paymentsPreloadingLast" class="btn btn-default btn-xs disabled"> <i class="fa fa-arrow-circle-left"></i> Previous </button>
+            <button data-ng-show="vm.paymentsPreloadingLast" class="btn btn-primary btn-xs" style="background-color:#00569C"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading </button>
+
+
+            <button data-ng-show="vm.payments_next.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getPaymentHistory_Next()">Next {{ vm.payments_next.length }} <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.payments_next.length == 0 && !vm.paymentsPreloadingNext" class="btn btn-default btn-xs disabled">Next <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.paymentsPreloadingNext" class="btn btn-primary btn-xs" style="background-color:#00569C">Loading <i class="fa fa-circle-o-notch fa-spin"></i> </button>
+        </div>
+
+
+        <div data-ng-show="vm.payments.length == 0">
+            <h6><strong><i class="fa fa-times-circle branding-accent-color"></i> No charges.</strong></h6>
+        </div>
+
+
+        </div>
+
+
+</div>

@@ -1,0 +1,69 @@
+﻿<div>
+    <!--New Card Modal-->
+    <div class="modal fade newCreditCardModal" tabindex="-1" role="dialog" aria-labelledby="newCreditCardModal" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 data-ng-show="vm.creditCardInfo == null" style="margin-top:2px; margin-bottom:2px;">Add a credit card</h3>
+                    <h3 data-ng-show="vm.creditCardInfo != null" style="margin-top:2px; margin-bottom:2px;">Update credit card</h3>
+                </div>
+                <div id="newCreditCardModalBody" class="modal-body">
+                    <div data-ng-show="vm.newCard.processing" style="text-align:center; margin:0 auto;">
+                        <!--<h6 style="color:darkgrey"><strong><i class="fa fa-circle-o-notch fa-spinner"></i> Adding card...</strong></h6>-->
+                        <h2 style="color:darkgrey"><strong><i class="fa fa-circle-o-notch fa-spin"></i></strong></h2>
+                        <h4 style="color:darkgrey"><strong>Adding card...</strong></h4>
+                    </div>
+                    <div data-ng-show="vm.newCard.isSuccess" style="text-align:center; margin:0 auto;">
+                        <!--<h6 style="color:green"><strong><i class="fa fa-check"></i> New credit card has been added!</strong></h6>-->
+                        <h2 style="color:green"><strong><i class="fa fa-check"></i></strong></h2>
+                        <h4 data-ng-show="vm.creditCardInfo == null" style="color:green"><strong>Credit card has been added!</strong></h4>
+                        <h4 data-ng-show="vm.creditCardInfo != null" style="color:green"><strong>Credit card has been updated!</strong></h4>
+                    </div>
+                    <div data-ng-show="vm.newCard.error">
+                        <h6 style="color:red"><strong><i class="fa fa-warning"></i> {{ vm.newCard.errorMessage }}</strong></h6>
+                        <div style="margin-left:15px;" data-ng-repeat="error in vm.newCard.errorMessages track by $index">
+                            <h6 style="color:red"><i class="fa fa-dot-circle-o"></i> {{ error }}</h6>
+                        </div>
+                    </div>
+                    <div data-ng-show="!vm.newCard.processing" id="NewCardForm">
+                        <div>
+                            <div data-ng-show="!vm.newCard.isSuccess" class="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newCard.name" placeholder="Name on card" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-md" data-ng-model="vm.newCard.number" placeholder="Card number" />
+                                </div>
+                                <div class="form-group">
+                                    <input style="width:90px" type="text" class="form-control input input-md" data-ng-model="vm.newCard.cvc" placeholder="CVC" />
+                                </div>
+                                <div style="margin-left:2px; margin-bottom:5px; margin-top:10px;"><small style=" font-size:10px; color:grey"><strong>Expiration:</strong></small></div>
+                                <div class="form-inline">
+                                    <span><input maxlength="2" style="width:50px" type="text" class="form-control input input-md" data-ng-model="vm.newCard.expMonth" placeholder="MM" /></span>
+                                    <span>/</span>
+                                    <span><input maxlength="2" style="width:50px" type="text" class="form-control input input-md" data-ng-model="vm.newCard.expYear" placeholder="YY" /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-show="!vm.newCard.processing">
+                    <div data-ng-show="!vm.newCard.isSuccess" id="newCreditCardModalFooter" class="modal-footer">
+                        <button class="btn btn-default btn-md" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary btn-md" data-ng-click="vm.submitNewCreditCard()">Add Card</button>
+                    </div>
+                    <div data-ng-show="vm.newCard.isSuccess" id="newCreditCardModalFooterSuccess" class="modal-footer">
+                        <button class="btn btn-primary btn-md" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+                <div data-ng-show="vm.newCard.processing">
+                    <div id="newCreditCardModalFooter" class="modal-footer">
+                        <button class="btn btn-default btn-md">Cancel</button>
+                        <button class="btn btn-primary btn-md"><i class="fa fa-circle-o-notch fa-spin"></i> Adding Card...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

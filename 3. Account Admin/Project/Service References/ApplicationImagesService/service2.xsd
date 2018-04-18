@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Imaging.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="ProcessImage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Imaging.Models" minOccurs="0" name="imageManifest" nillable="true" type="q1:ImageProcessingManifestModel" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Imaging.Models" minOccurs="0" name="imageCropCoordinates" nillable="true" type="q2:ImageCropCoordinates" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q3:RequesterType" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Imaging.Models" minOccurs="0" name="imageEnhancementInstructions" nillable="true" type="q4:ImageEnhancementInstructions" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcessImageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ProcessImageResult" nillable="true" type="q5:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordTitle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newTitle" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q6:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordTitleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateImageRecordTitleResult" nillable="true" type="q7:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q8:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateImageRecordDescriptionResult" nillable="true" type="q9:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordGalleryTitle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="imageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="newTitle" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q10:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordGalleryTitleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateImageRecordGalleryTitleResult" nillable="true" type="q11:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordGalleryDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="imageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="newDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q12:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateImageRecordGalleryDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateImageRecordGalleryDescriptionResult" nillable="true" type="q13:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderImageRecordGallery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="imageIndexOrder" nillable="true" type="q14:ArrayOfint" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q15:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReorderImageRecordGalleryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="ReorderImageRecordGalleryResult" nillable="true" type="q16:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteImageRecord">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q17:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteImageRecordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteImageRecordResult" nillable="true" type="q18:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteGalleryImage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="objectId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formatNameKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="imageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q19:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteGalleryImageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeleteGalleryImageResult" nillable="true" type="q20:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

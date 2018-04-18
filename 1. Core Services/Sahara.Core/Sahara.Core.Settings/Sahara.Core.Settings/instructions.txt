@@ -1,0 +1,70 @@
+﻿
+
+===========================================================================
+//
+//    In app/web.config for the parent project(s):
+//
+============================================================================
+
+
+============================================================================
+//    Web.config
+============================================================================
+
+<configuration>
+  <appSettings>
+
+    <!-- Current Environment -->
+    <add key="Environment" value="local" />
+    
+  </appSettings>
+  </configuration>
+
+
+
+
+============================================================================
+//    Web.Debug.config
+============================================================================
+
+  <configuration>
+  <appSettings>
+
+    <!-- Current Environment -->
+    <add key="Environment" value="debug" />
+    
+  </appSettings>
+  </configuration>
+
+
+
+
+============================================================================
+//    Web.Stage.config
+============================================================================
+
+  <configuration>
+  <appSettings>
+
+    <!-- Current Environment -->
+    <add key="Environment" value="stage" />
+    
+  </appSettings>
+  </configuration>
+
+
+
+============================================================================
+//    Web.Release.config
+============================================================================
+
+
+  <configuration>
+  <appSettings>
+
+    <!-- Current Environment -->
+    <add key="Environment" value="production" />
+    
+  </appSettings>
+  </configuration>
+

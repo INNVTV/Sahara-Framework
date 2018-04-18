@@ -1,0 +1,131 @@
+﻿body {
+}
+#wrapper {
+  padding-left: 115px;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-wrapper {
+  margin-left: -115px;
+  left: 115px;
+  width: 115px;
+  background: #12203b; /*#0f2245; #202a5e;*/
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+  overflow:hidden;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 115px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  margin-bottom: 30px;
+  line-height: 20px;
+  text-indent: 0px;
+  font-size: 12px;
+}
+
+.sidebar-nav li a {
+    color: #305085; /*#435169;*/
+  display: block;
+  text-decoration: none;
+  text-align:center;
+}
+
+.sidebar-nav li a:hover {
+  /*color: #fff;
+  background: rgba(255,255,255,0.2);
+  text-decoration: none;*/
+  color:white;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  color:white;
+}
+
+.sidebar-nav li a.active {
+    color:white;
+    background-image:url('/Images/Menu/side-bar-active-triangle-xs.gif');
+    background-repeat:no-repeat;
+    background-position:right;
+}
+
+.sidebar-nav > .sidebar-brand {
+  /*height: 65px;
+  line-height: 60px;
+  font-size: 18px;*/
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: none;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: none;
+  background: none;
+}
+
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.inset {
+  padding: 20px;
+}
+
+@media (max-width:767px) {
+
+#wrapper {
+  padding-left: 0;
+}
+
+#sidebar-wrapper {
+  left: 0;
+}
+
+#wrapper.active {
+  position: relative;
+  left: 115px;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 115px;
+  width: 115px;
+  transition: all 0.4s ease 0s;
+}
+
+#menu-toggle {
+  display: inline-block;
+}
+
+.inset {
+  padding: 15px;
+}
+
+}

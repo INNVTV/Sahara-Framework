@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PlatformAdminSite.PlatformLogsService.ClosedAccount>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Unverified</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNameKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeAgo)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNameKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeAgo)
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

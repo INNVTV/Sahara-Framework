@@ -1,0 +1,83 @@
+﻿<div>
+    <!--Manage Featured Properties Modal-->
+    <div class="modal fade updateFeaturedPropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="updateFeaturedPropertiesModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="width:500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Featured Properties</h3>
+                    <div style="height:10px;"></div>
+                    <small>Top featured property will be displayed in listings (provided it is also included in listing results). All will be featured more prominently in your detail pages (provided they are included in detail results).</small>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:10px;">
+
+                        <!-- Current Values -->
+                        <div data-ng-show="vm.featuredProperties.length > 0">
+                            <label>Current featured properties(s):</label>
+                            <div style="margin-top:-6px;">
+                                <small style="color:darkgray; font-size:11px">Click on a value to remove it as a featured property</small>
+                            </div>
+
+                            <div data-ng-repeat="featuredProperty in vm.featuredProperties" style="margin-top:20px;">
+                                <button data-ng-show="vm.movingFeaturedProperty" class="btn btn-sm btn-default disabled" style="background-color:#F0FBFF; float:left; margin:5px;"> {{ featuredProperty.PropertyName }} </button>
+                                <button data-ng-show="!vm.movingFeaturedProperty" data-ng-click="vm.removePropertyFeaturedCollectionItem($index)" class="btn btn-sm btn-default" style="background-color:#F0FBFF; float:left; margin:5px; "> {{ featuredProperty.PropertyName }} </button>
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+
+                        </div>
+
+                        <hr data-ng-show="!vm.movingFeaturedProperty && vm.featuredProperties.length > 0" />
+                        <section-loader data-ng-show="vm.movingFeaturedProperty" loader-type="'inline'" style="margin-bottom:-1px;"></section-loader>
+
+                        <!-- Available Values -->
+                        <div data-ng-show="vm.featuredPropertiesDiff.length > 0">
+                            <label>Available propertie(s):</label>
+                            <div style="margin-top:-6px;">
+                                <small style="color:darkgray; font-size:11px">Click on a value to add as a featured property</small>
+                            </div>
+                            <div data-ng-repeat="availableProperty in vm.featuredPropertiesDiff" style="margin-top:20px;">
+
+                                <span data-ng-show="availableProperty.PropertyTypeNameKey != 'paragraph'">
+                                    <button data-ng-show="vm.movingFeaturedProperty" class="btn btn-xs btn-default disabled" style="float:left; margin:3px; "> {{ availableProperty.PropertyName }} </button>
+                                    <button data-ng-show="!vm.movingFeaturedProperty" data-ng-click="vm.addPropertyFeaturedCollectionItem($index)" class="btn btn-xs btn-default" style="float:left; margin:3px; "> {{ availableProperty.PropertyName }} </button>
+                                </span>
+                                
+                                <span data-ng-show="availableProperty.PropertyTypeNameKey == 'paragraph'">
+                                    <button class="btn btn-xs btn-default disabled" style="float:left; margin:3px; color:lightgray"> {{ availableProperty.PropertyName }} </button>
+                                </span>
+
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+
+
+
+                        </div>
+
+                        <!-- Error -->
+                        <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.featuredPropertiesSendingComplete == true && vm.featuredPropertiesResultsIsSuccess == false">
+                            <br />
+                            <hr />
+                            <br />
+                            <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.featuredPropertiesResultsMessage }}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Appendable footer-->
+                <div class="modal-footer">
+                    <div>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AccountBillingService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IAccountBillingService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAccountBillingService_GetPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPayment" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistory" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_Next_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistory_Next" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_Next_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistory_NextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_Last_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistory_Last" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetPaymentHistory_Last_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentHistory_LastResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_RefundPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefundPayment" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_RefundPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefundPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoice" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetUpcomingInvoice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpcomingInvoice" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetUpcomingInvoice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpcomingInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRange" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_Next_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_Next" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_Next_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_NextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_Last_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_Last" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_Last_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_LastResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_Next_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRange_Next" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_Next_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRange_NextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_Last_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRange_Last" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetInvoiceHistory_ByDateRange_Last_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceHistory_ByDateRange_LastResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetDunningAttemptsCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDunningAttemptsCount" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetDunningAttemptsCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDunningAttemptsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetDunningAttempts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDunningAttempts" />
+  </wsdl:message>
+  <wsdl:message name="IAccountBillingService_GetDunningAttempts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDunningAttemptsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAccountBillingService">
+    <wsdl:operation name="GetPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetPayment" message="tns:IAccountBillingService_GetPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentResponse" message="tns:IAccountBillingService_GetPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistory" message="tns:IAccountBillingService_GetPaymentHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistoryResponse" message="tns:IAccountBillingService_GetPaymentHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory_Next">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistory_Next" message="tns:IAccountBillingService_GetPaymentHistory_Next_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistory_NextResponse" message="tns:IAccountBillingService_GetPaymentHistory_Next_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory_Last">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistory_Last" message="tns:IAccountBillingService_GetPaymentHistory_Last_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetPaymentHistory_LastResponse" message="tns:IAccountBillingService_GetPaymentHistory_Last_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefundPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/RefundPayment" message="tns:IAccountBillingService_RefundPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/RefundPaymentResponse" message="tns:IAccountBillingService_RefundPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoice" message="tns:IAccountBillingService_GetInvoice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceResponse" message="tns:IAccountBillingService_GetInvoice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUpcomingInvoice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetUpcomingInvoice" message="tns:IAccountBillingService_GetUpcomingInvoice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetUpcomingInvoiceResponse" message="tns:IAccountBillingService_GetUpcomingInvoice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory" message="tns:IAccountBillingService_GetInvoiceHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistoryResponse" message="tns:IAccountBillingService_GetInvoiceHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRangeResponse" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_Next">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_Next" message="tns:IAccountBillingService_GetInvoiceHistory_Next_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_NextResponse" message="tns:IAccountBillingService_GetInvoiceHistory_Next_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_Last">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_Last" message="tns:IAccountBillingService_GetInvoiceHistory_Last_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_LastResponse" message="tns:IAccountBillingService_GetInvoiceHistory_Last_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange_Next">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_Next" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_Next_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_NextResponse" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_Next_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange_Last">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_Last" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_Last_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_LastResponse" message="tns:IAccountBillingService_GetInvoiceHistory_ByDateRange_Last_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDunningAttemptsCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetDunningAttemptsCount" message="tns:IAccountBillingService_GetDunningAttemptsCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetDunningAttemptsCountResponse" message="tns:IAccountBillingService_GetDunningAttemptsCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDunningAttempts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountBillingService/GetDunningAttempts" message="tns:IAccountBillingService_GetDunningAttempts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountBillingService/GetDunningAttemptsResponse" message="tns:IAccountBillingService_GetDunningAttempts_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IAccountBillingService" type="tns:IAccountBillingService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IAccountBillingService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetPayment">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetPaymentHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory_Next">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetPaymentHistory_Next" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentHistory_Last">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetPaymentHistory_Last" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefundPayment">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/RefundPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoice">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpcomingInvoice">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetUpcomingInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_Next">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_Next" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_Last">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_Last" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange_Next">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_Next" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceHistory_ByDateRange_Last">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetInvoiceHistory_ByDateRange_Last" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDunningAttemptsCount">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetDunningAttemptsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDunningAttempts">
+      <soap12:operation soapAction="http://tempuri.org/IAccountBillingService/GetDunningAttempts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountBillingService">
+    <wsdl:port name="NetTcpBinding_IAccountBillingService" binding="tns:NetTcpBinding_IAccountBillingService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Billing" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Billing</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

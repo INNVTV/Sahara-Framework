@@ -1,0 +1,23 @@
+﻿<div style="margin-top:10px;" data-ng-show="vm.checkRole('Admin')">
+    <div data-ng-show="!vm.showResetTrialResults">
+        <!--Collapsed/Default View-->
+        <div data-ng-show="!vm.showResetProcessing && !vm.showResetTrialResults">
+            <a class="btn btn-xs btn-default" data-ng-click="vm.resetTrial()"><i class=" fa fa-refresh"></i> Reset trial</a>
+
+        </div>
+
+        <!--Processing-->
+        <div data-ng-show="vm.showResetProcessing">
+            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Reseting trial...</small>
+        </div>
+
+    </div>
+
+    <!--Results-->
+    <div data-ng-show="vm.showResetTrialResults">
+        <small data-ng-show="vm.resetTrialSuccessMessage != null" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.resetTrialSuccessMessage }}</small>
+        <small data-ng-show="vm.resetTrialErrorMessage != null" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.resetTrialErrorMessage }}</small>
+        <span><button class="btn btn-default btn-xs" data-ng-click="vm.closeResetTrial()" style="margin-left:5px;">OK</button></span>
+    </div>
+
+</div>

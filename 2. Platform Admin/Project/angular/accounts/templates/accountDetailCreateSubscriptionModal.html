@@ -1,0 +1,176 @@
+﻿<div>
+    <!--Create Subscription Modal-->
+    <div class="modal fade newSubscriptionModal" tabindex="-1" role="dialog" aria-labelledby="goToSubscriptionStep1" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-ng-show="!vm.subscriptionStep3" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 data-ng-show="vm.subscriptionStep1" style="margin-top:-2px; margin-bottom:-2px;">Choose a plan</h3>
+                    <h3 data-ng-show="vm.subscriptionStep2" style="margin-top:-2px; margin-bottom:-2px;"><i class="fa fa-lock" style="color:darkorange"></i> Credit card info</h3>
+                    <!--<button data-ng-show="vm.subscriptionStepSuccess" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                    <!--<h3 data-ng-show="vm.subscriptionStep2" style="margin-top:-2px; margin-bottom:-2px;">Subscribe to the {{ vm.selectedSubscriptionPlan.PaymentPlanName }} plan ($ {{ vm.selectedSubscriptionFrequency.PaymentFrequencyName }})</h3>-->
+                </div>
+                <div id="Step1-SubBody" data-ng-show="vm.subscriptionStep1" class="modal-body">
+                    <div id="newSubFrequency" style="text-align:right; font-size:14px; margin-bottom:20px;">
+                        <small><strong>Payment frequency: </strong></small>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="font-size:14px; font-weight:bold">
+                                {{ vm.selectedSubscriptionFrequency.PaymentFrequencyName }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li data-ng-repeat="frequency in vm.paymentFrequencies" data-ng-show="frequency.PaymentFrequencyMonths != 0 && frequency.PaymentFrequencyName != vm.selectedSubscriptionFrequency.PaymentFrequencyName">
+                                    <a data-ng-click="vm.setSelectedNewSubscriptionFrequency(frequency)" style="cursor:pointer">
+                                        Switch to {{ frequency.PaymentFrequencyName }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="newSubPlansGrid" class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr style="color:darkgrey; font-size:12px;">
+                                    <th>Plan</th>
+                                    <th>Price</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Usrs</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Cats</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Prods</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Props</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Tags</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">SrchPln</th>
+                                    <!--
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Thms.</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Ordr.</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Lctn.</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center">Lds.</th>-->
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="plan in vm.paymentPlans" data-ng-show="plan.MonthlyRate != 0" data-ng-style="vm.selectedSubscriptionPlan.PaymentPlanName == plan.PaymentPlanName && {'background-color': '#E3E3E3'}">
+                                    <td style="font-size:16px"><strong>{{ plan.PaymentPlanName }}</strong></td>
+                                    <td>
+                                        <div data-ng-show="vm.selectedSubscriptionFrequency.PaymentFrequencyMonths <= 1" style="font-size:16px">
+                                            <b>{{ plan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths | currency }}</b> <small>{{ vm.selectedSubscriptionFrequency.PaymentFrequencyName }}</small>
+                                        </div>
+                                        <div data-ng-show="vm.selectedSubscriptionFrequency.PaymentFrequencyMonths > 1">
+                                            <span style="text-decoration:line-through; color:#940000">
+                                                <strong>{{ plan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths | currency }}</strong>
+                                            </span>
+                                            <br />
+                                            <div style="font-size:16px">
+                                                {{ (plan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths) - ((plan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths) * vm.selectedSubscriptionFrequency.PriceBreak) | currency}}
+                                                <small>{{ vm.selectedSubscriptionFrequency.PaymentFrequencyName }}</small>
+                                            </div>
+                                            <small style="color:#00A347; margin-top:-6px;"><strong>Save {{ vm.selectedSubscriptionFrequency.PriceBreak * 100 }}% every {{ vm.selectedSubscriptionFrequency.Interval.toLowerCase() }}</strong></small>
+                                        </div>
+                                    </td>
+
+
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxUsers | number }}</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxCategorizationsPerSet | number }}</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxProducts | number }}</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxProperties | number }}</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxTags | number }}</th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal"><b>"{{ plan.SearchPlan }}"</b></th>
+
+                                    <!--
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowThemes && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowThemes && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowThemes && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowThemes && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowCustomOrdering && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowCustomOrdering && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowCustomOrdering && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowCustomOrdering && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowLocationData && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowLocationData && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowLocationData && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowLocationData && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowSalesLeads && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowSalesLeads && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowSalesLeads && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                    <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowSalesLeads && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+                                    -->
+
+
+                                    <td style="text-align:right;">
+
+                                        <div data-ng-show="vm.selectedSubscriptionPlan.PaymentPlanName == plan.PaymentPlanName">
+                                            <div><a class="btn btn-primary">Selected</a></div>
+                                        </div>
+                                        <div data-ng-show="vm.selectedSubscriptionPlan.PaymentPlanName != plan.PaymentPlanName">
+                                            <div><a data-ng-click="vm.switchSelectedSubscriptionPlan(plan)" class="btn btn-default">Choose</a></div>
+                                        </div>
+
+                                    </td>
+                                    <td></td>
+                                </tr>
+                        </table>
+
+                    </div>
+
+                    <hr />
+                    <h3>Client subscription link:</h3>
+                    <i class="fa fa-link" style="color:darkgray"></i> <a href="https://subscribe.{{vm.AccountManagementDomain}}/sub/{{vm.selectedSubscriptionPlan.PaymentPlanName | lowercase}}/{{vm.selectedSubscriptionFrequency.PaymentFrequencyMonths}}/{{vm.account.AccountNameKey}}" target="_blank">Subscription link for <b>{{ vm.account.AccountName }}</b> on <b>{{ vm.selectedSubscriptionPlan.PaymentPlanName }}</b> plan</a>
+
+                </div>
+                <div id="Step2-SubBody" data-ng-show="vm.subscriptionStep2" class="modal-body">
+                    <!--Input State-->
+                    <div id="subscriptionCardForm">
+                        <div>
+                            <div class="form">
+                                <div data-ng-if="vm.subscriptionCard.error">
+                                    <h6 style="color:red"><strong><i class="fa fa-warning"></i> {{ vm.subscriptionCard.errorMessage }}</strong></h6>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.name" placeholder="Name on card" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.number" placeholder="Card number" />
+                                </div>
+                                <div class="form-group">
+                                    <input style="width:90px" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.cvc" placeholder="CVC" />
+                                </div>
+                                <div class="form-inline">
+                                    <input maxlength="2" style="width:70px" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.expMonth" placeholder="MM" />
+                                    /
+                                    <input maxlength="2" style="width:70px" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.expYear" placeholder="YY" />
+                                </div>
+                                <br /><small><strong><i class="fa fa-info-circle"></i> You are subscribing to the {{ vm.selectedSubscriptionPlan.PaymentPlanName }} plan for {{ (vm.selectedSubscriptionPlan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths) - ((vm.selectedSubscriptionPlan.MonthlyRate * vm.selectedSubscriptionFrequency.PaymentFrequencyMonths) * vm.selectedSubscriptionFrequency.PriceBreak) | currency }} every {{ vm.selectedSubscriptionFrequency.Interval.toLowerCase() }}</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Step3-SubBody" data-ng-show="vm.subscriptionStep3" class="modal-body">
+                    <div style="text-align:center">
+                        <h1 style="color:green"><strong><i class="fa fa-circle-o-notch fa-spin"></i></strong></h1>
+                        <h2 style="color:green">Processing subscription</h2>
+                    </div>
+                </div>
+                <div id="StepSuccess-SubBody" data-ng-show="vm.subscriptionStepSuccess" class="modal-body">
+                    <div style="text-align:center">
+                        <h2 style="color:green"><strong><i class="fa fa-check"></i> Subscription created!</strong></h2>
+                    </div>
+                </div>
+                <div id="Step1-SubFooter" data-ng-show="vm.subscriptionStep1" class="modal-footer">
+                    <button class="btn btn-primary btn-lg" data-ng-click="vm.goToSubscriptionStep2()">Sign up for <strong><u>{{ vm.selectedSubscriptionPlan.PaymentPlanName }}</u></strong> {{ vm.selectedSubscriptionFrequency.PaymentFrequencyName }}</button>
+                </div>
+                <div id="Step2-SubFooter" data-ng-show="vm.subscriptionStep2" class="modal-footer">
+                    <button class="btn btn-default btn-lg" data-ng-click="vm.goToSubscriptionStep1()">Back</button>
+                    <button class="btn btn-primary btn-lg" data-ng-click="vm.goToSubscriptionStep3()">Complete Subscription</button>
+                </div>
+                <div id="Step3-SubFooter" data-ng-show="vm.subscriptionStep3" class="modal-footer">
+                    <h6 data-ng-show="vm.subscriptionStep2" style="text-align:left"><i class="fa fa-lock" style="color:darkorange"></i> Secured</h6>
+                </div>
+                <div id="StepSuccess-SubFooter" data-ng-show="vm.subscriptionStepSuccess" class="modal-footer">
+                    <button class="btn btn-default btn-lg" data-dismiss="modal" data-ng-click="vm.endSubscriptionProcess()">OK!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

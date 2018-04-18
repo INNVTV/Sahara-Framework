@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:element name="GetPaymentPlans">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="includeHiddenPlans" type="xs:boolean" />
+        <xs:element minOccurs="0" name="orderByRateAsc" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentPlansResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" minOccurs="0" name="GetPaymentPlansResult" nillable="true" type="q1:ArrayOfPaymentPlan" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentFrequencies">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentFrequenciesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" minOccurs="0" name="GetPaymentFrequenciesResult" nillable="true" type="q2:ArrayOfPaymentFrequency" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentPlan">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="planName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentPlanResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" minOccurs="0" name="GetPaymentPlanResult" nillable="true" type="q3:PaymentPlan" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentFrequency">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="frequencyId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentFrequencyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" minOccurs="0" name="GetPaymentFrequencyResult" nillable="true" type="q4:PaymentFrequency" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePaymentPlan">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paymentPlanName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="monthlyRate" type="xs:decimal" />
+        <xs:element minOccurs="0" name="maxUsers" type="xs:int" />
+        <xs:element minOccurs="0" name="maxCategorizationsPerSet" type="xs:int" />
+        <xs:element minOccurs="0" name="maxProductsPerSet" type="xs:int" />
+        <xs:element minOccurs="0" name="maxProperties" type="xs:int" />
+        <xs:element minOccurs="0" name="maxValuesPerProperty" type="xs:int" />
+        <xs:element minOccurs="0" name="maxTags" type="xs:int" />
+        <xs:element minOccurs="0" name="allowSalesLeads" type="xs:boolean" />
+        <xs:element minOccurs="0" name="allowImageEnhancements" type="xs:boolean" />
+        <xs:element minOccurs="0" name="allowLocationData" type="xs:boolean" />
+        <xs:element minOccurs="0" name="allowCustomOrdering" type="xs:boolean" />
+        <xs:element minOccurs="0" name="allowThemes" type="xs:boolean" />
+        <xs:element minOccurs="0" name="monthlySupportHours" type="xs:int" />
+        <xs:element minOccurs="0" name="maxImageGroups" type="xs:int" />
+        <xs:element minOccurs="0" name="maxImageFormats" type="xs:int" />
+        <xs:element minOccurs="0" name="maxImageGalleries" type="xs:int" />
+        <xs:element minOccurs="0" name="maxImagesPerGallery" type="xs:int" />
+        <xs:element minOccurs="0" name="visible" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q5:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePaymentPlanResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="CreatePaymentPlanResult" nillable="true" type="q6:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePlanVisibility">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paymentPlanName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newVisibility" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q7:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePlanVisibilityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdatePlanVisibilityResult" nillable="true" type="q8:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePaymentPlan">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paymentPlanName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q9:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePaymentPlanResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="DeletePaymentPlanResult" nillable="true" type="q10:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

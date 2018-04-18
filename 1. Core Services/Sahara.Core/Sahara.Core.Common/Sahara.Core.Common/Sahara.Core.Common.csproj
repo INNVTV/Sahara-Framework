@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DC1B4BF7-31F1-4390-BAB9-440A082AF838}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sahara.Core.Common</RootNamespace>
+    <AssemblyName>Sahara.Core.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StackExchange.Redis.1.2.1\lib\net46\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe.net, Version=7.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Stripe.net.7.6.1\lib\net45\Stripe.net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Codes\DataAccessErrorCodes.cs" />
+    <Compile Include="DocumentModels\CollectionPropertiesDocumentModel.cs" />
+    <Compile Include="MemoryCacheManager\MemoryCacheManager.cs" />
+    <Compile Include="Methods\AccountNames.cs" />
+    <Compile Include="Methods\Billing.cs" />
+    <Compile Include="Methods\Commerce.cs" />
+    <Compile Include="Methods\DateFunctions.cs" />
+    <Compile Include="Methods\Endpoints.cs" />
+    <Compile Include="Methods\ObjectNames.cs" />
+    <Compile Include="Methods\PropertyName.cs" />
+    <Compile Include="Methods\SchemaNames.cs" />
+    <Compile Include="Methods\String.cs" />
+    <Compile Include="Methods\UserNames.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\AccountApiKeysHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\AccountCapacityHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\AccountCreditsHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\AccountHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\AccountSettingsHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationCategorizationHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationImageFormats.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationProductHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationPropertiesHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationSearchHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ApplicationTagsHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\GlobalHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\PaymentPlansHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\ThemesHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Hashes\UserHash.cs" />
+    <Compile Include="Redis\AccountManagerServer\Strings\AccountsForEmailString.cs" />
+    <Compile Include="Redis\ApiRedisLayer.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\AccountCountsHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\AccountListsHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\CreditsHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\PlatformHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\ReportsHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\SnapshotsHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Hashes\UserHash.cs" />
+    <Compile Include="Redis\PlatformManagerServer\Strings\GlobalUserCount.cs" />
+    <Compile Include="ResponseTypes\DataAccessResponseType.cs" />
+    <Compile Include="Types\ProductPropertyType.cs" />
+    <Compile Include="Types\ProductPropertyUpdateType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Redis\AccountManagerServer\Lists\" />
+    <Folder Include="Redis\AccountManagerServer\Sets\" />
+    <Folder Include="Redis\AccountManagerServer\SortedSets\" />
+    <Folder Include="Redis\ApplicationServer\" />
+    <Folder Include="Redis\PlatformManagerServer\Lists\" />
+    <Folder Include="Redis\PlatformManagerServer\Sets\" />
+    <Folder Include="Redis\PlatformManagerServer\SortedSets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sahara.Core.Settings\Sahara.Core.Settings.Models\Sahara.Core.Settings.Models.csproj">
+      <Project>{9233f937-7a99-4542-8589-da7b49a21feb}</Project>
+      <Name>Sahara.Core.Settings.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sahara.Core.Settings\Sahara.Core.Settings\Sahara.Core.Settings.csproj">
+      <Project>{bd0f4229-dadd-4600-a235-2e504522327f}</Project>
+      <Name>Sahara.Core.Settings</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

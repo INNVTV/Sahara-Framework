@@ -1,0 +1,79 @@
+﻿<div>
+
+    <!--Edit Swatch Properties Modal-->
+    <div class="modal fade editSwatchPropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="editSwatchPropertiesModalWindow" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" style="width:500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetails.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:10px;">
+
+                        <!-- Current Values -->
+                        <div data-ng-show="vm.propertyDetails.AssignedSwatches.length > 0">
+                            <label data-ng-show="vm.propertyDetails.Appendable">Current swatch(es):</label>
+                            <label data-ng-show="!vm.propertyDetails.Appendable">Current swatch:</label>
+                            <div style="margin-top:-6px;">
+                                <small data-ng-show="vm.propertyDetails.Appendable" style="color:darkgray; font-size:11px">Click on a swatch to remove it from the {{ vm.propertyDetails.PropertyName }} property</small>
+                                <small data-ng-show="!vm.propertyDetails.Appendable" style="color:darkgray; font-size:11px">Click on the swatch to remove it from the {{ vm.propertyDetails.PropertyName }} property</small>
+                            </div>
+                            <div data-ng-repeat="assignedSwatch in vm.propertyDetails.AssignedSwatches" style="margin-top:20px;">
+                                <button data-ng-show="vm.movingCollectionProperty" class="btn btn-sm btn-default disabled" style="float:left; margin-right:17px; margin-bottom:17px;">
+                                    <img style="margin-bottom:10px; padding-top:5px;" height="110" width="110" ng-src="{{ assignedSwatch.Image }}" /><br /><b style="font-size:10px;">{{ assignedSwatch.Label }}</b>
+                                </button>
+                                <button data-ng-show="!vm.movingCollectionProperty"class="btn btn-sm btn-default" style="float:left; margin-right:17px; margin-bottom:17px;" data-ng-click="vm.removeProductPropertySwatchCollectionItem($index)" >
+                                    <img style="margin-bottom:10px; padding-top:5px;" height="110" width="110" ng-src="{{ assignedSwatch.Image }}" /><br /><b style="font-size:10px;">{{ assignedSwatch.Label }}</b>
+                                </button>
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+                            
+                        </div>
+
+                        <hr data-ng-show="!vm.movingCollectionProperty && vm.propertyDetails.AssignedSwatches.length > 0" />
+                        <section-loader data-ng-show="vm.movingCollectionProperty" loader-type="'inline'" style="margin-bottom:-1px;"></section-loader>
+
+                        <!-- Available Values -->
+                        <div data-ng-show="vm.propertyDetails.AvailableSwatchesDiff.length > 0">
+                            <label>Available swatch(es):</label>
+                            <div style="margin-top:-6px;">
+                                <small data-ng-show="vm.propertyDetails.Appendable" style="color:darkgray; font-size:11px">Click on a swatch to append it to the {{ vm.propertyDetails.PropertyName }} option(s)</small>
+                                <small data-ng-show="!vm.propertyDetails.Appendable" style="color:darkgray; font-size:11px">Click on a swatch to add/replace it with the current {{ vm.propertyDetails.PropertyName }} option</small>
+                            </div>  
+                            <div data-ng-repeat="availableSwatch in vm.propertyDetails.AvailableSwatchesDiff" style="margin-top:20px;">
+                                <button data-ng-show="vm.movingCollectionProperty" class="btn btn-xs btn-default disabled" style="float:left; margin:5px; margin-top:8px; "><img style="margin:3px; padding-top:3px" height="50" width="50" ng-src="{{ availableSwatch.Image }}" /><br /><span style="font-weight:bolder; font-size:10px;">{{ availableSwatch.Label }}</span></button>
+                                <button data-ng-show="!vm.movingCollectionProperty && vm.propertyDetails.Appendable" data-ng-click="vm.appendProductPropertySwatchCollectionItem($index)" class="btn btn-xs btn-default" style="float:left; margin:5px; margin-top:8px;"> <img style="margin:3px; padding-top:3px" height="50" width="50" ng-src="{{ availableSwatch.Image }}" /><br /><span style="font-weight:bolder; font-size:10px;">{{ availableSwatch.Label }}</span></button>
+                                <button data-ng-show="!vm.movingCollectionProperty && !vm.propertyDetails.Appendable" data-ng-click="vm.replaceProductPropertySwatchCollectionItem($index)" class="btn btn-xs btn-default" style="float:left; margin:5px; margin-top:8px;"> <img style="margin:3px; padding-top:3px" height="50" width="50" ng-src="{{ availableSwatch.Image }}" /><br /><span style="font-weight:bolder; font-size:10px;">{{ availableSwatch.Label }}</span></button>
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+
+                        </div>
+
+                        <!-- Error -->
+                        <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <br />
+                            <hr />
+                            <br />
+                            <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.propertyDetails.Results.Message }}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Appendable footer-->
+                <div class="modal-footer">
+                    <div>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

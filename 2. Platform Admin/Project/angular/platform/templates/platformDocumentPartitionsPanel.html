@@ -1,0 +1,231 @@
+﻿<div>
+
+
+    <!--DOcument Partition Details Modal-->
+    <div class="modal fade documentPartitionDetailModal" tabindex="-1" role="dialog" aria-labelledby="documentPartitionDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <h2 style="margin-top:-2px; margin-bottom:-2px;">
+                        <i class="fa fa-folder-open"></i> {{ vm.currentDocumentPartition.DocumentPartitionID }}
+                    </h2>
+                </div>
+
+
+                <div class="modal-body">
+
+                        <div>
+                            <tabset>
+
+                                <tab active="vm.documentPartitionDetail.DefaultTabActive" style="cursor:pointer" id="PropertiesTab" heading="Documents" data-ng-click="">
+
+                                    <div data-ng-show="vm.currentDocumentPartitionCollectionProperties == null">
+                                        <section-loader message="'Getting collection properties...'" loader-type="'inline'"></section-loader>
+                                    </div>
+
+                                    <div data-ng-show="vm.currentDocumentPartitionCollectionProperties != null" style="margin-left:30px; margin-top:45px; margin-bottom:20px;">
+
+                                        <!-- PARTITION COLLECTION COUNT PROPERTIES -->
+
+                                        <div>
+
+                                            <!--<div style="margin-bottom:30px; color:darkgrey;"><small><strong>Documents:</strong></small></div>-->
+
+                                            <div style="text-align:center; float:left; margin-right:40px; padding-right:40px; border-right: 1px solid #D9D9D9;">
+                                                <p style="margin-bottom:8px;">
+                                                    <span style="border:2px solid black;padding:6px; padding-left:10px; padding-right:10px; font-size:34px;"><strong>{{ vm.currentDocumentPartitionCollectionProperties.DocumentCount | number }}</strong></span>
+                                                </p>
+
+                                                <small style="font-size:16px;"><strong>Total</strong></small>
+                                            </div>
+
+                                            <div style="text-align:center; float:left; margin-right:32px; margin-top:10px">
+                                                <p style="margin-bottom:8px;">
+                                                    <span style="border:1px solid black; padding:6px; padding-left:10px; padding-right:10px; font-size:22px;">{{ vm.currentDocumentPartitionCollectionProperties.ProductCount | number }}</span>
+                                                </p>
+
+                                                <small>Products</small>
+                                            </div>
+
+                                            <div style="text-align:center; float:left; margin-right:32px; margin-top:10px">
+                                                <p style="margin-bottom:8px;">
+                                                    <span style="border:1px solid black; padding:6px; padding-left:10px; padding-right:10px; font-size:22px;">{{ vm.currentDocumentPartition.TenantCount | number }}</span>
+                                                </p>                                                
+                                                <small>Account Properties</small>
+                                            </div>
+
+                                            <div style="text-align:center; float:left; margin-right:32px; margin-top:10px">
+                                                <p style="margin-bottom:8px;">
+                                                    <span style="border:1px solid black; padding:6px; padding-left:10px; padding-right:10px; font-size:22px;">1</span>
+                                                </p>
+                                                <small>Collection Properties</small>
+                                            </div>
+                                        </div>
+                                        
+                                        <br style="clear:both; margin-top:10px; margin-bottom:10px"/>
+
+                                    </div>
+
+                                </tab>
+
+
+                                <tab id="Tenants" heading="Tenants ({{vm.currentDocumentPartition.TenantCount}})" style="cursor:pointer" data-ng-click="vm.setCurrentDocumentPartitionDetailTenantsTab()">
+
+                                    <div style="margin-left:20px; margin-top:35px; margin-bottom:5px;">
+                                        <!-- max-height:350px; overflow : auto; ">-->
+
+                                        <div data-ng-show="vm.documentPartitionTenants == null">
+                                            <section-loader message="'Getting tenants...'" loader-type="'inline'"></section-loader>
+                                        </div>
+
+
+                                        <!--<div data-ng-show="vm.documentPartitionTenants.length > 0">
+
+
+                                            {{vm.currentDocumentPartition.TenantCount}} / {{vm.currentDocumentPartitionTier.MaxTenants}}
+
+                                            <hr />
+
+                                        </div>-->
+
+
+                                        <span data-ng-repeat="tenant in vm.documentPartitionTenants">
+
+                                            <button style="margin-bottom:12px" class="btn btn-default btn-md" data-ng-click="vm.loadAccountDetailsPage(tenant.AccountNameKey)">{{ tenant.AccountName }}</button>&nbsp;&nbsp;&nbsp;
+
+                                        </span>
+
+                                        <div data-ng-show="vm.documentPartitionTenants.length == 50">
+                                            <hr /><small style="color:grey; padding-top:0px;"><i><strong>* Only showing top 50 results</strong></i></small>
+                                        </div>
+
+                                        <div data-ng-show="vm.documentPartitionTenants.length == 0">
+                                            <small>No tenants</small>
+                                        </div>
+                                    </div>
+                                </tab>
+
+                            </tabset>
+
+
+                        </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End Document Partition Details Modal-->
+
+
+    <div id="DocumentPartitionsPanelLoading" class="container-fluid" style="padding-top:10px" data-ng-show="vm.documentPartitionsPanelLoading">
+        <section-loader message="'Getting partitions...'" loader-type="'inline'"></section-loader>
+    </div>
+
+    <div id="Partitions" class="container-fluid" style="padding-top:10px" data-ng-show="!vm.documentPartitionsPanelLoading">
+
+        <table class="table table-striped table-responsive" data-ng-show="vm.documentPartitions.length > 0">
+          <thead>
+            <tr>
+                <th></th>
+                <th style="text-align:center">Tenants</th>
+                <th style="text-align:center">Max</th>
+                <th class="hidden-xs hidden-sm" style="width:230px">Capacity</th>
+                <th class="hidden-xs hidden-sm"></th>
+                <th class="hidden-xs hidden-sm hidden-md"></th>
+                <th class="hidden-xs hidden-sm"></th>
+            </tr>
+        </thead>
+            <tr data-ng-repeat="partition in vm.documentPartitions">
+
+
+                <td style="text-align:left">
+                    <span style="font-size:22px; margin-top:15px">
+                        <i class="fa fa-folder-open hidden-xs hidden-sm hidden-md" style="font-size:16px; margin-right:5px;"></i> {{ partition.DocumentPartitionID }}
+                    </span>
+                </td>
+
+                <td style="text-align:center">
+                    <span style="font-size:24px;"><strong>{{ partition.TenantCount | number }}</strong></span>
+                </td>
+                <td style="text-align:center">
+                    <span style="font-size:24px;">{{ vm.currentDocumentPartitionTier.MaxTenants | number }} </span>
+                </td>
+                
+                <!--
+                <td>
+                    <span>  Bar Graph</span>
+                </td>
+
+                <td>
+                    <span>{{ (partition.TenantCount / vm.currentDocumentPartitionTier.MaxTenants)*100 | number }}%</span>
+                </td>-->
+
+                <td class="hidden-xs hidden-sm" style="width:200px">
+                    <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                        <img src="Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (partition.TenantCount / vm.currentDocumentPartitionTier.MaxTenants)*200 | number }}" />
+                    </div>
+                    <small style="color:#C7C7C7">{{ (partition.TenantCount / vm.currentDocumentPartitionTier.MaxTenants)*100 | number }}%</small>
+                </td>
+
+                <td class="hidden-xs hidden-sm" style="margin-left:20px;">
+
+                    <small>Created: <strong am-time-ago="partition.CreateDate"></strong></small>
+                    <br />
+                    <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                    <small style="color:#8A8A8A">{{ partition.CreateDate | date : 'h:mm a' }} on {{ partition.CreateDate | date : 'EEE MMM dd, yyyy' }}</small>
+
+                </td>
+
+                <td class="hidden-xs hidden-sm hidden-md" style="margin-left:20px;">
+
+                    <small>Last Updated: <strong am-time-ago="partition.LastUpdatedDate"></strong></small>
+                    <br />
+                    <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                    <small style="color:#8A8A8A">{{ partition.LastUpdatedDate | date : 'h:mm a' }} on {{ partition.LastUpdatedDate | date : 'EEE MMM dd, yyyy' }}</small>
+
+                </td>
+
+                <td class="hidden-xs hidden-sm" style="text-align:right">
+                    <button class="btn btn-sm btn-default" data-toggle="modal" data-target=".documentPartitionDetailModal" data-ng-click="vm.getDocumentPartitionDetail($index, true)">Details</button>
+                </td>
+
+
+            </tr>
+        </table>
+
+        <div data-ng-show="vm.documentPartitions.length == 0" style="padding-bottom:20px">
+            <h4> You have no <strong>"{{ vm.currentDocumentPartitionTier.DocumentPartitionTierID }}"</strong> tier partitions in the system yet.</h4>
+        </div>
+
+        <!-- TIER INFO-->
+        <div class="hidden-xs hidden-sm" style="margin-top:-20px;">
+            <hr style="border:thin dashed #CFCFCF" />
+            <div style="margin-top:-2px; margin-left:10px">
+                <span><small style="font-size:14px"><strong>{{  vm.currentDocumentPartitionTier.DocumentPartitionTierID }} Tier Properties: </strong></small></span>&nbsp;&nbsp;
+                <span> <small>Max Tenants: <strong style="border:1px solid lightgrey; padding:5px">{{  vm.currentDocumentPartitionTier.MaxTenants | number }}</strong></small></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span> <small>Max Documents Per Tenant: <strong style="border:1px solid lightgrey; padding:5px">{{  vm.currentDocumentPartitionTier.MaxDocuments | number }}</strong></small></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span> <small>Average Document Size: <strong style="border:1px solid lightgrey; padding:5px">{{  vm.currentDocumentPartitionTier.MaxDocumentKbSize | number }}<font style="font-weight:normal; color:darkgrey"> kb</font></strong></small></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span> <small>*Max Docs Allowed: <strong style="border:1px solid lightgrey; padding:5px">{{  vm.currentDocumentPartitionTier.MaxTenants * vm.currentDocumentPartitionTier.MaxDocuments  | number }}</strong></small></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span> <small>**Max Storage Allowed: <strong style="border:1px solid lightgrey; padding:5px">{{  vm.currentDocumentPartitionTier.MaxDocumentKbSize * (vm.currentDocumentPartitionTier.MaxTenants * vm.currentDocumentPartitionTier.MaxDocuments) / 1024 / 1024  | number:1 }}<font style="font-weight:normal; color:darkgrey"> gb</font></strong></small></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:-12px; margin-left:15px;">
+                <small style="color:lightgrey"><i>* Based on tier rules (max tenants * max documents)</i></small>
+                <br />
+                <small style="color:lightgrey"><i>** Based on tier rules and assumed averages (max docs allowed * average document size)</i></small>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,361 @@
+﻿<div>
+
+    <!--Invoice Details Modal-->
+    <div class="modal fade invoiceDetailModal" tabindex="-1" role="dialog" aria-labelledby="invoiceDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 style="margin-top:-5px; margin-bottom:-5px;">Invoice details</h2>
+                </div>
+
+                <div class="modal-body" id="InvoiceDetailDefaultLoading" data-ng-show="vm.loadingInvoiceDetails">
+                    <section-loader message="'Loading payment details...'" loader-type="'inline'"></section-loader>
+                </div>
+
+                <div class="modal-body" id="InvoiceDetailDefault" data-ng-show="!vm.loadingInvoiceDetails">
+
+                    <!-- INVOICE TAB -->
+                    <div style="margin:10px; margin-bottom:25px">
+
+                        <!-- Invoice Id -->
+                        <strong style="margin-top:30px">Invoice ID:</strong>
+                        <p><small style="color:#A6A6A6;">{{ vm.invoiceDetail.InvoiceID }} </small></p>
+
+                        <!-- Status
+                        <strong style="margin-top:30px">Status:</strong>
+                        <p data-ng-show="vm.invoiceDetail.Paid == true" style="color:green">
+                            <small style="margin-top:-5px;"><strong><i class="fa fa-check"></i> Paid</strong></small>
+                        </p>
+                        <p data-ng-show="vm.invoiceDetail.Paid == false" style="color:red">
+                            <small style="margin-top:-5px;"><strong><i class="fa fa-times"></i> Unpaid</strong></small>
+                        </p>-->
+                        <!-- Invoice Date -->
+                        <strong style="margin-top:30px">Invoice Date:</strong>
+                        <p>
+                            <small style="color:#A6A6A6;">
+                                {{ vm.invoiceDetail.Date | date : 'EEE MMM, dd yyyy' }}
+                                &nbsp;&nbsp;
+                                <i class="fa fa-clock-o" style="color:#DBDBDB"></i> {{ vm.invoiceDetail.Date | date : 'h:mm a' }}
+                                &nbsp;&nbsp;
+                                <i class="fa fa-history" style="color:#DBDBDB"></i> <span am-time-ago="vm.invoiceDetail.Date"></span>
+                            </small>
+                        </p>
+
+
+                        <!-- Invoice Description -->
+                        <div class="visible-xs">
+                            <strong style="margin-top:30px">Attempts:</strong>
+                            <p><small style="color:#A6A6A6;">{{ vm.invoiceDetail.Attempts }} </small></p>
+                        </div>
+
+
+                        <!-- Payment Attempts
+                        <strong>Payment Attempts:</strong>
+                        <p style="color:#A6A6A6;">{{ vm.invoiceDetail.Attempts }}</p> -->
+                        <!-- Next Attempt -->
+                        <div style="text-align:left;">
+                            <strong style="margin-top:30px">Next Attempt:</strong>
+
+                            <br />
+                            <!--Unpaid (No Date)-->
+                            <small data-ng-show="vm.invoiceDetail.Paid == false && vm.invoiceDetail.NextAttempt == null && vm.invoiceDetail.Attempts > 0" style="color:red">Attempts exhausted: Retry manually on Stripe</small>
+                            <small data-ng-show="vm.invoiceDetail.Paid == false && vm.invoiceDetail.NextAttempt == null && vm.invoiceDetail.Attempts == 0" style="color:#A6A6A6">Attempt date pending...</small>
+                            <!--Paid (No Date)-->
+                            <small data-ng-show="vm.invoiceDetail.Paid == true" style="color:#A6A6A6">None: Invoice paid in full</small>
+
+                            <!--Unpaid, Multiple attempts (With Date)-->
+                            <p data-ng-show="vm.invoiceDetail.Paid == false && vm.invoiceDetail.NextAttempt != null && vm.invoiceDetail.Attempts > 0">
+                                <small style="color:red;">
+                                    {{ vm.invoiceDetail.NextAttempt | date : 'EEE, MMM dd, yyyy' }}
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-clock-o"></i> {{ vm.invoiceDetail.NextAttempt | date : 'h:mm a' }}
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-history"></i> <span am-time-ago="vm.invoiceDetail.NextAttempt"></span>
+                                </small>
+                            </p>
+
+                            <!--Unpaid (With Date)-->
+                            <p data-ng-show="vm.invoiceDetail.Paid == false && vm.invoiceDetail.NextAttempt != null && vm.invoiceDetail.Attempts == 0">
+                                <small style="color:black;">
+                                    {{ vm.invoiceDetail.NextAttempt | date : 'EEE, MMM dd, yyyy' }}
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-clock-o"></i> {{ vm.invoiceDetail.NextAttempt | date : 'h:mm a' }}
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-history"></i> <span am-time-ago="vm.invoiceDetail.NextAttempt"></span>
+                                </small>
+                            </p>
+
+
+                        </div>
+
+                        <!-- Invoice Description -->
+                        <div data-ng-show="vm.invoiceDetail.Description != null">
+                            <strong style="margin-top:30px">Description:</strong>
+                            <p><small style="color:#A6A6A6;">{{ vm.invoiceDetail.Description }} </small></p>
+                        </div>
+
+
+
+                        <!-- Invoice Line Items -->
+                        <div style="margin-top:20px; margin-bottom:5px;">
+                            <strong>Invoice Line Items:</strong>
+                        </div>
+
+                        <table class="table table-striped table-responsive">
+                            <!--<thead class="hidden-xs">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>-->
+                            <tr data-ng-repeat="lineItem in vm.invoiceDetail.LineItems">
+
+                                <td>
+                                    <span data-ng-show="lineItem.Description != null">
+                                        {{ lineItem.Description }}
+                                    </span>
+                                    <span data-ng-show="lineItem.Description == null && lineItem.PlanDescription != null">
+                                        <strong>{{ lineItem.PlanDescription }}</strong>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span data-ng-show="lineItem.Proration == true">
+                                        <small>[Prorated]</small>
+                                    </span>
+                                </td>
+
+                                <td style="text-align:right;">
+                                    <strong>
+                                        <span data-ng-show="lineItem.Description != null">
+                                            {{ lineItem.Amount }}
+                                        </span>
+                                        <span data-ng-show="lineItem.Description == null && lineItem.PlanDescription != null">
+                                            {{ lineItem.Amount }}
+                                        </span>
+                                    </strong>
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+
+
+                        <table class="table" style="margin-top:-17px">
+                            <tr>
+                                <td>
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Status:</small>
+                                        <div data-ng-show="vm.invoiceDetail.Paid == true">
+                                            <h4 style="color:green"><strong><i class="fa fa-check"></i> Paid</strong></h4>
+                                        </div>
+                                        <div data-ng-show="vm.invoiceDetail.Paid == false">
+                                            <h4 style="color:red"><strong><i class="fa fa-times"></i> Unpaid</strong></h4>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="hidden-xs">
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Attempts:</small>
+                                        <h4>
+                                            <strong style="color:black">{{ vm.invoiceDetail.Attempts }}</strong>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td class="hidden-xs">
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Total:</small>
+                                        <h4>
+                                            <strong style="color:black">{{ vm.invoiceDetail.Total | currency }}</strong>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td class="hidden-xs">
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Starting Balance:</small>
+                                        <h4>
+                                            <strong style="color:#007CBA">{{ vm.invoiceDetail.StartingBalance | currency }}</strong>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td class="hidden-xs hidden-sm">
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Ending Balance:</small>
+                                        <h4>
+                                            <strong style="color:black">{{ vm.invoiceDetail.EndingBalance | currency }}</strong>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="well" style="text-align:center; padding:10px; margin-bottom:-10px; margin-top:20px">
+                                        <small style="color:#A6A6A6;">Amount Due:</small>
+                                        <h4>
+                                            <strong style="color:green">{{ vm.invoiceDetail.AmountDue | currency }}</strong>
+                                        </h4>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    <!-- (END) INVOICE TAB -->
+
+                </div>
+
+                <div class="modal-footer" style="margin-top:-5px">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!--End Invoice Details Modal-->
+
+
+
+    <div id="InvoiceHistoryPanelLoading" class="container-fluid" style="padding-top:20px" data-ng-show="vm.invoiceHistoryPanelLoading">
+        <section-loader message="'Getting invoice history...'" loader-type="'inline'"></section-loader>
+    </div>
+
+    <div id="PaymentHistory"   style="padding-top:20px" data-ng-show="!vm.invoiceHistoryPanelLoading">
+
+
+
+            <!--<div style="text-align:right; vertical-align: text-bottom; margin-top:-20px; margin-bottom:15px">
+                <button data-ng-show="vm.invoices_last.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getInvoiceHistory_Last()"><i class="fa fa-arrow-circle-left"></i> Previous {{ vm.invoices_last.length }}</button>
+                <button data-ng-show="vm.invoices_last.length == 0 && !vm.invoicesPreloadingLast" class="btn btn-default btn-xs disabled"> <i class="fa fa-arrow-circle-left"></i> Previous </button>
+                <button data-ng-show="vm.invoicesPreloadingLast" class="btn btn-primary btn-xs" style="background-color:#00569C"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading </button>
+
+
+                <button data-ng-show="vm.invoices_next.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getInvoiceHistory_Next()">Next {{ vm.invoices_next.length }} <i class="fa fa-arrow-circle-right"></i> </button>
+                <button data-ng-show="vm.invoices_next.length == 0 && !vm.invoicesPreloadingNext" class="btn btn-default btn-xs disabled">Next <i class="fa fa-arrow-circle-right"></i> </button>
+                <button data-ng-show="vm.invoicesPreloadingNext" class="btn btn-primary btn-xs" style="background-color:#00569C">Loading <i class="fa fa-circle-o-notch fa-spin"></i> </button>
+            </div>-->
+
+
+            <div data-ng-show="vm.showingInvoiceHistoryDateRange" style="float:left">
+                <strong>Showing results between {{ vm.invoice_daterange_start }} and {{ vm.invoice_daterange_end }}</strong>
+            </div>
+
+
+            <table class="table table-striped table-responsive" data-ng-show="vm.invoices.length > 0">
+             <thead class="hidden-xs">
+                <tr>
+                    <th style="text-align:left; width:23px;">Status</th>
+                    <th></th>
+                    <th>Date</th>
+                    <th data-ng-show="vm.showAccountColumnForPayments == true">Account</th>
+                    <th style="text-align:center">Attempts</th>
+                    <th style="text-align:right;">Amount</th>
+                </tr>
+            </thead>
+                <tr data-ng-repeat="invoice in vm.invoices">
+
+                    <!-- Status -->
+                    <td style="text-align:left; cursor:pointer">
+                        <div data-ng-show="invoice.Paid == true" style="color:green" Title="Paid">
+                            <strong><i class="fa fa-check"></i></strong>
+                        </div>
+                        <div data-ng-show="invoice.Paid == false && invoice.Attempts == 0" style="color:lightgray" Title="Pending">
+                            <strong><i class="fa fa-history"></i></strong>
+                        </div>
+                        <div data-ng-show="invoice.Paid == false && invoice.Attempts > 0" style="color:red" Title="Unpaid">
+                            <strong><i class="fa fa-times"></i></strong>
+                        </div>
+                    </td>
+
+
+
+                    <!-- Details -->
+                    <td>
+                        <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".invoiceDetailModal" data-ng-click="vm.getInvoiceDetail($index, true)">Details</button>
+                    </td>
+
+                    <!-- Date -->
+                    <td style="cursor:pointer" title="{{ invoice.Date | date : 'EEE, MMM dd, yyyy (h:mm a)' }}">
+                        <i class="fa fa-clock-o" style="color:#A6A6A6;"></i> <small am-time-ago="invoice.Date"></small>
+                    </td> 
+
+
+                    <!--Account-->
+                    <td data-ng-show="invoice.Account != null">
+                        <a style="cursor:pointer" data-ng-click="vm.goToAccount(invoice.Account.AccountNameKey)">{{ invoice.Account.AccountName }}</a>
+                    </td>
+
+                    <!-- Account -->
+                    <td data-ng-show="invoice.AccountID == null">
+                        <small>N/A</small>
+                    </td>
+
+                    <!-- Attempts -->
+                    <td style="cursor:pointer; text-align:center">
+                            <!--Unpaid-->
+                            <div data-ng-show="invoice.Paid == false && invoice.NextAttempt != null && invoice.Attempts > 0" style="color:red" title="Next attempt: {{ invoice.NextAttempt | date : 'EEE, MMM dd, yyyy (h:mm a)' }}"><strong>{{ invoice.Attempts }}</strong></div>
+                            <div data-ng-show="invoice.Paid == false && invoice.NextAttempt == null && invoice.Attempts > 0" style="color:red" title="Attempts exhausted. Retry manually on Stripe"><strong>{{ invoice.Attempts }}</strong></div>
+                            <div data-ng-show="invoice.Paid == false && invoice.NextAttempt == null && invoice.Attempts == 0" style="color:darkgrey" title="Attempt date pending...">{{ invoice.Attempts }}</div>
+                            <div data-ng-show="invoice.Paid == false && invoice.NextAttempt != null && invoice.Attempts == 0" style="color:darkgrey" title="Next attempt: {{ invoice.NextAttempt | date : 'EEE, MMM dd yyyy (h:mm a)' }}"><strong>{{ invoice.Attempts }}</strong></div>
+                            <!--Paid-->
+                            <div data-ng-show="invoice.Paid == true" style="color:#222222" title="Invoice paid in full">{{ invoice.Attempts }}</div>
+                    </td>
+
+                    <!-- Amount -->
+                    <td style="text-align:right">
+                        <strong data-ng-show="invoice.Paid == true" style="color:green">{{ invoice.AmountDue | currency }}</strong>
+                        <strong data-ng-show="invoice.Paid == false" style="color:red">{{ invoice.AmountDue | currency }}</strong>
+                    </td>
+                </tr>
+            </table>
+
+        <div style="text-align:right; vertical-align: text-bottom;">
+            <button data-ng-show="vm.invoices_last.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getInvoiceHistory_Last()"><i class="fa fa-arrow-circle-left"></i> Previous {{ vm.invoices_last.length }}</button>
+            <button data-ng-show="vm.invoices_last.length == 0 && !vm.invoicesPreloadingLast" class="btn btn-default btn-xs disabled"> <i class="fa fa-arrow-circle-left"></i> Previous </button>
+            <button data-ng-show="vm.invoicesPreloadingLast" class="btn btn-primary btn-xs" style="background-color:#00569C"> <i class="fa fa-circle-o-notch fa-spin"></i> Loading </button>
+
+
+            <button data-ng-show="vm.invoices_next.length > 0" class="btn btn-primary btn-xs" data-ng-click="vm.getInvoiceHistory_Next()">Next {{ vm.invoices_next.length }} <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.invoices_next.length == 0 && !vm.invoicesPreloadingNext" class="btn btn-default btn-xs disabled">Next <i class="fa fa-arrow-circle-right"></i> </button>
+            <button data-ng-show="vm.invoicesPreloadingNext" class="btn btn-primary btn-xs btn-disabled" style="background-color:#00569C">Loading <i class="fa fa-circle-o-notch fa-spin"></i> </button>
+        </div>
+
+        <!-- FILTER BY DATE RANGE
+            
+        <br /><br />
+
+            <div class="well hidden-xs hidden-sm">
+                <small><strong>Filter invoices by date range:</strong></small>
+
+                <div class="input-daterange input-group" id="datepicker">
+                    <input type="text" class="input-sm form-control" name="startinvoicedaterange" data-ng-model="vm.invoice_daterange_start" placeholder="From" />
+                    <span class="input-group-addon">to</span>
+                    <input type="text" class="input-sm form-control" name="endinvoicedaterange" data-ng-model="vm.invoice_daterange_end" placeholder="To" />
+                    
+                </div>
+
+                <br />
+
+                <div data-ng-show="vm.invoice_daterange_start != null && vm.invoice_daterange_end != null" style="float:left">
+                    <a class="btn btn-default btn-xs" data-ng-click="vm.getInvoiceHistory()">Clear</a>
+                    <a class="btn btn-primary btn-xs" data-ng-click="vm.filterInvoicesByDateRange()">Filter by date range</a>
+                </div>
+
+                <br />
+
+            </div>
+        -->
+
+        </div>
+
+
+</div>

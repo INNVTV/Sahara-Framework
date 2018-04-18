@@ -1,0 +1,95 @@
+﻿<div>
+
+    <!--Edit Predefined Properties Modal-->
+    <div class="modal fade editPredefinedPropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="editPredefinedPropertiesModalWindow" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetails.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:10px; margin-top:0px;">
+
+                        <section-loader data-ng-show="vm.propertyDetails.IsSending == true" message="'Updating....'" loader-type="'inline'" style="margin-bottom:20px;"></section-loader>
+
+
+                        <!-- Current values (not appendable) -->
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == false && vm.propertyDetails.IsSending == false && vm.propertyDetails.AssignedValues.length > 0">
+                            <label>Current value:</label>
+                            <span data-ng-repeat="assignedValue in vm.propertyDetails.AssignedValues" style="font-size:16px;">{{ assignedValue }}<span data-ng-show="!$last">, </span> </span>
+                        </span>
+
+
+                        <!-- Editing (Not Appendable) -->
+                        <div data-ng-show="vm.propertyDetails.Appendable == false && vm.propertyDetails.IsSending == false && vm.propertyDetails.SendingComplete == false">
+
+                            <div style="height:10px;"></div>
+                            <span data-ng-show="vm.propertyDetails.AssignedValues != null && vm.propertyDetails.ValueToReplaceOrAppend != null && vm.propertyDetails.ValueToReplaceOrAppend != ''">Replace with: </span>
+                            <div data-ng-show="vm.propertyDetails.ValueType == 'predefined'" class="btn-group" style="margin-right:5px;">
+
+                                <button type="button" class="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown">
+                                    <span data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend != null && vm.propertyDetails.ValueToReplaceOrAppend != ''">{{ vm.propertyDetails.ValueToReplaceOrAppend }}</span>
+                                    <span data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend == null || vm.propertyDetails.ValueToReplaceOrAppend == ''">
+                                        <span data-ng-show="vm.propertyDetails.AssignedValues == null">Choose a value</span>
+                                        <span data-ng-show="vm.propertyDetails.AssignedValues.length > 0">Replace value</span>
+                                    </span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li data-ng-repeat="value in vm.propertyDetails.PredefinedValues">
+                                        <a data-ng-show="value != vm.propertyDetails.PreviousValues[0]" style="cursor:pointer" data-ng-click="vm.propertyDetails.UpdateValue(value)">{{ value }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Error -->
+                        <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.propertyDetails.Results.Message }}</span>
+                        </div>
+
+                        <!-- More Options -->
+                        <div data-ng-show="vm.propertyDetails.SendingComplete == false && vm.propertyDetails.AssignedValues.length > 0 && vm.propertyDetails.IsSending == false" style="clear:both; margin-left:-15px; margin-top:15px; margin-bottom:-20px;">
+                            <div data-ng-show="!vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.ShowMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Show more options <i class="fa fa-caret-right"></i></button>
+                            </div>
+                            <div data-ng-show="vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.HideMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Hide more options <i class="fa fa-caret-up"></i></button>
+                                <div style="clear:both; margin-top:20px; margin-bottom:30px; margin-left:25px;">
+                                    <button class="btn btn-danger" data-ng-click="vm.clearProductProperty(true)">Reset value</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Non appendable footer-->
+                <div data-ng-show="vm.propertyDetails.IsSending == false" class="modal-footer">
+                    <div>
+
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == false">
+                            <button data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend == null || vm.propertyDetails.ValueToReplaceOrAppend == '' || vm.propertyDetails.ValueToReplaceOrAppend == vm.propertyDetails.PreviousValue" class="btn btn-primary disabled">Update</button>
+                            <button data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend != null && vm.propertyDetails.ValueToReplaceOrAppend != '' && vm.propertyDetails.ValueToReplaceOrAppend != vm.propertyDetails.PreviousValue" class="btn btn-primary" data-ng-click="vm.updateProductProperty(vm.propertyDetails.ValueType, true)">Update</button>
+                        </span>
+
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <button type="button" class="btn btn-warning" data-ng-click="vm.retryPropertyEdit()">Try Again</button>
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

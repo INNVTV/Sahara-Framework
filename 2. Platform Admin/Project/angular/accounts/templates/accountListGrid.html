@@ -1,0 +1,109 @@
+﻿<table class="table table-striped table-responsive">
+    <!--<thead class="hidden-xs">
+        <tr>
+            <th>
+                Account Name
+            </th>
+            <th>
+                Data Partition
+            </th>
+            <th class="hidden-sm">
+                Created
+            </th>
+            <th>
+                Plan
+            </th>
+        </tr>
+    </thead>
+        -->
+    <tbody>
+    <tr data-ng-repeat="account in vm.accounts">
+
+        <td class="hidden-xs">
+            <div style="margin-top:-12px">
+                <h3>
+                    <strong>
+                        <span>
+                            <i data-ng-show="account.AccountStatusString == 'Active'" class="fa fa-circle" style="color:limegreen; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px;"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Inactive'" class="fa fa-circle" style="color:lightgrey; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Unprovisioned'" class="fa fa-dot-circle-o" style="color:lightgrey; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Closed'" class="fa fa-time" style="color:lightgrey; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'PastDue'" class="fa fa-usd" style="color:orange; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Unpaid'" class="fa fa-usd" style="color:red; font-size:12px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+
+                            <!--<img data-ng-show="account.AccountStatusString != 'Active' && account.AccountStatusString != 'Inactive'" src="/Images/Icons/AccountStatus/icon_{{ account.AccountStatusString }}.png" title="{{ account.AccountStatusString }}" style="vertical-align:middle; margin-right:5px; margin-bottom:5px;" />-->
+                            <a data-ng-show="!account.Active" style="color:#595959" href="/account/{{ account.AccountNameKey }}">{{ account.AccountName }}</a>
+                            <a data-ng-show="account.Active" style="color:#0974ED" href="/account/{{ account.AccountNameKey }}">{{ account.AccountName }}</a>                
+                        </span>
+                    </strong>
+                </h3>
+            </div>
+            <div style="margin-left:23px; margin-top:-3px; margin-bottom:7px;">
+                <small class="hidden-xs hidden-sm"><b>{{ account.AccountNameKey }}: </b> {{ account.AccountID }}</small>
+                <b class="hidden-md hidden-lg"><small>about </small><small am-time-ago="account.CreatedDate"></small></b>
+            </div>
+        </td>
+
+        <td class="visible-xs" style="padding:2px">
+            <div class="col-xs-8" style="margin-left:-10px">
+                <h6>
+                    <strong>
+                        <span>
+                            <i data-ng-show="account.AccountStatusString == 'Active'" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px;"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Inactive'" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Unprovisioned'" class="fa fa-dot-circle-o" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Closed'" class="fa fa-times" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'PastDue'" class="fa fa-usd" style="color:orange; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px"></i>
+                            <i data-ng-show="account.AccountStatusString == 'Unpaid'" class="fa fa-usd" style="color:red; font-size:10px; vertical-align:middle; margin-right:4px; margin-bottom:4px"></i>
+
+                            <!--<img data-ng-show="account.AccountStatusString != 'Active' && account.AccountStatusString != 'Inactive'" width="10" height="10" src="/Images/Icons/AccountStatus/icon_{{ account.AccountStatusString }}.png" title="{{ account.AccountStatusString }}" style="vertical-align:middle; margin-right:5px; margin-top:2px; margin-bottom:5px;" />-->
+                            <a data-ng-show="!account.Active" style="color:#595959" href="/account/{{ account.AccountNameKey }}">{{ account.AccountName }}</a>
+                            <a data-ng-show="account.Active" style="color:#0974ED" href="/account/{{ account.AccountNameKey }}">{{ account.AccountName }}</a>   
+                        </span>
+                    </strong>
+                </h6>
+            </div>
+            <div class="col-xs-4" style="text-align:right">
+                <div style="text-align:right" data-ng-if="account.PaymentPlan.PaymentPlanName == 'Unprovisioned'">
+                    <h6><span class="label label-default" style="text-align:right">{{account.PaymentPlan.PaymentPlanName}}</span></h6>
+                </div>
+                <div style="text-align:right" data-ng-if="account.PaymentPlan.PaymentPlanName != 'Unprovisioned'">
+                    <h6><span class="label label-success" style="text-align:right">{{account.PaymentPlan.PaymentPlanName}} ({{account.PaymentFrequency.PaymentFrequencyName}})</span></h6>
+                </div>
+            </div>
+        </td>
+
+
+        <td class="hidden-xs hidden-sm">
+            <h5 style="margin-top:16px">{{ account.CreatedDate | date : 'MMM, dd yyyy  |  h:mm a' }}</h5>
+            <b><small>about </small><small am-time-ago="account.CreatedDate"></small></b>
+        </td>
+
+
+        <td class="hidden-xs">
+
+            <div style="margin-top:13px;">
+                <small data-ng-show="account.DocumentPartition != null" style="color:#707070"><i class="fa fa-folder" style="color:lightgrey; font-size:16px; margin-right:5px;"></i> {{ account.DocumentPartition }}</small>
+            </div>
+            <div style="margin-top:8px;">
+                <small data-ng-show="account.SqlPartition != null" style="color:#707070"><i class="fa fa-database" style="color:lightgrey; font-size:16px; margin-right:5px;"></i> {{ account.SqlPartition }}</small>
+            </div>
+            
+        </td>
+
+
+        <td class="hidden-xs">
+            <div style="text-align:left; margin-top:8px;">
+                <div data-ng-if="account.PaymentPlan.PaymentPlanName == 'Unprovisioned'">
+                    <span class="label label-default">{{account.PaymentPlan.PaymentPlanName}}</span>
+                </div>
+                <div data-ng-if="account.PaymentPlan.PaymentPlanName != 'Unprovisioned'">
+                    <span class=" label label-success">
+                    {{account.PaymentPlan.PaymentPlanName}} ({{account.PaymentFrequency.PaymentFrequencyName}})</span>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+    </tbody>
+</table>

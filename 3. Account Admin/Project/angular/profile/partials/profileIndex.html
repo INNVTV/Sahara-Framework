@@ -1,0 +1,227 @@
+﻿<div data-ng-controller="profileIndexController as vm" >
+   
+    
+    <div>
+        <div id="Header" class="container-fluid">
+            <div class="row">
+                <div class="hidden-xs">
+
+                    <div>
+                        <!-- PHOTO w/ Uploader -->
+                        <!-- Hidden File Input / Uploader [trigger via vm.initiatePhotoUpdate()] -->
+                        <input id="photoUploadInput" type="file" style="display:none" />
+
+                        <!-- Photo UI -->
+                        <div id="profilePhoto" data-ng-click="vm.initiatePhotoUpdate()"
+                             ng-style="{'background-image':'url('+vm.currentUserProfile.Photo+'_128x128.jpg)'}"
+                             style="background-size: 128px 128px; background-repeat: no-repeat; margin-right:10px;
+                                        box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30); overflow:hidden;
+                                        width:128px; height:128px; cursor:pointer; ">
+
+                            <div id="uploadingPhotoAnimation" style="width: 128px; height:128px;text-align:center; padding:48px 0 0px 0; background:rgba(0,0,0,.65); display:none">
+                                <div style="color:white"><i class="fa fa-refresh fa-spin" style="font-size:28px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong>Uploading</strong></h6></div>
+                            </div>
+
+                            <div id="profilePhotoOverlay" style="width: 128px; height:128px; background:rgba(0,0,0,.65);
+                                       text-align:center;padding:48px 0 0px 0; display:none">
+                                <div style="color:white"><i class="fa fa-upload" style="font-size:28px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong>Update Photo</strong></h6></div>
+                            </div>
+                        </div>
+
+                        <h5 id="photoUploadErrorMessage" style="color:red; display:none; padding-top:15px;"><strong><i class="fa fa-warning"></i> <span id="photoUploadErrorText"></span></strong></h5>
+
+                        <hr style="border-color: #D3D5E3" />
+                    </div>
+
+
+                    <!-- NAME -->
+                    <h1 style="margin-top:5px; margin-bottom: 25px;" data-ng-show="!vm.editingProfile.updateName.complete && !vm.editingProfile.updateName.processing && !vm.editingProfile.updateName.edit">
+                        <strong>{{ vm.currentUserProfile.FirstName }} {{ vm.currentUserProfile.LastName }}</strong>&nbsp;<button data-ng-show="vm.currentUserProfile.Active" data-ng-click="vm.editUserName()" class="sahara-btn-edit-16 " style="padding-top:25px;"></button>
+                    </h1>
+
+                    <div id="ProcessNameUpdates">
+                        <!--Edit Name-->
+                        <div class="form-inline" data-ng-show="vm.editingProfile.updateName.edit" style="padding-bottom:0px; margin-top:8px; margin-bottom:21px; margin-left:0px">
+                            <input type="text" class="input-sm form-control" style="font-weight: normal; font-size:16px; max-width:225px; height:40px; margin-right:5px;" data-ng-model="vm.editingProfile.newFirstName" placeholder="First Name" />
+                            <input type="text" class="input-sm form-control" style="font-weight: normal; font-size:16px; max-width:250px; height:40px;" data-ng-model="vm.editingProfile.newLastName" placeholder="Last Name" />
+                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUserName()" style="margin-left:5px;">Cancel</button>
+                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateProfileName()">Update</button>
+                        </div>
+                        <!--Processing-->
+                        <div data-ng-show="vm.editingProfile.updateName.processing" style="margin-top:8px; margin-bottom:21px; margin-left:0px">
+                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating name...</small>
+                        </div>
+                        <!--Result-->
+                        <div data-ng-show="vm.editingProfile.updateName.complete" style="margin-top:8px; margin-bottom:21px; margin-left:0px">
+                            <small data-ng-show="vm.editingProfile.updateName.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.editingProfile.updateName.message }}</small>
+                            <small data-ng-show="!vm.editingProfile.updateName.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.editingProfile.updateName.message }}</small>
+                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserNameResult()" style="margin-left:5px;">OK</button></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="visible-xs">
+
+            <h2 style="margin-top:8px; margin-bottom:26px">
+                <img data-ng-src="{{vm.currentUserProfile.Photo}}_32x32.jpg" style="width:32px; height:32px; margin-right:10px; margin-top:-4px;" />{{ vm.currentUserProfile.FirstName }} {{ vm.currentUserProfile.LastName }}
+            </h2>
+
+        </div>
+    </div>
+    
+    <hr style="margin-top:-10px; border-color: #D3D5E3" />
+    
+    <div id="Main">
+        
+
+            <div id="ProfileAndLogout">
+
+                <div class="hidden-xs">
+                    
+                    <!-- EMAIL -->
+                    <h5 data-ng-show="!vm.editingProfile.updateEmail.complete && !vm.editingProfile.updateEmail.processing && !vm.editingProfile.updateEmail.edit">
+                        Email: <strong>{{ vm.currentUserProfile.Email }}</strong>&nbsp;&nbsp;<button data-ng-show="vm.currentUserProfile.Active" data-ng-click="vm.editUserEmail()" class="sahara-btn-edit-16 " style="padding-top:-2px;"></button>
+                    </h5>
+
+                    <div id="ProcessEmailUpdates">
+                        <!--Edit Email-->
+                        <div class="form-inline" data-ng-show="vm.editingProfile.updateEmail.edit">
+                            <input type="email" class="input-sm form-control" style="width:300px; font-weight:bold" data-ng-model="vm.editingProfile.newEmail" placeholder="Email" />
+                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUserEmail()" style="margin-left:5px;">Cancel</button>
+                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateProfileEmail()">Update</button>
+                            <div style="margin-top:10px;">
+                                <span style="color:red"><small><i class="fa fa-warning"></i>&nbsp;<strong>&nbsp;Warning:</strong>&nbsp;Future logins will require your new email address.</small></span>
+                            </div>
+                            <hr />
+                        </div>
+                        <!--Processing-->
+                        <div data-ng-show="vm.editingProfile.updateEmail.processing">
+                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating email...</small>
+                            <hr />
+                        </div>
+                        <!--Result-->
+                        <div data-ng-show="vm.editingProfile.updateEmail.complete">
+                            <small data-ng-show="vm.editingProfile.updateEmail.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.editingProfile.updateEmail.message }}</small>
+                            <small data-ng-show="!vm.editingProfile.updateEmail.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.editingProfile.updateEmail.message }}</small>
+                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserEmailResult()" style="margin-left:5px;">OK</button></span>
+                            <hr />
+                        </div>
+                    </div>
+
+                    
+                    <!-- ROLE -->
+                    <h5>Role: <strong>{{ vm.currentUserProfile.Role }}</strong></h5>
+                    
+                    
+                    <!-- PASSWORD -->
+                    <h5 data-ng-show="!vm.editingProfile.updatePassword.complete && !vm.editingProfile.updatePassword.processing && !vm.editingProfile.updatePassword.edit">
+                        Password: <strong>******</strong>&nbsp;&nbsp;<button data-ng-show="vm.currentUserProfile.Active" data-ng-click="vm.editUserPassword()" class="sahara-btn-edit-16 " style="padding-top:-2px;"></button>
+                    </h5>
+
+                    <div id="ProcessPasswordUpdates">
+                        <hr style="border-color:#404040" data-ng-show="vm.editingProfile.updatePassword.edit || vm.editingProfile.updatePassword.processing || vm.editingProfile.updatePassword.complete" />
+                        
+                        <!--Edit Password-->
+                        <div class="form-inline" data-ng-show="vm.editingProfile.updatePassword.edit">
+                            <h4><strong>Change your password:</strong></h4>
+                            <input type="password" class="input-sm form-control" style="width:200px; font-weight:bold; margin-top:5px;" data-ng-model="vm.editingProfile.currentPassword" placeholder="Current Password" /><br />
+                            <input type="password" class="input-sm form-control" style="width:200px; font-weight:bold; margin-top:5px;" data-ng-model="vm.editingProfile.newPassword" placeholder="New Password" /><br />
+                            <input type="password" class="input-sm form-control" style="width:200px; font-weight:bold; margin-top:5px;" data-ng-model="vm.editingProfile.confirmNewPassword" placeholder="Confirm New Password" /><br/><br />
+                            
+                            
+                            <div style="margin-top: -5px;">
+                                <button class="btn btn-default btn-sm" data-ng-click="vm.cancelUserPassword()">Cancel</button>
+                                <button class="btn btn-primary btn-sm" data-ng-click="vm.updateProfilePassword()">Change passwords</button>
+                            </div>
+                            
+                            <div style="margin-top:12px;">
+                                <span style="color:red"><small><i class="fa fa-warning"></i>&nbsp;<strong>&nbsp;Warning:</strong>&nbsp;Future logins will require your new password.</small></span>
+                            </div>
+                            
+                        </div>
+                        <!--Processing-->
+                        <div data-ng-show="vm.editingProfile.updatePassword.processing">
+                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Changing your password...</small>
+                        </div>
+                        <!--Result-->
+                        <div data-ng-show="vm.editingProfile.updatePassword.complete">
+                            <small data-ng-show="vm.editingProfile.updatePassword.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.editingProfile.updatePassword.message }}</small>
+                            <small data-ng-show="!vm.editingProfile.updatePassword.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.editingProfile.updatePassword.message }}</small>
+                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserPasswordResult()" style="margin-left:5px;">OK</button></span>
+                        </div>
+                    </div>
+
+                    <hr style="border-color:#D3D5E3" />
+
+                    <div>
+                        <a data-ng-click="vm.logOut()" class="btn btn-primary"><i class="fa fa-sign-out"></i> Logout</a>
+                    </div>
+                    
+
+                </div>
+
+                <div class="visible-xs">
+
+                    <h6 data-ng-show="!vm.currentUserProfile.Active">
+                        <img src="/Images/Icons/AccountStatus/icon_inactive.png" style="margin-top:-8px; margin-right:-2px; margin-left:-4px;" title="Inactive"> Inactive
+                    </h6>
+                    <h6>Email: <strong>{{ vm.currentUserProfile.Email }}</strong></h6>
+                    <h6>Role: <strong>{{ vm.currentUserProfile.Role }}</strong></h6>
+                </div>
+                
+                <div class="visible-xs">
+                    <hr style="border-color: #CCCCCC" />
+                    <a data-ng-click="vm.logOut()" class="btn btn-primary"><i class="fa fa-sign-out"></i> Logout</a>
+                </div>
+
+            </div>
+
+
+        <div id="Other Accounts" data-ng-show="vm.otherAccountOwnerships.length > 0 || vm.otherAccountMemberships.length > 0" style="margin-top: 25px; margin-bottom:25px">
+            
+            <hr style="border-color:#D3D5E3" />
+
+
+            <h4 style="margin-bottom:15px; color: #555555">Other {{ vm.applicationName }} Accounts:</h4>
+
+            <div data-ng-show="vm.otherAccountOwnerships.length > 0">
+
+                <h5 style="color:#A8A8A8">Owner:</h5>
+
+                <div style="margin-left: 10px;" data-ng-repeat="account in vm.otherAccountOwnerships">
+                    <small>
+                        <strong>
+                            <a href="http://{{ account.AccountManagementUrl }}">{{ account.AccountName }}</a>
+                        </strong>
+                    </small>
+                </div>
+
+            </div>
+
+            <div data-ng-show="vm.otherAccountMemberships.length > 0">
+
+                <h5 style="color:#A8A8A8">Member:</h5>
+
+                <div style="margin-left: 10px;" data-ng-repeat="account in vm.otherAccountMemberships">
+                    <small>
+                        <strong>
+                            <a href="http://{{ account.AccountManagementUrl }}">{{ account.AccountName }}</a>
+                        </strong>
+                    </small>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        </div>
+
+    <legal-footer></legal-footer>
+
+    </div>
+   

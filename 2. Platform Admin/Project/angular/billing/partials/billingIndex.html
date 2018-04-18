@@ -1,0 +1,272 @@
+﻿<div data-ng-controller="billingIndexController as vm" >
+
+    <div id="LeftColumn" class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+        <div class="" style="text-align:center">
+
+            <h4 style="margin-bottom:20px;" class="hidden-xs branding-accent-color-dark"><strong>Latest Transfers</strong></h4>
+            <h6 style="margin-bottom:20px;" class="visible-xs branding-accent-color-dark"><strong>Latest Transfers</strong></h6>
+
+            <div data-ng-show="vm.snapshot != null">
+
+                <div data-ng-repeat="btr in vm.snapshot.LatestTransfers">
+
+                    <h6 title="Paid" style="color:green; cursor:pointer"> <i class="fa fa-check"></i> <span am-time-ago="btr.Date"></span></h6>
+
+                    <div class="numberBox green">
+                        {{ btr.Amount | currency }}
+                    </div>
+                </div>
+
+                <div data-ng-show="vm.snapshot.LatestTransfers.length == 0">
+                    <h6 title="Paid" style="color:darkgrey; cursor:pointer"> <i class="fa fa-ban"></i> No data availalbe</h6>
+                </div>
+
+                    <!--
+                <h6 data-ng-show="vm.snapshot.LastTransfers[0].Status == 'pending'" title="Pending" style="color:darkgrey; cursor:pointer"> <i class="fa fa-history"></i> <span am-time-ago="vm.snapshot.LastTransfers[0].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[0].Status == 'paid'" title="Paid" style="color:green; cursor:pointer"> <i class="fa fa-check"></i> <span am-time-ago="vm.snapshot.LastTransfers[0].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[0].Status == 'canceled'" title="Canceled" style="color:darkgrey; cursor:pointer"> <i class="fa fa-times"></i> <span am-time-ago="vm.snapshot.LastTransfers[0].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[0].Status == 'failed'" title="Failed" style="color:red; cursor:pointer"> <i class="fa fa-times"></i> <span am-time-ago="vm.snapshot.LastTransfers[0].Date"></span></h6>
+
+
+                <div class="numberBox"
+                     data-ng-class="{green: vm.snapshot.LastTransfers[0].Amount > 0 && vm.snapshot.LastTransfers[0].Status != 'pending', red: vm.snapshot.LastTransfers[0].Amount < 0, pending: vm.snapshot.LastTransfers[0].Status == 'pending'}">
+                    {{ vm.snapshot.LastTransfers[0].Amount | currency }}
+                </div>
+
+
+                <h6 data-ng-show="vm.snapshot.LastTransfers[1].Status == 'pending'" title="Pending" style="color:darkgrey; cursor:pointer"> <i class="fa fa-history"></i> <span am-time-ago="vm.snapshot.LastTransfers[1].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[1].Status == 'paid'" title="Paid" style="color:green; cursor:pointer"> <i class="fa fa-check"></i> <span am-time-ago="vm.snapshot.LastTransfers[1].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[1].Status == 'canceled'" title="Canceled" style="color:darkgrey; cursor:pointer"> <i class="fa fa-times"></i> <span am-time-ago="vm.snapshot.LastTransfers[1].Date"></span></h6>
+                <h6 data-ng-show="vm.snapshot.LastTransfers[1].Status == 'failed'" title="Failed" style="color:red; cursor:pointer"> <i class="fa fa-times"></i> <span am-time-ago="vm.snapshot.LastTransfers[1].Date"></span></h6>
+
+                <div class="numberBox"
+                     data-ng-class="{green: vm.snapshot.LastTransfers[1].Amount > 0 && vm.snapshot.LastTransfers[1].Status != 'pending', red: vm.snapshot.LastTransfers[1].Amount < 0, pending: vm.snapshot.LastTransfers[1].Status == 'pending'}">
+                    {{ vm.snapshot.LastTransfers[1].Amount | currency }}
+                </div>-->
+                </div>
+
+            <div data-ng-show="vm.snapshot == null">
+                <h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+
+                <!--<h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>-->
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="LeftColumn" class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+        <div class="" style="text-align:center">
+
+            <h4 style="margin-bottom:20px;" class="hidden-xs branding-accent-color-dark"><strong>Upcoming Transfers</strong></h4>
+            <h6 style="margin-bottom:20px;" class="visible-xs branding-accent-color-dark"><strong>Upcoming Transfers</strong></h6>
+
+            <div data-ng-show="vm.snapshot != null">
+                <div data-ng-repeat="btr in vm.snapshot.UpcomingTransfers">
+
+                    <h6 title="Pending" style="color:darkgrey; cursor:pointer"> <i class="fa fa-history"></i> <span am-time-ago="btr.Date"></span></h6>
+
+                    <div class="numberBox pending">
+                        {{ btr.Amount | currency }}
+                    </div>
+                </div>
+
+                <div data-ng-show="vm.snapshot.UpcomingTransfers.length == 0">
+                    <h6 title="Paid" style="color:darkgrey; cursor:pointer"> <i class="fa fa-ban"></i> No scheduled transfers</h6>
+                </div>
+
+            </div>
+
+            <div data-ng-show="vm.snapshot == null">
+                <h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+
+                <!--<h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>-->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="visible-xs visible-sm col-xs-12">
+        
+        <hr style="clear:both; border-style:dashed; border-color:darkgrey" />
+    </div>
+
+    <div id="SecondColumn" class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+
+        <div class="" style="text-align:center">
+
+            <h4 style="margin-bottom:20px;" class="hidden-xs branding-accent-color-dark"><strong>Current Balance</strong></h4>
+            <h6 style="margin-bottom:20px;" class="visible-xs branding-accent-color-dark"><strong>Current Balance</strong></h6>
+
+            <div data-ng-show="vm.snapshot != null">
+                <div title="The net sum of all PENDING balance transactions (including upcoming transfers) that are not available in the balance yet, due to the 7-day rolling pay cycle" style="cursor:pointer">
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Pending</h6>
+                    <div data-ng-repeat="balancePending in vm.snapshot.Balance.Pending">
+                        <div class="numberBox" data-ng-class="{green: balancePending > 0, red: balancePending < 0}">
+                            {{ balancePending | currency }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div title="Funds that are available to be paid out automatically by Stripe or explicitly via the transfers API" style="cursor:pointer">
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Available</h6>
+                    <div data-ng-repeat="balanceAvailable in vm.snapshot.Balance.Available">
+                        <div class="numberBox"
+                             data-ng-class="{green: balanceAvailable > 0, red: balanceAvailable < 0}">
+                            {{ balanceAvailable | currency }}
+                        </div>
+                    </div>
+                </div>
+
+
+                </div>
+
+            <div data-ng-show="vm.snapshot == null">
+                <h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+
+                <!--<h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>-->
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div id="ThirdColumn" class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+        <div class="" style="text-align:center">
+
+            <h4 style="margin-bottom:20px;" class="hidden-xs branding-accent-color-dark"><strong>Credits</strong></h4>
+            <h6 style="margin-bottom:20px;" class="visible-xs branding-accent-color-dark"><strong>Credits</strong></h6>
+
+            <div data-ng-show="vm.snapshot != null">
+                <div title="Total number of credits in circulation across all accounts" style="cursor:pointer">
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-random"></i> Total in circulation</h6>
+                    <div class="numberBox"
+                         data-ng-class="{blue: vm.snapshot.CreditsInCirculation > 0, red: vm.snapshot.CreditsInCirculation < 0}">
+                        {{ vm.snapshot.CreditsInCirculation | number }}
+                    </div>
+                </div>
+
+                <div title="Dollar value of all credits in circulation across all accounts" style="cursor:pointer">
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-usd"></i> Dollar Amount</h6>
+                    <div class="numberBox" data-ng-class="{green: vm.snapshot.CreditsInCirculation > 0, red: vm.snapshot.CreditsInCirculation < 0}">
+                        {{ vm.snapshot.CreditsInCirculationDollarAmount | currency }}
+                    </div>
+                    </div>
+                </div>
+
+
+
+            <div data-ng-show="vm.snapshot == null">
+                <h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+
+                <!--<h6 class="branding-accent-color-dark" style="color:darkgrey">Loading</h6>
+                <div class="numberBox">
+                    <i style="color:darkgrey" class="fa fa-circle-o-notch fa-spin"></i>
+                </div>-->
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div style="margin:60px; clear:both"></div>
+
+
+    <div id="Tabs">
+        <div style="padding:20px;"></div>
+        <tabset>
+
+            <tab style="cursor:pointer" class="" heading="Reports">
+                <div class="container-fluid" style="padding:15px">
+                    <billing-reports-panel></billing-reports-panel>
+                </div>
+            </tab>
+
+            <tab style="cursor:pointer" class="" heading="Transfers" data-ng-click="vm.activateTransferHistoryPanel()">
+                <div class="container-fluid" style="padding:15px">
+
+                    <transfer-history-panel></transfer-history-panel>
+
+                </div>
+            </tab>
+
+
+
+            <tab style="cursor:pointer" class="" heading="Payments" data-ng-click="vm.activatePaymentHistoryPanel()">
+                <div class="container-fluid" style="padding:15px">
+
+                    <payment-history-panel></payment-history-panel>
+
+                </div>
+            </tab>
+
+
+            <tab class="hidden-xs" style="cursor:pointer" heading="Invoices" data-ng-click="vm.activateInvoiceHistoryPanel()">
+                <div class="container-fluid" style="padding:15px">
+
+                    <invoice-history-panel></invoice-history-panel>
+
+                </div>
+            </tab>
+
+
+            <tab class="hidden-xs" style="cursor:pointer" heading="Plans" data-ng-click="vm.activatePaymentPlansPanel()">
+                <div class="container-fluid" style="padding:15px">
+
+                    <plans-panel></plans-panel>
+
+                </div>
+            </tab>
+
+
+            <!--<tab class="hidden-xs" style="cursor:pointer" class="" heading="Goods & Services" data-ng-clicked="">
+                <div class="container-fluid" style="padding:15px">
+
+                </div>
+            </tab>-->
+
+
+
+        </tabset>
+
+        </div>
+
+    </div>
+

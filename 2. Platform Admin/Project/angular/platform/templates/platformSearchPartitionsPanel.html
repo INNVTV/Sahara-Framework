@@ -1,0 +1,120 @@
+﻿<div>
+
+    <div class="container-fluid" style="padding-top:10px" data-ng-show="vm.searchPartitions == null">
+        <section-loader message="'Getting partitions...'" loader-type="'inline'"></section-loader>
+    </div>
+    <div class="container-fluid" style="padding-top:10px" data-ng-show="vm.searchPartitions != null">
+
+        <table class="table table-striped table-responsive" data-ng-show="vm.searchPartitions.length > 0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Plan</th>
+                    <!--<th class="hidden-xs hidden-sm" style="text-align:center">Document Limits</th>-->
+                    <th style="text-align:center">Tenant Count</th>
+                    <th style="text-align:center">Max Tenants</th>
+                    <th class="hidden-xs hidden-sm" style="width:230px">Capacity</th>
+                </tr>
+            </thead>
+            <tr data-ng-repeat="partition in vm.searchPartitions">
+
+                <td style="text-align:left; padding-top:15px;">
+                    <span style="font-size:22px; margin-top:15px">
+                        <i class="fa fa-search hidden-xs hidden-sm" style="font-size:24px; margin-right:5px;"></i> {{ partition.Name }}
+                    </span>
+                </td>
+
+                <td style="text-align:left; padding-top:15px;">
+                    <span style="font-size:22px; margin-top:15px">
+                        {{ partition.Plan }}
+                    </span>
+                </td>
+
+
+
+                <!--
+                <td class="hidden-xs hidden-sm" style="text-align:center; padding-top:15px;">
+                    <p style="font-size:18px; margin-bottom:-5px; padding-bottom:0px;">
+                        <span data-ng-show="partition.Plan == 'Free'"><b>{{ (10000 /partition.MaxTenants ) | number : 0 }}</b></span>
+                        <span data-ng-show="partition.Plan == 'Basic'"><b>{{ (1000000 /partition.MaxTenants ) | number : 0 }}</b></span>
+                        <span data-ng-show="partition.Plan == 'Standard'"><b>{{ (15000000 /partition.MaxTenants ) | number : 0 }}</b></span>
+                    </p>
+                    <small style="color:darkgray">Documents per tenant</small>
+                </td>-->
+
+
+                <td style="text-align:center; padding-top:15px;">
+                    <span style="font-size:22px;">{{ partition.TenantCount | number }} </span>
+                </td>
+
+                <td style="text-align:center; padding-top:15px;">
+                    <span style="font-size:22px;"><strong>{{ partition.MaxTenants | number }}</strong></span>
+                </td>
+
+                <td class="hidden-xs hidden-sm" style="width:200px; padding-top:15px;">
+                    <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                        <img src="Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (partition.TenantCount / partition.MaxTenants)*200 | number }}" />
+                    </div>
+                    <small style="color:#C7C7C7">{{ (partition.TenantCount / partition.MaxTenants)*100 | number }}%</small>
+                </td>
+
+            </tr>
+        </table>
+
+
+        <div data-ng-show="vm.searchPartitions.length == 0" style="padding-bottom:20px">
+            <h4> No search partitions exist...</h4>
+        </div>
+
+
+        <div class="hidden-xs hidden-sm" style="margin-top:-20px;">
+
+            <hr style="border:thin dashed #CFCFCF" />
+
+            <div style="height:10px;"></div>
+
+            <h5 style="font-weight:bold">Adding new partitions to the "hopper":</h5>
+
+            <ul>
+                <li>Use 'f', 'b' or 's' <!--or 's2'-->designation in your naming convention ('Free', 'Basic' or 'Standard'<!--or 'S2'-->)</li>
+                <li>SearchPlan name MUST end with a dash followed by the number of tenants allowed: ('Free-3', 'Basic-4'<!--, 'Basic-3'-->, 'Standard-2'<!--, 'S2-2'-->, Etc...)</li>
+                <li>Choose the next sequence number for that search tier in your name (1001b, 1002b, 1003b, etc...)</li>
+                <li>Search tier corresponds with the plan tier it will be assigned to when an account is provisioned to that plan</li>
+                <li>Each subscription is limited to only one 'f' or 'Free' search service and 12 each of the rest with the ability to contact MS for more.</li>
+            </ul>
+
+            <div style="height:40px;"></div>
+            <h2>Search Partitions Creation SQL Examples</h2>
+
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement (Free 'f' shared w 3 tenants - Only one instance per Azure Subs, 3 MAX TENANTS):</h5>
+            <div class="well">Insert Into SearchPartitions ([Name], [Key], [Plan]) VALUES ('sahara[-env]1001f', 'xxxxxxxxxxxxxx', 'Free-3')</div>
+
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement (Basic 'b' shared w/ 4 tenants):</h5>
+            <div class="well">Insert Into SearchPartitions ([Name], [Key], [Plan]) VALUES ('sahara[-env]1001b', 'xxxxxxxxxxxxxx', 'Basic-4')</div>
+
+            <!-- Not Used
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement (Basic 'b' shared w/ 3 tenants):</h5>
+            <div class="well">Insert Into SearchPartitions ([Name], [Key], [Plan]) VALUES ('sahara[-env]1001b', 'xxxxxxxxxxxxxx', 'Basic-3')</div>-->
+
+
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement (Standard 's' shared w/ 2 tenants):</h5>
+            <div class="well">Insert Into SearchPartitions ([Name], [Key], [Plan]) VALUES ('sahara[-env]1001s', 'xxxxxxxxxxxxxx', 'Standard-2')</div>
+
+            <!-- Not Used
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement (S2 's2' shared w/ 2 tenants):</h5>
+            <div class="well">Insert Into SearchPartitions ([Name], [Key], [Plan]) VALUES ('sahara[-env]1001s2', 'xxxxxxxxxxxxxx', 'S2-2')</div>-->
+
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,29 @@
+﻿<div>
+    
+    <h3>Image Document Injection</h3>
+
+    <section-loader data-ng-show="vm.imageDocumentDataInjectionResult == null" message="'Injecting data...'" loader-type="'inline'"></section-loader>
+
+    <div data-ng-show="vm.imageDocumentDataInjectionResult == false" style="margin-top:20px;">
+        <input class="form-control" type="text" data-ng-model="vm.imageDocumentDataInjectionCount" style="width:120px;">
+        <br />
+        <button data-ng-click="vm.injectImageDocuments()" class="btn btn-primary btn-md">Inject Image Documents</button>
+    </div>
+
+    <div data-ng-show="vm.imageDocumentDataInjectionResult.isSuccess == true">
+        <hr />
+        <h4 style="color:green"><i class="fa fa-check"></i> {{ vm.imageDocumentDataInjectionResult.SuccessMessage }}</h4>
+        <button data-ng-click="vm.clearDocumentInjectionPanel()" class="btn btn-default btn-md">OK</button>
+    </div>
+
+    <div data-ng-show="vm.imageDocumentDataInjectionResult.isSuccess == false">
+        <hr />
+        <h4 style="color:red"><i class="fa fa-times"></i> {{ vm.imageDocumentDataInjectionResult.ErrorMessage }}</h4>
+        <button data-ng-click="vm.clearDocumentInjectionPanel()" class="btn btn-default btn-md">OK</button>
+    </div>
+
+    <hr />
+        <small>This will batch inject a number of documents for this account as "Products". They will not show up when browsing by category, subcategory or tag. These injections are used to test deprovisioning as well as partitioning scenarios.</small>
+    <hr />
+   
+</div>

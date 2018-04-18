@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body class ="container" style="margin:0px; padding:0px; background-color:black">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <img class="img-responsive" src="~/Images/Other/warpzone.jpg" />
+        </div>
+        <div class="col-lg-6 col-sm-6" style="padding:40px; text-align:center">
+
+            <div style="height:20px;"></div>
+
+            <a class="btn btn-primary btn-lg" href="/Infrastructure/RedisServers">Redis Servers</a>
+
+            <div style="height:20px;"></div>
+
+            <!--<a class="btn btn-primary btn-lg" href="/Infrastructure/DocumentDB_Accounts">DocumentDB (Accounts)</a>
+
+            <br /><br />-->
+
+            <a class="btn btn-primary btn-sm" href="/Infrastructure/PerformanceTests">Performance Tests</a>
+
+            <!--<br /><br />
+
+                <a class="btn btn-primary btn-lg" href="/Infrastructure/Queue">Queue Inspector</a>-->
+
+
+        </div>
+    </div>
+</body>
+</html>

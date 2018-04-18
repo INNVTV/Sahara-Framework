@@ -1,0 +1,47 @@
+﻿<div data-ng-controller="marketplaceIndexController as vm" >
+    <div>
+        <h3>Welcome to the marketplace</h3>
+        <h5>This is a showcase of the other commerce options Sahara offers in addition to (or in place of) the recurring subscription/plan model. These can be used for selling add-on services, phyiscal goods or pre-purchasing virtual currencies or site "credits".</h5>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div id="Tabs">
+
+        <tabset>
+
+
+            <tab style="cursor:pointer" id="CreditsTab" heading="Credits" data-ng-show="vm.currentUserProfile.AccountOwner">
+                <div class="container-fluid" style="padding:15px; padding-top:30px">
+                    <marketplace-credits-panel></marketplace-credits-panel>
+                </div>
+            </tab>
+
+            <tab style="cursor:pointer" id="CreditsLogTab" heading="Credits Transaction Log" data-ng-show="vm.currentUserProfile.AccountOwner">
+                <div class="container-fluid" style="padding:15px;">
+                    <marketplace-credits-log-panel></marketplace-credits-log-panel>
+                </div>
+            </tab>
+
+
+            <tab style="cursor:pointer" id="GoodsAndServicesTab" heading="Goods & Services" data-ng-show="vm.currentUserProfile.AccountOwner">
+                <div class="container-fluid" style="padding:15px; padding-top:30px">
+                    <marketplace-goods-services-panel></marketplace-goods-services-panel>
+                </div>
+            </tab>
+
+
+            <tab style="cursor:pointer" id="CreditCardTab" heading="Credit Card" data-ng-show="vm.currentUserProfile.AccountOwner">
+                <div class="container-fluid" style="padding:15px; padding-top:30px">
+                    <marketplace-card-panel></marketplace-card-panel>
+                </div>
+            </tab>
+
+
+        </tabset>
+
+    </div>
+
+</div>
+

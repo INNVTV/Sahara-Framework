@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" />
+  <xs:element name="GetBalanceTransactionsForSource">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sourceId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBalanceTransactionsForSourceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetBalanceTransactionsForSourceResult" nillable="true" type="q1:SourceBalanceTransactions" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransfer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="invoiceId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferResult" nillable="true" type="q2:Transfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistoryResult" nillable="true" type="q3:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRange">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistory_ByDateRangeResult" nillable="true" type="q4:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_Next">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="startingAfterTransferId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_NextResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistory_NextResult" nillable="true" type="q5:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_Last">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="endingBeforeTransferId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_LastResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistory_LastResult" nillable="true" type="q6:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRange_Next">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="startingAfterTransferId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRange_NextResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistory_ByDateRange_NextResult" nillable="true" type="q7:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRange_Last">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemLimit" type="xs:int" />
+        <xs:element minOccurs="0" name="endingBeforeTransferId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransferHistory_ByDateRange_LastResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" minOccurs="0" name="GetTransferHistory_ByDateRange_LastResult" nillable="true" type="q8:ArrayOfTransfer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

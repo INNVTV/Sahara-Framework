@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Logs";
+}
+
+<div data-ng-app="app">
+
+    <div data-ng-view></div>
+
+</div>
+
+<!-- Set in App_Start/BundleConfig -->
+@Scripts.Render("~/bundles/angular-logs") 
+
+<script type="text/javascript">
+
+    //Variables injected into the base page be made availale to all routes of the SPA via JavaScript --------------
+
+    //Used to immediatly populate currentUserProfile before 45sec delay to get fresh data from CoreServices:
+    var CurrentUserProfile = '@Html.Raw(Json.Encode(AuthenticationCookieManager.GetAuthenticationCookie()))'
+
+    var CoreServiceSettings_Custodian_FrequencyDescription = '@CoreServices.PlatformSettings.Custodian.CustodianFrequencyDescription'
+    var CoreServiceSettings_PlatformWorker_FrequencyDescription = '@CoreServices.PlatformSettings.Worker.WorkerFrequencyDescription'
+
+    var CoreServiceSettings_PlatformUsers_RolesList = '@Html.Raw(Json.Encode(CoreServices.Platform.UserRoles))'
+
+</script>

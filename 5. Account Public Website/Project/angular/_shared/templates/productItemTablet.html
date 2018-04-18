@@ -1,0 +1,97 @@
+﻿<div class="product">
+
+    <!-- If full -->
+    <div data-ng-show="product.fullyQualifiedName != null">
+        <a style="cursor:pointer" data-ng-click="vm.loadProductDetails(product.fullyQualifiedName)">
+            <!-- Thumbnail Image -->
+            <img id="productThumbnail" data-ng-show="product.images.default.thumbnail.url != null && product.images.default.thumbnail.url != ''" style="width:100%" class="img-responsive" ng-src="{{product.images.default.thumbnail.url}}" />
+            <img id="productThumbnail" data-ng-show="product.images.default.thumbnail.url == null || product.images.default.thumbnail.url == ''" style="width:100%" class="img-responsive" src="/Images/ui/fpo/search-thumbnail.jpg" />
+
+            <!--Height based on feature property count. 0 =  1 = , 2 = , 3 = -->
+                <div class="productListingDetails" style="height:100px; overflow:hidden" data-ng-style="vm.featuredProperties.length == '1' && {'height': '115'} || vm.featuredProperties.length == '2' && {'height': '135'} || vm.featuredProperties.length >= '3' && {'height': '150'}">
+
+                    <!-- Main Title -->
+                    <div class="productTitle" id="productTitle" data-ng-show="product.name != null && product.name != ''">{{product.name}}</div>
+
+
+                    <div data-ng-repeat="featuredProperty in vm.featuredProperties | limitTo: 3">
+
+                        <!-- String -->
+                        <span data-ng-show="featuredProperty.propertyType == 'string'">
+                            <span data-ng-show="product[featuredProperty.searchField] != null && product[featuredProperty.searchField] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.propertyName}}:</span> <span class="productListingPropertyValue">{{product[featuredProperty.searchField]}}</span></span>
+                        </span>
+
+
+                        <!-- Featured 1 (Date)-->
+                        <span data-ng-show="featuredProperty.propertyType == 'datetime'">
+                            <span data-ng-show="product[featuredProperty.searchField] != null && product[featuredProperty.searchField] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.propertyName}}:</span> <span class="productListingPropertyValue">{{product[featuredProperty.searchField] | date }}</span></span>
+                        </span>
+
+
+                        <!-- Featured 1 (Number)-->
+                        <span data-ng-show="featuredProperty.propertyType == 'number'">
+
+                            <span data-ng-show="product[featuredProperty.searchField] != null && product[featuredProperty.searchField] != ''">
+                                <span class="productListingPropertyLabel">{{featuredProperty.propertyName}}:</span>
+                                <span class="productListingPropertyValue">
+                                    <span data-ng-show="featuredProperty.symbol != null && featuredProperty.symbol.placement == 'leading'" style="margin-right:1.5px;">{{ featuredProperty.symbol.value }}</span><span data-ng-show="product[featuredProperty.searchField] >= 1000">{{product[featuredProperty.searchField] | number }}</span><span data-ng-show="product[featuredProperty.searchField] < 1000">{{product[featuredProperty.searchField] }}</span><span data-ng-show="featuredProperty.symbol != null && featuredProperty.symbol.placement == 'trailing'" style="margin-left:1.5px;">{{ featuredProperty.symbol.value }}</span>
+                                </span>
+                            </span>
+
+                        </span>
+
+                        <!-- Featured 1 (List)-->
+                        <span data-ng-show="featuredProperty.propertyType == 'predefined'">
+                            <span data-ng-show="product[featuredProperty.searchField] != null && product[featuredProperty.searchField] != ''">
+                                <span class="productListingPropertyLabel">{{featuredProperty.propertyName}}:</span>
+                                <span class="productListingPropertyValue" data-ng-repeat="item in product[featuredProperty.searchField] track by $index">{{item}}<span data-ng-show="!$last">, </span></span>
+                            </span>
+                        </span>
+
+                        <!-- Featured 1 (Swatch)-->
+                        <span data-ng-show="featuredProperty.propertyType == 'swatch'">
+                            <span data-ng-show="product[featuredProperty.searchField] != null && product[featuredProperty.searchField] != ''">
+
+                                <span class="productListingPropertyLabel">{{featuredProperty.propertyName}}:</span>
+
+                                <span data-ng-repeat="item in (product[featuredProperty.searchField]) track by $index">
+                                    <span data-ng-repeat="swatch in featuredProperty.swatches">
+                                        <img style="height:13px; width:13px; margin-left:1px; margin-top:-2px; border:0px" data-ng-if="swatch.label == item" data-ng-src="{{swatch.imageSmall}}" title="{{item}}" alt="{{item}}" />
+                                    </span>
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- | PIPE | -- >
+            <span data-ng-show="product[vm.featuredProperties[0].searchField] != null && product[vm.featuredProperties[0].searchField] != '' && product[vm.featuredProperties[1].searchField] != null && product[vm.featuredProperties[1].searchField] != ''"> | </span>
+
+            <!-- Featured 2 -- >
+            <span data-ng-show="product[vm.featuredProperties[1].searchField] != null && product[vm.featuredProperties[1].searchField] != ''"> <span class="productListingPropertyLabel">{{vm.featuredProperties[1].propertyName}}:</span> <span class="productListingPropertyValue">{{product[vm.featuredProperties[1].searchField]}}</span></span>
+
+            <!-- | PIPE | -- >
+            <span data-ng-show="product[vm.featuredProperties[1].searchField] != null && product[vm.featuredProperties[1].searchField] != '' && product[vm.featuredProperties[2].searchField] != null && product[vm.featuredProperties[2].searchField] != ''"> | </span>
+
+            <!-- Featured 3
+            <span data-ng-show="product[vm.featuredProperties[2].searchField] != null && product[vm.featuredProperties[2].searchField] != ''"> <span class="productListingPropertyLabel">{{vm.featuredProperties[2].propertyName}}:</span> <span class="productListingPropertyValue">{{product[vm.featuredProperties[2].searchField]}}</span></span>
+            -->
+
+                </div>
+
+</a>
+
+
+
+    </div>
+
+
+    <!-- If empty -->
+    <div data-ng-show="product.fullyQualifiedName == null">
+        <img class="img-responsive" />
+    </div>
+
+</div>

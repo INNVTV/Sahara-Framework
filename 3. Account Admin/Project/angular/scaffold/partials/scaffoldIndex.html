@@ -1,0 +1,26 @@
+﻿<div data-ng-controller="scaffoldIndexController as vm" >
+
+    <div class="hidden-xs">
+        <h4>{{ vm.Property1 }} SM-LG</h4>
+    </div>
+
+    <div class="visible-xs">
+        <h6>{{ vm.Property1 }} XS</h6>
+    </div>
+
+    <hr />
+
+    <section-loader data-ng-show="vm.showLoader" message="'Getting data...'" loader-type="'inline'"></section-loader>
+
+    <button class="btn btn-default" data-ng-show="vm.showLoader" data-ng-click="vm.hideLoader()">Hide preloader</button>
+
+    <hr />
+    
+    <scaffold-test-directive message="'Hello'"></scaffold-test-directive>
+
+    <hr />
+
+    <a href="/scaffold/{{ vm.Property2.value }}" title="{{ vm.Property2.details.name }}">Go to details for {{ vm.Property2.label }}</a>
+
+</div>
+

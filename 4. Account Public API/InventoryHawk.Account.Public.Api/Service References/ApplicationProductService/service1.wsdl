@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApplicationProductService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IApplicationProductService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.Types" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IApplicationProductService_CreateProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProduct" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_CreateProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_GetProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProduct" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_GetProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductVisibleState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductVisibleState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductVisibleState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductVisibleStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RenameProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameProduct" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RenameProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ReorderProducts_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderProducts" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ReorderProducts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ResetProductOrdering_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetProductOrdering" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ResetProductOrdering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetProductOrderingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductLocationProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductLocationProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_UpdateProductLocationProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProductLocationPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RemoveProductPropertyCollectionItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveProductPropertyCollectionItem" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RemoveProductPropertyCollectionItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveProductPropertyCollectionItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ClearProductProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClearProductProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_ClearProductProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ClearProductPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_AddProductTag_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddProductTag" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_AddProductTag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddProductTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RemoveProductTag_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveProductTag" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_RemoveProductTag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveProductTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_MoveProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:MoveProduct" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_MoveProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_DeleteProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProduct" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationProductService_DeleteProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProductResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IApplicationProductService">
+    <wsdl:operation name="CreateProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/CreateProduct" message="tns:IApplicationProductService_CreateProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/CreateProductResponse" message="tns:IApplicationProductService_CreateProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/GetProduct" message="tns:IApplicationProductService_GetProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/GetProductResponse" message="tns:IApplicationProductService_GetProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductVisibleState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductVisibleState" message="tns:IApplicationProductService_UpdateProductVisibleState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductVisibleStateResponse" message="tns:IApplicationProductService_UpdateProductVisibleState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/RenameProduct" message="tns:IApplicationProductService_RenameProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/RenameProductResponse" message="tns:IApplicationProductService_RenameProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderProducts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/ReorderProducts" message="tns:IApplicationProductService_ReorderProducts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/ReorderProductsResponse" message="tns:IApplicationProductService_ReorderProducts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetProductOrdering">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/ResetProductOrdering" message="tns:IApplicationProductService_ResetProductOrdering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/ResetProductOrderingResponse" message="tns:IApplicationProductService_ResetProductOrdering_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductProperty" message="tns:IApplicationProductService_UpdateProductProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductPropertyResponse" message="tns:IApplicationProductService_UpdateProductProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductLocationProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductLocationProperty" message="tns:IApplicationProductService_UpdateProductLocationProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/UpdateProductLocationPropertyResponse" message="tns:IApplicationProductService_UpdateProductLocationProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveProductPropertyCollectionItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/RemoveProductPropertyCollectionItem" message="tns:IApplicationProductService_RemoveProductPropertyCollectionItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/RemoveProductPropertyCollectionItemResponse" message="tns:IApplicationProductService_RemoveProductPropertyCollectionItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearProductProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/ClearProductProperty" message="tns:IApplicationProductService_ClearProductProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/ClearProductPropertyResponse" message="tns:IApplicationProductService_ClearProductProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProductTag">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/AddProductTag" message="tns:IApplicationProductService_AddProductTag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/AddProductTagResponse" message="tns:IApplicationProductService_AddProductTag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveProductTag">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/RemoveProductTag" message="tns:IApplicationProductService_RemoveProductTag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/RemoveProductTagResponse" message="tns:IApplicationProductService_RemoveProductTag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MoveProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/MoveProduct" message="tns:IApplicationProductService_MoveProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/MoveProductResponse" message="tns:IApplicationProductService_MoveProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationProductService/DeleteProduct" message="tns:IApplicationProductService_DeleteProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationProductService/DeleteProductResponse" message="tns:IApplicationProductService_DeleteProduct_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IApplicationProductService" type="tns:IApplicationProductService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IApplicationProductService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CreateProduct">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/CreateProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/GetProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductVisibleState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/UpdateProductVisibleState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameProduct">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/RenameProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderProducts">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/ReorderProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetProductOrdering">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/ResetProductOrdering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/UpdateProductProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductLocationProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/UpdateProductLocationProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveProductPropertyCollectionItem">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/RemoveProductPropertyCollectionItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearProductProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/ClearProductProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProductTag">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/AddProductTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveProductTag">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/RemoveProductTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveProduct">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/MoveProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProduct">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationProductService/DeleteProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApplicationProductService">
+    <wsdl:port name="NetTcpBinding_IApplicationProductService" binding="tns:NetTcpBinding_IApplicationProductService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Product" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Product</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

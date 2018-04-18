@@ -1,0 +1,97 @@
+﻿<div>
+
+    <!-- Modal -->
+    <!--Tag Details Modal-->
+    <div class="modal fade tagDetailsModalWindow" tabindex="-1" role="dialog" aria-labelledby="tagDetailsModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.tagDetails.TagName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <tabset>
+                        <!--<tab id="basics" heading="Basics" style="cursor:pointer;">
+                            <div style="margin:30px; margin-left:20px; margin-top:15px; margin-bottom:15px;">
+                                <small>Tag name:</small>
+                                <h2 style="margin-top:2px">{{ vm.tagDetails.TagName }}</h2>
+                            </div>
+
+                        </tab>-->
+                        <tab id="advanced" heading="Advanced" style="cursor:pointer;">
+
+                            <div style="margin:30px; margin-left:20px;">
+                                <!--Input State-->
+                                <div id="ReoveTagForm" data-ng-show="!vm.tagDetails.IsSending && !vm.tagDetails.SendingComplete">
+                                        <!--<h4>Click on the "Delete" button below to remove the '{{ vm.tagDetails.TagName }}' tag.</h4>-->
+                                        <button type="button" class="btn btn-danger btn-lg" data-ng-click="vm.deleteTag()">Delete the '{{ vm.tagDetails.TagName }}' tag</button>
+                                        <br /><br /><small><i>Please note that you must remove this tag from any products that are currently using it in order to successfully remove it from the system.</i></small>
+                                </div>
+
+                                <!--Loading State-->
+                                <section-loader message="'Removing tag...'" loader-type="'inline'" data-ng-show="vm.tagDetails.IsSending && !vm.tagDetails.SendingComplete"></section-loader>
+
+                                <!--Results State-->
+                                <div id="RemoveTagResults" data-ng-show="!vm.tagDetails.IsSending && vm.tagDetails.SendingComplete">
+                                    <div ng-class="vm.tagDetails.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                                        <div>
+                                            <i data-ng-show="vm.tagDetails.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                            <i data-ng-show="!vm.tagDetails.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                            {{ vm.tagDetails.Results.Message }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+                    </tabset>
+
+
+                </div>
+                <div class="modal-footer">
+                    <!--Footer-->
+                    <div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tags -->
+    <div style="margin:30px; margin-top:40px; margin-bottom:20px">
+        <section-loader data-ng-show="vm.tags == null" message="'Getting tags...'" loader-type="'inline'"></section-loader>
+        <div style="float:left" data-ng-repeat="tag in vm.tags">
+            <button data-ng-show="vm.checkRole('Manager')" data-toggle="modal" data-target=".tagDetailsModalWindow" data-ng-click="vm.tagDetails.Setup($index)" style="border:1px solid darkgrey; padding:8px; padding-left:10px; padding-right:10px; margin-right:25px; margin-bottom:25px; background-color:#F5F5F5">{{ tag }}</button>
+            <div data-ng-show="!vm.checkRole('Manager')" style="border:1px solid darkgrey; padding:8px; padding-left:10px; padding-right:10px; margin-right:25px; margin-bottom:25px; background-color:#F5F5F5">{{ tag }}</div>
+        </div>
+
+    </div>
+
+
+
+    <div data-ng-show="vm.tags.length == 0 && vm.checkRole('Manager')" style="margin-left:20px;">
+        <small style="color:#5E5E5E; font-size:18px;"><strong>{{ vm.category.CategoryName }}</strong> You have no tags yet.</small><br /><br />
+        <button class="btn btn-lg btn-primary" data-toggle="modal" data-target=".createTagModalWindow" data-ng-click="vm.newTag.Clear()"><i class="fa fa-tag"></i> Create first tag</button>
+    </div>
+
+
+    <div data-ng-show="vm.tags.length > 0 && vm.checkRole('Manager')" style="text-align:right; margin-right:20px;">
+        <hr style="clear:both; margin-right:-20px;" />
+        <button class="btn btn-md btn-primary" data-toggle="modal" data-target=".createTagModalWindow" data-ng-click="vm.newTag.Clear()"><i class="fa fa-tag"></i> Add tag</button>
+    </div>
+
+
+    <!--
+        
+    <hr style="clear:both" />
+    <div style="text-align:right">
+        <button class="btn btn-md btn-primary" data-toggle="modal" data-target=".createTagModalWindow" data-ng-click="vm.newTag.Clear()"><i class="fa fa-tag"></i> Create Tag</button>
+    </div>
+
+    <div>
+        <button data-toggle="modal" data-target=".aboutTagsModalWindow" class="btn btn-default"><i class="fa fa-info-circle"></i> How Tags Work</button>
+    </div>-->
+</div>

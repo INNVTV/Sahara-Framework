@@ -1,0 +1,532 @@
+﻿@model PlatformAdminSite.PlatformManagementService.AccountsSnapshot
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<div id="DetailPage" data-ng-show="!vm.showDashboardLoading">
+
+
+    <div id="Main" class="container-fluid">
+        <div class="row">
+
+
+            <div id="LeftColumn" class="hidden-xs col-sm-4 col-md-4 col-lg-4">
+
+                <!--<h3><i class="fa fa-pie-chart"></i> Account Distribution</h3>-->
+
+                <div style="text-align:center">
+                    <img style="text-align:center;" class="img-responsive center-block" src="@Url.Action("GenerateAccountDistributionChart")" alt="Account Distribution" />
+                    
+                    @if (@Model.Counts.Total > 0)
+                    {
+                        <small class="hidden-xs" style="color:darkgrey; margin-top:-30px;">Account distribution</small>
+                    }
+                    else
+                    {
+                        <small class="hidden-xs" style="color:darkgrey; margin-top:-30px;">No accounts</small>
+                    }
+                    
+                </div>
+
+            </div>
+
+            
+
+            <div id="SecondColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                <!--<h3 class="branding-accent-color-dark"><i class="fa fa-list-alt"></i> Accounts</h3>-->
+                <h3 class="branding-accent-color-dark">Accounts</h3>
+
+                <div>
+                    <hr class="dataCardLines dark" />
+                        <small style="font-size:14px">Total Accounts:</small>
+                        <small style="font-size:14px"><strong>@Model.Counts.Total</strong></small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small style="font-size:14px">Total Subscribers:</small>
+                    <small style="font-size:14px"><strong>@Model.Counts.Subscribed</strong></small>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines dark" />
+                    <div style="background-color:green; height:12px; width:12px; float:left; margin-right:4px; margin-top:4px;"></div>
+                    <small>Subscribers (paid up):</small>
+                    <small><strong>@Model.Counts.PaidUp</strong></small>
+                </div>
+
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <div style="background-color:orange; height:12px; width:12px; float:left; margin-right:4px; margin-top:4px;"></div>
+                    <small>Subscribers (past due):</small>
+                    <small><strong>@Model.Counts.PastDue</strong></small>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <div style="background-color:red; height:12px; width:12px; float:left; margin-right:4px; margin-top:4px;"></div>
+                    <small>Subscribers (unpaid):</small>
+                    <small><strong>@Model.Counts.Unpaid</strong></small>
+                </div>
+
+
+                <div>
+                    <hr class="dataCardLines dark" />
+                    <div style="background-color:#C9C9C9; height:12px; width:12px; float:left; margin-right:4px; margin-top:4px;"></div>
+                    <small>Unverified (pending):</small>
+                    <small><strong>@Model.Counts.Unprovisioned</strong></small>
+                </div>
+
+
+                <!--<hr class="dataCardLines" style="margin-bottom:15px;" />-->
+
+
+            </div>
+
+            <div id="SecondColumnAlt" class="visible-xs col-xs-12">
+
+                <!--<h3><i class="fa fa-pie-chart"></i> Account Distribution</h3>-->
+
+                <div style="text-align:center; margin-bottom:25px;">
+                    <img style="text-align:center;" class="img-responsive center-block" src="@Url.Action("GenerateAccountDistributionChart")" alt="Account Distribution" />
+                    <small class="hidden-xs" style="color:darkgrey; margin-top:-30px;">* Account distribution</small>
+                </div>
+
+
+            </div>
+
+            <hr class="dataCardLines dark visible-xs" />
+
+            <div id="ThirdColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                <h3 class="branding-accent-color-dark">Newest Accounts</h3>
+                <hr class="dataCardLines dark" />
+                @foreach (var registeredAccount in @Model.LatestRegistered)
+                {
+                    <div>
+                        <!--<hr class="dataCardLines" />-->
+
+                        @if (registeredAccount.AccountNameKey != null)
+                        {
+
+                            var textColor = "black";
+                            <small style="font-size:12px">
+                                <span>
+                                    
+                                    @if (registeredAccount.Provisioned)
+                                    {
+                                        textColor = "#0088FF";
+                                    }
+                                    else
+                                    {
+                                        textColor = "lightgrey";
+                                    }
+                                    <!--<img src="/Images/Icons/AccountStatus/icon_@(registeredAccount.AccountStatusString).png" title="@(registeredAccount.AccountStatusString)" style="vertical-align:middle; margin-left:-2px; margin-right:-2px; cursor:pointer;" />-->
+                                    @if(registeredAccount.AccountStatusString.ToLower() == "active")
+                                    {<i class="fa fa-circle" style="color:limegreen; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "unverified")
+                                    {<i class="fa fa-circle-o" style="color:lightgrey; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "unprovisioned")
+                                    {<i class="fa fa-dot-circle-o" style="color:lightgrey; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "inactive")
+                                    {<i class="fa fa-circle" style="color:lightgrey; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "closed")
+                                    {<i class="fa fa-times" style="color:darkgrey; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "unpaid")
+                                    {<i class="fa fa-usd" style="color:red; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    else if (registeredAccount.AccountStatusString.ToLower() == "pastdue")
+                                    {<i class="fa fa-usd" style="color:orange; cursor:pointer" title="@registeredAccount.AccountStatusString"></i>}
+                                    
+                                    <strong><a style="color:@textColor" href="/account/@registeredAccount.AccountNameKey">&nbsp;@registeredAccount.AccountName</a></strong>
+                                </span>
+                                <!-- ToDo Add TimeZone to User Table, change in settings per user -->
+                                <strong style="font-size:11px; color:#A8A8A8"><span style="color:lightgrey">|</span>&nbsp;<span data-livestamp="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(registeredAccount.CreatedDate, "Pacific Standard Time")"></span></strong>
+                            </small>
+                        }
+                        else
+                        {
+                            <small title="Closed." style="font-size:12px">
+                                <!--<small title="Account has been purged or closed. Likely due to lack of verification within required time range." style="font-size:12px">-->
+                                    <!--<span class="glyphicon glyphicon-remove" style="color:red; font-size:10px; cursor:pointer; "></span>-->
+                                    <i class="fa fa-times" style="color:darkgrey; cursor:pointer"></i>
+                                    <span style="color:darkgrey">&nbsp;@registeredAccount.AccountName</span>
+                                    <!-- ToDo Add TimeZone to User Table, change in settings per user -->
+                                    <strong style="font-size:11px; color:#A8A8A8"><span style="color:lightgrey">|</span>&nbsp;<span data-livestamp="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(registeredAccount.CreatedDate, "Pacific Standard Time")"></span></strong>
+
+
+
+                                </small>
+                        }
+                        <hr class="dataCardLines" />
+                    </div>
+                }
+                @if(Model.LatestRegistered.Count() == 0)
+                {
+                    <small style="color:darkgrey" >No accounts</small>
+                    <hr class="dataCardLines" />
+                }
+
+                <!--<hr class="dataCardLines" style="margin-bottom:15px;" />-->
+                <br />
+
+
+            </div>
+            
+            <hr class="dataCardLines dark visible-xs" />
+
+            <div class="hidden-xs" style="padding:20px; text-align:center">
+                <hr class="dataCardLines medium col-lg-12 col-md-12" style="width:95%; text-align:center; margin-top:50px;" />
+            </div>
+
+
+            <div id="LeftColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                <div class="visible-xs">
+
+                    <h3 class="branding-accent-color-dark">Signups</h3>
+                    <hr class="dataCardLines dark" />
+                    <div>
+                        <small style="font-size:12px"><strong><i class="fa fa-history"></i> Last 24 hours:</strong></small>
+                        <small style="font-size:12px">@Model.Counts.Signups_Last24Hours</small>
+                        <hr class="dataCardLines" />
+                    </div>
+
+                    <div>
+                        <small style="font-size:12px"><strong><i class="fa fa-history"></i> Last 3 days:</strong></small>
+                        <small style="font-size:12px">@Model.Counts.Signups_Last3Days</small>
+                        <hr class="dataCardLines" />
+                    </div>
+                    <div>
+                        <small style="font-size:12px"><strong><i class="fa fa-history"></i> Last 7 days:</strong></small>
+                        <small style="font-size:12px">@Model.Counts.Signups_Last7Days</small>
+                        <hr class="dataCardLines" />
+                    </div>
+
+                    <div>
+                        <small style="font-size:12px"><strong><i class="fa fa-history"></i> Last 30 days:</strong></small>
+                        <small style="font-size:12px">@Model.Counts.Signups_Last30Days</small>
+                        <hr class="dataCardLines" />
+                    </div>
+
+                    <br />
+                </div>
+
+
+                <div class="hidden-xs" style="text-align:center">
+
+                    <h3 style="margin-bottom:20px;" class="branding-accent-color-dark">Signups</h3>
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Last 24 hours</h6>
+                    <div class="@(Model.Counts.Signups_Last24Hours > 0 ? "numberBox green" : "numberBox")" style="font-size:19px; width:105px;">@Model.Counts.Signups_Last24Hours</div>
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Last 3 days</h6>
+                    <div class="@(Model.Counts.Signups_Last3Days > 0 ? "numberBox green" : "numberBox")" style="font-size:19px; width:105px;">@Model.Counts.Signups_Last3Days</div>
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Last 7 days</h6>
+                    <div class="@(Model.Counts.Signups_Last7Days > 0 ? "numberBox green" : "numberBox")" style="font-size:19px; width:105px;">@Model.Counts.Signups_Last7Days</div>
+                    <h6 class="branding-accent-color-dark" style="color:darkgrey"><i class="fa fa-history"></i> Last 30 days</h6>
+                    <div class="@(Model.Counts.Signups_Last30Days > 0 ? "numberBox green" : "numberBox")" style="font-size:19px; width:105px;">@Model.Counts.Signups_Last30Days</div>
+                </div>
+
+                
+
+            </div>
+
+
+            <hr class="dataCardLines dark visible-xs" />
+
+            <!--<div id="LeftColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+
+                <h3>Errors/Exceptions</h3>
+
+                at-if (Model.LastetErrors.Length > 0)
+                {
+                    if (Model.LastetErrors[0].Timestamp < DateTime.UtcNow.AddDays(-7))
+                    {
+                        <hr class="dataCardLines" />
+                        <span style="font-size:10px;"><span class="glyphicon glyphicon-ok" style="color:green;"></span>&nbsp;&nbsp;No errors in the last 7 days!</span>
+                    }
+                    else
+                    {
+                        foreach (var error in Model.LastetErrors)
+                        {
+                            <div>
+                                <hr class="dataCardLines" />
+
+                                at-{
+                            var alertColor = "darkgrey";
+                            var copyColor = "darkgrey";
+                            var timeColor = "darkgrey";
+
+                            if (error.Timestamp > DateTime.UtcNow.AddDays(-1))
+                            {
+                                alertColor = "red";
+                                copyColor = "red";
+                                timeColor = "darkred";
+                            }
+                            else if(error.Timestamp > DateTime.UtcNow.AddDays(-3))
+                            {
+                                alertColor = "orange";
+                                copyColor = "orange";
+                                timeColor = "darkorange";
+                            }
+                            else if (error.Timestamp < DateTime.UtcNow.AddDays(-4))
+                            {
+                                alertColor = "lightgrey";
+                                copyColor = "lightgrey";
+                                timeColor = "lightgrey";
+                            }
+                                }
+
+                                <i title="at-error.Decription (at-error.Details)" style="color:at-alertColor; cursor:pointer" class="fa fa-warning"></i>
+
+                               at-if (at-error.Decription.Length > 45)
+                        {
+                                    <small style="font-size:10px; color:at-copyColor; "><span title="at-error.Decription (at-error.Details)" style="cursor:pointer">at-error.Decription.Substring(0, 45)...</span></small>
+                        }
+                        else
+                        {
+                                    <small style="font-size:10px; color:at-copyColor; "><span title="at-error.Decription (at-error.Details)" style="cursor:pointer">at-error.Decription</span></small>
+                        }
+                                <br />
+                                <small style="color:at-timeColor">
+                                    <strong title="at-error.Decription (at-error.Details)" data-livestamp="at-error.Timestamp.ToLocalTime()"></strong> |
+                                    <i class="fa fa-clock-o" style="font-size:10px;"></i>
+                                    <small>at-error.Timestamp.ToLocalTime().ToShortTimeString() on at-error.Timestamp.ToLocalTime().ToString("ddd MMM dd, yyyy")</small>
+
+                                </small>
+
+
+
+
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <hr class="dataCardLines" />
+                    <span style="font-size:10px;"><span class="glyphicon glyphicon-ok" style="color:green;"></span>&nbsp;&nbsp;No errors in the last 7 days!</span>
+                }
+                
+
+
+                <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+            </div>
+
+            <hr class="dataCardLines dark visible-xs" />-->
+
+            <!--<div id="SecondColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                
+                <h3 class="branding-accent-color-dark">Billing Issues</h3>
+
+                at-foreach (var billing in Model.BillingIssues)
+                {
+                    <div>
+                        <hr class="dataCardLines" />
+                        <i class="fa fa-clock-o"></i> <span data-livestamp="at-billing.Timestamp.ToLocalTime()"></span>
+                        <small style="font-size:10px"><strong>at-billing.Decription.Substring(0, 1)...</strong></small>
+                        
+                    </div>
+                }
+
+                <hr class="dataCardLines" style="margin-bottom:15px;" />
+
+            </div>-->
+
+            <!--<hr class="dataCardLines dark visible-xs" />-->
+
+
+            <div id="ThirdColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+
+                @if (Model.ScheduledForClosure.Length > 0)
+                {
+                    <h3 class="branding-accent-color-dark">Scheduled For Closure</h3>
+                     <hr class="dataCardLines dark" />
+                    foreach (var account in Model.ScheduledForClosure)
+                    {
+
+                        <div>
+                            <!--<hr class="dataCardLines" />-->
+                            
+                            @if (account.AccountEndDate.Value < DateTime.UtcNow)
+                            {
+                                <i style="color:darkgrey; cursor:pointer" title="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(account.AccountEndDate.Value, "Pacific Standard Time")" class="fa fa-clock-o"></i> <small style="color:darkgrey">Now (within @CoreServices.PlatformSettings.Custodian.CustodianFrequencyDescription)</small><text>:&nbsp;</text><small style="color:darkgrey"><strong><a style="color:black" href="/account/@account.AccountNameKey">@account.AccountName</a></strong></small>
+
+                            }
+                            else
+                            {
+                                <i style="color:darkgrey; cursor:pointer" title="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(account.AccountEndDate.Value, "Pacific Standard Time")" class="fa fa-clock-o"></i> <small style="color:darkgrey" data-livestamp="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(account.AccountEndDate.Value, "Pacific Standard Time")"></small><text>:&nbsp;</text><small style="color:darkgrey"><strong><a style="color:black" href="/account/@account.AccountNameKey">@account.AccountName</a></strong></small>
+
+                            }
+                                                   
+                        </div>
+                        <hr class="dataCardLines" />
+                    }
+
+
+                }
+                
+                <h3 class="branding-accent-color-dark">Recent Closures</h3>
+                <hr class="dataCardLines dark" />
+                @foreach (var closedAccount in @Model.LatestClosures)
+                {
+                    var decription = closedAccount.Decription;
+                    if (decription.Length > 20)
+                    {
+                        decription = decription.Substring(0, 20) + "...";
+                    }
+                    
+                    <div>
+                        <!--<hr class="dataCardLines" />-->
+
+                        @if (closedAccount.Account.AccountNameKey != null)
+                        {
+
+                            <small style="font-size:12px">
+                                <span>
+                                    @if (closedAccount.Account.AccountStatusString.ToLower() == "active")
+                                    {<i class="fa fa-circle" style="color:limegreen; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "unverified")
+                                    {<i class="fa fa-circle-o" style="color:lightgrey; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "unprovisioned")
+                                    {<i class="fa fa-dot-circle-o" style="color:lightgrey; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "inactive")
+                                    {<i class="fa fa-circle" style="color:lightgrey; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "closed")
+                                    {<i class="fa fa-times" style="color:darkgrey; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "unpaid")
+                                    {<i class="fa fa-usd" style="color:red; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    else if (closedAccount.Account.AccountStatusString.ToLower() == "pastdue")
+                                    {<i class="fa fa-usd" style="color:orange; cursor:pointer" title="@closedAccount.Account.AccountStatusString"></i>}
+                                    <!--<img src="/Images/Icons/AccountStatus/icon_@(closedAccount.Account.AccountStatusString).png" title="@(closedAccount.Account.AccountStatusString)" style="vertical-align:middle; margin-left:-2px; margin-right:-2px; cursor:pointer;" />-->
+                                    <a style="color:black" href="/account/@closedAccount.Account.AccountNameKey">@closedAccount.Account.AccountName</a>
+                                    <span style="color:darkgrey">&nbsp;@decription</span>
+                                </span>
+                                <strong><span data-livestamp="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(closedAccount.Timestamp, "Pacific Standard Time")"></span></strong>
+
+                            </small>
+                        }
+                        else
+                        {
+                            <small style="font-size:12px">
+                                <i class="fa fa-times" style="color:lightgrey; cursor:pointer" title="Closed"></i>
+                                <!--<img src="/Images/Icons/AccountStatus/icon_unverified.png" title="Unverified / Purged" style="vertical-align:middle; margin-left:-2px; margin-right:-2px; cursor:pointer;" />-->
+                                <span style="color:black">&nbsp;@closedAccount.Account.AccountName</span>
+                                <span style="color:darkgrey">&nbsp;@decription</span>
+                                <strong><span data-livestamp="@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(closedAccount.Timestamp, "Pacific Standard Time")"></span></strong>
+                            </small>
+                        }
+
+                        <hr class="dataCardLines" />
+
+
+                    </div>
+                }
+                @if (Model.LatestClosures.Count() == 0)
+                {
+                    <small style="color:darkgrey">No recent closures</small>
+                    <hr class="dataCardLines" />
+                }
+                <!--<hr class="dataCardLines" style="margin-bottom:15px;" />-->
+                <br />
+
+            </div>
+
+            <hr class="dataCardLines dark visible-xs" />
+
+
+
+
+            <div id="FourthColumn" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                @if (Model.RequiresClosureApproval.Length > 0)
+                {
+                    <h3 class="branding-accent-color-dark">Closure Approvals</h3>
+                    <hr class="dataCardLines dark" />
+                    foreach (var account in Model.RequiresClosureApproval)
+                    {
+                        <div>
+                            <i style="color:red" class="fa fa-warning"></i>
+                            <small style="color:red"><strong><a style="color:red" href="/account/@account.AccountNameKey">@account.AccountName</a></strong> requires closure approval.</small>
+                            <hr class="dataCardLines" />
+
+                        </div>
+                    }
+
+                }
+
+                @if (Model.PastDue.Length == 0 && Model.Unpaid.Length == 0)
+                {
+                    <h3 class="branding-accent-color-dark">Billing Issues</h3>
+                    <hr class="dataCardLines dark" />
+                    <div>    
+                        <!--<hr class="dataCardLines" />                  
+                        <small style="color:green"><strong><i class="fa fa-check-circle"></i> No Delinquent Accounts !</strong></small>
+                        <hr class="dataCardLines" />-->  
+                        <small style="color:darkgrey">No delinquent accounts</small>
+                        <hr class="dataCardLines" />
+                    </div>
+                }
+                else
+                {
+                    <h3 class="branding-accent-color-dark">Delinquent Accounts</h3>
+                    <hr class="dataCardLines dark" />
+                }
+
+                @if (Model.PastDue.Length > 0)
+                {
+
+                    foreach (var account in Model.PastDue)
+                    {
+                        <div>
+                            <hr class="dataCardLines" /><!--<small style="color:#ED6300"><strong><i class="fa fa-warning"></i>&nbsp;&nbsp;<a href="/account/@account.AccountNameKey" style="color:#FF8000;">@account.AccountName</a></strong></small><small> has past due invoices</small>-->
+                            <!--<img src="/Images/Icons/AccountStatus/icon_@(account.AccountStatusString).png" title="@(account.AccountStatusString)" style="vertical-align:middle; margin-left:-2px; margin-right:-2px; cursor:pointer;" />-->
+                            <i class="fa fa-usd" style="color:orange; cursor:pointer" title="PastDue"></i>
+                            <small><a href="/account/@account.AccountNameKey" style="color:#FF8000;">@account.AccountName</a> has past due invoices</small>
+                            <hr class="dataCardLines" />
+                        </div>
+                    }
+
+                }
+
+                @if (Model.Unpaid.Length > 0)
+                {
+                    foreach (var account in Model.Unpaid)
+                    {
+                        <div>
+                            
+                            <!--<small style="color:#9C0000"><strong><i class="fa fa-warning"></i>&nbsp;&nbsp;<a href="/account/@account.AccountNameKey" style="color:red;">@account.AccountName</a></strong></small><small> has unpaid invoices</small>-->
+                            <!--<img src="/Images/Icons/AccountStatus/icon_@(account.AccountStatusString).png" title="@(account.AccountStatusString)" style="vertical-align:middle; margin-left:-2px; margin-right:-2px; cursor:pointer;" />-->
+                            <i class="fa fa-usd" style="color:red; cursor:pointer" title="Unpaid"></i>
+                            <small><a href="/account/@account.AccountNameKey" style="color:red;">@account.AccountName</a> has unpaid invoices</small>
+                            <hr class="dataCardLines" />
+                        </div>
+                    }
+                }
+                
+
+                <!--<hr class="dataCardLines" style="margin-bottom:15px;" />-->
+                <br />
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+ 
+@Scripts.Render("~/bundles/dashboard")
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("abbr.timeago").timeago();
+    });
+</script>

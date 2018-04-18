@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AccountCommerceService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IAccountCommerceService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAccountCommerceService_GetDollarsToCreditsExchangeRate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDollarsToCreditsExchangeRate" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_GetDollarsToCreditsExchangeRate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDollarsToCreditsExchangeRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_GetCredits_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCredits" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_GetCredits_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCreditsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_BuyCredits_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyCredits" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_BuyCredits_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyCreditsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_SpendCredits_InputMessage">
+    <wsdl:part name="parameters" element="tns:SpendCredits" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_SpendCredits_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SpendCreditsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_TradeCredits_InputMessage">
+    <wsdl:part name="parameters" element="tns:TradeCredits" />
+  </wsdl:message>
+  <wsdl:message name="IAccountCommerceService_TradeCredits_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TradeCreditsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAccountCommerceService">
+    <wsdl:operation name="GetDollarsToCreditsExchangeRate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommerceService/GetDollarsToCreditsExchangeRate" message="tns:IAccountCommerceService_GetDollarsToCreditsExchangeRate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommerceService/GetDollarsToCreditsExchangeRateResponse" message="tns:IAccountCommerceService_GetDollarsToCreditsExchangeRate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCredits">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommerceService/GetCredits" message="tns:IAccountCommerceService_GetCredits_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommerceService/GetCreditsResponse" message="tns:IAccountCommerceService_GetCredits_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyCredits">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommerceService/BuyCredits" message="tns:IAccountCommerceService_BuyCredits_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommerceService/BuyCreditsResponse" message="tns:IAccountCommerceService_BuyCredits_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SpendCredits">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommerceService/SpendCredits" message="tns:IAccountCommerceService_SpendCredits_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommerceService/SpendCreditsResponse" message="tns:IAccountCommerceService_SpendCredits_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TradeCredits">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountCommerceService/TradeCredits" message="tns:IAccountCommerceService_TradeCredits_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountCommerceService/TradeCreditsResponse" message="tns:IAccountCommerceService_TradeCredits_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IAccountCommerceService" type="tns:IAccountCommerceService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IAccountCommerceService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetDollarsToCreditsExchangeRate">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommerceService/GetDollarsToCreditsExchangeRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredits">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommerceService/GetCredits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyCredits">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommerceService/BuyCredits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SpendCredits">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommerceService/SpendCredits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TradeCredits">
+      <soap12:operation soapAction="http://tempuri.org/IAccountCommerceService/TradeCredits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountCommerceService">
+    <wsdl:port name="NetTcpBinding_IAccountCommerceService" binding="tns:NetTcpBinding_IAccountCommerceService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Commerce" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Account/Commerce</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

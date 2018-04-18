@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <base href="/">
+
+    <title></title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    @RenderSection("Head", required: false)<!-- Allows Views to inject scripts and styles into head -->
+
+</head>
+<body>
+
+    <!-- Mobile Menu
+    <div class="visible-xs" id="menu-toggle" style="background-color:white; width:100%; padding:12px; text-align:right">
+        <a href="#" style="color:black">
+            <!--<span style="font-size:24px" class="glyphicon glyphicon-align-justify"></span>-- >
+            <i class="fa fa-bars" style="font-size:20px;"></i>
+        </a>
+
+        <!-- (ALT)
+        <a href="/" style="float:left; color:black">
+            <i class="fa fa-home" style="font-size:20px;"></i>
+        </a>
+        <a href="/search" style="float:right; color:black">
+            <i class="fa fa-search" style="font-size:20px;"></i>
+        </a>-- >
+
+    </div>-->
+
+    <div id="mobileMenu" style="display:none">
+        <div class="visible-xs" style="padding:20px; padding-bottom:30px;">
+            <a href="/" target="_self" class="mobileLink btn btn-default" style="width:100%"><i class="fa fa-home"></i> Home</a>
+            <a href="/search" target="_self" class="mobileLink btn btn-default" style="width:100%"><i class="fa fa-search"></i> Search</a>
+        </div>
+    </div>
+
+        @RenderBody()
+        @RenderSection("scripts", required: false)
+
+        <!-- Custom JavaScript for the Menu Toggle -->
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                //$("#mobileMenu").toggleClass("active");
+                $("#mobileMenu").slideToggle(300);
+            });
+        </script>
+
+</body>
+</html>

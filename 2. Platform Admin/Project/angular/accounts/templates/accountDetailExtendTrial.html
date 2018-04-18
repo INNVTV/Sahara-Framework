@@ -1,0 +1,38 @@
+﻿<div style="margin-top:10px;" data-ng-show="vm.checkRole('Admin')">
+
+    <div data-ng-show="!vm.showExtendTrialResults">
+        <!--Collapsed/Default View-->
+        <div data-ng-show="!vm.showExtendProcessing && !vm.showExtendTrialResults">
+            <span class="btn-group" style="margin-right:10px;">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.currentExtendedTrialDay.label }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="extendedTrialDay in vm.extendedTrialDaysModel" style="cursor:pointer">
+                        <a data-ng-click="vm.updateCurrentExtendedTrialDay(extendedTrialDay)">{{ extendedTrialDay.label }}</a>
+                    </li>
+                </ul>
+            </span>
+
+            <!--Expanded View-->
+            <span data-ng-show="vm.currentExtendedTrialDay.value != null" style="margin-top:10px">
+                <button class="btn btn-primary btn-xs" data-ng-click="vm.extendTrial()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Extend</button>
+                <button class="btn btn-default btn-xs" data-ng-click="vm.cancelExtendTrial()" style="margin-left:5px;">Cancel</button>
+            </span>
+        </div>
+
+        <!--Processing-->
+        <div data-ng-show="vm.showExtendProcessing">
+            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Extending trial...</small>
+        </div>
+
+    </div>
+
+    <!--Results-->
+    <div data-ng-show="vm.showExtendTrialResults">
+        <small data-ng-show="vm.extendTrialSuccessMessage != null" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.extendTrialSuccessMessage }}</small>
+        <small data-ng-show="vm.extendTrialErrorMessage != null" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.extendTrialErrorMessage }}</small>
+        <span><button class="btn btn-default btn-xs" data-ng-click="vm.closeExtendTrial()" style="margin-left:5px;">OK</button></span>
+    </div>
+
+</div>

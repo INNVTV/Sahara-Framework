@@ -1,0 +1,35 @@
+﻿<div data-ng-controller="dataInjectionProductBatchController as vm" >
+
+    <div style="margin-left:40px;">
+
+        <h3>Data Injection Service (Product Batch)</h3>
+
+            <input style="font-size:18px; height:36px; width:460px; margin-right:7px;" type="text" class="form-control input" data-ng-model="vm.locationPath" />
+            <br />
+
+            <div data-ng-show="vm.locationPath != '' && vm.locationPath != null" >
+                <a data-ng-show="!vm.injectionRunning && vm.account != null" data-ng-click="vm.injectProducts()" class="btn btn-md btn-primary">Inject max products per set</a>
+                <a data-ng-show="vm.injectionRunning" class="btn btn-md btn-primary disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Injecting...</a>
+
+                <a data-ng-show="!vm.injectionRunning && vm.account != null" data-ng-click="vm.updateProperties()" class="btn btn-md btn-default">Update properties</a>
+                <a data-ng-show="vm.injectionRunning" class="btn btn-md btn-default disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Updating...</a>
+            </div>
+
+            <div style="margin-top:20px; margin-bottom:-20px;">
+                <small style="color:darkgray">output:</small>
+            </div>
+            <hr />
+            <div id="logOutput">
+                <div data-ng-repeat="log in vm.outputLog">
+                    <div>
+                        <p data-ng-show="log.success" style="color:green;"><b>{{log.instance}}</b> {{log.description}} <b>OK!</b></p>
+                        <p data-ng-show="!log.success" style="color:red;"><b>{{log.instance}}</b> {{log.description}} <b>{{log.error}}</b></p>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+
+</div>
+

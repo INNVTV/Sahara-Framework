@@ -1,0 +1,36 @@
+﻿<div>
+    <!--New Card Modal-->
+    <div class="modal fade editLeadDescriptionCopyModalWindow" tabindex="-1" role="dialog" aria-labelledby="editLeadDescriptionCopyModalWindow" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:2px; margin-bottom:2px;">Description Copy</h3>
+                </div>
+                <div class="modal-body">
+
+
+                    <div style="text-align:right;">
+
+                        <div class="form">
+                            <div class="form-group" style="text-align:left">
+                                <label style="margin-bottom:2px;">Update description copy:</label>
+                                <div style="height:10px;"></div>
+                                <!--<input type="text" class="form-control input" maxlength="45" data-ng-model="vm.newLeadDescriptionLabel" />-->
+                                <textarea class="form-control input" rows="4" maxlength="120" style="resize:none;" data-ng-model="vm.newLeadDescriptionLabel"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                    <span style="margin-left:2px;" data-ng-show="!vm.newLeadDescriptionLabelComplete">
+                        <button data-ng-show="!vm.newLeadDescriptionLabelLoading" class="btn btn-md btn-primary" data-ng-click="vm.updateLeadDescriptionCopy()">Update</button>
+                        <button data-ng-show="vm.newLeadDescriptionLabelLoading" class="btn btn-md btn-primary disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Updating</button>
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

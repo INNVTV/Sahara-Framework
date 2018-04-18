@@ -1,0 +1,114 @@
+﻿@model PlatformAdminSite.Models.Users.RegisterPlatformUserModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+
+<!-- [+]using (Html.BeginForm()) -->
+@using (Html.BeginForm("Index", "Initialization", FormMethod.Post, new { id = "initializeForm", onsubmit = "displayLoader()" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div id="userForm" class="container">
+
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-4 col col-lg-offset-4">
+
+            <div style="text-align:center; margin-top:25px; margin-bottom:0px">
+                <img src="~/Images/Logos/sahara-logo-login.png" />
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        <div style="margin-bottom:10px; color:red; text-align:center;">
+                            <h5><strong>@error.ErrorMessage</strong></h5>
+                        </div>
+                    }
+
+                }
+            }
+            else
+            {
+                 <p style="color:orange; text-align: center; margin-bottom:20px">Initialize <strong>@EnvironmentSettings.CurrentEnvironment.Site.ToUpper()</strong> environment</p>
+            }
+
+            <div class="form-group">
+                <input type="text" autocomplete="off" value="@Model.Email" name="Email" class="form-control input-lg
+                       @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Email"].Errors.Count() > 0) { <text> field-validation-error input-validation-error</text>}"
+                       placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="text" autocomplete="off" value="@Model.FirstName" name="FirstName" class="form-control input-lg
+                       @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FirstName"].Errors.Count() > 0) { <text> field-validation-error input-validation-error</text>}"
+                       placeholder="First name">
+            </div>
+            <div class="form-group">
+                <input type="text" autocomplete="off" value="@Model.LastName" name="LastName" class="form-control input-lg
+                       @if (!ViewData.ModelState.IsValid && ViewData.ModelState["LastName"].Errors.Count() > 0) { <text> field-validation-error input-validation-error</text>}"
+                       placeholder="Last name">
+            </div>
+            <div class="form-group">
+                <input type="password" autocomplete="off" value="@Model.Password" name="Password" class="form-control input-lg
+                       @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Password"].Errors.Count() > 0) { <text> field-validation-error input-validation-error</text>}"
+                       placeholder="Password">
+
+            </div>
+            <div class="form-group">
+                <input type="password" autocomplete="off" value="@Model.ConfirmPassword" name="ConfirmPassword" class="form-control input-lg
+                       @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Password"].Errors.Count() > 0) { <text> field-validation-error input-validation-error</text>}"
+                       placeholder="Confirm Password">
+            </div>
+
+
+
+            <div class="form-group">
+                <button class="btn btn-warning btn-lg btn-block" style="color:black;"><i class="fa fa-power-off" style="margin-right:5px;"></i>Initialize Platform</button>
+                <!--<span><a href="#">Need help?</a></span>
+            <span class="pull-right"><a href="#">New Registration</a></span>-->
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="loader" class="container" style="display:none">
+
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-4 col col-lg-offset-4">
+
+            <div style="text-align:center; margin-top:25px; margin-bottom:25px">
+                <img src="~/Images/Logos/sahara-logo-login.png" />
+            </div>
+
+            <br />
+            <h6 style="color:orange; text-align: center; font-size:18px"><i class="fa fa-3 fa-circle-o-notch fa-spin" style="margin-right:5px;"></i> Initializing platform...</h6>
+        </div>
+    </div>
+
+
+
+}
+
+<script type="text/javascript">
+
+    function displayLoader() {
+
+        $("#userForm").hide();
+
+        $("#header").hide();
+        $("#loader").show();
+
+        $("#titleDefault").hide();
+        $("#titleStatus").show();
+
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

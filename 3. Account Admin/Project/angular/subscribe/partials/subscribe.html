@@ -1,0 +1,128 @@
+﻿<div data-ng-controller="subscribeController as vm">
+    <!--<div class="hidden-xs">
+        <h4>Plan: {{ vm.planName }}</h4>
+        <h4>Account: {{ vm.accountId }}</h4>
+    </div>-->
+    <!--<section-loader data-ng-show="vm.showLoader" message="'Getting data...'" loader-type="'inline'"></section-loader>-->
+    <div data-ng-show="vm.showLoader" style="padding-top:120px;">
+        <div style="text-align:center">
+            <h1 style="color:white"><strong><i class="fa fa-circle-o-notch fa-spin"></i></strong></h1>
+            <h2 style="color:white">Loading subscription info</h2>
+        </div>
+    </div>
+
+    <div data-ng-show="!vm.showLoader && vm.account == ''">
+        <p>Null Account</p>
+    </div>
+    <div data-ng-show="!vm.showLoader && vm.plan == ''">
+        <p>Null Plan</p>
+    </div>
+    <div data-ng-show="!vm.showLoader && vm.frequencyMonths == ''">
+        <p>Null Frequency</p>
+    </div>
+
+    <div data-ng-show="!vm.showLoader && vm.account != '' && vm.plan != '' && vm.frequencyMonths != ''">
+
+        <!-- Main Subscription Form -->
+        <div data-ng-show="!vm.processingSubscription && !vm.subscriptionComplete" style="text-align:center; padding-top:30px;">
+            <img src="/Images/Logos/logo_sm.png" height="65" />
+
+            <div style="height:2px;"></div>
+            <h5 style="color:dodgerblue; margin-top:0px;"><i class="fa fa-lock"></i> <b>Your connection is secured & encrypted</b></h5>
+            <h6 style="color:navajowhite">Subscribe <b><u>{{vm.account.AccountName}}</u></b> to the <b><u>{{vm.plan.PaymentPlanName}}</u></b> plan *</h6>
+            <div style="height:10px;"></div>
+
+
+            <!--Input Form-->
+            <div id="subscriptionCardForm" class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+                <div>
+                    <div class="form" style="text-align:left;">
+                        <div data-ng-if="vm.subscriptionCard.error">
+                            <h6 style="color:red"><strong><i class="fa fa-warning"></i> {{ vm.subscriptionCard.errorMessage }}</strong></h6>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.name" placeholder="Name on card" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.number" placeholder="Card number" />
+                        </div>
+                        <div class="form-group">
+                            <input style="width:75px; float:left;" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.cvc" placeholder="CVC" />
+
+                            <div style="float:right; margin-left:20px;">
+                                <input maxlength="2" style="width:65px; float:left;" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.expMonth" placeholder="MM" />
+                                <div style="color:navajowhite; float:left; margin:5px; margin-top:12px;"><b>/</b></div>
+                                <input maxlength="2" style="width:65px; float:left;" type="text" class="form-control input input-lg" data-ng-model="vm.subscriptionCard.expYear" placeholder="YY" />
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div style="height:20px; clear:both;"></div>
+
+                        <div class="form-group">
+                            <button class="btn btn-warning btn-lg btn-block" style="color:black" data-ng-click="vm.processSubscription()"><i class="fa fa-lock"></i> &nbsp; Submit billing info</button>
+
+                            <div style="height:5px;"></div>
+
+                            <h4 data-ng-show="vm.frequencyMonths == '1'" style="color:#6b6b6b; font-weight:bold">* You will be billed {{vm.plan.MonthlyRate | currency}} / monthly</h4>
+                            <h4 data-ng-show="vm.frequencyMonths == '12'" style="color:#6b6b6b; font-weight:bold">* You will be billed {{ (vm.plan.MonthlyRate * 12) - ((vm.plan.MonthlyRate * 12) * 0.10) | currency }} / yearly</h4>
+
+                            <h5 style="color:#767676; margin-top:-5px;">By submitting this form along with your billing information you acknowledge that you have read <b>and</b> agree to our <a style="color:#767676" href="{{vm.termsLink}}" target="_blank"><b><u>Terms of Service</u></b></a> and all related policies below.</h5>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <!-- Processing -->
+        <div data-ng-show="vm.processingSubscription" style="text-align:center; padding-top:160px;">
+            <div style="text-align:center">
+                <h1 style="color:white"><strong><i class="fa fa-circle-o-notch fa-spin"></i></strong></h1>
+                <h2 style="color:white">Processing subscription</h2>
+            </div>
+        </div>
+
+        <!-- Error -->
+        <!-- Success -->
+        <div data-ng-show="!vm.processingSubscription && vm.subscriptionComplete" style="text-align:center; padding-top:130px; margin-left:20px; margin-right:20px;">
+            <div style="text-align:center">
+                <h1 style="color:lightgreen; font-size:75px; margin-bottom:0px;"><strong><i class="fa fa-check"></i></strong></h1>
+                <h2 style="color:white; margin-top:0px; margin-bottom:0px;">Payment processed!</h2>
+                <h5 style="color:white; font-size:16px;">We are provisioning your account and will email you with further instructions.</h5>
+            </div>
+        </div>
+
+        <!---->
+        <div style="clear:both; text-align:center; padding-top:50px;">
+            <div style="margin-top:30px; padding:5px; padding-right:0px;"></div>
+            <div class="hidden-xs" style="margin-left:5px; color:#717171">
+                <small style="font-size:14px;"><b>Sahara Framework</b> &nbsp;|&nbsp; The SaaS Kickstarter &nbsp;|&nbsp; &copy; {{vm.theCurrentYear}} Innovative Cloud Solutions, LLC</small>
+            </div>
+            <div class="visible-xs hidden-lg hidden-md hidden-xl hidden-md" style="margin-left:5px; color:#717171">
+                <small><b style="font-size:14px;">Sahara Framework</b><br />The SaaS Kickstarter<br />&copy; {{vm.theCurrentYear}} Innovative Cloud Solutions, LLC</small>
+            </div>
+            <div class="legalFooterText" style="margin-left:5px; margin-top:5px;">
+                <small><a style="color:darkgrey" href="{{vm.serviceAgreement}}" target="_blank">Service Agreement</a> &nbsp;|&nbsp; <a style="color:darkgrey" href="{{vm.termsLink}}" target="_blank">Terms & Conditions</a> &nbsp;|&nbsp; <a style="color:darkgrey" href="{{vm.privacyLink}}" target="_blank">Privacy Policy</a> &nbsp;|&nbsp; <a style="color:darkgrey" href="{{vm.acceptableUseLink}}" target="_blank">Acceptable Use Policy</a> </small>
+            </div>
+            <div style="padding:15px; padding-right:0px;"></div>
+        </div>
+
+    </div>
+</div>

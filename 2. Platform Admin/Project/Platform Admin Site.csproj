@@ -1,0 +1,1106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0850D51E-9E1A-4242-A6AF-B323C5F84B86}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlatformAdminSite</RootNamespace>
+    <AssemblyName>PlatformAdminSite</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.1.608.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.608\lib\net46\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
+    <Compile Include="Controllers\ClosedAccountsController.cs" />
+    <Compile Include="Controllers\CommerceController.cs" />
+    <Compile Include="Controllers\DeploymentEnvironmentsController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\InfrastructureController.cs" />
+    <Compile Include="Controllers\InitializationController.cs" />
+    <Compile Include="Controllers\InvitationsController.cs" />
+    <Compile Include="Controllers\TransfersController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\CommunicationController.cs" />
+    <Compile Include="Controllers\PasswordController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\PlatformController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="AuthenticationCookieManager.cs" />
+    <Compile Include="Controllers\ScaffoldController.cs" />
+    <Compile Include="EnvironmentSettings.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JsonNetResult.cs" />
+    <Compile Include="Models\Authentication\Login.cs" />
+    <Compile Include="Models\Authentication\ResetPassword.cs" />
+    <Compile Include="Models\Authentication\PasswordClaim.cs" />
+    <Compile Include="Models\Infrastructure\DocumentCollectionModel.cs" />
+    <Compile Include="Models\Infrastructure\DocumentTierModel.cs" />
+    <Compile Include="Models\Infrastructure\RedisServerModel.cs" />
+    <Compile Include="Models\Users\CreateUserFromInvitationModel.cs" />
+    <Compile Include="Models\Users\RegisterPlatformUserModel.cs" />
+    <Compile Include="CoreServices.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AccountBillingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountCommerceService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountCommunicationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountManagementService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountPaymentPlanService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountRegistrationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationDataInjectionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\InfrastructureTestsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformAuthenticationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformBillingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformInitializationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformManagementService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformSettingsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="WCFManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angular\accounts\app.js" />
+    <Content Include="angular\accounts\controllers\userDetailController.js" />
+    <Content Include="angular\accounts\controllers\accountDetailController.js" />
+    <Content Include="angular\accounts\controllers\accountListController.js" />
+    <Content Include="angular\accounts\directives\accountDetailAddUpdateCardModal.js" />
+    <Content Include="angular\accounts\directives\accountDetailCreateSubscriptionModal.js" />
+    <Content Include="angular\accounts\directives\accountDetailDataInjectionPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailCommunications.js" />
+    <Content Include="angular\accounts\directives\accountDetailManagePlansModal.js" />
+    <Content Include="angular\accounts\directives\accountDetailResetTrial.js" />
+    <Content Include="angular\accounts\directives\accountDetailSqlPartitionPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailDocumentPartitionPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailApplicationDataPanel.js" />
+    <Content Include="angular\accounts\directives\accountLogsPanel.js" />
+    <Content Include="angular\accounts\directives\commerceCreditsPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailDunningAttemptsPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailPaymentHistoryPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailPasswordClaimsPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailInvoiceNextPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailUsersPanel.js" />
+    <Content Include="angular\accounts\directives\accountDetailExtendTrial.js" />
+    <Content Include="angular\accounts\directives\accountDetailInvitationsPanel.js" />
+    <Content Include="angular\accounts\directives\accountListMobileSearch.js" />
+    <Content Include="angular\accounts\directives\accountListSearch.js" />
+    <Content Include="angular\accounts\directives\accountListFilter.js" />
+    <Content Include="angular\accounts\directives\accountListGrid.js" />
+    <Content Include="angular\accounts\models\accountDetailModels.js" />
+    <Content Include="angular\accounts\models\accountListModels.js" />
+    <Content Include="angular\accounts\partials\accountDetail.html" />
+    <Content Include="angular\accounts\partials\accountList.html" />
+    <Content Include="angular\accounts\services\accountDetailServices.js" />
+    <Content Include="angular\accounts\templates\accountDetailAddUpdateCardModal.html" />
+    <Content Include="angular\accounts\templates\accountDetailCreateSubscriptionModal.html" />
+    <Content Include="angular\accounts\templates\accountDetailDataInjectionPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailManagePlansModal.html" />
+    <Content Include="angular\accounts\templates\accountDetailResetTrial.html" />
+    <Content Include="angular\accounts\templates\accountDetailSqlPartitionPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailExtendTrial.html" />
+    <Content Include="angular\accounts\templates\accountDetailCommunications.html" />
+    <Content Include="angular\accounts\templates\accountDetailDunningAttemptsPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailDocumentPartitionPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailPasswordClaimsPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailInvoiceNextPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailApplicationDataPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailUsersPanel.html" />
+    <Content Include="angular\accounts\templates\accountDetailInvitationsPanel.html" />
+    <Content Include="angular\accounts\templates\accountListMobileSearch.html" />
+    <Content Include="angular\accounts\templates\accountLogsPanel.html" />
+    <Content Include="angular\accounts\templates\commerceCreditsPanel.html" />
+    <Content Include="angular\accounts\templates\accountListSearch.html" />
+    <Content Include="angular\accounts\templates\accountListFilter.html" />
+    <Content Include="angular\accounts\services\accountListServices.js" />
+    <Content Include="angular\accounts\templates\accountListGrid.html" />
+    <Content Include="angular\billing\app.js" />
+    <Content Include="angular\billing\controllers\billingDetailController.js" />
+    <Content Include="angular\billing\controllers\billingIndexController.js" />
+    <Content Include="angular\billing\directives\transferHistoryPanel.js" />
+    <Content Include="angular\billing\directives\paymentHistoryPanel.js" />
+    <Content Include="angular\billing\directives\invoiceHistoryPanel.js" />
+    <Content Include="angular\billing\directives\plansPanel.js" />
+    <Content Include="angular\billing\directives\billingReportsPanel.js" />
+    <Content Include="angular\billing\models\billingDetailModels.js" />
+    <Content Include="angular\billing\models\billingIndexModels.js" />
+    <Content Include="angular\billing\partials\billingDetail.html" />
+    <Content Include="angular\billing\partials\billingIndex.html" />
+    <Content Include="angular\billing\services\transferServices.js" />
+    <Content Include="angular\billing\services\plansServices.js" />
+    <Content Include="angular\billing\services\billingServices.js" />
+    <Content Include="angular\billing\templates\plansPanel_Full.html" />
+    <Content Include="angular\billing\templates\transferHistoryPanel.html" />
+    <Content Include="angular\billing\templates\paymentHistoryPanel.html" />
+    <Content Include="angular\billing\templates\invoiceHistoryPanel.html" />
+    <Content Include="angular\billing\templates\plansPanel.html" />
+    <Content Include="angular\billing\templates\billingReportsPanel.html" />
+    <Content Include="angular\--dashboard--\app.js" />
+    <Content Include="angular\--dashboard--\controllers\dashboardDetailController.js" />
+    <Content Include="angular\--dashboard--\controllers\dashboardIndexController.js" />
+    <Content Include="angular\--dashboard--\directives\dashboardTestDirective.js" />
+    <Content Include="angular\--dashboard--\models\dashboardDetailModels.js" />
+    <Content Include="angular\--dashboard--\models\dashboardIndexModels.js" />
+    <Content Include="angular\--dashboard--\partials\dashboardDetail.html" />
+    <Content Include="angular\--dashboard--\partials\dashboardIndex.html" />
+    <Content Include="angular\--dashboard--\services\dashboardDetailServices.js" />
+    <Content Include="angular\--dashboard--\services\dashboardIndexServices.js" />
+    <Content Include="angular\--dashboard--\templates\dashboardTestDirective.html" />
+    <Content Include="angular\logs\app.js" />
+    <Content Include="angular\logs\controllers\logsController.js" />
+    <Content Include="angular\logs\directives\logsTestDirective.js" />
+    <Content Include="angular\logs\models\logsIndexModels.js" />
+    <Content Include="angular\logs\partials\logsIndex.html" />
+    <Content Include="angular\logs\services\logsServices.js" />
+    <Content Include="angular\logs\templates\logsTestDirective.html" />
+    <Content Include="angular\platform\app.js" />
+    <Content Include="angular\platform\controllers\platformDetailController.js" />
+    <Content Include="angular\platform\controllers\platformController.js" />
+    <Content Include="angular\platform\directives\platformStoragePartitionsPanel.js" />
+    <Content Include="angular\platform\directives\platformSearchPartitionsPanel.js" />
+    <Content Include="angular\platform\directives\platformSqlPartitionsPanel.js" />
+    <Content Include="angular\platform\directives\platformPasswordClaimsPanel.js" />
+    <Content Include="angular\platform\directives\platformInvitationsPanel.js" />
+    <Content Include="angular\platform\directives\platformCommunicationsPanel.js" />
+    <Content Include="angular\platform\directives\platformDocumentPartitionsPanel.js" />
+    <Content Include="angular\platform\directives\platformUsersPanel.js" />
+    <Content Include="angular\platform\models\platformDetailModels.js" />
+    <Content Include="angular\platform\models\platformIndexModels.js" />
+    <Content Include="angular\platform\partials\platformDetail.html" />
+    <Content Include="angular\platform\partials\platformIndex.html" />
+    <Content Include="angular\platform\services\platformServices.js" />
+    <Content Include="angular\platform\templates\platformSearchPartitionsPanel.html" />
+    <Content Include="angular\platform\templates\platformStoragePartitionsPanel.html" />
+    <Content Include="angular\platform\templates\platformSqlPartitionsPanel.html" />
+    <Content Include="angular\platform\templates\platformPasswordClaimsPanel.html" />
+    <Content Include="angular\platform\templates\platformInvitationsPanel.html" />
+    <Content Include="angular\platform\templates\platformCommunicationsPanel.html" />
+    <Content Include="angular\platform\templates\platformDocumentPartitionsPanel.html" />
+    <Content Include="angular\platform\templates\platformUsersPanel.html" />
+    <Content Include="angular\profile\app.js" />
+    <Content Include="angular\profile\controllers\profileIndexController.js" />
+    <Content Include="angular\profile\partials\profileIndex.html" />
+    <Content Include="angular\profile\services\profileIndexServices.js" />
+    <Content Include="angular\scaffold\app.js" />
+    <Content Include="angular\scaffold\controllers\scaffoldDetailController.js" />
+    <Content Include="angular\scaffold\controllers\scaffoldIndexController.js" />
+    <Content Include="angular\scaffold\directives\scaffoldTestDirective.js" />
+    <Content Include="angular\scaffold\models\scaffoldDetailModels.js" />
+    <Content Include="angular\scaffold\models\scaffoldIndexModels.js" />
+    <Content Include="angular\scaffold\partials\scaffoldDetail.html" />
+    <Content Include="angular\scaffold\partials\scaffoldIndex.html" />
+    <Content Include="angular\scaffold\services\scaffoldDetailServices.js" />
+    <Content Include="angular\scaffold\services\scaffoldIndexServices.js" />
+    <Content Include="angular\scaffold\templates\scaffoldTestDirective.html" />
+    <Content Include="angular\shared\directives\sectionLoader.js" />
+    <Content Include="angular\billing\services\paymentServices.js" />
+    <Content Include="angular\billing\services\invoiceServices.js" />
+    <Content Include="angular\shared\services\commerceServices.js" />
+    <Content Include="angular\shared\services\sharedServices.js" />
+    <Content Include="angular\shared\templates\sectionLoader.html" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\buttons.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\branding.css" />
+    <Content Include="Content\sidebarlayout.css" />
+    <Content Include="Content\site.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Backgrounds\login-background-lg.jpg" />
+    <Content Include="Images\Backgrounds\login-background-sm.jpg" />
+    <Content Include="Images\Backgrounds\login-background-xs.jpg" />
+    <Content Include="Images\Buttons\Edit\off.png" />
+    <Content Include="Images\Buttons\Edit\on.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_active.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_closed.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_inactive.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_pastdue.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_unpaid.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_unprovisioned.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_unverified.png" />
+    <Content Include="Images\Icons\PaymentPlans\icon_closed.png" />
+    <Content Include="Images\Icons\PaymentPlans\visible_false.png" />
+    <Content Include="Images\Icons\PaymentPlans\icon_lapsed.png" />
+    <Content Include="Images\Icons\PaymentPlans\icon_unverified.png" />
+    <Content Include="Images\Icons\PaymentPlans\visible_true.png" />
+    <Content Include="Images\Icons\Profile\nophoto_128x128.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_16x16.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_32x32.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_64x64.jpg" />
+    <Content Include="Images\Loaders\initializing_old.gif" />
+    <Content Include="Images\Loaders\initializing_org.gif" />
+    <Content Include="Images\Logos\sahara-logo-login-ko-lg.png" />
+    <Content Include="Images\Logos\sahara-logo-login-ko-md.png" />
+    <Content Include="Images\Logos\sahara-logo-login-ko.png" />
+    <Content Include="Images\Logos\sahara-logo-login.png" />
+    <Content Include="Images\Logos\sahara-logo-menu.png" />
+    <Content Include="Images\Icons\Logs\icon_complete.png" />
+    <Content Include="Images\Icons\Logs\icon_document.png" />
+    <Content Include="Images\Icons\Logs\icon_error.png" />
+    <Content Include="Images\Icons\Logs\icon_failed.png" />
+    <Content Include="Images\Icons\Logs\icon_initialized.png" />
+    <Content Include="Images\Icons\Logs\icon_processing.png" />
+    <Content Include="Images\Icons\Logs\icon_registration_failed.png" />
+    <Content Include="Images\Icons\Logs\icon_scheduled_task.png" />
+    <Content Include="Images\Icons\Logs\icon_sleep.png" />
+    <Content Include="Images\Icons\Logs\icon_started.png" />
+    <Content Include="Images\Icons\Logs\icon_success.png" />
+    <Content Include="Images\Icons\Partitions\Status\icon_db_full.png" />
+    <Content Include="Images\Icons\Partitions\Status\icon_db_low.png" />
+    <Content Include="Images\Icons\Partitions\Status\icon_db_med.png" />
+    <Content Include="Images\Loaders\initializing.gif" />
+    <Content Include="Images\Logos\stripe.png" />
+    <Content Include="Images\Menu\side-bar-active-triangle.gif" />
+    <Content Include="Images\Other\warpzone.jpg" />
+    <Content Include="Images\ui\bars\orange.jpg" />
+    <Content Include="Images\ui\switch\switch-loading.gif" />
+    <Content Include="Images\ui\switch\switch-off.gif" />
+    <Content Include="Images\ui\switch\switch-on-blue-checked.gif" />
+    <Content Include="Images\ui\switch\switch-on-blue.gif" />
+    <Content Include="Images\ui\switch\switch-on-green-checked.gif" />
+    <Content Include="Images\ui\switch\switch-on-green.gif" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-moment.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular.js" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="Images\ui\switch\switch-loading-dots-transparent.psd" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\countUp.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\livestamp.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Service References\AccountBillingService\PlatformAdminSite.AccountBillingService.Invoice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\PlatformAdminSite.AccountBillingService.Charge.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\PlatformAdminSite.AccountBillingService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\PlatformAdminSite.AccountBillingService.DunningAttempt.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountCommerceService\PlatformAdminSite.AccountCommerceService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountBillingService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Accounts.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Accounts.PaymentPlans.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Platform.Billing.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\service.wsdl" />
+    <None Include="Service References\AccountBillingService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\service1.wsdl" />
+    <None Include="Service References\AccountCommerceService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\configuration91.svcinfo" />
+    <None Include="Service References\AccountCommunicationService\configuration.svcinfo" />
+    <None Include="Service References\AccountBillingService\configuration91.svcinfo" />
+    <None Include="Service References\AccountBillingService\configuration.svcinfo" />
+    <None Include="Service References\AccountBillingService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AccountCommerceService\configuration91.svcinfo" />
+    <None Include="Service References\AccountCommerceService\configuration.svcinfo" />
+    <None Include="Service References\AccountCommerceService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountCommunicationService\PlatformAdminSite.AccountCommunicationService.UserNotification.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountCommunicationService\PlatformAdminSite.AccountCommunicationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountCommunicationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.AccountUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.UserAccount.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.UserInvitation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.UserPasswordResetClaim.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.AccountCreditCardInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.AccountActivityLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.AccountCapacity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountPaymentPlanService\PlatformAdminSite.AccountPaymentPlanService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountPaymentPlanService\PlatformAdminSite.AccountPaymentPlanService.PaymentFrequency.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountPaymentPlanService\PlatformAdminSite.AccountPaymentPlanService.PaymentPlan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Accounts.Notifications.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\service1.wsdl" />
+    <None Include="Service References\AccountCommunicationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.ThemeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\PlatformAdminSite.AccountManagementService.AccountSettingsDocumentModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountManagementService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Capacity.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.DocumentModels1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Themes.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Logging.AccountLogs.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service1.wsdl" />
+    <None Include="Service References\AccountManagementService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\configuration91.svcinfo" />
+    <None Include="Service References\AccountPaymentPlanService\configuration.svcinfo" />
+    <None Include="Service References\AccountPaymentPlanService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountRegistrationService\PlatformAdminSite.AccountRegistrationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountRegistrationService\PlatformAdminSite.AccountRegistrationService.ValidationResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationDataInjectionService\PlatformAdminSite.ApplicationDataInjectionService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\service1.wsdl" />
+    <None Include="Service References\AccountPaymentPlanService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\Sahara.Core.Accounts.Registration.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\Sahara.Core.Common.Validation.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\service1.wsdl" />
+    <None Include="Service References\AccountRegistrationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountRegistrationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\service1.wsdl" />
+    <None Include="Service References\ApplicationDataInjectionService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InfrastructureTestsService\service1.wsdl" />
+    <None Include="Service References\InfrastructureTestsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\InfrastructureTestsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformAuthenticationService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformAuthenticationService\configuration.svcinfo" />
+    <None Include="Service References\AccountManagementService\configuration91.svcinfo" />
+    <None Include="Service References\AccountManagementService\configuration.svcinfo" />
+    <None Include="Service References\AccountManagementService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AccountRegistrationService\configuration91.svcinfo" />
+    <None Include="Service References\AccountRegistrationService\configuration.svcinfo" />
+    <None Include="Service References\AccountRegistrationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\InfrastructureTestsService\configuration91.svcinfo" />
+    <None Include="Service References\InfrastructureTestsService\configuration.svcinfo" />
+    <None Include="Service References\InfrastructureTestsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApplicationDataInjectionService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationDataInjectionService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationDataInjectionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformAuthenticationService\PlatformAdminSite.PlatformAuthenticationService.AuthenticationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformAuthenticationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformBillingService\PlatformAdminSite.PlatformBillingService.Transfer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformBillingService\PlatformAdminSite.PlatformBillingService.SourceBalanceTransactions.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformAuthenticationService\Sahara.Core.Platform.Users.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformAuthenticationService\service1.wsdl" />
+    <None Include="Service References\PlatformAuthenticationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformAuthenticationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformAuthenticationService\System.Security.Claims1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformAuthenticationService\WCF.WcfEndpoints.Contracts.Platform.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformBillingService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformBillingService\configuration.svcinfo" />
+    <None Include="Service References\PlatformBillingService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformInitializationService\PlatformAdminSite.PlatformInitializationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.PlatformInvitation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.PlatformUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.PlatformPasswordResetClaim.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.PlatformActivityLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.AccountsSnapshot.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.BillingReport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.BillingSnapshot.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.InfrastructureSnapshot.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.DocumentPartitionCollectionProperties.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.DocumentPartitionTenantCollectionProperties.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.SqlPartition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.SqlSchemaLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformBillingService\Sahara.Core.Platform.Billing.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformBillingService\service1.wsdl" />
+    <None Include="Service References\PlatformBillingService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformBillingService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformInitializationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformInitializationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformInitializationService\service1.wsdl" />
+    <None Include="Service References\PlatformInitializationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformInitializationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.SearchPartition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PlatformManagementService\PlatformAdminSite.PlatformManagementService.StoragePartition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformManagementService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Logging.PlatformLogs.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Billing.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Partitioning.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Reports.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Snapshots.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Platform.Users.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\Sahara.Core.Settings.Models.Partitions1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\service.wsdl" />
+    <None Include="Service References\PlatformManagementService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformManagementService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformSettingsService\configuration.svcinfo" />
+    <None Include="Service References\PlatformInitializationService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformInitializationService\configuration.svcinfo" />
+    <None Include="Service References\PlatformInitializationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PlatformManagementService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformManagementService\configuration.svcinfo" />
+    <None Include="Service References\PlatformManagementService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformSettingsService\PlatformAdminSite.PlatformSettingsService.CorePlatformSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PlatformSettingsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_PublicLayout.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\_FirstRun.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Initialization\Index.cshtml" />
+    <Content Include="Views\Platform\Index.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\ClosedAccounts\Deprovisioned.cshtml" />
+    <Content Include="Views\ClosedAccounts\Unverified.cshtml" />
+    <Content Include="Views\Shared\_AuthenticatedLayout.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Login\LogOut.cshtml" />
+    <Content Include="Views\Scaffold\Index.cshtml" />
+    <Content Include="Views\Infrastructure\Index.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\Invitations\Success.cshtml" />
+    <Content Include="Views\Invitations\Index.cshtml" />
+    <Content Include="Views\Password\Forgot.cshtml" />
+    <Content Include="Views\Password\Sent.cshtml" />
+    <Content Include="Views\Password\Reset.cshtml" />
+    <Content Include="Views\Password\Success.cshtml" />
+    <Content Include="Views\Billing\Index.cshtml" />
+    <Content Include="Views\Initialization\Success.cshtml" />
+    <Content Include="Views\Initialization\Error.cshtml" />
+    <Content Include="Views\Infrastructure\RedisServers.cshtml" />
+    <Content Include="Views\Infrastructure\PerformanceTests.cshtml" />
+    <Content Include="Views\Infrastructure\PerformanceTests_Redis.cshtml" />
+    <Content Include="Views\Infrastructure\RedisServer_GetKeys.cshtml" />
+    <Content Include="Views\Infrastructure\RedisServer_GetHash.cshtml" />
+    <Content Include="Views\Infrastructure\RedisServer_GetString.cshtml" />
+    <Content Include="Views\Infrastructure\PerformanceTests_WCFCaching.cshtml" />
+    <Content Include="Views\Shared\_ImageLayout.cshtml" />
+    <Content Include="Views\Infrastructure\DocumentDB_Accounts.cshtml" />
+    <None Include="Service References\PlatformSettingsService\Sahara.Core.Settings.Models.Partitions1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service1.wsdl" />
+    <None Include="Service References\PlatformSettingsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\WCF.WcfEndpoints.Contracts.Platform.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Stage.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\DataInjection\" />
+    <Folder Include="Views\DeploymentEnvironments\" />
+    <Folder Include="Views\Invoice\" />
+    <Folder Include="Views\PaymentPlan\" />
+    <Folder Include="Views\Payments\" />
+    <Folder Include="Views\Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AccountBillingService\" />
+    <WCFMetadataStorage Include="Service References\AccountCommerceService\" />
+    <WCFMetadataStorage Include="Service References\AccountCommunicationService\" />
+    <WCFMetadataStorage Include="Service References\AccountManagementService\" />
+    <WCFMetadataStorage Include="Service References\AccountPaymentPlanService\" />
+    <WCFMetadataStorage Include="Service References\AccountRegistrationService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationDataInjectionService\" />
+    <WCFMetadataStorage Include="Service References\InfrastructureTestsService\" />
+    <WCFMetadataStorage Include="Service References\PlatformAuthenticationService\" />
+    <WCFMetadataStorage Include="Service References\PlatformBillingService\" />
+    <WCFMetadataStorage Include="Service References\PlatformInitializationService\" />
+    <WCFMetadataStorage Include="Service References\PlatformManagementService\" />
+    <WCFMetadataStorage Include="Service References\PlatformSettingsService\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60403</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60403/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

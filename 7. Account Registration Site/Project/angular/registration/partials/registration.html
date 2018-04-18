@@ -1,0 +1,275 @@
+﻿<div data-ng-controller="registrationController as vm" style="height:100%">
+
+    <nav class="hidden-xs fixed-nav-bar" style="margin-bottom:25px;">
+        <div style="float:left;">
+            <img src="/Images/logo/logo_sm-2.png" height="50" />
+        </div>
+    </nav>
+
+    <div class="hidden-xs" style="height:120px;"></div>
+
+        <!--class="contaner"-->
+        <div style="border-radius:8px;" class="shadow-box col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col col-lg-offset-3">
+           
+            <div data-ng-show="vm.submissionProcessing == false && vm.submissionSuccess == false">
+
+                <div class="hidden-xs" style="margin-top:-25px; margin-bottom:20px;">
+                    <div data-ng-show="vm.planType == 'demo'">
+                        <h1 class="special-header">Request a demo</h1>
+                        <b>Fill out the form below and we will contact you right away to set up a demo.<br />You can also email us directly at: <u>[Config_Email]</u>. Thank you!</b>
+                    </div>
+                    <div data-ng-show="vm.planType != 'demo'">
+                        <h1 class="special-header">Sign up for an account</h1>
+                        <b>Fill out the form below and we will contact you within 24 hours to discuss which plan makes the most sense for your needs. You can also email us directly at: <u>[Config_Email]</u>. Thank you!</b>
+                    </div>                 
+                </div>
+
+                <div class="visible-xs">
+                    <div style="margin-left:-5px; margin-top:-5px; margin-bottom:35px;">
+                        <img src="/Images/logo/logo_sm-2.png" height="35" />
+                    </div>
+                    <div data-ng-show="vm.planType == 'demo'" style="margin-top:-25px; margin-bottom:20px;">
+                        <h3 class="special-header">Request a demo</h3>
+                        <b>Fill out the form below and we will contact you right away to set up a demo.</b>
+                    </div>
+                    <div data-ng-show="vm.planType != 'demo'" style="margin-top:-25px; margin-bottom:20px;">
+                        <h3 class="special-header">Sign up for an account</h3>
+                        <b>Fill out the form below and we will contact you within 24 hours to discuss which plan makes the most sense for your needs.</b>
+                    </div>
+                </div>
+
+
+                <div data-ng-show="vm.submissionMessage != ''" style="text-align:center; padding-top:15px;">
+                    <h4 style="color:darkred;"><strong><i class="fa fa-warning" color:darkred;"></i>&nbsp;&nbsp;{{ vm.submissionMessage }}</strong></h4>
+                </div>
+                <div>
+
+                    <div class="form-group" data-ng-class="{'has-success' : vm.accountNameValid == true, 'has-error': vm.accountNameValid == false}">
+                        <label class="control-label">
+                            <small>
+                                <strong>
+                                    <i data-ng-show="vm.accountNameValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                    <i data-ng-show="vm.accountNameValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                    {{vm.accountNameLabel}}
+                                </strong>
+                            </small>
+                        </label>
+                        <!--SM/MD/LG-->
+                        <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control input-lg hidden-xs" placeholder="Company or Account Name"
+                               data-ng-model="vm.accountName" data-ng-model-options="{debounce:600}"
+                               data-ng-change="vm.validateAccountName()"
+                               data-ng-style="vm.accountNameStyle"
+                               id="accountName" />
+                        <!--XS-->
+                        <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control visible-xs" placeholder="Company or Account Name"
+                               data-ng-model="vm.accountName" data-ng-model-options="{debounce:600}"
+                               data-ng-change="vm.validateAccountName()"
+                               data-ng-style="vm.accountNameStyle" />
+                    </div>
+                    <!--<hr style="border-color:darkgrey" />-->
+                    <div id="subdomain" style="display:none">
+                        <div data-ng-show="vm.accountNameValid == null || vm.accountNameValid == false">
+                            <small style="color:darkgrey">Your subdomain will be:</small>
+                            <h4 class="hidden-xs" style="color:lightgrey; margin-top:15px;">https://<strong><span>{{vm.accountNameSubdomain}}</span></strong>.{{ vm.accountPortalUrl }}</h4>
+                            <h6 class="visible-xs" style="color:lightgrey; margin-top:10px;">https://<strong><span>{{vm.accountNameSubdomain}}</span></strong>.{{ vm.accountPortalUrl }}</h6>
+                            <hr style="border-color:darkgrey; border-style:dashed" />
+                        </div>
+                        <div data-ng-show="vm.accountNameValid == true">
+                            <small style="color:darkgrey">Your subdomain will be:</small>
+                            <h4 class="hidden-xs" style="color:green; margin-top:15px;">https://<strong><span style="color:green; background-color:#F0F4F7; padding:4px; padding-left:7px; padding-right:7px; margin:5px; border:1px dotted green;">{{vm.accountNameSubdomain}}</span></strong>.{{ vm.accountPortalUrl }} <span><i class="fa fa-check" style="color:green; font-size:14px"></i></span></h4>
+                            <h6 class="visible-xs" style="color:green; margin-top:10px;">https://<strong><span style="color:green; background-color:#F0F4F7; padding:3px; padding-left:6px; padding-right:6px; margin:3px; border:1px dotted green;">{{vm.accountNameSubdomain}}</span></strong>.{{ vm.accountPortalUrl }} <span><i class="fa fa-check" style="color:green; font-size:14px"></i></span></h6>
+                            <hr style="border-color:darkgrey; border-style:dashed" />
+                        </div>
+                    </div>
+                    <div class="form-group;" style="margin-left:-15px; margin-right:-15px;">
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.firstNameValid == true, 'has-error': vm.firstNameValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.firstNameValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.firstNameValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.firstNameLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control" placeholder="First Name" autocomplete="off"
+                                   data-ng-model="vm.firstName" data-ng-model-options="{debounce:600}"
+                                   data-ng-change="vm.validateFirstName()"
+                                   data-ng-style="vm.firstNameStyle" />
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.lastNameValid == true, 'has-error': vm.lastNameValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.lastNameValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.lastNameValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.lastNameLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control" placeholder="Last Name" autocomplete="off"
+                                   data-ng-model="vm.lastName" data-ng-model-options="{debounce:600}"
+                                   data-ng-change="vm.validateLastName()"
+                                   data-ng-style="vm.lastNameStyle" />
+                        </div>
+                    </div>
+
+                    <div class="form-group;" style="margin-left:-15px; margin-right:-15px;">
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.phoneNumberValid == true, 'has-error': vm.phoneNumberValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.phoneNumberValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.phoneNumberValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.phoneNumberLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control" placeholder="Phone Number" autocomplete="off"
+                                   data-ng-model="vm.phoneNumber" data-ng-model-options="{debounce:600}"
+                                   data-ng-change="vm.validatePhoneNumber()"
+                                   data-ng-style="vm.phoneNumberStyle" />
+                        </div>
+
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.emailValid == true, 'has-error': vm.emailValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.emailValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.emailValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.emailLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="text" class="form-control" placeholder="Email Address" autocomplete="off"
+                                   data-ng-model="vm.email" data-ng-model-options="{debounce:600}"
+                                   data-ng-change="vm.validateEmail()"
+                                   data-ng-style="vm.emailStyle" />
+                        </div>
+                    </div>
+
+                    <div class="form-group;" style="margin-left:-15px; margin-right:-15px;">
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.passwordValid == true, 'has-error': vm.passwordValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.passwordValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.passwordValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.passwordLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="password" class="form-control" placeholder="Password" autocomplete="off"
+                                   data-ng-model="vm.password" data-ng-model-options="{debounce:300}"
+                                   data-ng-change="vm.validatePassword()"
+                                   data-ng-style="vm.passwordStyle" />
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6" data-ng-class="{'has-success' : vm.confirmPasswordValid == true, 'has-error': vm.confirmPasswordValid == false}">
+                            <label class="control-label">
+                                <small>
+                                    <strong>
+                                        <i data-ng-show="vm.confirmPasswordValid == true" class="fa fa-check" style="color:green; font-size:11px;"></i>
+                                        <i data-ng-show="vm.confirmPasswordValid == false" class="fa fa-warning" style="color:darkred; font-size:11px;"></i>
+                                        {{vm.confirmPasswordLabel}}
+                                    </strong>
+                                </small>
+                            </label>
+                            <input ng-disabled="vm.submissionProcessing == true" type="password" class="form-control" placeholder="Confirm Password" autocomplete="off"
+                                   data-ng-model="vm.confirmPassword" data-ng-model-options="{debounce:300}"
+                                   data-ng-change="vm.validateConfirmPassword()"
+                                   data-ng-style="vm.confirmPasswordStyle" />
+                        </div>
+
+                    </div>
+
+                    <div style="margin-left:1px;">
+                       <input type="checkbox" data-ng-model="vm.termsAgreedTo" style="cursor:pointer; height:19px; width:19px; float:left" /> <div style="font-size:15px; margin-top:3px; margin-left:5px; float:left">I've read and agree to the <a href="{{vm.termsLink}}" target="_blank">Terms of Service.</a></div>
+                    </div>
+
+                    <div style="clear:both; height:7px;"></div>
+
+                    <div class="form-group" style="clear:both; margin-bottom:0px; margin-top:0px;">
+                        <div style="height:5px;"></div>
+                        <button data-ng-show="vm.accountNameValid != true || vm.firstNameValid != true || vm.lastNameValid != true || vm.emailValid != true || vm.passwordValid != true || vm.confirmPasswordValid != true"
+                                class="btn btn-primary disabled btn-lg btn-block" style="height:55px">
+                            Please fill out all form fields&nbsp;&nbsp;<i class="fa fa-arrow-up"></i>
+                        </button>
+                        <button data-ng-show="vm.termsAgreedTo == false && vm.accountNameValid == true && vm.firstNameValid == true && vm.lastNameValid == true && vm.emailValid == true && vm.passwordValid == true && vm.confirmPasswordValid == true"
+                                class="btn btn-primary disabled btn-lg btn-block" style="height:55px; text-align:left">
+                            &nbsp;&nbsp;<i class="fa fa-arrow-up"></i>&nbsp;&nbsp;Please agree to our Terms of Service
+                        </button>
+
+                        <button data-ng-show="vm.termsAgreedTo == true && vm.planType != 'demo' && vm.submissionProcessing == false && vm.accountNameValid == true && vm.firstNameValid == true && vm.lastNameValid == true && vm.emailValid == true && vm.passwordValid == true && vm.confirmPasswordValid == true"
+                                class="btn btn-primary btn-lg btn-block" style="height:55px" data-ng-click="vm.submitRegistration()">
+                            Create My Account!
+                        </button>
+                        <button data-ng-show="vm.termsAgreedTo == true && vm.planType == 'demo' && vm.submissionProcessing == false && vm.accountNameValid == true && vm.firstNameValid == true && vm.lastNameValid == true && vm.emailValid == true && vm.passwordValid == true && vm.confirmPasswordValid == true"
+                                class="btn btn-primary btn-lg btn-block" style="height:55px" data-ng-click="vm.submitRegistration()">
+                            Submit Demo Request!
+                        </button>
+                       
+                    </div>
+                </div>
+            </div>
+            <div data-ng-show="vm.submissionProcessing == true" style="text-align:center;">
+
+                <div class="visible-xs" style="height:6%"></div>
+
+                <div class="hidden-xs hidden-sm" style="padding-top:20px;">
+                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:60px; color:#8F8F8F;"></i>
+                    <h2 class="special-header" style="color:#8F8F8F;">{{vm.processingMessage}}</h2>
+                </div>
+                <div class="visible-sm" style="padding-top:20px;">
+                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:45px; color:#8F8F8F;"></i>
+                    <h3 class="special-header" style="color:#8F8F8F;">{{vm.processingMessage}}</h3>
+                </div>
+                <div class="visible-xs" style="padding-top:20px;">
+                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:35px; color:#8F8F8F; margin-bottom:20px;"></i>
+                    <h4 class="special-header" style="color:#8F8F8F;">{{vm.processingMessage}}</h4>
+                </div>
+
+                <div class="visible-xs" style="height:600px"></div>
+
+            </div>
+            <div data-ng-show="vm.submissionProcessing == false && vm.submissionSuccess == true" style="text-align:center;">
+
+                <div class="visible-xs" style="height:6%"></div>
+
+                <div class="hidden-xs hidden-sm" style="padding-top:20px;">
+                    <i class="fa fa-check-circle" style="font-size:70px; color:#6BA358;"></i>
+                    <h1 class="special-header" style="color:#6BA358; margin-top:5px">Almost there!</h1>
+                    <h3 class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px;">{{ vm.submissionMessage }}</h3>
+                    <h4 data-ng-show="vm.submissionMessage2 != ''" class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px; margin-top:-20px;">{{ vm.submissionMessage2 }}</h4>
+                </div>
+                <div class="visible-sm" style="padding-top:20px;">
+                    <i class="fa fa-check-circle" style="font-size:50px; color:#6BA358;"></i>
+                    <h2 class="special-header" style="color:#6BA358; margin-top:5px">Almost there!</h2>
+                    <h4 class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px;">{{ vm.submissionMessage }}</h4>
+                    <h5 data-ng-show="vm.submissionMessage2 != ''" class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px; margin-top:-20px;">{{ vm.submissionMessage2 }}</h5>
+                </div>
+                <div class="visible-xs" style="padding-top:20px;">
+                    <i class="fa fa-check-circle" style="font-size:40px; color:#6BA358;"></i>
+                    <h3 class="special-header" style="color:#6BA358; margin-top:5px">Almost there!</h3>
+                    <h4 class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px;">{{ vm.submissionMessage }}</h4>
+                    <h5 data-ng-show="vm.submissionMessage2 != ''" class="special-header" style="color:#8CB87D; padding:20px; padding-top:0px; margin-top:-20px;">{{ vm.submissionMessage2 }}</h5>
+                </div>
+
+                <div class="visible-xs" style="height:600px"></div>
+
+            </div>
+
+        </div>
+
+
+    <div class="row hidden-xs" style="width:99%; margin-left:-5px;">
+        <div class="legalFooter col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col col-lg-offset-3" style="clear:both; margin-top:15px; padding-right:0px; ">
+            <div style="color:#272727">
+                <small style="font-size:14px;"><b>The Shara Framework</b> &nbsp;|&nbsp; The SaaS Kickstarter &nbsp;|&nbsp; &copy; {{vm.theCurrentYear}} Innovative Cloud Solutions, LLC</small>
+            </div>
+            <div class="legalFooter" style="margin-top:0px; margin-bottom:40px;">
+                <small><a href="{{vm.serviceAgreement}}" target="_blank">Service Agreement</a> &nbsp;|&nbsp; <a href="{{vm.termsLink}}" target="_blank">Terms & Conditions</a> &nbsp;|&nbsp; <a href="{{vm.privacyLink}}" target="_blank">Privacy Policy</a> &nbsp;|&nbsp; <a href="{{vm.acceptableUseLink}}" target="_blank">Acceptable Use Policy</a> </small>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,8 @@
+﻿When schemas are to be upgraded:
+
+1. Most work will be done using the Sahara.Core.Schema.Upgrades CloudeService & Worker
+2. The new schema must be merged into the "Initialization" folder. So new accounts have the latest schemas when provisioined.
+3. Initialization > Seed > SchemaLog.sql > Version must be logged to so that it reflects the new version number and to reflect new account schema versions.
+4. A worker role called "Upgrade Worker" is designed to update existing accounts to the new schema in batches of 10, 100 or 1,000 every day until complete.
+5. The upgrade worker can be part of the Core Services solution in order to use all the libraries, but it can be packaged as a seperate instance and run as an isolated worker from the Core Services package.
+6. Log table must be updated with the time and version number upgraded to per account.

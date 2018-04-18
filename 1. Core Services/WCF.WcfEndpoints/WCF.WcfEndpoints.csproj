@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{63298A73-048A-46CF-9336-708A713C8C3E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WCF.WcfEndpoints</RootNamespace>
+    <AssemblyName>WCF.WcfEndpoints</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AdditionalFileItemNames>$(AdditionalFileItemNames);None</AdditionalFileItemNames>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.5.3\lib\net45\ImageProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.13.2\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.5.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.3.0.3\lib\net45\Microsoft.Azure.Search.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.4\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.4\lib\net45\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Data, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.Data.2.5.216\lib\net45\Microsoft.ServiceFabric.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Data.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.Data.2.5.216\lib\net45\Microsoft.ServiceFabric.Data.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.FabricTransport, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.FabricTransport.Internal.2.5.216\lib\net45\Microsoft.ServiceFabric.FabricTransport.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Internal, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\Microsoft.ServiceFabric.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Internal.Strings, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\Microsoft.ServiceFabric.Internal.Strings.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Services, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.Services.2.5.216\lib\net45\Microsoft.ServiceFabric.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Services.Remoting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.Services.Remoting.2.5.216\lib\net45\Microsoft.ServiceFabric.Services.Remoting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceFabric.Services.Wcf, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.Services.Wcf.2.5.216\lib\net45\Microsoft.ServiceFabric.Services.Wcf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.1.1\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.1.1\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.3.0.0\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.2.1\lib\net46\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Fabric, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\System.Fabric.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Fabric.Management.ServiceModel, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\System.Fabric.Management.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Fabric.Management.ServiceModel.XmlSerializers, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\System.Fabric.Management.ServiceModel.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Fabric.Strings, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\System.Fabric.Strings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\Account\IAccountAuthenticationService.cs" />
+    <Compile Include="Contracts\Account\IAccountBillingService.cs" />
+    <Compile Include="Contracts\Account\IAccountCommerceService.cs" />
+    <Compile Include="Contracts\Account\IAccountCommunicationService.cs" />
+    <Compile Include="Contracts\Account\IAccountManagementService.cs" />
+    <Compile Include="Contracts\Account\IAccountPaymentPlanService.cs" />
+    <Compile Include="Contracts\Account\IAccountRegistrationService.cs" />
+    <Compile Include="Contracts\Application\IApplicationApiKeysService.cs" />
+    <Compile Include="Contracts\Application\IApplicationCategorizationService.cs" />
+    <Compile Include="Contracts\Application\IApplicationDataInjectionService.cs" />
+    <Compile Include="Contracts\Application\IApplicationImageFormatsService.cs" />
+    <Compile Include="Contracts\Application\IApplicationImageRecordsService.cs" />
+    <Compile Include="Contracts\Application\IApplicationImagesService.cs" />
+    <Compile Include="Contracts\Application\IApplicationLeadsService.cs" />
+    <Compile Include="Contracts\Application\IApplicationProductService.cs" />
+    <Compile Include="Contracts\Application\IApplicationPropertiesService.cs" />
+    <Compile Include="Contracts\Application\IApplicationSearchService.cs" />
+    <Compile Include="Contracts\Application\IApplicationTagsService.cs" />
+    <Compile Include="Contracts\Infrastructure\IInfrastructureTestsService.cs" />
+    <Compile Include="Contracts\Platform\IPlatformAuthenticationService.cs" />
+    <Compile Include="Contracts\Platform\IPlatformBillingService.cs" />
+    <Compile Include="Contracts\Platform\IPlatformInitializationService.cs" />
+    <Compile Include="Contracts\Platform\IPlatformManagementService.cs" />
+    <Compile Include="Contracts\Platform\IPlatformSettingsService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\AccountAuthenticationService.cs" />
+    <Compile Include="Services\Account\AccountBillingService.cs" />
+    <Compile Include="Services\Account\AccountCommerceService.cs" />
+    <Compile Include="Services\Account\AccountCommunicationService.cs" />
+    <Compile Include="Services\Account\AccountManagementService.cs" />
+    <Compile Include="Services\Account\AccountPaymentPlanService.cs" />
+    <Compile Include="Services\Account\AccountRegistrationService.cs" />
+    <Compile Include="Services\Application\ApplicationApiKeysService.cs" />
+    <Compile Include="Services\Application\ApplicationCategorizationService.cs" />
+    <Compile Include="Services\Application\ApplicationDataInjectionService.cs" />
+    <Compile Include="Services\Application\ApplicationImageFormatsService.cs" />
+    <Compile Include="Services\Application\ApplicationImageRecordsService.cs" />
+    <Compile Include="Services\Application\ApplicationImagesService.cs" />
+    <Compile Include="Services\Application\ApplicationLeadsService.cs" />
+    <Compile Include="Services\Application\ApplicationProductService.cs" />
+    <Compile Include="Services\Application\ApplicationPropertiesService.cs" />
+    <Compile Include="Services\Application\ApplicationSearchService.cs" />
+    <Compile Include="Services\Application\ApplicationTagsService.cs" />
+    <Compile Include="Services\Infrastructure\InfrastructureTestsService.cs" />
+    <Compile Include="Services\Platform\PlatformAuthenticationService.cs" />
+    <Compile Include="Services\Platform\PlatformBillingService.cs" />
+    <Compile Include="Services\Platform\PlatformInitializationService.cs" />
+    <Compile Include="Services\Platform\PlatformManagementService.cs" />
+    <Compile Include="Services\Platform\PlatformSettingsService.cs" />
+    <Compile Include="WcfEndpoints.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ServiceEventSource.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PackageRoot\Config\Settings.xml" />
+    <None Include="PackageRoot\ServiceManifest.xml" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Capacity\Sahara.Core.Accounts.Capacity.csproj">
+      <Project>{7561afa7-a301-48be-a951-15cad6d4f98c}</Project>
+      <Name>Sahara.Core.Accounts.Capacity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Commerce\Sahara.Core.Accounts.Commerce.csproj">
+      <Project>{2bcc0cd6-bfb5-4e6b-b873-caa225d68513}</Project>
+      <Name>Sahara.Core.Accounts.Commerce</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Notifications\Sahara.Core.Accounts.Notifications.csproj">
+      <Project>{c7cba5c3-235c-415e-8d76-77a361a8a45c}</Project>
+      <Name>Sahara.Core.Accounts.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.PaymentPlans\Sahara.Core.Accounts.PaymentPlans.csproj">
+      <Project>{15a9db4b-3ce4-42c5-be75-7ab026196f95}</Project>
+      <Name>Sahara.Core.Accounts.PaymentPlans</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Registration\Sahara.Core.Accounts.Registration.csproj">
+      <Project>{ca25b79f-5dba-4609-806b-0052e556efd3}</Project>
+      <Name>Sahara.Core.Accounts.Registration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Security\Sahara.Core.Accounts.Security.csproj">
+      <Project>{19d70d81-3cef-48bb-be2e-8e47d3db64fa}</Project>
+      <Name>Sahara.Core.Accounts.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Settings\Sahara.Core.Accounts.Settings.csproj">
+      <Project>{e4208177-ecdb-459d-b398-b63ff7966408}</Project>
+      <Name>Sahara.Core.Accounts.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts.Themes\Sahara.Core.Accounts.Themes.csproj">
+      <Project>{e138760b-81cd-4656-8564-f407d4ec7955}</Project>
+      <Name>Sahara.Core.Accounts.Themes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Accounts\Sahara.Core.Accounts\Sahara.Core.Accounts.csproj">
+      <Project>{ef12e1a5-6078-48d9-b4e4-15dabbb462c2}</Project>
+      <Name>Sahara.Core.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.ApiKeys\Sahara.Core.Application.ApiKeys.csproj">
+      <Project>{08acc555-ec24-4f33-a80e-910c54d4eea1}</Project>
+      <Name>Sahara.Core.Application.ApiKeys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Categorization\Sahara.Core.Application.Categorization.csproj">
+      <Project>{68a5d51f-ef8e-4b10-9410-0a83b12723d1}</Project>
+      <Name>Sahara.Core.Application.Categorization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.DocumentModels\Sahara.Core.Application.DocumentModels.csproj">
+      <Project>{fc3e3539-7a62-4179-a9d9-d5e62c8dcaf7}</Project>
+      <Name>Sahara.Core.Application.DocumentModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Images.Formats\Sahara.Core.Application.Images.Formats.csproj">
+      <Project>{cf1601fe-c9ff-4372-a685-6e6ee7975a03}</Project>
+      <Name>Sahara.Core.Application.Images.Formats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Images.Processing\Sahara.Core.Application.Images.Processing.csproj">
+      <Project>{10a981f1-241c-49f0-ac96-7add95f9a3f5}</Project>
+      <Name>Sahara.Core.Application.Images.Processing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Images.Records\Sahara.Core.Application.Images.Records.csproj">
+      <Project>{385e6a09-fe3a-4b62-8c07-08585af66077}</Project>
+      <Name>Sahara.Core.Application.Images.Records</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Leads\Sahara.Core.Application.Leads.csproj">
+      <Project>{157dfb0d-aa96-4a75-a4ea-fcfceabd45b9}</Project>
+      <Name>Sahara.Core.Application.Leads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Products\Sahara.Core.Application.Products.csproj">
+      <Project>{e914466b-a482-4c48-89ed-14c9f1b892fd}</Project>
+      <Name>Sahara.Core.Application.Products</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Properties\Sahara.Core.Application.Properties.csproj">
+      <Project>{9f2732da-04de-4eb3-960f-88e481acb8bd}</Project>
+      <Name>Sahara.Core.Application.Properties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Search.Facets\Sahara.Core.Application.Search.Facets.csproj">
+      <Project>{0b3933be-a563-485d-90cf-d1af95c37dab}</Project>
+      <Name>Sahara.Core.Application.Search.Facets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Search.Models\Sahara.Core.Application.Search.Models.csproj">
+      <Project>{c701abc2-118f-4426-9108-0bbca6e86875}</Project>
+      <Name>Sahara.Core.Application.Search.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Search.Sorting\Sahara.Core.Application.Search.Sorting.csproj">
+      <Project>{4aecc493-2e1c-42b1-a730-59a5a38d934c}</Project>
+      <Name>Sahara.Core.Application.Search.Sorting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Application\Sahara.Core.Application.Tags\Sahara.Core.Application.Tags.csproj">
+      <Project>{e1637a62-0e94-4ace-92cf-fb8436987fd9}</Project>
+      <Name>Sahara.Core.Application.Tags</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Common\Sahara.Core.Common.MessageQueues.PlatformPipeline\Sahara.Core.Common.MessageQueues.PlatformPipeline.csproj">
+      <Project>{282e8b44-3d29-4641-bba1-a79b435a19e7}</Project>
+      <Name>Sahara.Core.Common.MessageQueues.PlatformPipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Common\Sahara.Core.Common.Services.SendGrid\Sahara.Core.Common.Services.SendGrid.csproj">
+      <Project>{bfb1e89b-ca0c-4e96-9b5f-d5e079d03d05}</Project>
+      <Name>Sahara.Core.Common.Services.SendGrid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Common\Sahara.Core.Common.Services.Stripe\Sahara.Core.Common.Services.Stripe.csproj">
+      <Project>{093081a2-8b63-4574-964c-115884d67610}</Project>
+      <Name>Sahara.Core.Common.Services.Stripe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Common\Sahara.Core.Common.Validation\Sahara.Core.Common.Validation.csproj">
+      <Project>{71e8e4ea-943d-460b-bc1f-5bbe8d30b408}</Project>
+      <Name>Sahara.Core.Common.Validation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Common\Sahara.Core.Common\Sahara.Core.Common.csproj">
+      <Project>{dc1b4bf7-31f1-4390-bab9-440a082af838}</Project>
+      <Name>Sahara.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Imaging\Sahara.Core.Imaging\Sahara.Core.Imaging\Sahara.Core.Imaging.csproj">
+      <Project>{64d6c0a6-b801-4d27-9de1-4cfe9a7036c5}</Project>
+      <Name>Sahara.Core.Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Logging\Sahara.Core.Logging.AccountLogs\Sahara.Core.Logging.AccountLogs.csproj">
+      <Project>{0c0f25e2-8a69-411d-afaf-512f15b1a1fb}</Project>
+      <Name>Sahara.Core.Logging.AccountLogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Logging\Sahara.Core.Logging.PlatformLogs.Helpers\Sahara.Core.Logging.PlatformLogs.Helpers.csproj">
+      <Project>{24cc6b92-9a46-4013-bfda-356375f0f8c0}</Project>
+      <Name>Sahara.Core.Logging.PlatformLogs.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Logging\Sahara.Core.Logging.PlatformLogs\Sahara.Core.Logging.PlatformLogs.csproj">
+      <Project>{274c01e2-859d-46d7-850a-28cc40dce6af}</Project>
+      <Name>Sahara.Core.Logging.PlatformLogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Billing\Sahara.Core.Platform.Billing.csproj">
+      <Project>{7b38b4f1-ef91-4fa3-bc96-b8c46cc366d2}</Project>
+      <Name>Sahara.Core.Platform.Billing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Constraints\Sahara.Core.Platform.Constraints.csproj">
+      <Project>{a04c4183-690a-412a-adb2-34108edad95e}</Project>
+      <Name>Sahara.Core.Platform.Constraints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Initialization\Sahara.Core.Platform.Initialization.csproj">
+      <Project>{5ecdb705-d1d4-41f0-8022-f9eebff4491b}</Project>
+      <Name>Sahara.Core.Platform.Initialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Partitioning\Sahara.Core.Platform.Partitioning.csproj">
+      <Project>{a2591f1e-9e3f-4e43-a759-9bfed1dc7eed}</Project>
+      <Name>Sahara.Core.Platform.Partitioning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Reports\Sahara.Core.Platform.Reports.csproj">
+      <Project>{b21253e9-a38a-4fe4-a937-450299eb90d1}</Project>
+      <Name>Sahara.Core.Platform.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Requests\Sahara.Core.Platform.Requests.csproj">
+      <Project>{33521979-bdee-4026-b879-9b24063abe30}</Project>
+      <Name>Sahara.Core.Platform.Requests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Snapshots\Sahara.Core.Platform.Snapshots.csproj">
+      <Project>{0d3a912a-0b26-468b-af4c-45a5b52ce974}</Project>
+      <Name>Sahara.Core.Platform.Snapshots</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Users.Security\Sahara.Core.Platform.Users.Security.csproj">
+      <Project>{d8607e0c-a9b2-410e-bc80-580171c53f85}</Project>
+      <Name>Sahara.Core.Platform.Users.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Platform\Sahara.Core.Platform.Users\Sahara.Core.Platform.Users.csproj">
+      <Project>{c9d740b0-cec9-4688-9457-b6149c24c815}</Project>
+      <Name>Sahara.Core.Platform.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Settings\Sahara.Core.Settings.Models\Sahara.Core.Settings.Models.csproj">
+      <Project>{9233f937-7a99-4542-8589-da7b49a21feb}</Project>
+      <Name>Sahara.Core.Settings.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sahara.Core\Sahara.Core.Settings\Sahara.Core.Settings\Sahara.Core.Settings.csproj">
+      <Project>{bd0f4229-dadd-4600-a235-2e504522327f}</Project>
+      <Name>Sahara.Core.Settings</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

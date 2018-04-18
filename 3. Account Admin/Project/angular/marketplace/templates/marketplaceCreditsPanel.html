@@ -1,0 +1,147 @@
+﻿<div style="text-align:left;">
+
+    <div>
+
+        <h5 style="margin-left:1px; margin-bottom:3px;"><strong>Available credits:</strong></h5>
+        <div id="countUpElement" class="numberBox" data-ng-class="{green: vm.availableCredits > 0}" style="font-size:36px; margin:0px; width:240px;">{{ vm.availableCredits }} </div>
+
+        <div id="buyCreditsResponse" data-ng-show="vm.buyCreditsResponse != null && vm.buyCreditsProcessing == false" style="margin-bottom:0px; margin-top:8px">
+            <div data-ng-show="vm.buyCreditsResponse.isSuccess == false" style="color:red; font-size:18px;"><strong><i class="fa fa-warning"></i> {{ vm.buyCreditsResponse.ErrorMessage }}</strong></div>
+            <div data-ng-show="vm.buyCreditsResponse.isSuccess == true" style="color:green; font-size:18px;"><strong><i class="fa fa-check"></i> {{ vm.buyCreditsResponse.SuccessMessage }}</strong></div>
+        </div>
+
+        <div id="spendCreditsResponse" data-ng-show="vm.spendCreditsResponse != null && vm.spendCreditsProcessing == false" style="margin-bottom:0px; margin-top:8px">
+            <div data-ng-show="vm.spendCreditsResponse.isSuccess == false" style="color:red; font-size:18px;"><strong><i class="fa fa-warning"></i> {{ vm.spendCreditsResponse.ErrorMessage }}</strong></div>
+            <div data-ng-show="vm.spendCreditsResponse.isSuccess == true" style="color:green; font-size:18px;"><strong><i class="fa fa-check"></i> {{ vm.spendCreditsResponse.SuccessMessage }}</strong></div>
+        </div>
+
+        <div id="tradeCreditsResponse" data-ng-show="vm.tradeCreditsResponse != null && vm.tradeCreditsProcessing == false" style="margin-bottom:0px; margin-top:8px">
+            <div data-ng-show="vm.tradeCreditsResponse.isSuccess == false" style="color:red; font-size:18px;"><strong><i class="fa fa-warning"></i> {{ vm.tradeCreditsResponse.ErrorMessage }}</strong></div>
+            <div data-ng-show="vm.tradeCreditsResponse.isSuccess == true" style="color:green; font-size:18px;"><strong><i class="fa fa-check"></i> {{ vm.tradeCreditsResponse.SuccessMessage }}</strong></div>
+        </div>
+
+        <hr />
+
+        <small style="color:darkgray"><i class="fa fa-random"></i> Current exchange rate:</small>
+        <h4 style="margin-top:3px;">$1.00 = {{ vm.creditsToDollarExchangeRate }} credits</h4>
+
+        <hr />
+
+        <div data-ng-show="vm.creditCardInfo != null">
+
+            <h3>Buy <strong style="font-size:24px">{{ ( vm.creditsToPurchaseAmount ) }}</strong> Credits</h3>
+
+            <button data-ng-show="vm.buyCreditsProcessing == false" class="btn btn-lg btn-success" data-ng-click="vm.buyCredits()">${{ vm.creditsToPurchaseAmount / vm.creditsToDollarExchangeRate }}.00</button>
+            <button data-ng-show="vm.buyCreditsProcessing == true" class="btn btn-lg btn-disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Buying {{ ( vm.creditsToPurchaseAmount ) }} credits</button> <small style="color:gray"></small>
+
+            <span id="buyCreditsButtonResponse" data-ng-show="vm.buyCreditsResponse != null && vm.buyCreditsProcessing == false" style="margin-bottom:15px; margin-top:8px">
+                <span data-ng-show="vm.buyCreditsResponse.isSuccess == false" style="color:red; font-size:28px; margin-left:5px"><strong><i class="fa fa-warning"></i></strong></span>
+                <span data-ng-show="vm.buyCreditsResponse.isSuccess == true" style="color:green; font-size:28px; margin-left:5px"><strong><i class="fa fa-check"></i></strong></span>
+            </span>
+
+            <br /><br />
+            <!--<h4 style="color:gray">Purchase <strong style="font-size:24px">{{ ( vm.creditsToPurchaseAmount ) }}</strong> credits</h4>-->
+            <button class="btn btn-xs btn-default" data-ng-click="vm.updateCreditsForPurchase(-5)">- 5 Credits</button> <button data-ng-click="vm.updateCreditsForPurchase(5)" class="btn btn-xs btn-default">+ 5 Credits</button>
+        </div>
+
+
+        <div data-ng-show="vm.creditCardInfo == null">
+
+            <h3>Buy Credits</h3>
+
+            <button class="btn btn-lg btn-disabled">No credit card on file</button> <small style="color:gray"></small>
+            <div style="margin-top:7px;"><strong><i class="fa fa-credit-card"></i> Please add a credit card to your account to purchase credits.</strong></div>
+
+        </div>
+
+
+
+        <hr />
+
+        <h3>Spend Credits</h3>
+
+
+        <button data-ng-show="vm.availableCredits <= 0" class="btn btn-lg btn-disabled">No credits available to spend.</button>
+        <div data-ng-show="vm.availableCredits <= 0" style="margin-top:7px;"><strong><i class="fa fa-level-up"></i> Buy more credits above!</strong></div>
+
+        <button data-ng-show="vm.spendCreditsProcessing == false && vm.availableCredits > 0" class="btn btn-lg btn-danger" data-ng-click="vm.spendCredits()">Spend {{ vm.creditsToSpendAmount }} credits</button>
+        <button data-ng-show="vm.spendCreditsProcessing == true" class="btn btn-lg btn-disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Spending {{ ( vm.creditsToSpendAmount ) }} credits</button> <small style="color:gray"></small>
+
+        <span id="spendCreditsButtonResponse" data-ng-show="vm.spendCreditsResponse != null && vm.spendCreditsProcessing == false && vm.availableCredits > 0" style="margin-bottom:15px; margin-top:8px">
+            <span data-ng-show="vm.spendCreditsResponse.isSuccess == false" style="color:red; font-size:28px; margin-left:5px"><strong><i class="fa fa-warning"></i></strong></span>
+            <span data-ng-show="vm.spendCreditsResponse.isSuccess == true" style="color:green; font-size:28px; margin-left:5px"><strong><i class="fa fa-check"></i></strong></span>
+        </span>
+
+        <div data-ng-show="vm.availableCredits > 0">
+
+            <br />
+
+            <div data-ng-show="vm.showCreditsDescription == true">For: <strong>{{ vm.spendCreditsDescription }}</strong>&nbsp;&nbsp;<button data-ng-click="vm.editCreditsDescription()" class="sahara-btn-edit-16 " style="padding-top:5px;"></button></div>
+            <div data-ng-show="vm.showCreditsDescription == false"><input style="width:200px; float:left" type="text" placeholder="Enter a description" class="input-sm form-control" data-ng-model="vm.spendCreditsEditDescription" />&nbsp;<span class="btn btn-default btn-xs" data-ng-click="vm.cancelCreditsDescription()" style="margin-left:5px; margin-top:5px;">OK</span></div>
+
+
+            <br />
+            <!--<h4 style="color:gray">Purchase <strong style="font-size:24px">{{ ( vm.creditsToPurchaseAmount ) }}</strong> credits</h4>-->
+            <button class="btn btn-xs btn-default" data-ng-click="vm.updateCreditsForSpending(-5)">- 5 Credits</button> <button data-ng-click="vm.updateCreditsForSpending(5)" class="btn btn-xs btn-default">+ 5 Credits</button>
+        </div>
+
+        <hr />
+
+
+
+        <h3>Trade Credits</h3>
+        <!--<p>A trading economy for credits (or virtual goods valued in credits) between accounts can be added to the framework based upon your requirements.</p>-->
+
+        <button data-ng-show="vm.availableCredits <= 0" class="btn btn-lg btn-disabled">No credits available to trade.</button>
+        <div data-ng-show="vm.availableCredits <= 0" style="margin-top:7px;"><strong><i class="fa fa-level-up"></i> Buy more credits above!</strong></div>
+
+        <button data-ng-show="vm.tradeCreditsProcessing == false && vm.availableCredits > 0" class="btn btn-lg btn-primary" data-ng-click="vm.tradeCredits()">Trade {{ vm.creditsToTradeAmount }} credits</button>
+        <button data-ng-show="vm.tradeCreditsProcessing == true" class="btn btn-lg btn-disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Trading {{ ( vm.creditsToTradeAmount ) }} credits with {{ vm.creditsToTradeAccountName }}</button> <small style="color:gray"></small>
+
+        <span id="tradeCreditsButtonResponse" data-ng-show="vm.tradeCreditsResponse != null && vm.tradeCreditsProcessing == false && vm.availableCredits > 0" style="margin-bottom:15px; margin-top:8px">
+            <span data-ng-show="vm.tradeCreditsResponse.isSuccess == false" style="color:red; font-size:28px; margin-left:5px"><strong><i class="fa fa-warning"></i></strong></span>
+            <span data-ng-show="vm.tradeCreditsResponse.isSuccess == true" style="color:green; font-size:28px; margin-left:5px"><strong><i class="fa fa-check"></i></strong></span>
+        </span>
+
+        <div data-ng-show="vm.availableCredits > 0">
+
+            <br />
+
+            <div data-ng-show="vm.showTradeAccount == true">With: <strong>{{ vm.creditsToTradeAccountName }}</strong>&nbsp;&nbsp;<button data-ng-click="vm.editTradeAccount()" class="sahara-btn-edit-16 " style="padding-top:5px;"></button></div>
+            <div data-ng-show="vm.showTradeAccount == false">
+                <div class="btn-group" style="margin-right:10px;">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                        {{ vm.creditsToTradeAccountName }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="cursor:pointer; height: auto; max-height: 260px; overflow-x: hidden;">
+                        <li data-ng-repeat="account in vm.accountsList">
+                            <a data-ng-click="vm.updateTradeAccount(account)">{{ account.AccountName }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="btn btn-default btn-xs" data-ng-click="vm.cancelTradeAccount()" style="margin-left:0px; margin-top:0px;">OK</span>
+            </div>
+
+            <br />
+
+            <div data-ng-show="vm.showTradeDescription == true">For: <strong>{{ vm.tradeCreditsDescription }}</strong>&nbsp;&nbsp;<button data-ng-click="vm.editTradeDescription()" class="sahara-btn-edit-16 " style="padding-top:5px;"></button></div>
+            <div data-ng-show="vm.showTradeDescription == false"><input style="width:200px; float:left" type="text" placeholder="Enter a description" class="input-sm form-control" data-ng-model="vm.tradeCreditsEditDescription" />&nbsp;<span class="btn btn-default btn-xs" data-ng-click="vm.cancelTradeDescription()" style="margin-left:5px; margin-top:5px;">OK</span></div>
+
+
+            <br />
+            <!--<h4 style="color:gray">Purchase <strong style="font-size:24px">{{ ( vm.creditsToPurchaseAmount ) }}</strong> credits</h4>-->
+            <button class="btn btn-xs btn-default" data-ng-click="vm.updateCreditsForTrade(-5)">- 5 Credits</button> <button data-ng-click="vm.updateCreditsForTrade(5)" class="btn btn-xs btn-default">+ 5 Credits</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    </div>

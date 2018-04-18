@@ -1,0 +1,167 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--Fixes form focus zooming issue on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>@CoreServices.PlatformSettings.ApplicationName Platform 
+    @if (EnvironmentSettings.CurrentEnvironment.Site.ToLower() != "production")
+    {
+        <text>(</text>@EnvironmentSettings.CurrentEnvironment.Site<text>)</text>
+    }</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+</head>
+<body style="margin:0; padding:0;">
+
+    <script type="text/javascript">
+    //Determine which menu item should be set to 'Active'
+    $(function () {
+        var rootPath = location.pathname.split('/')[1];
+        rootPath = rootPath.toLowerCase();
+        menuName = "";
+        if (rootPath == "") {
+            menuName = "dashboard";
+        }
+        else if (rootPath == "dashboard") {
+            menuName = "dashboard";
+        }
+        else if (rootPath == "account") {
+            menuName = "accounts";
+        }
+        else if (rootPath == "accounts") {
+            menuName = "accounts";
+        }
+        else if (rootPath == "platform") {
+            menuName = "platform";
+        }
+        else if (rootPath == "logs") {
+            menuName = "logs";
+        }
+        else if (rootPath == "log") {
+            menuName = "logs";
+        }
+        else if (rootPath == "billing") {
+            menuName = "billing";
+        }
+        else if (rootPath == "profile") {
+            menuName = "profile";
+        }
+        $("#" + menuName + "-nav").addClass('active');
+    });
+    </script>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" style="height:90px; text-align:center; margin-left:-3px">
+                    <a href="~/"><img src="~/Images/Logos/sahara-logo-menu.png" /></a>
+                </li>
+                <li>
+                    <a id="dashboard-nav" href="~/dashboard">
+                        <i class="fa fa-dashboard fa-2x"></i>
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                <li>
+                    <a id="accounts-nav" href="~/accounts">
+                        <!--<span style="font-size:20px" class="glyphicon glyphicon-list-alt"></span>-->
+                        <i class="fa fa-list-alt fa-2x"></i>
+                        <div>Accounts</div>
+                    </a>
+                </li>
+                <li>
+                    <a id="logs-nav" href="~/logs">
+                        <i class="fa fa-list fa-2x"></i>
+                        <div>Logs</div>
+                    </a>
+                </li>
+                <li>
+                    <a id="billing-nav" href="~/billing">
+                        <i class="fa fa-dollar fa-2x"></i>
+                        <div>Billing</div>
+                    </a>
+                </li>
+
+                @if (AuthenticationCookieManager.GetAuthenticationCookie().Role == "SuperAdmin")
+                {
+                    <li>
+                        <a id="platform-nav" href="~/platform">
+                            <i class="fa fa-cogs fa-2x"></i>
+                            <div>Platform</div>
+                        </a>
+                    </li>
+                }
+                
+                <li>
+                    <a id="profile-nav" href="~/profile">
+                        <i class="fa fa-user fa-2x"></i>
+                        <div>My Profile</div>
+                    </a>
+                </li>
+                <!--<li>
+                    <a id="imaging-nav" href="~/profile">
+                        <i class="fa fa-camera fa-2x"></i>
+                        <div>Imaging</div>
+                    </a>
+                </li>
+                <li>
+                    <a id="api-nav" href="~/profile">
+                        <i class="fa fa-rss fa-2x"></i>
+                        <div>API</div>
+                    </a>
+                </li>-->
+            </ul>
+</div>
+        <!-- Menu Toggle -->
+        <div id="menu-toggle" style="background-color:#282828; width:100%; padding:12px;">
+                <a href="#" style="color:lightgray">
+                    <!--<span style="font-size:24px" class="glyphicon glyphicon-align-justify"></span>-->
+                    <i class="fa fa-bars fa-2x"></i>
+                </a>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+                @RenderBody()
+                <hr style="clear:both;" />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - @CoreServices.PlatformSettings.ApplicationName 
+                    @if(EnvironmentSettings.CurrentEnvironment.Site.ToLower() != "production")
+                    {
+                        <text>(</text>@EnvironmentSettings.CurrentEnvironment.Site<text>)</text>
+                    }
+                    </p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+
+
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+        });
+    </script>
+</body>
+</html>

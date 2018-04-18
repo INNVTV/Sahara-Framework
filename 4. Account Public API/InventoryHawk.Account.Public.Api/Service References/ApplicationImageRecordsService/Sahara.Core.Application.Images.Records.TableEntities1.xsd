@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Records.TableEntities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Records.TableEntities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Microsoft.WindowsAzure.Storage.Table" />
+  <xs:complexType name="ImageRecordTableEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Microsoft.WindowsAzure.Storage.Table" base="q1:TableEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BlobPath" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ContainerName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FilePath" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Height" type="xs:int" />
+          <xs:element minOccurs="0" name="ImageFormat" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImageFormatKey" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImageGroup" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImageGroupKey" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImageKey" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ObjectId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StoragePath" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Width" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ImageRecordTableEntity" nillable="true" type="tns:ImageRecordTableEntity" />
+</xs:schema>

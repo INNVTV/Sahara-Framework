@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Registration";
+}
+
+<div data-ng-app="app">
+
+    <div data-ng-view></div>
+
+</div>
+
+
+<!-- Set in App_Start/BundleConfig -->
+@Scripts.Render("~/bundles/angular-registration") 
+
+<script type="text/javascript">
+
+    //Variables injected into the base page be made availale to all routes of the SPA via JavaScript --------------
+
+    var registrationEndpoint = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.RegistrationApiEndpoint));
+    var passwordMinLength = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Registration.PasswordMinLength));
+    var trialLength = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Account.TrialLength));
+    var accountPortalUrl = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.AccountManagementDomain));
+
+    var termsLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.TermsAndConditionsUri));
+    var privacyLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.PrivacyPolicyUri));
+    var acceptableUseLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.AcceptableUse));
+    var serviceAgreement = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.ServiceAgreementUri));
+
+</script>

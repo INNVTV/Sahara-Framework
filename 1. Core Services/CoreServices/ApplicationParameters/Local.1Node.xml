@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/CoreServices" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <!-- Custodial (tests/references)-->
+    <Parameter Name="CustodialConfigSetting" Value="Conf-Debug" />
+    <Parameter Name="CustodialEnvVariable" Value="Env-Local1Node" />
+    <!-- Service Enviornments -->
+    <Parameter Name="CustodialEnv" Value="Local" />
+    <Parameter Name="WorkerEnv" Value="Local" />
+    <Parameter Name="WebhooksEnv" Value="Local" />
+    <Parameter Name="WcfEnv" Value="Local" />
+    <!-- Instance Counts-->
+    <Parameter Name="AccountRegistrationApi_InstanceCount" Value="1" />
+    <Parameter Name="WebhooksApi_InstanceCount" Value="1" />
+    <Parameter Name="PlatformWorker_InstanceCount" Value="1" />
+    <Parameter Name="CustodianWorker_InstanceCount" Value="1" />
+    <Parameter Name="WcfEndpoints_InstanceCount" Value="1" />
+  </Parameters>
+</Application>

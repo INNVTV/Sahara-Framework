@@ -1,0 +1,80 @@
+﻿<div data-ng-controller="settingsIndexController as vm" >
+
+    <!--Injected Directives-->
+    <create-property-modal></create-property-modal>
+    <create-tag-modal></create-tag-modal>
+    <property-details-modal></property-details-modal>
+    <update-featured-properties-modal></update-featured-properties-modal>
+    <!--Help/Docs (Removed)
+    <about-properties-modal></about-properties-modal>
+    <about-tags-modal></about-tags-modal>
+    <about-image-formats-modal></about-image-formats-modal>-->
+
+    <section-loader style="margin-top:5px;" data-ng-show="vm.showLoader" loader-type="'circle'" message="'Loading'"></section-loader>
+    <!--<section-loader style="margin-top:-20px" data-ng-show="vm.showLoader" message="'Getting your account settings...'" loader-type="'inline'"></section-loader>-->
+
+    <div data-ng-show="!vm.showLoader">
+
+        <h2 style="margin-bottom:30px; margin-top:10px">Settings</h2>
+
+        <tabset>
+
+            <tab id="general" heading="General Settings" style="cursor:pointer">
+                <general-panel></general-panel>
+            </tab>
+
+            <!--<tab data-ng-show="vm.account.PaymentPlan.AllowSalesLeads" id="leads" heading="Sales Leads" style="cursor:pointer">
+                <sales-panel></sales-panel>
+            </tab>-->
+
+            <tab id="item" heading="Item Attributes" style="cursor:pointer" data-ng-click="vm.getProperties()">
+
+                <div id="inventory-settings-sub-menu">
+                    <ul class="sahara-nav-pills">
+                        <li>
+                            <a data-ng-class="{'active' : vm.inventorySettingsSubMenu.propertiesButton}" data-ng-click="vm.inventorySettingsSubMenu.update('properties')" href="#">PROPERTIES</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.inventorySettingsSubMenu.tagsButton}" data-ng-click="vm.inventorySettingsSubMenu.update('tags')" href="#">TAGS</a>
+                        </li>
+                        <!--<li>
+                            <a data-ng-class="{'active' : vm.inventorySettingsSubMenu.imageFormatsButton}" data-ng-click="vm.inventorySettingsSubMenu.update('imageFormats')" href="#">IMAGE FORMATS</a>
+                        </li>-->
+                    </ul>
+                </div>
+
+                <div data-ng-show="vm.inventorySettingsSubMenu.propertiesButton == true" style="padding-top:15px">
+                    <properties-panel></properties-panel>
+                </div>
+
+                <div data-ng-show="vm.inventorySettingsSubMenu.tagsButton == true">
+                    <tags-panel></tags-panel>
+                </div>
+
+                <!--<div data-ng-show="vm.inventorySettingsSubMenu.imageFormatsButton == true">
+                    <image-formats-panel></image-formats-panel>
+                </div>-->
+
+            </tab>
+
+            <tab class="hidden-xs hidden-sm" id="image-formats" heading="Image Formats" style="cursor:pointer" data-ng-click="vm.loadImageFormatsPanel()">
+                <image-formats-panel></image-formats-panel>
+            </tab>
+
+
+            <!--<tab id="tablet" heading="Tablet/Theme" style="cursor:pointer" data-ng-click="vm.getImagingLog()">
+
+            </tab>
+
+            <tab id="other" heading="Other" style="cursor:pointer" data-ng-click="vm.getImagingLog()">
+
+            </tab>-->
+
+
+        </tabset>
+
+        <legal-footer></legal-footer>
+    </div>
+
+</div>
+

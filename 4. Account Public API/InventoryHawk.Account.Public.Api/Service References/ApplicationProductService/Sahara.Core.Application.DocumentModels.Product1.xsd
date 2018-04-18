@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.DocumentModels.Product" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ProductDocumentModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="DateCreated" type="q1:DateTimeOffset" />
+      <xs:element minOccurs="0" name="DocumentType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullyQualifiedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocationPath" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Locations" nillable="true" type="q2:ArrayOfKeyValueOfstringPropertyLocationValuepWsQj8Ae" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Predefined" nillable="true" type="q3:ArrayOfKeyValueOfstringArrayOfstringty7Ep6D1" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Properties" nillable="true" type="q4:ArrayOfKeyValueOfstringstring" />
+      <xs:element minOccurs="0" name="SubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubsubsubcategoryNameKey" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Swatches" nillable="true" type="q5:ArrayOfKeyValueOfstringArrayOfSwatchpWsQj8Ae" />
+      <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q6:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductDocumentModel" nillable="true" type="tns:ProductDocumentModel" />
+  <xs:complexType name="PropertyLocationValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Lat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Long" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyLocationValue" nillable="true" type="tns:PropertyLocationValue" />
+  <xs:complexType name="ArrayOfSwatch">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Swatch" nillable="true" type="tns:Swatch" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSwatch" nillable="true" type="tns:ArrayOfSwatch" />
+  <xs:complexType name="Swatch">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Image" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageMedium" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageSmall" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Label" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Swatch" nillable="true" type="tns:Swatch" />
+</xs:schema>

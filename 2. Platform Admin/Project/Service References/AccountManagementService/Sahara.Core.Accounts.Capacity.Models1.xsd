@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Capacity.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Capacity.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="AccountCapacity">
+    <xs:sequence>
+      <xs:element name="CategorizationsCount" type="xs:int" />
+      <xs:element name="CategorizationsMax" type="xs:int" />
+      <xs:element name="CategorizationsPercentageUsed" type="xs:int" />
+      <xs:element name="CategorizationsRemaining" type="xs:int" />
+      <xs:element name="CustomImageFormatsCount" type="xs:int" />
+      <xs:element name="CustomImageFormatsMax" type="xs:int" />
+      <xs:element name="CustomImageFormatsPercentageUsed" type="xs:int" />
+      <xs:element name="CustomImageFormatsRemaining" type="xs:int" />
+      <xs:element name="CustomImageGalleriesCount" type="xs:int" />
+      <xs:element name="CustomImageGalleriesMax" type="xs:int" />
+      <xs:element name="CustomImageGalleriesPercentageUsed" type="xs:int" />
+      <xs:element name="CustomImageGalleriesRemaining" type="xs:int" />
+      <xs:element name="CustomImageGroupsCount" type="xs:int" />
+      <xs:element name="CustomImageGroupsMax" type="xs:int" />
+      <xs:element name="CustomImageGroupsPercentageUsed" type="xs:int" />
+      <xs:element name="CustomImageGroupsRemaining" type="xs:int" />
+      <xs:element name="ImagesPerGalleryMax" type="xs:int" />
+      <xs:element name="ProductsCount" type="xs:int" />
+      <xs:element name="ProductsMax" type="xs:int" />
+      <xs:element name="ProductsPercentageUsed" type="xs:int" />
+      <xs:element name="ProductsRemaining" type="xs:int" />
+      <xs:element name="PropertiesCount" type="xs:int" />
+      <xs:element name="PropertiesMax" type="xs:int" />
+      <xs:element name="PropertiesPercentageUsed" type="xs:int" />
+      <xs:element name="PropertiesRemaining" type="xs:int" />
+      <xs:element name="TagsCount" type="xs:int" />
+      <xs:element name="TagsMax" type="xs:int" />
+      <xs:element name="TagsPercentageUsed" type="xs:int" />
+      <xs:element name="TagsRemaining" type="xs:int" />
+      <xs:element name="UsersCount" type="xs:int" />
+      <xs:element name="UsersMax" type="xs:int" />
+      <xs:element name="UsersPercentageUsed" type="xs:int" />
+      <xs:element name="UsersRemaining" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountCapacity" nillable="true" type="tns:AccountCapacity" />
+</xs:schema>

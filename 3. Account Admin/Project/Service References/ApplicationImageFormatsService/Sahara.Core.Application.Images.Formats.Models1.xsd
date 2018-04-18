@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Formats.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Images.Formats.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfImageFormatGroupTypeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageFormatGroupTypeModel" nillable="true" type="tns:ImageFormatGroupTypeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageFormatGroupTypeModel" nillable="true" type="tns:ArrayOfImageFormatGroupTypeModel" />
+  <xs:complexType name="ImageFormatGroupTypeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ImageFormatGroupTypeID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ImageFormatGroupTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatGroupTypeNameKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageFormatGroupTypeModel" nillable="true" type="tns:ImageFormatGroupTypeModel" />
+  <xs:complexType name="ArrayOfImageFormatGroupModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageFormatGroupModel" nillable="true" type="tns:ImageFormatGroupModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageFormatGroupModel" nillable="true" type="tns:ArrayOfImageFormatGroupModel" />
+  <xs:complexType name="ImageFormatGroupModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowDeletion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ImageFormatGroupID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ImageFormatGroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatGroupNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatGroupTypeNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormats" nillable="true" type="tns:ArrayOfImageFormatModel" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageFormatGroupModel" nillable="true" type="tns:ImageFormatGroupModel" />
+  <xs:complexType name="ArrayOfImageFormatModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageFormatModel" nillable="true" type="tns:ImageFormatModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImageFormatModel" nillable="true" type="tns:ArrayOfImageFormatModel" />
+  <xs:complexType name="ImageFormatModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowDeletion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Gallery" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" name="ImageFormatGroupNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatGroupTypeNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ImageFormatName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageFormatNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Listing" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageFormatModel" nillable="true" type="tns:ImageFormatModel" />
+</xs:schema>

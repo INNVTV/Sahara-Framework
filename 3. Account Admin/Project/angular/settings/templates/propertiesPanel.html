@@ -1,0 +1,132 @@
+﻿<div>
+    <div id="PropertiesPanelLoading" class="container-fluid" data-ng-show="vm.properties == null">
+        <section-loader message="'Getting properties...'" loader-type="'inline'"></section-loader>
+    </div>
+    <div id="Properties" class="container-fluid" data-ng-show="vm.properties != null">
+
+        <table class="table table-responsive table-striped" data-ng-show="vm.properties.length > 0">
+            <tr data-ng-repeat="property in vm.properties">
+
+                
+
+                <td style="width:45%">
+
+                    <!--<i class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:8px;"></i>-->
+                    <!--<i data-ng-show="!property.Visible" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:8px;"></i>-->
+
+                    <div style="float:left; width:30px; text-align:center">
+                        <span data-ng-show="property.PropertyTypeNameKey == 'predefined'" style="color:darkgray"><i class="fa fa-list-ul"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'string'" style="color:darkgray"><i class="fa fa-font"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'swatch'" style="color:darkgray"><i class="fa fa-th-large"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'paragraph'" style="color:darkgray"><i class="fa fa-indent"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'number'" style="color:darkgray"><i class="fa fa-sort-numeric-desc"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'location'" style="color:darkgray"><i class="fa fa-map-marker"></i>&nbsp;</span>
+                        <span data-ng-show="property.PropertyTypeNameKey == 'datetime'" style="color:darkgray"><i class="fa fa-calendar"></i>&nbsp;</span>
+                    </div>
+
+                    <a data-toggle="modal" data-target=".propertyDetailsModalWindow" data-ng-click="vm.getPropertyDetail($index, true)" style="float:left; color:#0974ED; font-weight:bold; font-size:16px; cursor:pointer">{{ property.PropertyName }}</a>
+
+                    <!--<a data-toggle="modal" data-target=".propertyDetailsModalWindow" data-ng-click="vm.getPropertyDetail($index, true)" data-ng-show="!property.Visible" style="color:#595959; font-weight:bold; font-size:16px; cursor:pointer">{{ property.PropertyName }}</a>
+                    <a data-toggle="modal" data-target=".propertyDetailsModalWindow" data-ng-click="vm.getPropertyDetail($index, true)" data-ng-show="property.Visible" style="color:#0974ED; font-weight:bold; font-size:16px; cursor:pointer">{{ property.PropertyName }}</a>
+                    -->
+
+                    <span data-ng-show="property.PropertyTypeNameKey == 'predefined'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Predefined values)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'string'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Text)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'swatch'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Swatches)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'paragraph'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Paragraph)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'number'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Number)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'location'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Location)</span></span>
+                    <span data-ng-show="property.PropertyTypeNameKey == 'datetime'" style="color:lightgray">&nbsp;(<span style="color:lightgray">Date/Time)</span></span>
+
+                </td>
+
+                <!--<td style="text-align:right">
+                    <button class="btn btn-xs btn-default" data-toggle="modal" data-target=".propertyDetailsModalWindow" data-ng-click="vm.getPropertyDetail($index, true)">Edit</button>
+                </td>
+
+                <td style="text-align:right; width:100px;">
+                    
+                </td>-->
+
+
+                <td class="hidden-xs hidden-sm" style="text-align:right; width:100px;">
+
+                    <div>
+
+
+
+                        <!-- Details -->
+                        <div style="text-align:right; margin-top:0; float:right">
+                            <div style="text-align:right;">
+                                <small style="color:darkgrey; font-size:10px">
+                                        <span>API Details: </span>
+                                </small>
+                                <span>
+                                    <img data-ng-show="property.Details" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.hidePropertyFromDetails($index)" />
+                                    <img data-ng-show="!property.Details && property.Details != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.addPropertyToDetails($index)" />
+                                    <img data-ng-show="property.Details == null" src="/Images/ui/switch/switch-loading.gif" />
+                                </span>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Listings -->
+                        <div style="text-align:right; margin-top:0; margin-right:25px; float:right">
+                            <div style="text-align:right;">
+                                <small style="color:darkgrey; font-size:10px">
+                                        <span>API Listings: </span>
+                                </small>
+                                <span>
+                                    <img data-ng-show="property.Listing" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.hidePropertyFromListings($index)" />
+                                    <img data-ng-show="!property.Listing && property.Listing != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.addPropertyToListings($index)" />
+                                    <img data-ng-show="property.Listing == null" src="/Images/ui/switch/switch-loading.gif" />
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                        <!-- LABEL
+                        <div style="text-align:right; margin-top:0; margin-right:10px; float:right">
+                            <div style="text-align:right;">
+                                <small style="color:darkgray; font-size:12px">
+                                    <strong>
+                                        <span>API visibility: </span>
+                                    </strong>
+                                </small>
+                            </div>
+                        </div> -->
+
+
+
+                    </div>
+                    
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+    <div>
+
+        <div data-ng-show="vm.properties.length == 0" style="margin-left:20px;">
+            <small style="color:#5E5E5E; font-size:18px;">You have no properties yet.</small><br /><br />
+            <div data-ng-show="!vm.checkRole('PlatformAdmin')" style="color:#5E5E5E; font-size:14px; margin-top:-20px;">Ask your account representative to create some.</div>
+            <button data-ng-show="vm.checkRole('PlatformAdmin')" class="btn btn-primary" style="font-size:18px;" data-toggle="modal" data-target=".createPropertyModalWindow" data-ng-click="vm.initializeNewPropertyCreate()"><i class="fa fa-plus" style="font-size:10px; vertical-align:middle"></i> Create first property</button>
+        </div>
+
+        <div data-ng-show="vm.properties.length > 0 && vm.checkRole('PlatformAdmin')" style="text-align:right">
+            <hr />
+            <button style="margin-right:10px;" class="btn btn-default" data-toggle="modal" data-target=".updateFeaturedPropertiesModalWindow" data-ng-click="vm.initializeFeaturedPropertyModal()"><i class="fa fa-bars" style="vertical-align:middle"></i>&nbsp;&nbsp;Featured</button>
+            <button style="margin-right:20px;" class="btn btn-primary" data-toggle="modal" data-target=".createPropertyModalWindow" data-ng-click="vm.initializeNewPropertyCreate()"><i class="fa fa-plus" style="vertical-align:middle"></i>&nbsp;&nbsp;Add property</button>
+        </div>
+
+        <!--<div>
+            <button data-toggle="modal" data-target=".aboutPropertiesModalWindow" class="btn btn-default"><i class="fa fa-info-circle"></i> How Properties Work</button>
+        </div>-->
+
+    </div>
+</div>

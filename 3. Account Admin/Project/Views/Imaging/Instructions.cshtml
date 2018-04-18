@@ -1,0 +1,871 @@
+﻿@model AccountAdminSite.Models.Imaging.ImagingInstructionsModel
+@{
+    ViewBag.Title = "UploadSourceImage";
+    Layout = "~/Views/Shared/_ImageEditingLayout.cshtml"; //<-- Switch to _PublicLayout to remove Background Image
+}
+@section Head{
+    <!-- Scripts & STyles for JCRop MUST BE IN HEAD! (Also requires JQuery which is already in our bundle)-->
+    <script src="/Scripts/jquery.jcrop.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-extended.min.js" type="text/javascript"></script> <!--Extended version includes sliders-->
+    <link href="/Content/jquery.jcrop.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/Aristo.css" type="text/css" rel="stylesheet" />
+}
+<script type="text/javascript">
+
+    var jcrop_api; //<-- JCrop Div will be passed into this object so that JCrop API calls like enable/disable can be called on the control during processing work.
+
+    var cropTop;
+    var cropLeft;
+    var cropBottom;
+    var cropRight;
+
+    var account;
+
+    loadAccountProperties = function () {
+
+        //Check if current payment plan allows for imaging
+
+        var date = new Date();
+
+        $.ajax({
+            type: 'GET',
+            url: '/Account/Json/GetAccount?' + date.getTime(),
+            success: function (response) {
+
+                account = response;
+
+                if (account.PaymentPlan.AllowImageEnhancements) {
+                    //console.log("Image Enhancements Allowed")
+                }
+                else {
+                    //console.log("Image Enhancements Not Allowed")
+                    //Grey out copy
+                    $("#EnhancementDiv").css({ "color": "darkgrey" });
+                    //Disable sliders:
+                    $("#enhance-brightness").slider("disable");
+                    $("#enhance-contrast").slider("disable");
+                    $("#enhance-saturation").slider("disable");
+                    $("#enhance-sharpness").slider("disable");
+                    //Disable filters:
+                    $('#filtersDiv :input').attr('disabled', true);
+                    //Hide Cursor
+                    $('#filtersDiv :input').css({ "cursor": "initial" });
+
+                    //Show upgrade message:
+                    $('#upgradeAccountMessage').show();
+
+                    //Show upgrade or subscribe button:
+                    if (account.StripeSubscriptionID != null) {
+                        $('#upgradeAccountButton').show();
+                    }
+                    else {
+                        $('#subscribeAccountButton').show();
+                    }
+
+                    //Hide readouts:
+                    $('#enhance-amount-brightness').hide();
+                    $('#enhance-amount-saturation').hide();
+                    $('#enhance-amount-contrast').hide();
+                    $('#enhance-amount-sharpness').hide();
+
+                }
+            }
+        });
+
+    }
+
+    submitJob = function () {
+
+        $('#errorMessage').hide();
+
+        $('#imageProcessingBar').show();
+
+        //Test calling the parent
+        //window.parent.imageEditingComplete("productDetailController");
+
+        // -- Title Check
+        /*
+        if ($("#imageTitleText").val() == "") {
+            $("#imageTitleLabel").text("Please include a title")
+            $("#imageTitleLabel").css({ color: 'red' })
+            $("#imageTitleText").css({ border: '1px solid red' })
+        }
+        else {
+            $("#imageTitleLabel").text("Title")
+            $("#imageTitleLabel").css({ color: 'black' })
+            $("#imageTitleText").css({ border: '1px solid lightgrey' })
+        }
+
+        // -- Description Check
+
+        if ($("#imageDescriptionText").val() == "") {
+            $("#imageDescriptionLabel").text("Please include a description")
+            $("#imageDescriptionLabel").css({ color: 'red' })
+            $("#imageDescriptionText").css({ border: '1px solid red' })
+        }
+        else {
+            $("#imageDescriptionLabel").text("Description")
+            $("#imageDescriptionLabel").css({ color: 'black' })
+            $("#imageDescriptionText").css({ border: '1px solid lightgrey' })
+        }
+        */
+
+        //if ($("#imageTitleText").val() != "" && $("#imageDescriptionText").val() != "") {
+
+        disableImagingControls();
+
+        //showNotification("Processing images...", "Loading", null, 20000);
+        $('#submitImageJob').hide();
+        //$('#submitImageProcessing').show();
+        //showGlobalLoader();
+
+        var date = new Date();
+        var type = '@Model.Type'
+
+        if(jpgChecked)
+        {
+            type = 'jpg' //<-- override if checked
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/Imaging/Json/ProcessImage?' + date.getTime(),
+            data: {
+                imageId: '@Model.ImageID',
+                objectType: '@Model.ObjectType',
+                objectId: '@Model.ObjectID',
+                imageGroupNameKey: '@Model.ImageGroupNameKey',
+                imageFormatNameKey: '@Model.ImageFormatNameKey',
+                containerName: '@Model.SourceContainerName',
+                imageFormat: '@Model.Type',
+                type: type,
+                quality: 90,
+                top: cropTop,
+                left: cropLeft,
+                right: cropRight,
+                bottom: cropBottom,
+                title: $("#imageTitleText").val(),
+                description: $("#imageDescriptionText").val(),
+                brightness: 0,//$("#enhance-brightness").slider("value"),
+                contrast: 0,//$("#enhance-contrast").slider("value"),
+                saturation: 0,//$("#enhance-saturation").slider("value"),
+                sharpness: 0,//$("#enhance-sharpness").slider("value"),
+                sepia: false, //sepiaChecked,
+                polaroid: false, //polaroidChecked,
+                greyscale: false,//greyscaleChecked
+            },
+            success: function (response) {
+
+                //console.trace(response);
+
+                if (response.isSuccess) {
+
+                    //Preload new image using _xs version as this is the thumbnail we use in shared panel:
+                    var newImageUrl = response.SuccessMessage;
+                    var urlStart = newImageUrl.slice(0, (newImageUrl.length - 4));
+                    var urlEnd = newImageUrl.slice(-4);
+                    var imgToCache = urlStart + "_sm" + urlEnd;
+
+                    var img = new Image();
+                    img.src = imgToCache;
+
+                    //Call parent (_Authenticated view) to close Modal and triger image refresh for this object
+                    img.onload = function(){
+                        // image  has been loaded, close modal and tell parent to reload imageRecords
+                        $('#hideContentDiv').show();
+                        parent.imageEditingComplete();
+                        $('#imageProcessingBar').hide();
+                    };
+
+                    //REMOVED to preload new image...
+                    //$('#hideContentDiv').show();
+                    //parent.imageEditingComplete();
+                    //$('#imageProcessingBar').hide();
+
+                    //Redirect to imaging index:
+                    //window.location.href = '/imaging/'
+
+
+                    //showNotification("Success!", "Success", null, 100);
+
+                }
+                else {
+                    $('#submitImageJob').show();
+                    //$('#submitImageProcessing').hide();
+
+                    $('#errorMessage').show();
+                    $('#imgWarningText').hide();
+                    $('#errorText').text(response.ErrorMessage);
+
+                    $('#imageProcessingBar').hide();
+
+                    //Call parent (_Authenticated view) to close Modal and triger image refresh for this object
+                    //parent.imageEditingComplete();
+
+                    //hideGlobalLoader();
+                    enableImagingControls();
+                    //showNotification(response.ErrorMessage, "Alert", null, 100);
+                }
+
+            }
+        });
+        //}
+
+
+
+    }
+
+    intializeEnhancementSliders = function () {
+
+        //Initialize Brightness Slider Control -------
+
+        $("#enhance-brightness").slider({
+            range: "min",
+            value: 0,
+            min: -100,
+            max: 100,
+            slide: function (event, ui) {
+                $("#enhance-amount-brightness").val(ui.value);
+            },
+            stop: function (event, ui) {
+                updateImageEnhancementPreview();
+                updateProcessingSpecs();
+            }
+        });
+        $("#enhance-amount-brightness").val($("#enhance-brightness").slider("value"));
+
+        //Initialize Contrast Slider Control -------
+
+        $("#enhance-contrast").slider({
+            range: "min",
+            value: 0,
+            min: -100,
+            max: 100,
+            slide: function (event, ui) {
+                $("#enhance-amount-contrast").val(ui.value);
+            },
+            stop: function (event, ui) {
+                updateImageEnhancementPreview();
+                updateProcessingSpecs();
+            }
+        });
+        $("#enhance-amount-contrast").val($("#enhance-contrast").slider("value"));
+
+        //Initialize Saturation Slider Control -------
+
+        $("#enhance-saturation").slider({
+            range: "min",
+            value: 0,
+            min: -100,
+            max: 100,
+            slide: function (event, ui) {
+                $("#enhance-amount-saturation").val(ui.value);
+            },
+            stop: function (event, ui) {
+                updateImageEnhancementPreview();
+                updateProcessingSpecs();
+            }
+        });
+        $("#enhance-amount-saturation").val($("#enhance-saturation").slider("value"));
+
+        $("#enhance-sharpness").slider({
+            range: "min",
+            value: 0,
+            min: 0,
+            max: 10,
+            slide: function (event, ui) {
+                $("#enhance-amount-sharpness").val(ui.value);
+            },
+            stop: function (event, ui) {
+                updateImageEnhancementPreview();
+                updateProcessingSpecs();
+            }
+        });
+        $("#enhance-amount-sharpness").val($("#enhance-sharpness").slider("value"));
+
+    }
+
+    var minWidth = @Model.FormatWidth;
+    var minHeight = @Model.FormatHeight;
+
+    var jpgChecked = false;
+
+    updateJpgCheckbox = function () {
+        jpgChecked = $("#jpgCheckbox").is(':checked')
+        //console.log("checked:" + jpgChecked);
+        //updateProcessingSpecs();
+        if(jpgChecked)
+        {
+            $("#jpgCheckedMessage").show();
+            $("#jpgUncheckedMessage").hide();
+            $("#jpgCheckedMessage2").show();
+            $("#jpgUncheckedMessage2").hide();
+
+            $("#jpgConvertCheckboxLabel").css("color", "Black");
+
+        }
+        else
+        {
+            $("#jpgCheckedMessage").hide();
+            $("#jpgUncheckedMessage").show();
+            $("#jpgCheckedMessage2").hide();
+            $("#jpgUncheckedMessage2").show();
+
+            $("#jpgConvertCheckboxLabel").css("color", "#919191");
+        }
+    }
+
+
+    var sepiaChecked = false;
+    var polaroidChecked = false;
+    var greyscaleChecked = false;
+
+
+    updateSepiaCheckbox = function () {
+        sepiaChecked = $("#sepiaCheckbox").is(':checked')
+
+        //Uncheck other filters:
+        $('#polaroidCheckbox').attr('checked', false);
+        $('#greyscaleCheckbox').attr('checked', false);
+        polaroidChecked = false;
+        greyscaleChecked = false;
+
+        //Update Preview:
+        updateImageEnhancementPreview();
+        updateProcessingSpecs();
+    }
+    updatePolaroidCheckbox = function () {
+        polaroidChecked = $("#polaroidCheckbox").is(':checked')
+
+        //Uncheck other filters:
+        $('#sepiaCheckbox').attr('checked', false);
+        $('#greyscaleCheckbox').attr('checked', false);
+        sepiaChecked = false;
+        greyscaleChecked = false;
+
+        //Update Preview:
+        updateImageEnhancementPreview();
+        updateProcessingSpecs();
+    }
+    updateGreyscaleCheckbox = function () {
+        greyscaleChecked = $("#greyscaleCheckbox").is(':checked')
+
+        //Uncheck other filters:
+        $('#polaroidCheckbox').attr('checked', false);
+        $('#sepiaCheckbox').attr('checked', false);
+        sepiaChecked = false;
+        polaroidChecked = false;
+
+        //Update Preview:
+        updateImageEnhancementPreview();
+        updateProcessingSpecs();
+    }
+
+    disableImagingControls = function () {
+        //Disable sliders, filters & submit button:
+        $("#enhance-brightness").slider("disable");
+        $("#enhance-contrast").slider("disable");
+        $("#enhance-saturation").slider("disable");
+        $("#enhance-sharpness").slider("disable");
+
+        $('#filtersDiv :input').attr('disabled', true);
+
+        $('#submitImageJob').attr('disabled', true);
+
+        jcrop_api.disable();
+    }
+    enableImagingControls = function () {
+
+        if (account.PaymentPlan.AllowImageEnhancements == true) {
+            //Enable sliders, filters & submit button:
+            $("#enhance-brightness").slider("enable");
+            $("#enhance-contrast").slider("enable");
+            $("#enhance-saturation").slider("enable");
+            $("#enhance-sharpness").slider("enable");
+            $('#filtersDiv :input').attr('disabled', false);
+        }
+
+        $('#submitImageJob').attr('disabled', false);
+        jcrop_api.enable();
+    }
+
+    updateImageEnhancementPreview = function () {
+        //iiii
+        $("#previewUpdating").slideDown();
+        //showGlobalLoader();
+
+        //Disable sliders, filters & submit button:
+        disableImagingControls();
+
+        var date = new Date();
+
+        $.ajax({
+            type: 'GET',
+            url: '@CoreServices.PlatformSettings.Urls.ImagingApiEndpoint/enhancement/preview?' + date.getTime(),
+            data: {
+                imageId: '@Model.ImageID',
+                containerName: '@Model.SourceContainerName',
+                imageFormat: 'jpg',
+                brightness: $("#enhance-brightness").slider("value"),
+                contrast: $("#enhance-contrast").slider("value"),
+                saturation: $("#enhance-saturation").slider("value"),
+                sharpness: $("#enhance-sharpness").slider("value"),
+                sepia: sepiaChecked,
+                polaroid: polaroidChecked,
+                greyscale: greyscaleChecked
+
+            },
+            success: function (response) {
+
+                $("#previewUpdating").slideUp();
+                //hideGlobalLoader();
+
+                //Enable sliders, filters & submit button:
+                enableImagingControls();
+
+                if (response.isSuccess) {
+
+
+                    var previewFileName = response.FileName;
+                    //var previewFullPath = '@CoreServices.PlatformSettings.Urls.IntermediaryImagingCdnUri/@Model.SourceContainerName/' + previewFileName
+                    //Switch to BLOB address in order to allow time for CDN to catch up.
+                    var previewFullPath = '@CoreServices.PlatformSettings.Urls.IntermediaryImagingBlobUri/@Model.SourceContainerName/' + previewFileName
+
+                    //console.log(previewFullPath);
+
+                    //Update img on 'cropTarget' by using 'cropDiv' > img > src (to bypass JCrop issues)
+                    $('#cropDiv img').attr('src', previewFullPath);
+
+                }
+                else {
+                }
+
+            }
+        });
+    }
+
+
+
+    window.onload = function () {
+
+        loadAccountProperties();
+
+        var imageHasLoaded = false;
+
+        //intializeEnhancementSliders(); <-- OFF FOR NOW
+
+        updateProcessingSpecs = function () {
+
+            //Update the cropCoordinates 'div' (you could update a hidden field just as easily)
+            ////$('.cropCoordinates').html(updatedProcessUrl);
+            $('.processingInstructions').html(
+                "<b>CropTop:</b>" + cropTop + "</br>" +
+                "<b>CropLeft:</b>" + cropLeft + "</br>" +
+                "<b>CropRight:</b>" + cropRight + "</br>" +
+                "<b>CropBottom:</b>" + cropBottom + "</br>" //+
+
+                //"<b>Brightness:</b>" + $("#enhance-brightness").slider("value") + "</br>" +
+                //"<b>Contrast:</b>" + $("#enhance-contrast").slider("value") + "</br>" +
+               // "<b>Saturation:</b>" + $("#enhance-saturation").slider("value") + "</br>" +
+                //"<b>Sharpness:</b>" + $("#enhance-sharpness").slider("value") + "</br>" +
+
+                //"<b>Sepia:</b>" + sepiaChecked + "</br>" +
+                //"<b>polaroid:</b>" + polaroidChecked + "</br>" +
+               // "<b>greyscale:</b>" + greyscaleChecked + "</br>"
+
+
+                );
+
+            //Now, update the link 'href' (you could update a hidden field just as easily)
+            ////$('#submitImageJob').attr('href', updatedProcessUrl);
+        }
+
+        //We wait until the image is loaded AND it is not empty before bulding out our UI and our JCrop utility so that we can reference the source image dimensions
+        imageLoaded = function () {
+
+            //console.log("image is loaded");
+
+            //var firstLoad = true;
+
+            //Get the image object and sizes
+            var img = document.getElementById('cropTarget');
+            var imgWidth = img.clientWidth;
+            var imgHeight = img.clientHeight;
+
+            if (imgWidth > 0 && imgHeight > 0){ //&& firstLoad == true) {
+
+                //var firstLoad = false; //<-- We only need to run this when the FIRST image loads, not when the enahncement previews replace the origioan source on cropTarget
+
+                $(function () {
+
+
+                    //console.log("source image size:" + imgWidth + "," + imgHeight); //<-- If you are using boxHeight/boxWidth in JCrop settings, this may be inaccurate and reflect the smaller image size
+
+                    //Define a function to execute when the cropping rectangle changes. (Captures the coordinates for server to crop, updates applyCropButton, Etc....)
+                    var update = function (coords) {
+
+                        if (parseInt(coords.w) <= 0 || parseInt(coords.h) <= 0) return; //Require valid width and height
+
+                        //Build the URL based on the coordiantes. The resizing module will handle everything else.
+                        //Since ImageProcessor library requires we use offsetts, we must calculate the right and bottom crop points as offsetts from the left and top:
+                        // We create the offsett by subtracting right crop point from left crop point and bottom crop point from top crop point
+                        var cropCordinates = '&top=' + coords.y + '&left=' + coords.x + '&right=' + (coords.x2 - coords.x) + '&bottom=' + (coords.y2 - coords.y); //<--  + "&imgWidth=" + imgWidth + "&imgHeight=" + imgHeight;
+                        //&cropxunits=' + image.width() + '&cropyunits=' + image.height()
+
+                        cropTop = coords.y;
+                        cropLeft = coords.x;
+                        cropBottom = (coords.y2 - coords.y);
+                        cropRight = (coords.x2 - coords.x);
+
+
+                        cropQueryString = cropCordinates;
+
+                        updateProcessingSpecs();
+
+                    }
+
+
+                    // Formula OPTION 2 fill entire width/height possible:
+                    var cropStartX1 = 0;
+                    var cropStartY1 = 0;
+                    var cropStartX2 = imgWidth; //<-- Cropper will fill max width
+                    var cropStartY2 = imgHeight; //<-- Cropper will fill max height
+
+                    $('#cropTarget').Jcrop({
+
+                        onChange: update, //<-- updates coordinates
+                        onSelect: update, //<-- updates coordinates
+
+                        bgColor: 'white', //<-- white looks better on white backgrounds
+                        bgOpacity: 0.5,
+
+                        allowResize: false, //<-- locks cropper (no resize)
+                        allowSelect: false, //<-- stop reset of cropper
+
+                        addClass: 'jcrop-dark', //<-- nicer stylng
+
+                        //setSelect: [0, 0, minWidth, minHeight], //<-- Set where the selecter starts
+                        //minSize: [minWidth, minHeight], //<-- min W,H (Locks user from cropping below minimums results in zoomed in images
+                        aspectRatio: minWidth / minHeight, //<-- We calculate and lock the aspect ratio based on Width diveded by Height of the minSize
+                        //aspectRatio: 16 / 9 //<-- Can also be used thusly
+                        //maxSize: [1200, 600] //<-- No Max Size needed
+
+                        //Contrains our cropping area (and the image size) to a smaller area (not actual size)
+                        // ** Remove to show image at full size **
+                        //boxWidth: 650,
+                        boxHeight: 185,
+
+                        //Custom setSelect (overides above) to center the selector (Used with Math Formula option(s) above)
+                        setSelect: [cropStartX1, cropStartY1, cropStartX2, cropStartY2]
+                    }, function () {
+                        jcrop_api = this; //<-- JCrop Div is passed into this object so that JCrop API calls like enable/disable can be called on the control during processing work
+                    });
+
+                });
+
+                // $('#hideContentDiv').css({ 'display': 'none' });//.show(); //<--Display the image preview (we wait until it is ready to avoid it popping in
+                $('#hideContentDiv').fadeOut();
+            }
+
+            //console.log("EnhancementDiv Width: " + document.getElementById("EnhancementDiv").offsetWidth);
+            //Set the metadata form div to the same width as the image preview for alignment purposes:
+            $('#ImageMetaDataDiv').width(document.getElementById("CroppingDiv").offsetWidth)
+
+            //Set the submission form div to the same haight as the metadata div in order to have the button flush with the bottom:
+            $('#ImageSubmissionDiv').height(document.getElementById("ImageMetaDataDiv").offsetHeight)
+
+            imageHasLoaded = true;
+
+        }
+
+        //Add image loaded event to 'cropTarget':
+        $('#cropTarget').load(imageLoaded());
+
+        //We attempt to load cropper and UI with a time out (short and long) for browers (Edge) that are not getting the /load event properly
+
+        setTimeout(function()
+        {
+            //console.log("image loaded overide checked.");
+
+            if(imageHasLoaded == false)
+            {
+                //console.log("image loaded overide called.");
+                imageLoaded();//<-- In case loaded is not called (for Edge, etc...)
+            }
+        }
+        , 2000); //<-- In case loaded is not called (for Edge, etc...)
+
+        setTimeout(function()
+        {
+            //console.log("image loaded overide checked.");
+
+            if(imageHasLoaded == false)
+            {
+                //console.log("image loaded overide called.");
+                imageLoaded();//<-- In case loaded is not called (for Edge, etc...)
+            }
+        }
+        , 700); //<-- In case loaded is not called (for Edge, etc...)
+
+        $('#cropLockDiv').click(function() {
+            updateCropLock();
+        });
+
+    };
+
+    var cropLocked = true;
+
+    updateCropLock = function () {
+        //jpgChecked = $("#cropCheckbox").is(':checked')
+        //console.log("checked:" + jpgChecked);
+        //updateProcessingSpecs();
+        if(cropLocked)
+        {
+            cropLocked = false;
+            $("#cropperUnlockedMessage").show();
+            $("#cropperLockedMessage").hide();
+
+            $("#cropperCheckboxLabel").css("color", "#919191");
+
+            $('#cropTarget').Jcrop({
+                allowResize: true, //<-- locks cropper (no resize)
+            });//, function () {
+            //jcrop_api = this; //<-- JCrop Div is passed into this object so that JCrop API calls like enable/disable can be called on the control during processing work
+            //});
+        }
+        else
+        {
+            cropLocked = true;
+            $("#cropperUnlockedMessage").hide();
+            $("#cropperLockedMessage").show();
+            
+            $("#cropperCheckboxLabel").css("color", "Black");
+
+            $('#cropTarget').Jcrop({
+                allowResize: false, //<-- locks cropper (no resize)
+            });//, function () {
+            //jcrop_api = this; //<-- JCrop Div is passed into this object so that JCrop API calls like enable/disable can be called on the control during processing work
+            //});
+        }
+    }
+
+
+
+</script>
+
+<div id="setImageInstructions" style="margin-left:10px;">
+    <div id="CroppingDiv">
+        @if (Model.SourceWidth != Model.FormatWidth || Model.SourceHeight != Model.FormatHeight)
+        {
+            if (Model.FormatWidth != 0) //<Variable width exception
+            {
+                <p><b>Adjust crop:</b></p>
+            }
+            else
+            {
+                <div style="height:10px;"></div>
+            }
+
+        }
+        else
+        {
+            <div style="height:10px;"></div>
+        }
+        <!-- Cropping view -->
+        <div class="image-cropper">
+            <div id="cropDiv" style="overflow:hidden">
+                <img id="cropTarget" src="@CoreServices.PlatformSettings.Urls.IntermediaryImagingCdnUri/@Model.SourceContainerName/@Model.FileName" />
+            </div>
+        </div>
+        @if (Model.SourceWidth == Model.FormatWidth || Model.SourceHeight == Model.FormatHeight)
+        {
+            <div style="height:12px;"></div>
+        }
+        <div id="previewUpdating" style="display:none">
+            <h2 style="margin-top:40px; color:#567E96"><strong><i class="fa fa-circle-o-notch fa-spin"></i> Refreshing preview...</strong></h2>
+        </div>
+    </div>
+
+    <!-- Unhide with Custom/Hidden setting on an account to show
+    <div id="EnhancementDiv" style="display:none">
+
+        <p><b>Apply image enhancements:</b></p>
+
+        //Enhancement Sliders
+        //BRIGHTNESS
+        <p>
+            <h4>Brightness <input type="text" id="enhance-amount-brightness" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px"></h4>
+        </p>
+        <div id="enhance-brightness" style="height:8px; margin-bottom:35px; cursor:pointer"></div>
+
+        //CONTRAST
+        <p>
+            <h4>Contrast <input type="text" id="enhance-amount-contrast" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px"></h4>
+        </p>
+        <div id="enhance-contrast" style="height:8px; margin-bottom:35px; cursor:pointer"></div>
+        //SATURATION
+        <p>
+            <h4>Saturation <input type="text" id="enhance-amount-saturation" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px"></h4>
+        </p>
+        <div id="enhance-saturation" style="height:8px; margin-bottom:35px; cursor:pointer"></div>
+        //SHARPNESS
+        <p>
+            <h4>Sharpness <input type="text" id="enhance-amount-sharpness" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px"></h4>
+        </p>
+        <div id="enhance-sharpness" style="height:8px; margin-bottom:35px; cursor:pointer"></div>
+        //FILTERS
+        <div id="filtersDiv">
+            <hr />
+            <h4>Filters:</h4>
+            //SEPIA
+            <span>
+                <input onclick="updateSepiaCheckbox()" id="sepiaCheckbox" type="checkbox" readonly style="border:0; color:cornflowerblue; font-weight:bold; font-size:24px; cursor:pointer">
+                <label style="margin-right:20px">Sepia</label>
+            </span>
+            //Polardoid
+            <span>
+                <input onclick="updatePolaroidCheckbox()" id="polaroidCheckbox" type="checkbox" readonly style="border:0; color:cornflowerblue; font-weight:bold; font-size:24px; cursor:pointer">
+                <label style="margin-right:20px">Polaroid</label>
+            </span>
+            //GreyScale
+            <span>
+                <input onclick="updateGreyscaleCheckbox()" id="greyscaleCheckbox" type="checkbox" readonly style="border:0; color:cornflowerblue; font-weight:bold; font-size:24px; cursor:pointer">
+                <label style="margin-right:20px">Greyscale</label>
+            </span>
+        </div>
+
+        <div id="upgradeAccountMessage" style="display:none;">
+            <hr />
+            <h5 style="color:orange; margin-bottom:15px;"><strong>Upgrade your account to allow for image enhancements</strong></h5>
+
+            //Must use target="_self" for href to activte routes properly
+            <a id="upgradeAccountButton" style="display:none;" class="btn btn-sm btn-warning" href="/account/upgrade" target="_self">Upgrade now</a>
+            <a id="subscribeAccountButton" style="display:none;" class="btn btn-sm btn-warning" href="/account/subscribe" target="_self">Subscribe to a plan</a>
+        </div>
+    </div> -->
+    <!--<br />
+    <hr />-->
+
+    @if (Model.Type != "jpg")
+    {
+        <div id="typeConversionDiv" style="margin-top:8px">
+            <span>
+                <label id="jpgConvertCheckboxLabel" style="cursor:pointer; color:#919191">
+                    <input onclick="updateJpgCheckbox()" id="jpgCheckbox" type="checkbox" readonly style="border:0; color:cornflowerblue; font-weight:bold; font-size:24px; cursor:pointer">
+                    Convert @Model.Type.ToUpper() to JPG
+                </label>
+            </span>
+            <div style="color:#525252; font-size:16px">
+                @if (Model.Type == "png")
+                {
+                    <small id="jpgCheckedMessage" style="display:none">
+                        JPGs decrease file size & increase performance on photos. Uncheck this if you want to maintain the PNG file format which is recommended for high quality line drawings & transparent images.
+                    </small>
+                    <small id="jpgUncheckedMessage" style="color:#919191">
+                        Image will process as a PNG. Check this box if you want to save as a JPG to decrese filesize and increase performance.
+                    </small>
+                }
+                @if (Model.Type == "gif")
+                {
+                    <small id="jpgCheckedMessage2" style="display:none">
+                        JPGs decrease file size & increase performance on photos. Uncheck this if you want to maintain the GIF file format which is recommended for animations and transparent images.
+                    </small>
+                    <small id="jpgUncheckedMessage2" style="color:#919191">
+                        Image will process as a GIF. Check this box if you want to save as a JPG to decrese filesize and increase performance.
+                    </small>
+                }
+            </div>
+
+        </div>
+    }
+
+    <div id="cropLockDiv" style="margin-top:8px; margin-bottom:-25px;">
+        <div style="text-align:right;">
+            <label id="cropperCheckboxLabel" style="cursor:pointer; color:#919191">
+                <!--<input onclick="updateCropLock()" id="cropCheckbox" type="checkbox" readonly style="border:0; color:cornflowerblue; font-weight:bold; font-size:24px; cursor:pointer">-->
+                <span id="cropperUnlockedMessage" style="display:none; color:black;">
+                    <i class="fa fa-unlock"></i> Cropper unlocked
+                </span>
+                <span id="cropperLockedMessage" style="color:#919191">
+                    <i class="fa fa-lock"></i> Cropper locked
+                </span>
+            </label>
+        </div>
+
+    </div>
+
+
+
+    <div id="ImageMetaDataDiv" style="margin-right:50px; margin-top:20px;">
+        <div class="form-group">
+            <label id="imageTitleLabel">Title</label>
+            <input id="imageTitleText" type="text" class="form-control" style="font-weight: normal; font-size:12px; height:35px; width:645px" placeholder="" maxlength="50" />
+        </div>
+        @if (Model.SourceWidth == Model.FormatWidth || Model.SourceHeight == Model.FormatHeight)
+        {
+            <div style="height:6px;"></div>
+        }
+        <div class="form-group">
+            <label id="imageDescriptionLabel">Description</label>
+            <textarea id="imageDescriptionText" rows="2" class="form-control" style="font-weight: normal; font-size:12px; width:645px; resize: none;" placeholder="" maxlength="140"></textarea>
+        </div>
+
+    </div>
+    <div id="ImageSubmissionDiv">
+
+        <!--<h4>Image output</h4>
+        <ul>
+            <li style="margin-left:-25px;">Format Size: @Model.FormatWidth x @Model.FormatHeight</li>
+        </ul>
+
+
+        <hr />-->
+        <!-- Send ImageSourceFile, CropCoordinates and ImageEnhancement instructions to CoreServices via WCF for processing -->
+        <!--<hr />-->
+
+        @if (Model.SourceWidth < Model.FormatWidth || Model.SourceHeight < Model.FormatHeight)
+        {
+            <p id="imgWarningText" style="color:red; font-weight:bold; margin-bottom:-22px; margin-top:-6px"><i style="color:darkorange" class="fa fa-warning"></i> <span style="font-size:12px;">Image dimensions are smaller than the format specs. Consider using a higher quality source.</span></p>
+        }
+        else if (Model.FormatWidth == 0 && Model.SourceHeight < Model.FormatHeight) //Variable width exception
+        {
+            <p id="imgWarningText" style="color:red; font-weight:bold; margin-bottom:-22px; margin-top:-6px"><i style="color:darkorange" class="fa fa-warning"></i> <span style="font-size:12px;">Image height is shorter than the format specs. Consider using a higher quality source.</span></p>
+        }
+
+        <div id="imageProcessingBar" style="margin-top:30px; display:none">
+            <small>Processing...</small>
+            <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:blue; background-image:url('/Images/Loaders/global.gif'); background-size:100%"></div>
+        </div>
+
+        <div id="errorMessage" style="margin-bottom:-20px; display:none;">
+            <p style="color:red; font-weight:bold;"><i style="color:darkorange" class="fa fa-warning"></i> <span style="font-size:12px;" id="errorText"></span></p>
+        </div>
+
+        <div style="text-align:right; margin-top:30px;">
+            <a onclick="submitJob()" style="vertical-align:bottom" id="submitImageJob" class="btn btn-primary btn-lg"><i class="fa fa-check"></i> Save Image</a>
+            <a style="vertical-align:bottom; display:none" disabled="true" id="submitImageProcessing" class="btn btn-primary btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Processing image...</a>
+        </div>
+
+
+    </div>
+
+
+    <!--
+        <br />
+    <hr />
+
+
+    <hr />
+    <a onclick="updateImageEnhancementPreview()" id="previewEnhancement" class="btn btn-primary btn-lg">Preview Enhancement</a>
+    -->
+    <!-- <hr />
+
+     <h4>Processing Instructions</h4>
+      Display realtime crop coordinates & image enhancement settings-->
+    <small style="color:darkgrey; display:none" class="processingInstructions"></small> <!--Take off Display:None to make visible -->
+</div>
+<div id="hideContentDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color:white">
+    <!--Used to hide content until ready so that large images don't pop in and resize-->
+</div>
+
+

@@ -1,0 +1,54 @@
+﻿<div data-ng-controller="categoryController as vm" style="height:100%; width:100%">
+
+    <div data-ng-show="vm.loading">
+        <small>Loading</small>
+    </div>
+
+    <div data-ng-show="!vm.loading">
+
+        <div id="sideMenu" class="col-lg-2 col-md-4 col-sm-4 hidden-xs">
+
+            <div style="text-align:left; margin-bottom:40px;">
+                <img data-ng-src="{{vm.account.images.logos.square.url}}" height="120" width="120" />
+            </div>
+
+            <h1 style="text-align:left; margin-bottom:20px;">{{vm.category.name}}</h1>
+
+            <div data-ng-repeat="subcategory in vm.category.subcategories">
+                <p class="link" data-ng-click="vm.updateRoute('subcategory/' + subcategory.nameKey)">{{ subcategory.name }}</p>
+            </div>
+            <menu-footer></menu-footer>
+        </div>
+
+        <div class="col-lg-10 col-md-8 col-sm-8 col-xs-12">
+            
+            <div style="float: none; margin: 0 auto;">
+                <div style="margin-bottom:120px;">
+                    <small>Advanced</small>
+                </div>
+
+                <div data-ng-show="vm.products != null">
+                    <div data-ng-repeat="product in vm.products" style="text-align:center;">
+                        <div class="productResult">
+                            <img ng-src="{{product.images.default.thumbnail.url}}" />
+                            <p>{{product.name}}</p>
+                            <p>{{product.default.thumbnail.url}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <hr />
+            <h1>Footer</h1>
+        </div>
+
+    </div>
+
+
+
+</div>

@@ -1,0 +1,30 @@
+﻿<div style="text-align:left;">
+
+    <add-update-card-modal></add-update-card-modal>
+
+    <div data-ng-show="vm.creditCardInfo != null">
+
+        <div>
+            <small><strong>Card on file:</strong></small>
+            <small>{{ vm.creditCardInfo.CardDescription }}</small>
+        </div>
+
+        <div>
+            <small><strong>Expiration:</strong></small>
+            <small>{{ vm.creditCardInfo.ExpirationDescription }}</small>
+        </div>
+
+        <button style="margin-top:10px; font-size:12px" class="btn btn-default button-xs" data-toggle="modal" data-target=".newCreditCardModal" data-ng-click="vm.actvateNewCreditCardModal()"><i class="fa fa-credit-card"></i> Update card</button> 
+
+    </div>
+
+
+    <div data-ng-show="vm.creditCardInfo == null">
+        
+        <h2>No card on file</h2>
+
+        <button style="margin-top:10px; font-size:12px" class="btn btn-default button-xs" data-toggle="modal" data-target=".newCreditCardModal" data-ng-click="vm.actvateNewCreditCardModal()"><i class="fa fa-credit-card"></i> Add a credit card to your account</button>
+
+    </div>
+
+</div>

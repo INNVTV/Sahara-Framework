@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:element name="GetDollarsToCreditsExchangeRate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dollarAmoun" type="xs:decimal" />
+        <xs:element minOccurs="0" name="sharedClientKeyt" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDollarsToCreditsExchangeRateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDollarsToCreditsExchangeRateResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCredits">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCreditsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCreditsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyCredits">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dollarAmount" type="xs:decimal" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q1:RequesterType" />
+        <xs:element minOccurs="0" name="ipAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="origin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyCreditsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="BuyCreditsResult" nillable="true" type="q2:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SpendCredits">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="creditAmount" type="xs:int" />
+        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q3:RequesterType" />
+        <xs:element minOccurs="0" name="ipAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="origin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SpendCreditsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SpendCreditsResult" nillable="true" type="q4:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TradeCredits">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromAccountID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="toAccountID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="creditAmount" type="xs:int" />
+        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q5:RequesterType" />
+        <xs:element minOccurs="0" name="ipAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="origin" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TradeCreditsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="TradeCreditsResult" nillable="true" type="q6:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

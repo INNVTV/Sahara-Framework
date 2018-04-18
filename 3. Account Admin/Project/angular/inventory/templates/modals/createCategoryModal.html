@@ -1,0 +1,80 @@
+﻿<div>
+    <!--Create Category Modal-->
+    <div class="modal fade createCategoryModalWindow" tabindex="-1" role="dialog" aria-labelledby="createCategoryModalWindow" aria-hidden="true" style="padding-top:100px;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Create Category</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div id="CategoryForm" data-ng-show="!vm.newCategory.IsSending && !vm.newCategory.SendingComplete">
+                        <div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label>Category Name:</label>
+                                    <input maxlength="35" type="text" class="form-control input" data-ng-model="vm.newCategory.Name" placeholder="Category Name" />
+                                </div>
+                                <div class="form-group" style="margin-bottom:0px; text-align:right">
+                                    <!-- VISIBILITY -->
+                                    <small style="color:darkgrey; font-size:10px">
+                                        <strong>
+                                            <span data-ng-show="vm.newCategory.Visible">Visible </span>
+                                            <span data-ng-show="!vm.newCategory.Visible && vm.newCategory.Visible != null">Hidden </span>
+                                        </strong>
+                                    </small>
+                                    <span>
+                                        <img data-ng-show="vm.newCategory.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.newCategory.Hide()" />
+                                        <img data-ng-show="!vm.newCategory.Visible && vm.newCategory.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newCategory.Show()" />
+                                        <img data-ng-show="vm.newCategory.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Loading State-->
+                    <section-loader message="'Creating category...'" loader-type="'inline'" data-ng-show="vm.newCategory.IsSending && !vm.newCategory.SendingComplete"></section-loader>
+                    <!--Results State-->
+                    <div id="CreateCategoryResults" data-ng-show="!vm.newCategory.IsSending && vm.newCategory.SendingComplete">
+                        <div style="margin-top:7px; margin-bottom:7px;" ng-class="vm.newCategory.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newCategory.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newCategory.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.newCategory.Results.Message }}
+                                <!--Button to edit new object-->
+                                <span><a data-ng-show="vm.newCategory.Results.IsSuccess" style="float:right; margin-bottom:5px; margin-top:-7px; margin-right:-7px;" class="btn btn-success" href="/category/{{ vm.newCategoryPath }}" target="_self">Edit</a></span>
+                            </div>
+                        </div>
+                        <!-- If the error is due to a constraint on the plan -->
+                        <div data-ng-show="vm.categoryConstraint">
+                            <p>Contact support to upgrade your plan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newCategory.IsSending && !vm.newCategory.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.createCategory()">Create Category</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newCategory.IsSending && !vm.newCategory.SendingComplete">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newCategory.SendingComplete && vm.newCategory.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newCategory.Clear()">Create Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newCategory.SendingComplete && !vm.newCategory.Results.IsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button data-ng-show="!vm.userConstraint" class="btn btn-warning" data-ng-click="vm.newCategory.Retry()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

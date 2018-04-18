@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="PaymentFrequency">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Interval" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IntervalCount" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymentFrequencyMonths" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymentFrequencyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PriceBreak" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentFrequency" nillable="true" type="tns:PaymentFrequency" />
+  <xs:complexType name="PaymentPlan">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowCustomOrdering" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AllowImageEnhancements" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AllowLocationData" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AllowSalesLeads" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AllowThemes" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AlternateRates" nillable="true" type="tns:ArrayOfAlternateRate" />
+      <xs:element minOccurs="0" name="MaxCategorizations" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxCategorizationsPerSet" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxImageFormats" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxImageGalleries" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxImageGroups" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxImagesPerGallery" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxProducts" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxProductsPerSet" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxProperties" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxTags" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxUsers" type="xs:int" />
+      <xs:element minOccurs="0" name="MaxValuesPerProperty" type="xs:int" />
+      <xs:element minOccurs="0" name="MonthlyRate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MonthlySupportHours" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymentPlanName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SearchPlan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentPlan" nillable="true" type="tns:PaymentPlan" />
+  <xs:complexType name="ArrayOfAlternateRate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AlternateRate" nillable="true" type="tns:AlternateRate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAlternateRate" nillable="true" type="tns:ArrayOfAlternateRate" />
+  <xs:complexType name="AlternateRate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiscountedPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FrequencyInMonths" type="xs:int" />
+      <xs:element minOccurs="0" name="FrequencyInterval" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrequencyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SavingsPercentage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AlternateRate" nillable="true" type="tns:AlternateRate" />
+</xs:schema>

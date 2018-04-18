@@ -1,0 +1,486 @@
+﻿<div>
+    <!--User Details Modal-->
+    <div class="modal fade userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header" data-ng-show="!vm.userDeletion.Complete">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">
+                        <span>
+                            <i data-ng-show="vm.userDetail.Active" title="Active" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+                            <i data-ng-show="!vm.userDetail.Active" title="Inactive" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+                            <!--
+                            <img data-ng-show="vm.userDetail.Active" src="/Images/Icons/AccountStatus/icon_active.png" style="margin-top:-8px; margin-right:-2px; margin-left:-4px;" title="Active">
+                            <img data-ng-show="!vm.userDetail.Active" src="/Images/Icons/AccountStatus/icon_inactive.png" style="margin-top:-8px; margin-right:-2px; margin-left:-4px;" title="Inactive">-->
+                        </span>
+                        <span data-ng-show="vm.userDetail.Photo != null" style="margin-right:5px;">
+                            <img data-ng-src="{{vm.userDetail.Photo}}_32x32.jpg" width="32" height="32" style="border:thin black solid" />
+                        </span>
+                        <strong data-ng-show="!vm.userDetail.Active" style="color:#595959">
+                            {{ vm.userDetail.FirstName }} {{ vm.userDetail.LastName }}
+                        </strong>
+
+                        <strong data-ng-show="vm.userDetail.Active" style="color:#0974ED">
+                            {{ vm.userDetail.FirstName }} {{ vm.userDetail.LastName }}
+                        </strong>
+                    </h3>
+                </div>
+
+                <div class="modal-header" data-ng-show="vm.userDeletion.Complete">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2>Processing complete</h2>
+                </div>
+
+                <div class="modal-body" id="UserDetailDefault" data-ng-show="!vm.userDeletion.Complete && !vm.userDeletion.Processing">
+
+                    <div>
+                        <div>
+                            <tabset>
+
+                                <tab active="vm.userDetail.DefaultTabActive" style="cursor:pointer" id="Basic" heading="Basic" data-ng-click="">
+
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px;">                                        
+
+                                        <!-- USER NAME -->
+                                        <div data-ng-show="!vm.userDetail.updateName.complete && !vm.userDetail.updateName.processing && !vm.userDetail.updateName.edit">
+                                            <small style="margin-top:30px">Name:</small>
+                                            <strong>{{ vm.userDetail.FullName }} </strong>&nbsp;<button data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.editUserName()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                        </div>
+                                        <div class="form-inline" data-ng-show="vm.userDetail.updateName.edit">
+                                            <input type="text" class="input-sm form-control" style="max-width:120px; margin-right:5px;" data-ng-model="vm.userDetail.FirstName" placeholder="First Name" />
+                                            <input type="text" class="input-sm form-control" style="max-width:130px" data-ng-model="vm.userDetail.LastName" placeholder="Last Name" />
+                                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUserName()" style="margin-left:5px;">Cancel</button>
+                                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateUserName(vm.userDetail.ID)">Update</button>
+                                        </div>
+                                        <!--Processing-->
+                                        <div data-ng-show="vm.userDetail.updateName.processing">
+                                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating name...</small>
+                                        </div>
+                                        <!--Result-->
+                                        <div data-ng-show="vm.userDetail.updateName.complete">
+                                            <small data-ng-show="vm.userDetail.updateName.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.userDetail.updateName.message }}</small>
+                                            <small data-ng-show="!vm.userDetail.updateName.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userDetail.updateName.message }}</small>
+                                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserNameResult()" style="margin-left:5px;">OK</button></span>
+                                        </div>
+
+                                        <br />
+
+                                        <!-- EMAIL -->
+                                        <div data-ng-show="!vm.userDetail.updateEmail.complete && !vm.userDetail.updateEmail.processing && !vm.userDetail.updateEmail.edit">
+                                            <small style="margin-top:30px">Email:</small>
+                                            <strong>{{ vm.userDetail.Email }} </strong>&nbsp;<button data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.editUserEmail()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                        </div>
+                                        <div class="form-inline" data-ng-show="vm.userDetail.updateEmail.edit">
+                                            <input type="email" class="input-sm form-control" style="width:300px" data-ng-model="vm.userDetail.Email" placeholder="Email" />
+                                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUserEmail()" style="margin-left:5px;">Cancel</button>
+                                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateUserEmail(vm.userDetail.ID)">Update</button>
+                                            <div style="margin-top:10px;">
+                                                <span style="color:red"><small><i class="fa fa-warning"></i>&nbsp;<strong>Warning:</strong>&nbsp;User must use the new email for future authentication.</small></span>
+                                            </div>
+                                            <div style="margin-top:10px;">
+                                                <span style="color:red"><small><i class="fa fa-warning"></i>&nbsp;<strong>Warning:</strong>&nbsp;This will link/unlink users to accounts associated with the email(s).</small></span>
+                                            </div>
+                                        </div>
+                                        <!--Processing-->
+                                        <div data-ng-show="vm.userDetail.updateEmail.processing">
+                                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating email...</small>
+                                        </div>
+                                        <!--Result-->
+                                        <div data-ng-show="vm.userDetail.updateEmail.complete">
+                                            <small data-ng-show="vm.userDetail.updateEmail.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.userDetail.updateEmail.message }}</small>
+                                            <small data-ng-show="!vm.userDetail.updateEmail.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userDetail.updateEmail.message }}</small>
+                                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserEmailResult()" style="margin-left:5px;">OK</button></span>
+                                        </div>
+
+
+                                        <br />
+
+                                        <!-- ROLE -->
+                                        <div data-ng-show="!vm.userDetail.updateRole.complete && !vm.userDetail.updateRole.processing && !vm.userDetail.updateRole.edit">
+                                            <small style="margin-top:30px">Role:</small>
+                                            <strong>{{ vm.userDetail.Role }} </strong>&nbsp;<button data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.editUserRole()" class="sahara-btn-edit-16 hidden-xs"></button>
+                                        </div>
+                                        <div class="form-horizontal" data-ng-show="vm.userDetail.updateRole.edit">
+
+                                            <label>Role:</label>
+                                            <div class="btn-group" style="margin-right:10px;">
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    {{ vm.userDetail.Role }} <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li data-ng-repeat="role in vm.userRoles">
+                                                        <a data-ng-hide="(!vm.account.PaymentPlan.AllowSalesLeads && role == 'Sales') || (role == 'PlatformAdmin')" style="cursor:pointer" data-ng-click="vm.userDetail.UpdateRole(role)">{{ role }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUserRole()" style="margin-left:5px;">Cancel</button>
+                                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateUserRole(vm.userDetail.ID)">Update</button>
+                                        </div>
+                                        <!--Processing-->
+                                        <div data-ng-show="vm.userDetail.updateRole.processing">
+                                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating role...</small>
+                                        </div>
+                                        <!--Result-->
+                                        <div data-ng-show="vm.userDetail.updateRole.complete">
+                                            <small data-ng-show="vm.userDetail.updateRole.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.userDetail.updateRole.message }}</small>
+                                            <small data-ng-show="!vm.userDetail.updateRole.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userDetail.updateRole.message }}</small>
+                                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserRoleResult()" style="margin-left:5px;">OK</button></span>
+                                        </div>
+
+
+                                        <hr />
+
+                                        <!-- OWNERSHIP 
+                                            <small style="margin-top:30px">Account Owner:</small>
+                                            <span>
+                                                <span data-ng-show="vm.userDetail.AccountOwner" style="color:green"><i class="glyphicon glyphicon-ok"></i> Yes </span>
+                                                <span data-ng-show="!vm.userDetail.AccountOwner" style="color:lightgrey"><i class="glyphicon glyphicon-remove"></i> No </span>
+                                            </span>
+
+                                        <div class="form-group" style="margin-bottom:0px; margin-top:-25px; text-align:right"></div>-- >-- >
+
+                                        <!-- OWNERSHIP STATUS -->
+
+                                        <div>
+                                            <span>
+                                                <img data-ng-show="vm.userDetail.AccountOwner" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.changeUserOwnershipStatus(vm.userDetail.ID)" />
+                                                <img data-ng-show="!vm.userDetail.AccountOwner && vm.userDetail.AccountOwner != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.changeUserOwnershipStatus(vm.userDetail.ID)" />
+                                                <img data-ng-show="vm.userDetail.AccountOwner == null" src="/Images/ui/switch/switch-loading.gif" />
+                                            </span>
+
+                                            <small style="color:darkgrey; font-size:10px">
+                                                <strong>
+                                                    <span data-ng-show="vm.userDetail.AccountOwner">Account Owner </span>
+                                                    <span data-ng-show="!vm.userDetail.AccountOwner && vm.userDetail.AccountOwner != null">Make Account Owner </span>
+                                                </strong>
+                                            </small>
+                                            <!--Result Error-->
+                                            <div data-ng-show="vm.userDetail.updateOwner.complete && !vm.userDetail.updateOwner.isSuccess" style="margin-top:5px;">
+                                                <small style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userDetail.updateOwner.message }}</small>
+                                                <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserOwnerResult()" style="margin-left:5px;">OK</button></span>
+                                            </div> 
+                                        </div>
+
+                                        <br />
+
+
+                                        <!-- ACTIVE STATUS -->
+
+                                        <div>
+
+
+                                            <span>
+                                                <img data-ng-show="vm.userDetail.Active" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.changeUserActiveState(vm.userDetail.ID)" />
+                                                <img data-ng-show="!vm.userDetail.Active && vm.userDetail.Active != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.changeUserActiveState(vm.userDetail.ID)" />
+                                                <img data-ng-show="vm.userDetail.Active == null" src="/Images/ui/switch/switch-loading.gif" />
+                                            </span>
+
+                                            <small style="color:darkgrey; font-size:10px">
+                                                <strong>
+                                                    <span data-ng-show="vm.userDetail.Active">Active </span>
+                                                    <span data-ng-show="!vm.userDetail.Active && vm.userDetail.Active != null">Inactive </span>
+                                                </strong>
+                                            </small>
+                                            <!--Result Error-->
+                                            <div data-ng-show="vm.userDetail.updateActiveState.complete && !vm.userDetail.updateActiveState.isSuccess" style="margin-top:5px;">
+                                                <small style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userDetail.updateActiveState.message }}</small>
+                                                <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateUserActiveStateResult()" style="margin-left:5px;">OK</button></span>
+                                            </div>
+
+                                        </div>
+
+                                         <!--<hr /><br />
+
+                                            CREATED -- >
+                                            <small style="margin-top:60px">Created:</small>
+                                            <span>
+                                                <strong>{{ vm.userDetail.CreatedDate | date : 'EEE MMM, dd yyyy' }}</strong>, {{ vm.userDetail.CreatedDate | date : 'h:mm a' }}
+                                            </span>
+
+                                        <!--
+                                        <hr />
+                                         USER PHOTO
+                                        <span data-ng-show="vm.userDetail.Photo != null" style="margin-right:5px;">
+                                            <img data-ng-src="{{vm.userDetail.Photo}}_64x64.jpg" width="64" height="64" style="border:thin black solid" />
+                                        </span> -->
+
+                                        
+
+                                    </div>
+
+                                </tab>
+
+                                <tab id="Photo" heading="Photo" style="cursor:pointer" data-ng-show="vm.userDetail.Photo != null">
+
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px;">
+
+                                        <span style="margin-right:5px;">
+                                            <img data-ng-src="{{vm.userDetail.Photo}}_128x128.jpg" width="128" height="128" style="border:thin black solid" />
+                                        </span>
+                                        <!--
+                                        <br /><br />
+                                        <div>
+                                            <small style="margin-top:30px">Photo:</small>
+                                            <strong>{{ vm.userDetail.Photo }} </strong>
+                                            <br />
+                                            <p style="font-size:11px; color:darkgrey;"><strong>{{vm.userDetail.Photo}}_128x128.jpg</strong></p>
+                                        </div>-->
+                                    </div>
+                                </tab>
+
+                                <tab id="UserLog" heading="Log" data-ng-click="vm.setUserDetailLogTab()" style="cursor:pointer">
+
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px;">
+                                        <!-- max-height:350px; overflow : auto; ">-->
+
+
+                                        <table class="table table-responsive table-striped" data-ng-show="vm.userDetail.Log.length > 0">
+
+                                            <thead class="hidden-xs" margin-top:-15px>
+                                                <tr style="color:darkgrey; font-size:10px">
+                                                    <th></th>
+                                                    <th>Details</th>
+                                                    <th class="hidden-xs hidden-sm">Description</th>
+                                                    <th class="hidden-xs">IP</th>
+                                                    <th class="hidden-xs hidden-sm">Origin</th>
+                                                </tr>
+                                            </thead>
+                                            <tr data-ng-repeat="logItem in vm.userDetail.Log">
+
+                                                <td>
+                                                    <strong><i class="fa fa-history" style="color:#A6A6A6;"></i> <small am-time-ago="logItem.Timestamp"></small></strong>
+                                                </td>
+
+                                                <!--
+
+
+                    <td>
+                        <small>
+                            {{ logItem.Category }}
+                        </small>
+                    </td>
+
+                    <td>
+                        <small>
+                            {{ logItem.Activity }}
+                        </small>
+                    </td>
+
+                    -->
+                                                <td class="hidden-xs hidden-sm">
+                                                    <small>
+                                                        {{ logItem.Details }}
+                                                    </small>
+                                                </td>
+
+
+                                                <td>
+                                                    <small>
+                                                        {{ logItem.Description }}
+                                                    </small>
+                                                </td>
+
+
+
+                                                <td class="hidden-xs">
+                                                    <small>
+                                                        {{ logItem.IPAddress }}
+                                                    </small>
+                                                </td>
+
+                                                <td class="hidden-xs hidden-sm">
+                                                    <small>
+                                                        {{ logItem.Origin }}
+                                                    </small>
+                                                </td>
+
+
+
+                                            </tr>
+                                        </table>
+
+                                        <small data-ng-show="vm.userDetail.Log.length == 15" style="color:grey; padding-top:15px;"><i><strong>* Only showing top 15 results</strong></i></small>
+
+                                        <div data-ng-show="vm.userDetail.Log.length == 0">
+                                            <small>No user logs</small>
+                                        </div>
+                                    </div>
+                                </tab>
+
+                                <tab style="cursor:pointer" id="Advanced" heading="Advanced" data-ng-click="vm.setAdvancedUserDetailTab()">
+
+                                    <!-- ADVANCED -->
+
+
+                                    <div style="margin-left:15px; margin-top:25px; margin-bottom:25px">
+
+
+
+                                        <div id="SendPassword">
+
+                                            <div data-ng-show="!vm.userPassword.Processing && !vm.userPassword.Complete">
+                                                <button type="button" class="btn btn-primary" data-ng-click="vm.sendUpdatePassword()"><i class="glyphicon glyphicon-envelope"></i> Send password reset</button>
+                                            </div>
+
+                                            <!--Processing-->
+                                            <small data-ng-show="vm.userPassword.Processing"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Sending password reset...</small>
+                                            <!--Result-->
+                                            <div data-ng-show="vm.userPassword.Complete">
+                                                <small data-ng-show="vm.userPassword.IsSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.userPassword.Message }}</small>
+                                                <small data-ng-show="!vm.userPassword.IsSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.userPassword.Message }}</small>
+                                                <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetPasswordSend()" style="margin-left:5px;">OK</button></span>
+                                            </div>
+
+                                            
+
+                                        </div>
+
+                                        
+                                        <div id="StartDeletion" data-ng-show="!vm.userDeletion.Verify && !vm.userDeletion.Processing && vm.checkRole('Admin')">
+
+                                            <hr />
+                                            <button type="button" class="btn btn-danger" data-ng-click="vm.startDeletion()"><i class="glyphicon glyphicon-remove"></i> Delete user</button>
+                                        </div>
+
+                                        <div id="VerifyDeletion" data-ng-show="vm.userDeletion.Verify">
+                                            <hr />
+                                            <div style="margin-bottom:20px;">
+                                                <i class="fa fa-warning" style="color:red"></i> <span style="color:red"><strong>&nbsp;Are you sure you want to delete this user?</strong></span>
+                                            </div>
+                                            <button class="btn btn-warning btn-sm" data-ng-click="vm.cancelDeletion()">Cancel</button>
+                                            <button class="btn btn-danger btn-sm" data-ng-click="vm.deleteUser(vm.userDetail.ID)"><i class="glyphicon glyphicon-remove"></i> Yes, delete this user</button>
+                                        </div>
+
+                                    </div>
+
+                                </tab>
+                            </tabset>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="modal-footer" data-ng-show="!vm.userDeletion.Complete" style="margin-bottom:-10px">
+
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.onUserDetailModalClose()" data-dismiss="modal">Done</button>   
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-body" id="UserDeleting" data-ng-show="vm.userDeletion.Processing">
+
+                    <section-loader message="'Deleting user...'" loader-type="'inline'"></section-loader>
+                    <br /><br />
+
+                </div>
+
+                <div class="modal-body" id="UserUpdatesComplete" data-ng-show="vm.userDeletion.Complete">
+
+                    <div ng-class="vm.userDeletion.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                        <div>
+                            <i data-ng-show="vm.userDeletion.IsSuccess" class="fa fa-check" style="color:green"></i>
+                            <i data-ng-show="!vm.userDeletion.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                            {{ vm.userDeletion.Message }}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer" id="UserUpdatesComplete" data-ng-show="vm.userDeletion.Complete">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End User Details Modal-->
+
+    <div id="UsersPanelLoading" class="container-fluid" style="padding-top:0px" data-ng-show="vm.usersPanelLoading">
+        <section-loader message="'Getting users...'" loader-type="'inline'"></section-loader>
+    </div>
+
+    <div id="Users" class="container-fluid" data-ng-show="!vm.usersPanelLoading">
+        
+        <hr data-ng-show="vm.account.Users.length > 1" style="border-color: black; border-width: 2px" />
+        <h4 data-ng-show="vm.account.Users.length > 1" style="margin-bottom: 15px; margin-top: -8px;"><strong>Active Users:</strong></h4>
+        <!--<hr />-->
+
+        <table class="table table-responsive table-striped" data-ng-show="vm.account.Users.length > 1">
+            <!--<thead class="hidden-xs">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>-->
+            <tr data-ng-repeat="user in vm.account.Users" data-ng-show="user.Id != vm.currentUserProfile.Id">
+                <td style="width:45%">
+                    <span>
+
+                        <!--<img data-ng-show="user.Active" src="/Images/Icons/AccountStatus/icon_active.png" title="Active" style="vertical-align:middle; margin-right:5px; margin-bottom:5px;" />
+                        <img data-ng-show="!user.Active" src="/Images/Icons/AccountStatus/icon_inactive.png" title="Active" style="vertical-align:middle; margin-right:5px; margin-bottom:5px;" />-->
+
+                        <i data-ng-show="user.Active" title="Active" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+                        <i data-ng-show="!user.Active" title="Inactive" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+
+                    </span>
+
+
+                    <strong data-ng-show="!user.Active" style="color:#595959">
+                        {{ user.FirstName }} {{ user.LastName }}
+                    </strong>
+
+                    <strong data-ng-show="user.Active" style="color:#0974ED">
+                        {{ user.FirstName }} {{ user.LastName }}
+                    </strong>
+
+                    <span data-ng-show="user.Photo == null" style="margin-left:5px;">
+                        <img src="/images/icons/profile/nophoto_16x16.jpg" width="16" height="16" style="border:thin black solid" />
+                    </span>
+                    <span data-ng-if="user.Photo != null" style="margin-right:5px;">
+                        <img data-ng-src="{{user.Photo}}_16x16.jpg" width="16" height="16" style="border:thin black solid" />
+                    </span>
+                    <!--<small data-ng-show="user.AccountOwner" style="color:gray"><i class=" fa fa-wrench"></i></small>-->
+
+
+                </td>
+
+                <td class="hidden-xs"><a href="mailto:{{ user.Email }}">{{ user.Email }}</a></td>
+
+                <td class="hidden-xs" style="text-align:right">
+                    <span class="label label-default">{{ user.Role }}</span>
+                    <span data-ng-show="user.AccountOwner" class="label label-primary">Account Owner</span>
+                </td>
+
+
+                <td style="text-align:right">
+                    <button class="btn btn-xs btn-default" data-toggle="modal" data-target=".userDetailModal" data-ng-click="vm.getUserDetail($index, true)"><i class="fa fa-eye"></i> View</button>
+                </td>
+
+
+            </tr>
+        </table>
+
+        <div data-ng-show="vm.account.Users.length == 1" style="margin-bottom: 5px">
+            <h6 style="color:darkgray; margin-top:30px"><strong>You have no active users.</strong></h6>
+            
+                <!--<h5><strong> You have no users yet.</strong></h5>
+                <div>Click on the "Invitations" tab to invite some users.</div>-->
+            
+        </div>
+
+
+
+    </div>
+
+</div>

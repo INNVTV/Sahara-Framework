@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Redis Performance Tests</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+
+</head>
+<body style="margin:25px">
+
+        <h1>Redis vs WCF calls</h1>
+        <br />
+        <br />
+
+        <iframe name="RedisPlansIFrame" height="65" src="/Infrastructure/PerformanceTest/GetPlansRedis"></iframe>
+        <br />
+        <button class="btn btn-default" onclick="var ifr = document.getElementsByName('RedisPlansIFrame')[0]; ifr.src = ifr.src;">Get Plans via Redis</button>
+
+
+        <br />
+        <br />
+        <br />
+
+        <iframe name="WCFPlansIFrame" height="65" src="/Infrastructure/PerformanceTest/GetPlansWCF"></iframe>
+        <br />
+        <button class="btn btn-default" onclick="var ifr = document.getElementsByName('WCFPlansIFrame')[0]; ifr.src = ifr.src;">Get Plans via WCF</button>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@model PlatformAdminSite.Models.Infrastructure.RedisServerModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedisServer</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body style="margin:25px">
+
+    <h1>@Model.Name</h1>
+
+    <h3>Hashes</h3>
+
+    @foreach (var key in Model.HashKeys)
+    {
+        <div style="margin:5px; margin-bottom:10px">
+            <a class="btn btn-default" href="/Infrastructure/RedisServer_GetHash?HashKey=@key">@key</a>
+        </div>
+    }
+
+    <hr>
+
+    <h3>Strings</h3>
+
+    @foreach (var key in Model.StringKeys)
+    {
+        <div style="margin:5px; margin-bottom:10px">
+            <a class="btn btn-default" href="/Infrastructure/RedisServer_GetString?Key=@key">@key</a>
+        </div>
+    }
+
+    <hr />
+
+    <a class="btn btn-danger" href="/Infrastructure/RedisServer_Flush">Flush All Keys</a>
+
+</body>
+</html>

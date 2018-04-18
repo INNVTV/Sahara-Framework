@@ -1,0 +1,53 @@
+﻿<div>
+
+    <br />
+
+    <!--<h4><strong><i class="fa fa-database"></i> Switch to SQL Elastic Pool for assigning each tenant an isolated database.</strong></h4>
+
+    <hr />-->
+
+    <h5 style="margin-bottom:5px"><strong>SQL Assignment:</strong></h5>
+    <!--<small><span style="color:darkgrey;">Purpose:</span> Shared SQL database for this account</small>-->
+    <h4 style="margin-top:15px;"><span style="border:1px solid darkgrey; padding:6px;">{{ vm.account.SqlPartition }}</span></h4>
+
+    <hr />
+
+    <h5 style="margin-bottom:5px"><strong>SQL Schema ID:</strong></h5>
+    <!--<small><span style="color:darkgrey;">Purpose:</span> SQL schema assignment for this account</small>-->
+    <h4 style="margin-top:15px;"><span style="border:1px solid darkgrey; padding:6px;">{{ vm.account.SchemaName }}</span></h4>
+
+    <hr />
+
+    <h5 style="margin-bottom:5px"><strong>Schema Version:</strong></h5>
+    <!--<small><span style="color:darkgrey;">Purpose:</span> SQL schema version for this account</small>-->
+    <h4 data-ng-show="vm.sqlTenantLog == null" style="margin-top:15px;"><span style="border:1px solid darkgrey; padding:6px; color:darkgrey"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</span></h4>
+    <h4 data-ng-show="vm.sqlTenantLog != null" style="margin-top:15px;"><span style="border:1px solid darkgrey; padding:6px;">{{ vm.sqlTenantLog[0].Version }}</span></h4>
+    <hr />
+
+    <h5 style="margin-bottom:5px"><strong>Schema Upgrade History:</strong></h5>
+    <!--<small><span style="color:darkgrey;">Purpose:</span> Upgrade History (dates for each version upgrade).</small>-->
+
+    <div data-ng-show="vm.sqlTenantLog == null" style="color:darkgrey">
+        <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+    </div>
+
+    <table class="table table-striped" data-ng-show="vm.sqlTenantLog != null">
+        <tr data-ng-repeat="log in vm.sqlTenantLog">
+            <td>{{ log.Version }}</td>
+            <td>{{ log.Description }}</td>
+            <td>
+                <span><small>{{ log.InstallDate | date : 'EEE MMM dd, yyyy' }} ({{ log.InstallDate | date : 'h:mm a' }})</small></span>
+                 
+            </td>
+            <td>
+                <small><strong am-time-ago="log.InstallDate"></strong></small>
+            </td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <small>Uprade worker role distributes schema upgrades. Can work in bactches of 100 - 1,000 accounts nightly to roll out overtime and get feedback from a small subset of users. Rolebacks should also be factored in. Uprage version is updated on the Accounts table and a log is writtern to the accounts schema upgrade log. An updated initialization script for each new account should also be included when creating an upgrade so that new accounts can be provisioned with the latest schema using a single file and prevent patching.</small>
+
+
+</div>

@@ -1,0 +1,105 @@
+﻿<div>
+    <!--New Card Modal-->
+    <div class="modal fade editLeadLabelsModalWindow" tabindex="-1" role="dialog" aria-labelledby="editLeadLabelsModalWindow" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:2px; margin-bottom:2px;">Sales leads labels</h3>
+                </div>
+                <div class="modal-body">
+
+
+                    <!--Deletion Errors-->
+                    <div style="text-align:left; margin-top:20px;" data-ng-show="vm.deleteLeadLabelErrorMessage != null && vm.deleteLeadLabelErrorMessage != ''">
+                        <div class="alert alert-danger" role="alert">
+                            <div>
+                                <i data-ng-show="!vm.newLeadLabel.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.deleteLeadLabelErrorMessage }}
+                            </div>
+                        </div>
+                        <div style="text-align:right; margin-top:10px;">
+                            <button class="btn btn-xs btn-warning" data-ng-click="vm.cleareDeleteLeadLabelErrorMessage()">OK</button>
+                        </div>
+                    </div>
+
+                    <!--Deleting indicator-->
+
+                    <div data-ng-show="vm.deletingLeadLabel" style="margin-top:-24px; margin-bottom:-6px">
+                        <section-loader message="'Deleting label...'" loader-type="'inline'" style="margin-top:0px; margin-bottom:0px;"></section-loader>
+                    </div>
+
+                    <div data-ng-show="!vm.deletingLeadLabel" style="margin:0px; height:25px;">
+                    </div>
+
+                    <!--Listing View-->
+                    <div style="margin-top:0px;" data-ng-show="vm.accountSettings.SalesSettings.LeadLabels.length > 0">
+                        <table class="table table-responsive table-striped">
+                            <tr data-ng-repeat="label in vm.accountSettings.SalesSettings.LeadLabels">
+                                <td style="width:45%">
+                                    <strong style="color:#595959">
+                                        {{ label }}
+                                    </strong>
+                                <td style="text-align:right">
+                                    <button data-ng-show="label != 'New' && label != 'Deleted'" class="btn btn-xs btn-default" data-ng-click="vm.removeLeadLabel($index)">X</button>
+                                    <button data-ng-show="label == 'New' || label == 'Deleted'" class="btn btn-xs btn-default disabled">X</button>
+                                </td>
+
+                            </tr>
+                        </table>
+
+
+                        <div style="height:0px;"></div>
+                        <hr style="border-color:darkgrey" />
+
+                    </div>
+                    <div data-ng-show="vm.accountSettings.SalesSettings.LeadLabels.length == 0" style="height:30px;"></div>
+
+                    <div style="text-align:right;">
+                        <!--Input State-->
+                        <div data-ng-show="!vm.newLeadLabel.IsSending && !vm.newLeadLabel.SendingComplete">
+                            <div>
+                                <div class="form">
+                                    <div class="form-group" style="text-align:left">
+                                        <label style="margin-bottom:2px;">Create a new label for sales leads:</label>
+                                        <small style="color:darkgrey; font-size:10px;"><b>Example:</b> Waiting, Processing, Shipped, Returned</small>
+                                        <div style="height:10px;"></div>
+                                        <input type="text" class="form-control input" data-ng-model="vm.newLeadLabel.Label" placeholder="Label" />
+                                        <div style="text-align:right; margin-top:10px;">
+                                            <button data-ng-show="vm.newLeadLabel.Label != null && vm.newLeadLabel.Label != ''" class="btn btn-sm btn-primary" data-ng-click="vm.addLeadLabel()"><i class="fa fa-plus"></i> Add Label</button>
+                                            <button data-ng-show="vm.newLeadLabel.Label == null || vm.newLeadLabel.Label == ''" class="btn btn-sm btn-primary disabled"><i class="fa fa-plus"></i> Add Label</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Loading State-->
+                        <section-loader message="'Adding label...'" loader-type="'inline'" data-ng-show="vm.newLeadLabel.IsSending && !vm.newLeadLabel.SendingComplete"></section-loader>
+                        <!--Results State-->
+                        <div style="text-align:left;" data-ng-show="!vm.newLeadLabel.IsSending && vm.newLeadLabel.SendingComplete">
+                            <div ng-class="vm.newLeadLabel.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                                <div>
+                                    <i data-ng-show="vm.newLeadLabel.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                    <i data-ng-show="!vm.newLeadLabel.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                    {{ vm.newLeadLabel.Results.Message }}
+                                </div>
+                            </div>
+                            <!-- If the error is due to a constraint on the plan 
+                            <div data-ng-show="vm.alertEmailConstraint">
+                                <p>You've reached the allowed alert email limit.</p>
+                            </div>-->
+                            <div style="text-align:right; margin-top:10px;">
+                                <button class="btn btn-sm btn-danger" data-ng-click="vm.resetAddLeadLabel()">Try again</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

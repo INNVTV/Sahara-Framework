@@ -1,0 +1,114 @@
+﻿<div>
+
+
+
+    <div class="container-fluid" style="padding-top:10px" data-ng-show="vm.storagePartitions == null">
+        <section-loader message="'Getting partitions...'" loader-type="'inline'"></section-loader>
+    </div>
+
+    <div class="container-fluid" style="padding-top:10px" data-ng-show="vm.storagePartitions != null">
+
+        <table class="table table-striped table-responsive" data-ng-show="vm.storagePartitions.length > 0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="hidden-xs hidden-sm">Endpoints</th>
+                    <th style="text-align:center">Tenant Count</th>
+                    <th style="text-align:center">Max Tenants</th>
+                    <th class="hidden-xs hidden-sm" style="width:230px">Capacity</th>
+                    <!--<th class="hidden-xs hidden-sm"></th>
+                    <th class="hidden-xs hidden-sm hidden-md"></th>
+                    <th class="hidden-xs hidden-sm"></th>-->
+                </tr>
+            </thead>
+            <tr data-ng-repeat="partition in vm.storagePartitions">
+
+
+                <td style="text-align:left; padding-top:15px;">
+                    <span style="font-size:22px; margin-top:15px">
+                        <i class="fa fa-folder hidden-xs hidden-sm" style="font-size:24px; margin-right:5px;"></i> {{ partition.Name }}
+                    </span>
+                </td>
+
+
+                <td class="hidden-xs hidden-sm" style="text-align:left; font-size:12px; padding-top:15px;">
+                    <div>
+                        <span><b>CDN: </b></span><span style="color:darkgray">{{ partition.CDN }}</span>
+                    </div>
+                    <div>
+                        <span><b>Storage: </b></span><span style="color:darkgray">{{ partition.URL }}</span>
+                    </div>
+                </td>
+
+               
+                <td style="text-align:center; padding-top:15px;">
+                    <span style="font-size:22px;"><strong>{{ partition.TenantCount | number }}</strong></span>
+                </td>
+                <td style="text-align:center; padding-top:15px;">
+                    <span style="font-size:22px;">{{ partition.MaxTenants | number }} </span>
+                </td>
+
+
+                <td class="hidden-xs hidden-sm" style="width:200px; padding-top:15px;">
+                    <div style="width:200px; height:12px; background-color:#3B3B3B; border: 1px solid lightgrey; margin-top:5px; padding:0px">
+                        <img src="Images/ui/bars/orange.jpg" style="margin-top:-13px; padding:0px; border: 1px solid #3B3B3B;" height="10" width="{{ (partition.TenantCount / partition.MaxTenants)*200 | number }}" />
+                    </div>
+                    <small style="color:#C7C7C7">{{ (partition.TenantCount / partition.MaxTenants)*100 | number }}%</small>
+                </td>
+
+
+                <!--
+                <td class="hidden-xs hidden-sm" style="width:20%">
+
+                    <div style="margin-left:15px;">
+                        <small>Created: <strong am-time-ago="partition.CreatedDate"></strong></small>
+                        <br />
+                        <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                        <small style="color:#8A8A8A">{{ partition.CreatedDate | date : 'h:mm a' }} on {{ partition.CreatedDate | date : 'EEE MMM dd, yyyy' }}</small>
+                    </div>
+
+                </td>
+
+
+                <td class="hidden-xs hidden-sm" style="text-align:right">
+                    <button class="btn btn-sm btn-default" data-toggle="modal" data-target=".sqlPartitionDetailModal" data-ng-click="vm.getSqlPartitionDetail($index, true)">Details</button>
+                </td>
+-->
+
+            </tr>
+        </table>
+
+        <div data-ng-show="vm.storagePartitions.length == 0" style="padding-bottom:20px">
+            <h4> No storage partitions exist...</h4>
+        </div>
+
+        <div class="hidden-xs hidden-sm" style="margin-top:-20px;">
+            <hr style="border:thin dashed #CFCFCF" />
+
+            <div style="height:10px;"></div>
+
+            <h5 style="font-weight:bold">Adding new partitions to the "hopper":</h5>
+            <ul>
+                <li>Create a new storage account using the next numbered sequence.</li>
+                <li>Use 'General' storage type</li>
+                <li>Use 'Standard' performance tier ('Performance' is Blob only and used for VM drives)</li>
+                <li>Use 'Geo Redundant (GRS)' replication</li>
+                <li>Ensure the correct Subscriptions AND Resource Group is chosen (Production should use the Production Subscription and Resource Group)</li>
+                <li>Add a corresponding CDN endpoint of the same name to the existing master CDN account</li>
+                <li>Make sure Tables, Blobs & Queues are all available and test access by using a storage client viewer</li>
+                <li>Manually insert the new partition record into SQL (Example below)</li>
+                <li>Refresh Platform Settings on ALL client WebApps (This will happen automatically on first access attempt)</li>
+            </ul>
+            <div style="height:20px;"></div>
+            <h5 style="font-weight:bold">SQL Insert Statement:</h5>
+            <div class="well">Insert Into StoragePartitions ([Name], [Key], [URL], [CDN]) VALUES ('sahara[env]1001', 'xxxxxxxxxxxxxx', 'https://sahara[env]1001.blob.core.windows.net/', 'sahara[env]1001.azureedge.net')</div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

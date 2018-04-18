@@ -1,0 +1,172 @@
+﻿<div>
+    <style>
+        .myPlan {
+            color: darkgrey;
+        }
+    </style>
+    <!--Manage Plans Modal-->
+    <div class="modal fade manageAccountPlanModal" tabindex="-1" role="dialog" aria-labelledby="manageAccountPlanModal" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:2px; margin-bottom:5px;">Manage payment plan</h3>
+                    <p style="color:#525252; font-size:12px; margin-top:5px; margin-bottom:-6px;"><strong>When changing plans billing is automatically adjusted and pro-rated against the current balance.</strong></p>
+                </div>
+                <div id="manageAccountPlanModalBody" class="modal-body">
+
+                    <div id="PlansUpgradeListing">
+
+                        <div id="planUpdateSuccessMessage">
+                            <strong style="color:green; font-size:16px"><i class="fa fa-lg fa-check"></i> {{ vm.updatePlanMessage }}</strong>
+                            <hr />
+                        </div>
+                        <div id="planUpdateErrorMessage">
+                            <strong style="color:red; font-size:16px"><i class="fa fa-lg fa-warning"></i> {{ vm.updatePlanMessage }}</strong>
+                            <hr />
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="color:darkgrey; font-size:12px;">
+                                        <th>Plan</th>
+                                        <th>Price</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Usrs.</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Cats</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Prods</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Props</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Tags</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">SrchPln</th>
+                                        <!--
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Thms.</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Ordr.</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Lctn.</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center">Lds.</th>-->
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-class="{ 'myPlan': vm.account.PaymentPlanName == plan.PaymentPlanName }" data-ng-repeat="plan in vm.paymentPlans.slice().reverse()" data-ng-show="plan.MonthlyRate != 0 && plan.MonthlyRate >= vm.account.PaymentPlan.MonthlyRate && plan.SearchPlan == vm.account.PaymentPlan.SearchPlan">
+                                        <th>{{ plan.PaymentPlanName }}</th>
+                                        <th style="text-align:center; font-weight:normal">
+                                            <b>{{ (plan.MonthlyRate * vm.account.PaymentFrequency.PaymentFrequencyMonths) - ((plan.MonthlyRate * vm.account.PaymentFrequency.PaymentFrequencyMonths) * vm.account.PaymentFrequency.PriceBreak) | currency}}</b>
+                                            /<small>{{ vm.account.PaymentFrequency.Interval }}</small>
+
+                                        </th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxUsers | number }}</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxCategorizationsPerSet | number }}</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxProducts | number }}</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxProperties | number }}</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">{{ plan.MaxTags | number }}</th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center; font-weight:normal">"{{ plan.SearchPlan }}"</th>
+                                        <!--
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowThemes && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowThemes && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowThemes && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowThemes && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowCustomOrdering && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowCustomOrdering && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowCustomOrdering && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowCustomOrdering && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowLocationData && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowLocationData && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowLocationData && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowLocationData && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowSalesLeads && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-check" style="color:green"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="plan.AllowSalesLeads && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-check" style="color:darkgrey"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowSalesLeads && vm.account.PaymentPlanName != plan.PaymentPlanName"><i class="fa fa-times" style="color:red"></i></th>
+                                        <th class="hidden-xs hidden-sm" style="text-align:center" data-ng-show="!plan.AllowSalesLeads && vm.account.PaymentPlanName == plan.PaymentPlanName"><i class="fa fa-times" style="color:darkgrey"></i></th>
+-->
+
+                                        <th>
+                                            <div>
+                                                <div data-ng-show="vm.account.PaymentPlanName == plan.PaymentPlanName">
+                                                    <div>Current plan</div>
+                                                </div>
+                                                <div data-ng-show="vm.account.PaymentPlan.MonthlyRate < plan.MonthlyRate">
+                                                    <div data-ng-show="vm.updatePlanProcessing == false && vm.updatePlanName != plan.PaymentPlanName && vm.manageFrequency.update.processing == false">
+                                                        <div><a class="btn btn-primary" data-ng-click="vm.updateAccountPlan(plan.PaymentPlanName)">Upgrade</a></div>
+                                                        <!--<div><a class="btn btn-primary" data-ng-click="vm.updateAccountPlan(plan.PaymentPlanName)">Upgrade to {{ plan.PaymentPlanName }}</a></div>-->
+                                                    </div>
+                                                    <div data-ng-show="vm.updatePlanProcessing == true && vm.updatePlanName != plan.PaymentPlanName || vm.manageFrequency.update.processing == true">
+                                                        <div><a class="btn btn-primary">Upgrade}</a></div>
+                                                        <!--<div><a class="btn btn-primary">Upgrade to {{ plan.PaymentPlanName }}</a></div>-->
+                                                    </div>
+                                                    <div data-ng-show="vm.updatePlanProcessing == true && vm.updatePlanName == plan.PaymentPlanName">
+                                                        <div><a class="btn btn-default"><i class="fa fa-circle-o-notch fa-spin"></i> Upgrading...</a></div>
+                                                    </div>
+                                                </div>
+
+                                                <div data-ng-show="vm.account.PaymentPlan.MonthlyRate > plan.MonthlyRate">
+                                                    <div data-ng-show="vm.updatePlanProcessing == false  && vm.updatePlanName != plan.PaymentPlanName && vm.manageFrequency.update.processing == false">
+                                                        <div><a class="btn btn-danger" data-ng-click="vm.updateAccountPlan(plan.PaymentPlanName)">Downgrade</a></div>
+                                                        <!--<div><a class="btn btn-danger" data-ng-click="vm.updateAccountPlan(plan.PaymentPlanName)">Downgrade to {{ plan.PaymentPlanName }}</a></div>-->
+                                                    </div>
+                                                    <div data-ng-show="vm.updatePlanProcessing == true  && vm.updatePlanName != plan.PaymentPlanName || vm.manageFrequency.update.processing == true">
+                                                        <div><a class="btn btn-danger">Downgrade</a></div>
+                                                        <!--<div><a class="btn btn-danger">Downgrade to {{ plan.PaymentPlanName }}</a></div>-->
+                                                    </div>
+                                                    <div data-ng-show="vm.updatePlanProcessing == true && vm.updatePlanName == plan.PaymentPlanName">
+                                                        <div><a class="btn btn-default"><i class="fa fa-circle-o-notch fa-spin"></i> Downgrading...</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <div id="UpdateFrequency">
+                        <!-- Frequency Display -->
+                        <div data-ng-show="vm.updateFrequency." style="font-size:12px;">Payment frequency: <strong style="font-size:14px;">{{ vm.account.PaymentFrequency.PaymentFrequencyName }} </strong> <small> <a href="" class="btn btn-default btn-xs">Change</a></small></div>
+
+                        <!-- Frequency -->
+                        <div data-ng-show="!vm.manageFrequency.update.complete && !vm.manageFrequency.update.processing && !vm.manageFrequency.update.edit">
+                            <div style="font-size:12px;">Payment frequency: <strong style="font-size:14px;">{{ vm.account.PaymentFrequency.PaymentFrequencyName }} </strong> <small> <a data-ng-show="vm.updatePlanProcessing == false" data-ng-click="vm.editFrequency()" class="btn btn-default btn-xs">Change</a></small></div>
+                        </div>
+                        <div class="form-horizontal" data-ng-show="vm.manageFrequency.update.edit">
+                            <label>Update frequency:</label>
+                            <div class="btn-group" style="margin-right:10px;">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    {{ vm.manageFrequency.Frequency.PaymentFrequencyName }} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li data-ng-repeat="frequency in vm.paymentFrequencies">
+                                        <a style="cursor:pointer" data-ng-show="frequency.PaymentFrequencyMonths > 0 && frequency.PaymentFrequencyName != vm.manageFrequency.Frequency.PaymentFrequencyName" data-ng-click="vm.manageFrequency.UpdateFrequency(frequency)">{{ frequency.PaymentFrequencyName }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-default btn-xs" data-ng-click="vm.cancelFrequency()" style="margin-left:5px;">Cancel</button>
+                            <button class="btn btn-primary btn-xs" data-ng-click="vm.updateFrequency(vm.manageFrequency.Frequency)">Update</button>
+                            <br />
+                            <span style="margin-top:35px;"><small style="color:orangered;"><i><b>Please note:</b> Your billing frequency will be updated immediately!</i></small></span>
+                        </div>
+                        <!--Processing-->
+                        <div data-ng-show="vm.manageFrequency.update.processing">
+                            <small><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating frequency...</small>
+                        </div>
+                        <!--Result-->
+                        <div data-ng-show="vm.manageFrequency.update.complete">
+                            <small data-ng-show="vm.manageFrequency.update.isSuccess" style="color:green"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.manageFrequency.update.message }}</small>
+                            <small data-ng-show="!vm.manageFrequency.update.isSuccess" style="color:red"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.manageFrequency.update.message }}</small>
+                            <span><button class="btn btn-default btn-xs" data-ng-click="vm.resetUpdateFrequencyResult()" style="margin-left:5px;">OK</button></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="manageAccountPlanModalFooter" class="modal-footer">
+                    <button class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

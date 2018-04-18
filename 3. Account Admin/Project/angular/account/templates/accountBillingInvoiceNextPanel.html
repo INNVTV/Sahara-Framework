@@ -1,0 +1,84 @@
+﻿<div>
+
+    <div id="InvoiceNextPanelLoading" class="container-fluid" style="padding-top:20px" data-ng-show="vm.invoiceNextPanelLoading">
+        <section-loader message="'Getting upcoming invoice...'" loader-type="'inline'"></section-loader>
+    </div>
+
+    <div id="InvoiceNext" class="container-fluid" style="padding-top:20px" data-ng-show="!vm.invoiceNextPanelLoading">
+
+
+        <div data-ng-show="vm.account.NextInvoice.Date != null">
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                        <small style="margin-bottom:-10px"><strong>Next invoice will process on:</strong></small>
+
+                        <h3>
+                            <i class="fa fa-calendar" style="color:#A6A6A6; font-size:10px;"></i> <strong>{{ vm.account.NextInvoice.Date | date : 'EEE MMM, dd yyyy' }}</strong>
+                        </h3>
+                        <h4>
+                            <i class="fa fa-clock-o" style="color:#A6A6A6; font-size:10px;"></i> <small><strong> {{ vm.account.NextInvoice.Date | date : 'h:mm a' }}</strong></small>
+                        </h4>
+                        <h6>
+                            <i class="fa fa-history" style="color:#A6A6A6; font-size:10px;"></i> <small am-time-ago="vm.account.NextInvoice.Date"></small>
+                        </h6>
+
+
+
+                    <hr class="data-card-lines visible-xs visible-sm" />
+
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <small style="margin-bottom:-10px"><strong>Pending amount:</strong></small>
+                    <h3>
+                        <strong style="color:black; border:1px solid darkgrey; padding:7px;">{{ vm.account.NextInvoice.AmountDue | currency }}</strong>
+                        <span data-ng-show="vm.account.NextInvoice.Proration == true">
+                            <small><strong>[Prorated]</strong></small>
+                        </span>
+                    </h3>
+
+                    <hr class="data-card-lines visible-xs visible-sm" />
+
+                </div>
+
+                
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <small style="margin-bottom:-10px"><strong>Details</strong></small>
+                    
+                        <div data-ng-repeat="lineItem in vm.account.NextInvoice.LineItems">
+                            <span data-ng-show="lineItem.Proration == true">
+                                <small><strong>[Prorated]</strong></small>
+                            </span>
+                            <h4>
+                                <span data-ng-show="lineItem.Description != null" class="hidden-xs hidden-sm">
+                                    {{ lineItem.Description }} @ <strong>{{ lineItem.Amount }}</strong>
+                                </span>
+                                <span data-ng-show="lineItem.Description == null && lineItem.PlanDescription != null">
+                                    <strong>{{ lineItem.PlanDescription }}</strong>
+                                </span>
+                            </h4>
+                            <p>{{ lineItem.Amount }} every {{ lineItem.PlanIntervalCount }} {{ lineItem.PlanInterval }}</p>
+                        </div>
+                    
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div data-ng-show="vm.account.NextInvoice.Date == null && vm.invoiceNextPanelLoading == false">
+            <span style="color:darkgrey; padding:6px; border:1px solid lightgrey; font-size:12px;"><strong>No pending invoices.</strong></span>
+            <br /><br />
+        </div>
+
+
+
+    </div>
+
+</div>

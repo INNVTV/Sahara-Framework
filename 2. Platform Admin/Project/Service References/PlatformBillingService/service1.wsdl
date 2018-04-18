@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PlatformBillingService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlatformBillingService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPlatformBillingService_GetBalanceTransactionsForSource_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalanceTransactionsForSource" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetBalanceTransactionsForSource_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalanceTransactionsForSourceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRange" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_Next_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_Next" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_Next_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_NextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_Last_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_Last" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_Last_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_LastResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_Next_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRange_Next" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_Next_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRange_NextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_Last_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRange_Last" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformBillingService_GetTransferHistory_ByDateRange_Last_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransferHistory_ByDateRange_LastResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPlatformBillingService">
+    <wsdl:operation name="GetBalanceTransactionsForSource">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetBalanceTransactionsForSource" message="tns:IPlatformBillingService_GetBalanceTransactionsForSource_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetBalanceTransactionsForSourceResponse" message="tns:IPlatformBillingService_GetBalanceTransactionsForSource_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransfer" message="tns:IPlatformBillingService_GetTransfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferResponse" message="tns:IPlatformBillingService_GetTransfer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory" message="tns:IPlatformBillingService_GetTransferHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistoryResponse" message="tns:IPlatformBillingService_GetTransferHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRangeResponse" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_Next">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_Next" message="tns:IPlatformBillingService_GetTransferHistory_Next_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_NextResponse" message="tns:IPlatformBillingService_GetTransferHistory_Next_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_Last">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_Last" message="tns:IPlatformBillingService_GetTransferHistory_Last_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_LastResponse" message="tns:IPlatformBillingService_GetTransferHistory_Last_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange_Next">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_Next" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_Next_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_NextResponse" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_Next_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange_Last">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_Last" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_Last_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_LastResponse" message="tns:IPlatformBillingService_GetTransferHistory_ByDateRange_Last_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IPlatformBillingService" type="tns:IPlatformBillingService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlatformBillingService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetBalanceTransactionsForSource">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetBalanceTransactionsForSource" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransfer">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_Next">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory_Next" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_Last">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory_Last" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange_Next">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_Next" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransferHistory_ByDateRange_Last">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformBillingService/GetTransferHistory_ByDateRange_Last" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PlatformBillingService">
+    <wsdl:port name="NetTcpBinding_IPlatformBillingService" binding="tns:NetTcpBinding_IPlatformBillingService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Platform/Billing" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Platform/Billing</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

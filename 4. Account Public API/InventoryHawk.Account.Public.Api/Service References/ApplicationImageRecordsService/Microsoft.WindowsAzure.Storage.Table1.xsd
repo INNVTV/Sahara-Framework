@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.WindowsAzure.Storage.Table" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.WindowsAzure.Storage.Table" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:complexType name="TableEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PartitionKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RowKey" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Timestamp" type="q1:DateTimeOffset" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TableEntity" nillable="true" type="tns:TableEntity" />
+</xs:schema>

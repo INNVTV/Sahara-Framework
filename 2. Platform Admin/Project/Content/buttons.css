@@ -1,0 +1,44 @@
+﻿/*Edit Button*/
+.sahara-btn-edit-16 {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit/off.png');
+}
+.sahara-btn-edit-16:hover {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Edit/on.png');
+}
+
+
+
+/*Refund Button*/
+.sahara-btn-refund-16 {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Refund/off.png');
+}
+.sahara-btn-refund-16:hover {
+    width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor:pointer;
+    border:none;
+    background-image: url('/Images/Buttons/Refund/on.png');
+}
+
+
+

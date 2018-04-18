@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:complexType name="Charge">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BalanceTransactionID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CardBrand" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CardLast4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChargeID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Failure" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FailureCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FailureMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Invoice" nillable="true" type="tns:Invoice" />
+      <xs:element minOccurs="0" name="InvoiceID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Paid" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Prorated" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Refunded" type="xs:boolean" />
+      <xs:element minOccurs="0" name="StripeCustomerID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalRefunded" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Charge" nillable="true" type="tns:Charge" />
+  <xs:complexType name="Invoice">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" minOccurs="0" name="Account" nillable="true" type="q1:Account" />
+      <xs:element minOccurs="0" name="AmountDue" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Attempts" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Date" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndingBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="InvoiceID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LineItems" nillable="true" type="tns:ArrayOfInvoiceLineItem" />
+      <xs:element minOccurs="0" name="NextAttempt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Paid" type="xs:boolean" />
+      <xs:element minOccurs="0" name="StartingBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StripeCustomerID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subtotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Total" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Invoice" nillable="true" type="tns:Invoice" />
+  <xs:complexType name="ArrayOfInvoiceLineItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InvoiceLineItem" nillable="true" type="tns:InvoiceLineItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvoiceLineItem" nillable="true" type="tns:ArrayOfInvoiceLineItem" />
+  <xs:complexType name="InvoiceLineItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanInterval" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanIntervalCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Proration" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceLineItem" nillable="true" type="tns:InvoiceLineItem" />
+  <xs:complexType name="ArrayOfCharge">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Charge" nillable="true" type="tns:Charge" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCharge" nillable="true" type="tns:ArrayOfCharge" />
+  <xs:complexType name="ArrayOfInvoice">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Invoice" nillable="true" type="tns:Invoice" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvoice" nillable="true" type="tns:ArrayOfInvoice" />
+  <xs:complexType name="ArrayOfDunningAttempt">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DunningAttempt" nillable="true" type="tns:DunningAttempt" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDunningAttempt" nillable="true" type="tns:ArrayOfDunningAttempt" />
+  <xs:complexType name="DunningAttempt">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StripeChargeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StripeEventId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StripeSubscriptionId" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="WarningDate" type="q2:DateTimeOffset" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DunningAttempt" nillable="true" type="tns:DunningAttempt" />
+</xs:schema>

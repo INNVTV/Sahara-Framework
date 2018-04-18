@@ -1,0 +1,317 @@
+﻿<div>
+    <!--New Invitation Modal-->
+    <div class="modal fade inviteUserModal" tabindex="-1" role="dialog" aria-labelledby="inviteUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Invite a user</h3>
+                </div>
+                <div class="modal-body">
+
+
+                    <!--Input State-->
+                    <div id="InvitationForm" data-ng-show="!vm.newInvitation.IsSending && !vm.newInvitation.SendingComplete">
+                        <div>
+                            <div class="form">
+
+                                <div class="form-group">
+                                    <label>Email Address:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newInvitation.Email" placeholder="Email" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newInvitation.FirstName" placeholder="First Name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Last Name:</label>
+                                    <input type="text" class="form-control input" data-ng-model="vm.newInvitation.LastName" placeholder="Last Name" />
+                                </div>
+
+                                <br />
+
+                                <div class="form-group" style="margin-bottom:20px;">
+
+                                    <!-- FILTER Buttton Dropdown -->
+                                    <div>
+                                        <label>Role:</label>
+                                        <div class="btn-group" style="margin-right:10px;">
+                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                {{ vm.newInvitation.Role }} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li data-ng-repeat="role in vm.userRoles" style="cursor:pointer">
+                                                    <a data-ng-hide="(!vm.account.PaymentPlan.AllowSalesLeads && role == 'Sales') || (role == 'PlatformAdmin')" data-ng-click="vm.newInvitation.UpdateRole(role)">{{ role }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- OWNER Checkbox 
+                                    <div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" data-ng-model="vm.newInvitation.AccountOwner"> <strong>Account Owner</strong>
+                                            </label>
+                                        </div>
+                                    </div>-->
+
+
+                                    <div class="form-group" style="margin-bottom:0px; margin-top:-25px; text-align:right">
+
+                                        <!-- OWNERSHIP STATUS -->
+
+                                        <small style="color:darkgrey; font-size:10px">
+                                            <strong>
+                                                <span data-ng-show="vm.newInvitation.AccountOwner">Account Owner </span>
+                                                <span data-ng-show="!vm.newInvitation.AccountOwner && vm.newInvitation.AccountOwner != null">Make Account Owner </span>
+                                            </strong>
+                                        </small>
+
+                                        <span>
+                                            <img data-ng-show="vm.newInvitation.AccountOwner" src="/Images/ui/switch/switch-on-blue-checked.gif" style="cursor:pointer" data-ng-click="vm.newInvitation.MakeOwner()" />
+                                            <img data-ng-show="!vm.newInvitation.AccountOwner && vm.newInvitation.AccountOwner != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newInvitation.RemoveAsOwner()" />
+                                            <img data-ng-show="vm.newInvitation.AccountOwner == null" src="/Images/ui/switch/switch-loading.gif" />
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Loading State
+                    <div id="InvitationLoading" data-ng-show="vm.newInvitation.IsSending && !vm.newInvitation.SendingComplete">
+                        <br />
+                        <small style="margin-left:6px;"><strong>Sending invite...</strong></small>
+                        <br />
+                        <img src="/Images/Loaders/initializing.gif" />
+                        <br />
+                    </div>-->
+
+                    <!--Loading State-->
+                    <section-loader message="'Sending invitation...'" loader-type="'inline'" data-ng-show="vm.newInvitation.IsSending && !vm.newInvitation.SendingComplete"></section-loader>
+
+                    <!--Results State-->
+                    <div id="InvitationResults" data-ng-show="!vm.newInvitation.IsSending && vm.newInvitation.SendingComplete">
+
+                        <div ng-class="vm.newInvitation.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newInvitation.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newInvitation.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                 {{ vm.newInvitation.Results.Message }}
+                            </div>
+                        </div>
+
+                        <!-- If the error is due to a constraint on the plan -->
+                        <div data-ng-show="vm.userConstraint">
+                            <p>Contact support to upgrade your plan</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newInvitation.IsSending && !vm.newInvitation.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.inviteUser()"><i class="fa fa-envelope"></i> Send invitation</button>
+                    </div>
+
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newInvitation.IsSending && !vm.newInvitation.SendingComplete">
+
+                    </div>
+
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newInvitation.SendingComplete && vm.newInvitation.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newInvitation.Clear()">Send Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newInvitation.SendingComplete && !vm.newInvitation.Results.IsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button data-ng-show="!vm.userConstraint" class="btn btn-warning" data-ng-click="vm.newInvitation.Retry()">Try again</button>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End Invite User Modal-->
+
+    <!--Invitation Details Modal-->
+    <div class="modal fade invitationDetailModal" tabindex="-1" role="dialog" aria-labelledby="invitationDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;"><strong>{{ vm.invitationDetail.FullName}}'s Invitation</strong></h3>
+                </div>
+
+                <div class="modal-body" id="InvitationDetailDefault" data-ng-show="vm.invitationDetailUpdates.Type == null && !vm.invitationDetailUpdates.Complete">
+
+                    <div>
+                        <div>
+                            <div>
+
+                                <small style="margin-top:30px">Name:</small>
+                                <strong>{{ vm.invitationDetail.FullName }}</strong>
+                                <br /><br />
+
+                                <small style="margin-top:30px">Email:</small>
+                                <strong>{{ vm.invitationDetail.Email }}</strong>
+                                <br /><br />
+
+                                <small style="margin-top:30px">Role:</small>
+                                <strong>{{ vm.invitationDetail.Role }}</strong>
+                                <br /><br />
+
+                                <small style="margin-top:30px">Account Owner:</small>
+                                <span data-ng-show="vm.invitationDetail.Owner"><i class="glyphicon glyphicon-ok" style="color:green"></i></span>
+                                <span data-ng-show="!vm.invitationDetail.Owner"><i class="glyphicon glyphicon-remove" style="color:red"></i></span>
+                                <br /><br />
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="modal-footer" data-ng-show="vm.invitationDetailUpdates.Type == null && !vm.invitationDetailUpdates.Complete" style="margin-bottom:-10px">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.resendInvitation(vm.invitationDetail.InvitationKey)"><i class="glyphicon glyphicon-envelope"></i> Resend</button>
+                        <button type="button" class="btn btn-danger" data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.deleteInvitation(vm.invitationDetail.InvitationKey)"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-body" id="InvitationResending" data-ng-show="vm.invitationDetailUpdates.Type == 'send'">
+
+                    <section-loader message="'Sending invitation...'" loader-type="'inline'"></section-loader>
+
+                </div>
+
+
+                <div class="modal-body" id="InvitationDeleting" data-ng-show="vm.invitationDetailUpdates.Type == 'delete'">
+
+                    <section-loader message="'Deleting invitation...'" loader-type="'inline'"></section-loader>
+
+                </div>
+
+                <div class="modal-body" id="InvitationUpdatesComplete" data-ng-show="vm.invitationDetailUpdates.Complete">
+
+                    <div ng-class="vm.invitationDetailUpdates.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                        <div>
+                            <i data-ng-show="vm.invitationDetailUpdates.IsSuccess" class="fa fa-check" style="color:green"></i>
+                            <i data-ng-show="!vm.invitationDetailUpdates.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                            {{ vm.invitationDetailUpdates.Message }}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer" id="InvitationUpdatesComplete" data-ng-show="vm.invitationDetailUpdates.Complete">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--End Invitation Details Modal-->
+    
+    
+<br data-ng-show="vm.invitations.length > 1"/>
+
+    <div id="InvitationsPanelLoading" class="container-fluid" style="padding-top:20px" data-ng-show="vm.invitationsPanelLoading">
+        <!-- Hidden as we also have the other user pnael loader...<section-loader message="'Getting invitations...'" loader-type="'inline'"></section-loader>-->
+    </div>
+
+    <div id="Invitations" class="container-fluid" data-ng-show="!vm.invitationsPanelLoading">
+        
+        <hr data-ng-show="vm.invitations.length > 0" style="border-color: black; border-width: 2px" />
+        <h4 data-ng-show="vm.invitations.length > 0" style="margin-bottom: 15px; margin-top: -8px;"><strong>Pending Invitations:</strong></h4>
+        <!--<hr/>-->
+
+
+        <table class="table table-striped table-responsive" data-ng-show="vm.invitations.length > 0">
+            <!--<thead class="hidden-xs">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>-->
+            <tr data-ng-repeat="invite in vm.invitations">
+                <td style="width:45%"><strong>
+                                          
+                    <!--<img src="/Images/Icons/AccountStatus/icon_inactive.png" title="Active" style="vertical-align:middle; margin-right:5px; margin-bottom:5px;" />-->
+
+
+                                          <i data-ng-show="user.Active" title="Active" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+                                          <i data-ng-show="!user.Active" title="Inactive" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:4px;"></i>
+
+
+                                          {{ invite.FirstName }} {{ invite.LastName }}
+                                      </strong></td>
+
+                <td class="hidden-xs"><a href="mailto:{{ invite.Email }}">{{ invite.Email }}</a></td>
+
+                <td style="text-align:right">
+                    <span class="label label-default">{{ invite.Role }}</span>
+                    <span data-ng-show="invite.Owner" class="label label-primary">Account Owner</span>
+                </td>
+
+
+
+                <td style="text-align:right">
+                    <button class="btn btn-xs btn-default" data-toggle="modal" data-target=".invitationDetailModal" data-ng-click="vm.getInvitationDetail($index)"><i class="fa fa-eye"></i> View</button>
+                </td>
+
+
+            </tr>
+        </table>
+
+        <!--<div data-ng-show="vm.invitations.length == 0">
+            <div style="margin-bottom:20px;" data-ng-show="vm.checkRole('Admin')">
+                <h5><strong>You have no pending invitations.</strong></h5>
+                <button class="btn btn-primary" data-toggle="modal" data-target=".inviteUserModal" data-ng-click="vm.newInvitation.Clear()"><i class="fa fa-envelope"></i> Invite Users</button>
+            </div>
+        </div>-->
+
+        <hr style="margin-top: -10px;" data-ng-show="vm.invitations.length > 0" />
+        
+
+        <div data-ng-show="vm.checkRole('Admin') && vm.account.Users.length > 1 || vm.invitations.length > 0" style="text-align:right">
+
+            <button class="btn btn-primary" data-toggle="modal" data-target=".inviteUserModal" data-ng-click="vm.newInvitation.Clear()"><i class="fa fa-envelope"></i> Invite More Users</button>
+        </div>
+        
+        
+        <div data-ng-show="vm.checkRole('Admin') && vm.account.Users.length == 1 && vm.invitations.length == 0" style="text-align:left; margin-top: 10px">
+            <button style="text-align:left" class="btn btn-primary" data-toggle="modal" data-target=".inviteUserModal" data-ng-click="vm.newInvitation.Clear()"><i class="fa fa-envelope"></i> Invite Some Users</button>
+        </div>
+
+
+
+    </div>
+</div>

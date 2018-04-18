@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApplicationPropertiesService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IApplicationPropertiesService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Properties.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IApplicationPropertiesService_CreateProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_CreateProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetPropertyCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertyCount" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetPropertyCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertyCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetPropertyTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertyTypes" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetPropertyTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertyTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetProperties_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProperties" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetProperties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_GetProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_CreatePropertyValue_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePropertyValue" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_CreatePropertyValue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePropertyValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UploadPropertySwatchImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadPropertySwatchImage" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UploadPropertySwatchImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadPropertySwatchImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_CreateSwatchValue_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSwatchValue" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_CreateSwatchValue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSwatchValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyListingState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyListingState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyListingState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyListingStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyDetailsState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyDetailsState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyDetailsState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyDetailsStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyFacetInterval_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyFacetInterval" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyFacetInterval_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyFacetIntervalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyFacetableState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyFacetableState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyFacetableState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyFacetableStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySortableState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySortableState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySortableState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySortableStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyAppendableState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyAppendableState" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertyAppendableState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertyAppendableStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySymbol_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySymbol" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySymbol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySymbolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySymbolPlacement_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySymbolPlacement" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdatePropertySymbolPlacement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePropertySymbolPlacementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdateFeaturedProperties_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFeaturedProperties" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_UpdateFeaturedProperties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFeaturedPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_ResetFeaturedProperties_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetFeaturedProperties" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_ResetFeaturedProperties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetFeaturedPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeleteProperty_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProperty" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeleteProperty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeletePropertyValue_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePropertyValue" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeletePropertyValue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePropertyValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeletePropertySwatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePropertySwatch" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationPropertiesService_DeletePropertySwatch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePropertySwatchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IApplicationPropertiesService">
+    <wsdl:operation name="CreateProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreateProperty" message="tns:IApplicationPropertiesService_CreateProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreatePropertyResponse" message="tns:IApplicationPropertiesService_CreateProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertyCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertyCount" message="tns:IApplicationPropertiesService_GetPropertyCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertyCountResponse" message="tns:IApplicationPropertiesService_GetPropertyCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertyTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertyTypes" message="tns:IApplicationPropertiesService_GetPropertyTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertyTypesResponse" message="tns:IApplicationPropertiesService_GetPropertyTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProperties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetProperties" message="tns:IApplicationPropertiesService_GetProperties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertiesResponse" message="tns:IApplicationPropertiesService_GetProperties_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetProperty" message="tns:IApplicationPropertiesService_GetProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/GetPropertyResponse" message="tns:IApplicationPropertiesService_GetProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePropertyValue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreatePropertyValue" message="tns:IApplicationPropertiesService_CreatePropertyValue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreatePropertyValueResponse" message="tns:IApplicationPropertiesService_CreatePropertyValue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadPropertySwatchImage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UploadPropertySwatchImage" message="tns:IApplicationPropertiesService_UploadPropertySwatchImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UploadPropertySwatchImageResponse" message="tns:IApplicationPropertiesService_UploadPropertySwatchImage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSwatchValue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreateSwatchValue" message="tns:IApplicationPropertiesService_CreateSwatchValue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/CreateSwatchValueResponse" message="tns:IApplicationPropertiesService_CreateSwatchValue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyListingState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyListingState" message="tns:IApplicationPropertiesService_UpdatePropertyListingState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyListingStateResponse" message="tns:IApplicationPropertiesService_UpdatePropertyListingState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyDetailsState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyDetailsState" message="tns:IApplicationPropertiesService_UpdatePropertyDetailsState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyDetailsStateResponse" message="tns:IApplicationPropertiesService_UpdatePropertyDetailsState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyFacetInterval">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetInterval" message="tns:IApplicationPropertiesService_UpdatePropertyFacetInterval_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetIntervalResponse" message="tns:IApplicationPropertiesService_UpdatePropertyFacetInterval_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyFacetableState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetableState" message="tns:IApplicationPropertiesService_UpdatePropertyFacetableState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetableStateResponse" message="tns:IApplicationPropertiesService_UpdatePropertyFacetableState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySortableState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySortableState" message="tns:IApplicationPropertiesService_UpdatePropertySortableState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySortableStateResponse" message="tns:IApplicationPropertiesService_UpdatePropertySortableState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyAppendableState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyAppendableState" message="tns:IApplicationPropertiesService_UpdatePropertyAppendableState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyAppendableStateResponse" message="tns:IApplicationPropertiesService_UpdatePropertyAppendableState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySymbol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbol" message="tns:IApplicationPropertiesService_UpdatePropertySymbol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbolResponse" message="tns:IApplicationPropertiesService_UpdatePropertySymbol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySymbolPlacement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbolPlacement" message="tns:IApplicationPropertiesService_UpdatePropertySymbolPlacement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbolPlacementResponse" message="tns:IApplicationPropertiesService_UpdatePropertySymbolPlacement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeaturedProperties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdateFeaturedProperties" message="tns:IApplicationPropertiesService_UpdateFeaturedProperties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/UpdateFeaturedPropertiesResponse" message="tns:IApplicationPropertiesService_UpdateFeaturedProperties_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetFeaturedProperties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/ResetFeaturedProperties" message="tns:IApplicationPropertiesService_ResetFeaturedProperties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/ResetFeaturedPropertiesResponse" message="tns:IApplicationPropertiesService_ResetFeaturedProperties_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProperty">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeleteProperty" message="tns:IApplicationPropertiesService_DeleteProperty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeletePropertyResponse" message="tns:IApplicationPropertiesService_DeleteProperty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePropertyValue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeletePropertyValue" message="tns:IApplicationPropertiesService_DeletePropertyValue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeletePropertyValueResponse" message="tns:IApplicationPropertiesService_DeletePropertyValue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePropertySwatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeletePropertySwatch" message="tns:IApplicationPropertiesService_DeletePropertySwatch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationPropertiesService/DeletePropertySwatchResponse" message="tns:IApplicationPropertiesService_DeletePropertySwatch_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IApplicationPropertiesService" type="tns:IApplicationPropertiesService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IApplicationPropertiesService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CreateProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/CreateProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertyCount">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/GetPropertyCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertyTypes">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/GetPropertyTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProperties">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/GetProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/GetProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePropertyValue">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/CreatePropertyValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadPropertySwatchImage">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UploadPropertySwatchImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSwatchValue">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/CreateSwatchValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyListingState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyListingState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyDetailsState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyDetailsState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyFacetInterval">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetInterval" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyFacetableState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyFacetableState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySortableState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySortableState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertyAppendableState">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertyAppendableState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySymbol">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePropertySymbolPlacement">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdatePropertySymbolPlacement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeaturedProperties">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/UpdateFeaturedProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetFeaturedProperties">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/ResetFeaturedProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProperty">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/DeleteProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePropertyValue">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/DeletePropertyValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePropertySwatch">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationPropertiesService/DeletePropertySwatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApplicationPropertiesService">
+    <wsdl:port name="NetTcpBinding_IApplicationPropertiesService" binding="tns:NetTcpBinding_IApplicationPropertiesService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Properties" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Properties</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

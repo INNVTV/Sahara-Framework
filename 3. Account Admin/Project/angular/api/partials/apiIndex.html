@@ -1,0 +1,640 @@
+﻿<div data-ng-controller="apiController as vm">
+
+    <style type="text/css">
+        .apiUri a:link {
+            font-size: 18px;
+            color: #1d8bd3;
+            font-weight: normal;
+            font-weight: bold;
+        }
+
+        .apiUri a:visited {
+            color: #1d8bd3;
+        }
+
+        .apiUri a:active {
+            color: #1d8bd3;
+        }
+
+        .apiUri a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+        .apiUri h3 {
+            margin-bottom: 1px;
+            margin-top: 50px;
+            font-weight: bold;
+        }
+
+        .apiUri p {
+            color: darkgray;
+            margin-bottom: 1px;
+        }
+    </style>
+
+    <section-loader data-ng-show="vm.account == null" message="'Getting data...'" loader-type="'inline'"></section-loader>
+
+    <!--Generate API Key Modal-->
+    <div class="modal fade generateApiKeyModalWindow" tabindex="-1" role="dialog" aria-labelledby="generateApiKeyModalWindow" aria-hidden="true" style="padding-top:100px;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Generate Api Key</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div data-ng-show="!vm.newApiKeyGenerating && !vm.newApiKeyGeneratingComplete">
+                        <div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label>Name/Label:</label>
+                                    <input maxlength="35" type="text" class="form-control input" data-ng-model="vm.newApiKeyName" placeholder="Name or label for API key" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Loading State-->
+                    <section-loader message="'Generating key...'" loader-type="'inline'" data-ng-show="vm.newApiKeyGenerating && !vm.newApiKeyGeneratingComplete"></section-loader>
+                    <!--Results State-->
+                    <div id="CreateCategoryResults" data-ng-show="!vm.newApiKeyGenerating && vm.newApiKeyGeneratingComplete">
+                        <div style="margin-top:7px; margin-bottom:7px;" ng-class="vm.newApiKeyGeneratingIsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newApiKeyGeneratingIsSuccess" class="fa fa-key" style="color:green"></i>&nbsp;
+                                <i data-ng-show="!vm.newApiKeyGeneratingIsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                <b>{{ vm.newApiKeyGeneratingMessage }}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newApiKeyGenerating && !vm.newApiKeyGeneratingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button data-ng-show="vm.newApiKeyName == '' || vm.newApiKeyName == null" type="button" class="btn btn-primary disabled">Generate Key</button>
+                        <button data-ng-show="vm.newApiKeyName != '' && vm.newApiKeyName != null" type="button" class="btn btn-primary" data-ng-click="vm.generateApiKey()">Generate Key</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newApiKeyGenerating && !vm.newApiKeyGeneratingComplete">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newApiKeyGeneratingComplete && vm.newApiKeyGeneratingIsSuccess">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newApiKeyGeneratingComplete && !vm.newApiKeyGeneratingIsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button class="btn btn-warning" data-ng-click="vm.initiateKeyGeneration()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div data-ng-show="vm.account != null">
+        <h1 style="margin-bottom:30px; margin-top:10px; text-align:center"><i class="fa fa-plug"></i> API Endpoints</h1>
+
+        <!--<small>Instructions...</small>
+        <div style="height:20px;"></div>-->
+
+        <tabset>
+            <tab id="open-apis" heading="Open Endpoints" style="cursor:pointer;">             
+                <div style="margin:20px;">
+
+
+                    <div id="open-endpoints-sub-menu">
+                    <ul class="sahara-nav-pills">
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.accountButton}" data-ng-click="vm.openEndpointsSubMenu.update('account')" href="#">ACCOUNT</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.categoriesButton}" data-ng-click="vm.openEndpointsSubMenu.update('categories')" href="#">CATEGORIES</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.productsButton}" data-ng-click="vm.openEndpointsSubMenu.update('products')" href="#">ITEMS</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.browseButton}" data-ng-click="vm.openEndpointsSubMenu.update('browse')" href="#">BROWSE</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.searchButton}" data-ng-click="vm.openEndpointsSubMenu.update('search')" href="#">SEARCH</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.attributesButton}" data-ng-click="vm.openEndpointsSubMenu.update('attributes')" href="#">ATTRIBUTES</a>
+                        </li>
+                        <!--<li data-ng-show="vm.account.PaymentPlan.AllowSalesLeads">
+                            <a data-ng-class="{'active' : vm.openEndpointsSubMenu.salesButton}" data-ng-click="vm.openEndpointsSubMenu.update('sales')" href="#">SALES</a>
+                        </li>-->
+
+                    </ul>
+                </div>
+
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.accountButton">
+
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!--------------------------- ACCOUNT ----------------------------------------->
+
+
+                                <h3>Account Details</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Account Details</p>
+                                <p style="font-size:10px; color:#858585">Account details, images/logos, settings and theme:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/account">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/account</a>
+
+
+                            </div>
+                        </div>
+
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.categoriesButton">
+
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!------------------------------------------ CATEGORIZATIONS ------------------------------>
+
+
+                                <h3>Category Trees</h3>
+                                <hr />
+
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Category Tree</p>
+                                <p style="font-size:10px; color:#858585">Listing of all categories and associated subcategories in a full hierarchical tree:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories/tree">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories/tree</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Category Tree (include images)</p>
+                                <p style="font-size:10px; color:#858585">Listing of all categories and associated subcategories in a full hierarchical tree:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories/tree?includeImages=true">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories/tree?includeImages=true</a>
+                                <br />
+
+                                <h3>Category List</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Category List</p>
+                                <p style="font-size:10px; color:#858585">Listing of top level categories with associated listing images:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/categories</a>
+                                <br /><br />
+
+                                <!------------------------------------------ CATEGORY DETAILS ------------------------------>
+
+                                <div data-ng-show="vm.exampleCategoryNameKey != null">
+
+                                    <hr style="border-color:black" />
+                                    <h3>Category Details</h3>
+                                    <hr />
+
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Category Details by Fully Qualified Name</p>
+                                    <p style="font-size:10px; color:#858585">Category Details with all images, items and/or subcategories:</p>
+                                    <!--<p style="font-size:18px; color:darkgrey; font-weight:bold;">{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/<span style="color:lightgray">[categoryNameKey]</span></p>-->
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/{{ vm.exampleCategoryNameKey }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/{{ vm.exampleCategoryNameKey }}</a>
+                                    <br /><br />
+
+                                    <!--<p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Category Details By ID</p>
+                                    <p style="font-size:10px; color:#858585">Category Details with all images, items and/or subcategories:</p>
+                                    <!--<p style="font-size:18px; color:darkgrey; font-weight:bold;">{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/<span style="color:lightgray">[categoryNameKey]</span></p> - - >
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/{{ vm.exampleCategoryID }}">{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category/{{ vm.exampleCategoryID }}</a>
+                                    <br /><br />-->
+
+                                </div>
+
+                                <div data-ng-show="vm.exampleSubcategoryNameKey != null">
+
+                                    <hr style="border-color:black" />
+                                    <h3>SubCategory Details</h3>
+                                    <hr />
+
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Subcategory Details by Fully Qualified Name</p>
+                                    <p style="font-size:10px; color:#858585">Subcategory Details with all images, items and/or subsubcategories:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subcategory/{{ vm.exampleSubcategoryNameKey }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subcategory/{{ vm.exampleSubcategoryNameKey }}</a>
+                                    <br /><br />
+                                </div>
+
+                                <div data-ng-show="vm.exampleSubsubcategoryNameKey != null">
+
+
+                                    <hr style="border-color:black" />
+                                    <h3>SubSubCategory Details</h3>
+                                    <hr />
+
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Subsubcategory Details by Fully Qualified Name</p>
+                                    <p style="font-size:10px; color:#858585">Subsubcategory Details with all images, items and/or subsubsubcategories:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subsubcategory/{{ vm.exampleSubsubcategoryNameKey }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subsubcategory/{{ vm.exampleSubsubcategoryNameKey }}</a>
+                                    <br /><br />
+                                </div>
+
+                                <div data-ng-show="vm.exampleSubsubsubcategoryNameKey != null">
+
+                                    <hr style="border-color:black" />
+                                    <h3>SubSubSubCategory Details</h3>
+                                    <hr />
+
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Subsubcategory Details by Fully Qualified Name</p>
+                                    <p style="font-size:10px; color:#858585">Subsubcategory Details with all images, and items:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subsubsubcategory/{{ vm.exampleSubsubsubcategoryNameKey }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/subsubsubcategory/{{ vm.exampleSubsubsubcategoryNameKey }}</a>
+                                    <br /><br />
+                                </div>
+
+
+                                <br /><br />
+                                <p style="font-size:14px; color:#4A4A4A;"><u>Parameters:</u></p>
+                                <p><span style="color:darkorange"><b>includeItems</b></span> (bool: default is false) Set to true if you want to include items that are tied directly to a categorization</p>
+                                <p><span style="color:darkorange"><b>includeHidden</b></span> (bool: default is false) Set to true if you want to include hidden sub-categprizations and/or items</p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div  data-ng-show="vm.openEndpointsSubMenu.productsButton">
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!--------------------------- Products ----------------------------------------->
+                                <div data-ng-show="vm.productSearchResults.Returned >= 1">
+
+                                    <h3>Item Details</h3>
+                                    <hr />
+
+                                    <div data-ng-show="vm.exampleProductFullyQualifiedName != null">
+                                        <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Item Details by Fully Qualified Name</p>
+                                        <p style="font-size:10px; color:#858585">Item details by fully qualified name:</p>
+                                        <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item/{{ vm.exampleProductFullyQualifiedName }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item/{{ vm.exampleProductFullyQualifiedName }}</a>
+                                        <br /><br />
+                                    </div>
+
+                                    <div data-ng-show="vm.exampleProductId != null">
+                                        <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Item Details by ID</p>
+                                        <p style="font-size:10px; color:#858585">Item details by id:</p>
+                                        <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item/{{ vm.exampleProductId }}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item/{{ vm.exampleProductId }}</a>
+                                        <br /><br />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.browseButton">
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!--------------------------- Product Browse ----------------------------------------->
+
+                                <div data-ng-show="vm.exampleProductCategoryNameKey != null">
+
+                                    <h3>Browse Items</h3>
+                                    <hr />
+
+                                    <div data-ng-show="vm.exampleProductFullyQualifiedName != null">
+                                        <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Browse items by property name/value</p>
+                                        <p style="font-size:10px; color:#858585">Browse all items by any string or predefined values:</p>
+                                        <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/categoryNameKey/{{ vm.exampleProductCategoryNameKey }}?skip=0&take=10">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/categoryNameKey/{{ vm.exampleProductCategoryNameKey }}?skip=0&take=10</a>
+                                        <br /><br />
+                                    </div>
+
+                                    <div data-ng-show="vm.exampleProductFullyQualifiedName != null">
+                                        <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Browse items by property name/value (include hidden items)</p>
+                                        <p style="font-size:10px; color:#858585">Browse all items by any string or predefined values:</p>
+                                        <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/categoryNameKey/{{ vm.exampleProductCategoryNameKey }}?skip=0&take=10&includeHidden=true">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/categoryNameKey/{{ vm.exampleProductCategoryNameKey }}?skip=0&take=10&includeHidden=true</a>
+                                        <br /><br />
+                                    </div>
+
+                                    <div data-ng-show="vm.exampleTagName != null">
+                                        <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Browse items by tags name/value</p>
+                                        <p style="font-size:10px; color:#858585">Browse all items by any string or predefined values:</p>
+                                        <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/tags/{{ vm.exampleTagName }}?skip=0&take=10">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/browse/tags/{{ vm.exampleTagName }}?skip=0&take=10</a>
+                                        <br /><br />
+                                    </div>
+
+                                    <p style="font-size:14px; color:#4A4A4A;"><u>Query String Parameters:</u></p>
+                                    <p><span style="color:darkorange"><b>orderBy</b></span> (string (comma deliminated): default = 'dateCreated desc'; example = 'orderId asc, name desc')</p>
+                                    <p><span style="color:darkorange"><b>skip</b></span> (int: default = 0)</p>
+                                    <p><span style="color:darkorange"><b>take</b></span>  (int: default = 50)</p>
+                                    <p><span style="color:darkorange"><b>includeHidden</b></span>  (bool: default = false)</p>
+
+
+                                    <div style="height:20px;"></div>
+                                    <p style="font-size:14px; color:#4A4A4A;"><u>Query Limits:</u></p>
+                                    <p><span style="color:red"><b>take</b></span> (max:<b>120</b>, use pagination (skip/take) if <b>"remaining" > 0</b> in results)</p>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.searchButton">
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!--------------------------- Product Search ----------------------------------------->
+
+                                <h3>Search Items</h3>
+                                <hr />
+
+                                <div>
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Search items:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/items?query={{vm.exampleProductCategoryNameKey}}?skip=0&take=20">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/items?query={{vm.exampleProductCategoryNameKey}}?skip=0&take=20</a>
+                                    <br /><br />
+                                </div>
+
+
+                                <p style="font-size:14px; color:#4A4A4A;"><u>Query String Parameters:</u></p>
+                                <p><span style="color:darkorange"><b>query</b></span> (string: default = null)</p>
+                                <p><span style="color:darkorange"><b>skip</b></span> (int: default = 0)</p>
+                                <p><span style="color:darkorange"><b>take</b></span>  (int: default = 50)</p>
+                                <p><span style="color:darkorange"><b>filter</b></span>  (string)</p>
+                                <p><span style="color:darkorange"><b>orderBy</b></span>  (string (comma deliminated): default = 'relevance'); example = 'orderId asc, name desc')</p>
+                                <p><span style="color:darkorange"><b>includeHidden</b></span>  (bool: default = false)</p>
+
+                                <p><span style="color:darkorange"><b>locationSort</b></span>  (string: default = null) example: geo.distance([locationPropertySearchFieldName], geography'POINT(-118.77975709999998 34.0259216)')</p>
+                                <p>Used if you have a geo boundry in your filters to sort nearest to a geo point.</p>
+
+                                <div style="height:20px;"></div>
+                                <p style="font-size:14px; color:#4A4A4A;"><u>Query Limits:</u></p>
+                                <p><span style="color:red"><b>take</b></span> (max:<b>120</b>, use pagination (skip/take) if <b>"remaining" > 0</b> in results)</p>
+
+
+                                <hr style="border-color:black" />
+                                <h3>Facets</h3>
+                                <hr />
+
+                                <div>
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get search facets</p>
+                                    <p style="font-size:10px; color:#858585">List of available facets for search:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/facets">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/facets</a>
+                                    <br /><br />
+                                </div>
+
+                                <hr style="border-color:black" />
+                                <h3>Sortables</h3>
+                                <hr />
+
+                                <div>
+                                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get search sortables</p>
+                                    <p style="font-size:10px; color:#858585">List of available sortables for search:</p>
+                                    <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/sortables">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/search/sortables</a>
+                                    <br /><br />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.attributesButton">
+                            <div class="apiUri" style="margin:15px;">
+
+
+                                <!--------------------------- Properties ----------------------------------------->
+
+                                <!--<hr style="border-color:black" />-->
+                                <h3>Item Properties</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">All Properties</p>
+                                <p style="font-size:10px; color:#858585">All item properties:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">List Properties</p>
+                                <p style="font-size:10px; color:#858585">Only properties that appear in item listings:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=listings">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=listings</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Detail Properties</p>
+                                <p style="font-size:10px; color:#858585">Only properties that appear in item details:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=details">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=details</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Detail Properties</p>
+                                <p style="font-size:10px; color:#858585">Featured properties (w/ listingsOnly filter):</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=featured&filter=listingsOnly">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item?type=featured&filter=listingsOnly</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A;"><u>Query String Parameters:</u></p>
+                                <p><span style="color:darkorange"><b>type</b></span> (string: default = 'all')</p>
+
+                                <!--------------------------- Property ----------------------------------------->
+
+                                <hr style="border-color:black" />
+                                <h3>Property</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Individual Property</p>
+                                <p style="font-size:10px; color:#858585">Get a single property:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item/{{vm.examplePropertyNameKey}}">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/properties/item/{{vm.examplePropertyNameKey}}</a>
+                                <br /><br />
+
+                                <!--------------------------- Tags ----------------------------------------->
+
+                                <hr style="border-color:black" />
+                                <h3>Tags</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Get Tag List</p>
+                                <p style="font-size:10px; color:#858585">Listing of all tags:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/tags">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/tags</a>
+                                <br /><br />
+
+
+                            </div>
+                        </div>
+
+                        <div data-ng-show="vm.openEndpointsSubMenu.salesButton">
+                            <div class="apiUri" style="margin:15px;">
+
+                                <!--------------------------- Sales Leads (if allowed)----------------------------------------->
+
+
+                                <!--<hr style="border-color:black" />-->
+                                <h3>Sales Leads</h3>
+                                <hr />
+
+                                <p style="font-size:14px; color:#4A4A4A; font-weight:bold">[POST] Submit Sales Lead</p>
+                                <p style="font-size:10px; color:#858585">Post parameters to this URL:</p>
+                                <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/lead">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/lead</a>
+                                <br /><br />
+
+                                <p style="font-size:14px; color:#4A4A4A;"><u>Post Parameters:</u></p>
+                                <p><span style="color:darkorange"><b>firstName</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>lastName</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>companyName</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>phone</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>email</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>comments</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>productName</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>productId</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>fullyQualifiedName</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>locationPath</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>origin</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>ipAddress</b></span> (string)</p>
+                                <p><span style="color:darkorange"><b>userId</b></span> (string: Id of sales associate associated with the lead submission)</p>
+                                <p><span style="color:darkorange"><b>userName</b></span> (string: Name of sales associate associated with the lead submission)</p>
+
+
+
+                            </div>
+                        </div>
+
+
+                </div>
+            </tab>
+
+            <tab id="secure-apis" heading="Secure Endpoints" style="cursor:pointer;">
+
+                <div style="margin:20px;">
+
+                    <div style="color:darkgray; font-style:italic; margin:15px; margin-top:40px;">
+                        <small><i class="fa fa-key" style="color:#515151"></i> Secure endpoints require the use of an API key. You can generate and manage your keys from the <b>"API Keys"</b> tab above.</small>
+                    </div>
+
+
+                    <div id="secure-endpoints-sub-menu">
+                        <ul class="sahara-nav-pills">
+                            <li>
+                                <a data-ng-class="{'active' : vm.secureEndpointsSubMenu.categoriesButton}" data-ng-click="vm.secureEndpointsSubMenu.update('categories')" href="#">CATEGORIES</a>
+                            </li>
+                            <li>
+                                <a data-ng-class="{'active' : vm.secureEndpointsSubMenu.productsButton}" data-ng-click="vm.secureEndpointsSubMenu.update('products')" href="#">ITEMS</a>
+                            </li>
+                            <li>
+                                <a data-ng-class="{'active' : vm.secureEndpointsSubMenu.tagsButton}" data-ng-click="vm.secureEndpointsSubMenu.update('tags')" href="#">TAGS</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div data-ng-show="vm.secureEndpointsSubMenu.categoriesButton">
+
+                        <div class="apiUri" style="margin:15px;">
+
+                            <!------------------------------------------ CATEGORIZATIONS ------------------------------>
+
+                            <h3>Create Category</h3>
+                            <hr />
+                            <b>[PUT]</b> <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/category</a>
+                            <br /><br />
+                            <p style="font-size:14px; color:#4A4A4A;"><u>Parameters:</u></p>
+                            <p><span style="color:darkorange"><b>apiKey</b></span> </p>
+                            <p><span style="color:darkorange"><b>categoryName</b></span> </p>
+                        </div>
+
+
+                    </div>
+
+                    <div data-ng-show="vm.secureEndpointsSubMenu.productsButton">
+
+                        <div class="apiUri" style="margin:15px;">
+
+                            <!------------------------------------------ PRODUCTS ------------------------------>
+
+                            <h3>Create Item</h3>
+                            <hr />
+                            <b>[PUT]</b> <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/item</a>
+                            <br /><br />
+                            <p style="font-size:14px; color:#4A4A4A;"><u>Parameters:</u></p>
+                            <p><span style="color:darkorange"><b>apiKey</b></span> </p>
+                            <p><span style="color:darkorange"><b>locationPath</b></span> </p>
+                            <p><span style="color:darkorange"><b>itemName</b></span> </p>
+                            <p><span style="color:darkorange"><b>isVisible</b></span> </p>
+                        </div>
+
+
+                    </div>
+
+                    <div data-ng-show="vm.secureEndpointsSubMenu.tagsButton">
+
+                        <div class="apiUri" style="margin:15px;">
+
+                            <!------------------------------------------ TAGS ------------------------------>
+
+                            <h3>Create tag</h3>
+                            <hr />
+                            <b>[PUT]</b> <a target="_blank" href="https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/tag">https://{{ vm.account.AccountNameKey }}.{{ vm.apiDomain }}/tag</a>
+                            <br /><br />
+                            <p style="font-size:14px; color:#4A4A4A;"><u>Parameters:</u></p>
+                            <p><span style="color:darkorange"><b>apiKey</b></span> </p>
+                            <p><span style="color:darkorange"><b>tagName</b></span> </p>
+                        </div>
+
+
+                    </div>
+
+
+                    </div>
+
+            </tab>
+
+            <tab id="api-keys" heading="API Keys" style="cursor:pointer;">
+
+                <div style="margin:20px;">
+                    <div class="apiUri" style="margin:20px;">
+                        <h3><i class="fa fa-key"></i> API Keys</h3>
+
+                        <div style="height:20px;"></div>
+
+                        <div data-ng-show="vm.apiKeys.length == 0">
+                            <small style="color:darkgray">No API Keys exist...</small>
+                        </div>
+
+                        <table class="table table-striped table-responsive">
+                            <tr data-ng-repeat="key in vm.apiKeys">
+                                <td>
+                                    <p data-ng-style="vm.keyUpdating == key.ApiKey && {'color': 'lightgray'} || vm.keyUpdating != key.ApiKey && {'color': '#535353'}"><b>{{key.Name}}</b></p>   
+                                </td>
+                                <td style="width:60%">
+                                    <p data-ng-style="vm.keyUpdating == key.ApiKey && {'color': 'lightgray'} || vm.keyUpdating != key.ApiKey && {'color': '#535353'}">{{key.ApiKey}}</p>                                    
+                                </td>
+                                <td style="width:25px;">
+                                    <i title="Regenerate Key" style="color:#535353; cursor:pointer" data-ng-click="vm.regenerateApiKey(key.ApiKey)" data-ng-show="vm.keyUpdating != key.ApiKey" class="fa fa-refresh"></i>
+                                    <i style="color:lightgray" data-ng-show="vm.keyUpdating == key.ApiKey" class="fa fa-refresh fa-spin"></i>
+                                </td>
+                                <td style="width:25px;">
+                                    <i title="Delete Key" style="color:#535353; cursor:pointer" data-ng-click="vm.deleteApiKey(key.ApiKey)" data-ng-show="vm.keyUpdating != key.ApiKey" class="fa fa-trash"></i>
+                                    <i style="color:lightgray" data-ng-show="vm.keyUpdating == key.ApiKey" class="fa fa-trash"></i>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div data-ng-show="vm.apiKeys.length == 0">
+                            <button data-toggle="modal" data-target=".generateApiKeyModalWindow" data-ng-click="vm.initiateKeyGeneration()" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> Generate an API Key</button>
+                        </div>
+                        <div data-ng-show="vm.apiKeys.length > 0" style="text-align:right; margin-top:20px;">
+                            <button data-toggle="modal" data-target=".generateApiKeyModalWindow" data-ng-click="vm.initiateKeyGeneration()" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add API Key</button>
+                        </div>
+                    </div>
+                </div>
+
+            </tab>
+
+            <tab id="custom-apis" heading="Custom Endpoints" style="cursor:pointer;">
+                <div class="apiUri" style="margin:30px;">
+
+                    <!--------------------------- Custom ----------------------------------------->
+                    <!-- Custom APIs can be created for clients by creating a project specifically for each client that works like AccountAdmin API (or uses that API) -->
+                    <!--  
+
+                    <hr style="border-color:black" />-->
+                    <h3>Custom Endpoints</h3>
+                    <hr />
+
+                    <p style="font-size:14px; color:#4A4A4A; font-weight:bold">Custom data feeds can be created to any requirements.</p>
+                    <p style="font-size:10px; color:#858585">Contact us to set up a consultation:</p>
+                    <a href="[Config_Email]">[Config_Email]</a>
+                    <br /><br />
+
+                </div>
+            </tab>
+
+        </tabset>
+
+        <legal-footer></legal-footer>
+
+    </div>
+
+</div>

@@ -1,0 +1,439 @@
+﻿<div data-ng-controller="categoryDetailController as vm">
+    <style type="text/css">
+        .treeLink a:link {
+            color: darkgrey;
+            font-weight: normal;
+            font-weight: bold;
+        }
+
+        .treeLink a:visited {
+            color: darkgrey;
+        }
+
+        .treeLink a:active {
+            color: darkgrey;
+        }
+
+        .treeLink a:hover {
+            color: darkblue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <!--The Image Uploader-->
+    <input id="imageUploader" type="file" style="display:none" />
+    <!-- Reorder Items Modal -->
+    <reorder-items-modal></reorder-items-modal>
+    <section-loader data-ng-show="vm.category == null || vm.account == null || vm.products == null" message="'Loading category...'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+    <div data-ng-show="vm.categoryDeletion.IsSuccess" style="margin:20px;">
+        <h3 style="color:green"><i class="fa fa-check"></i> {{ vm.categoryDeletion.Message }}</h3>
+        <a href="/inventory" class="btn btn-default btn-md" style="margin:30px; margin-top:20px;">View Category List</a>
+    </div>
+    <!--Create Subcategory Modal-->
+    <div class="modal fade createSubcategoryModal" tabindex="-1" role="dialog" aria-labelledby="createSubcategoryModal" aria-hidden="true" style="padding-top:100px;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Create Subcategory</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div id="SubcategoryForm" data-ng-show="!vm.newSubcategory.IsSending && !vm.newSubcategory.SendingComplete">
+                        <div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label>Subcategory Name:</label>
+                                    <input maxlength="35" type="text" class="form-control input" data-ng-model="vm.newSubcategory.Name" placeholder="Subcategory Name" />
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px; text-align:right">
+                                    <!-- VISIBILITY -->
+                                    <small style="color:darkgrey; font-size:10px">
+                                        <strong>
+                                            <span data-ng-show="vm.newSubcategory.Visible">Visible </span>
+                                            <span data-ng-show="!vm.newSubcategory.Visible && vm.newSubcategory.Visible != null">Hidden </span>
+                                        </strong>
+                                    </small>
+                                    <span>
+                                        <img data-ng-show="vm.newSubcategory.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.newSubcategory.Hide()" />
+                                        <img data-ng-show="!vm.newSubcategory.Visible && vm.newSubcategory.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newSubcategory.Show()" />
+                                        <img data-ng-show="vm.newSubcategory.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Loading State-->
+                    <section-loader message="'Creating subcategory...'" loader-type="'inline'" data-ng-show="vm.newSubcategory.IsSending && !vm.newSubcategory.SendingComplete"></section-loader>
+                    <!--Results State-->
+                    <div id="CreateSubcategoryResults" data-ng-show="!vm.newSubcategory.IsSending && vm.newSubcategory.SendingComplete">
+                        <div style="margin-top:7px; margin-bottom:7px;" ng-class="vm.newSubcategory.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newSubcategory.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newSubcategory.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.newSubcategory.Results.Message }}
+                                <!--Button to edit new object-->
+                                <span><a data-ng-show="vm.newSubcategory.Results.IsSuccess" style="float:right; margin-bottom:5px; margin-top:-7px; margin-right:-7px;" class="btn btn-success" href="/subcategory/{{ vm.newSubcategoryPath }}" target="_self">Edit</a></span>
+                            </div>
+                        </div>
+                        <!-- If the error is due to a constraint on the plan -->
+                        <div data-ng-show="vm.subcategoryConstraint">
+                            <p>Contact support to upgrade your plan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newSubcategory.IsSending && !vm.newSubcategory.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.createSubcategory()">Create Subcategory</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newSubcategory.IsSending && !vm.newSubcategory.SendingComplete">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newSubcategory.SendingComplete && vm.newSubcategory.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newSubcategory.Clear()">Create Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newSubcategory.SendingComplete && !vm.newSubcategory.Results.IsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button data-ng-show="!vm.userConstraint" class="btn btn-warning" data-ng-click="vm.newSubcategory.Retry()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Create Subcategory Modal-->
+
+    <div data-ng-show="vm.category != null && vm.account != null && vm.products != null && !vm.categoryDeletion.IsSuccess">
+
+        <div id="Header" style="margin:-5px; margin-bottom:0px;">
+
+            
+
+            <hr style="border-width:thick; border-color:black; margin-bottom:0; margin-top:-10px" />
+            <div style="padding:6px" data-ng-style="{'background-color': vm.headerBGColor}">
+                <div style="float:left">
+                    <!--
+                    <div>
+                        <span class="label label-default">{{vm.category.Subcategories.length}}</span><span><small style="color:darkgrey; font-size:10px"><strong>&nbsp;&nbsp;Subcategories</strong></small></span>
+                    </div>-->
+                    <div class="treeLink hidden-xs" style="padding-top:2px;">
+                        <a href="/inventory">Categories</a>
+                        <i class="fa fa-angle-right" style="color:darkgrey; margin-left:5px; margin-right:5px;"></i>
+                        <strong>{{ vm.category.CategoryName }}</strong>
+                    </div>
+                    <div class="treeLink visible-xs" style="padding-top:2px;">
+                        <a href="/inventory"><i class="fa fa-angle-left" style="margin-left:2px; margin-right:3px;"></i> Categories</a>
+                    </div>
+                    <!--
+                    <div class="treeLink visible-xs" style="padding-top:2px;">
+                        <a href="/inventory"><i class="fa fa-home" style="font-size:16px"></i></a>
+                        <i class="fa fa-angle-right" style="color:darkgrey; margin-left:3px; margin-right:3px;"></i>
+                        {{ vm.category.CategoryName }}
+                    </div>-->
+                </div>
+                <div>
+                    <div data-ng-show="vm.reverseRole('Manager')" style="text-align:right; padding-bottom:4px;">
+                        <span>
+                            <i data-ng-show="vm.category.Visible" title="Visible" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:8px;"></i>
+                            <i data-ng-show="!vm.category.Visible" title="Hidden" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:8px;"></i>
+                        </span>
+                    </div>
+                    <div data-ng-show="vm.checkRole('Manager')" style="text-align:right; padding-bottom:4px;">
+                        <small style="color:darkgrey; font-size:10px">
+                            <strong>
+                                <span data-ng-show="vm.category.Visible">Visible </span>
+                                <span data-ng-show="!vm.category.Visible && vm.category.Visible != null">Hidden </span>
+                            </strong>
+                        </small>
+                        <span>
+                            <img data-ng-show="vm.category.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeHidden()" />
+                            <img data-ng-show="!vm.category.Visible && vm.category.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeVisible()" />
+                            <img data-ng-show="vm.category.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-width:thin; border-color:darkgrey; margin:-5px; margin-top:0px" />
+
+        <div style="clear:both" />
+
+        <div class="hidden-md hidden-lg" style="margin-top:20px; text-align:center">
+            <div data-ng-show="vm.mainThumbnailUrl != null" style="">
+                <img id="mainThumbnail" ng-src="{{vm.mainThumbnailUrl}}" data-ng-style="!vm.category.Visible && {'-webkit-filter': 'grayscale(100%)', 'filter': 'grayscale(100%)', 'filter': 'alpha(opacity=80)', 'opacity': '0.8'}" width="70" height="70" style="text-align:center; margin-top:15px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; border:solid 5px white" />
+            </div>
+
+            <div style="font-size:26px; margin-bottom:18px">
+                {{ vm.category.CategoryName }}
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:-15px;" class="hidden-sm hidden-xs"><br />
+            <img id="mainThumbnail" data-ng-show="vm.mainThumbnailUrl != null" ng-src="{{vm.mainThumbnailUrl}}" data-ng-style="!vm.category.Visible && {'-webkit-filter': 'grayscale(100%)', 'filter': 'grayscale(100%)', 'filter': 'alpha(opacity=80)', 'opacity': '0.8'}" height="180" width="180" style="margin-top:15px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; border:solid 5px white" />
+            <div data-ng-show="!vm.CategoryNameStatus.SendingComplete && !vm.CategoryNameStatus.Updating && !vm.CategoryNameStatus.Editing" style="font-size:47px; margin-left:10px;">
+                <div data-ng-show="vm.mainThumbnailUrl == null" style="height:20px;"></div>
+                {{ vm.category.CategoryName }}<!--&nbsp;<button data-ng-show="vm.checkRole('Manager')" data-ng-click="vm.editCategoryName()" class="sahara-btn-edit-16" style="padding-top:50px;"></button>-->
+            </div>
+            
+            <div class="hidden-xs" data-ng-show="vm.category.Subcategories.length > 1" style="font-size:18px; color:#bfbfbf; margin-top:-6px; margin-bottom:-10px;">{{ vm.category.Subcategories.length }} subcategories</div>
+            <div class="hidden-xs" data-ng-show="vm.products.Results.length > 1" style="font-size:18px; color:#bfbfbf; margin-top:-6px; margin-bottom:-10px;">{{ vm.resultsAvailable }} items</div>
+
+            <div id="ProcessNameUpdate">
+                <!--Edit Name-->
+                <div class="form-inline" data-ng-show="vm.CategoryNameStatus.Editing" style="padding-bottom:14px; padding-top:15px">
+                    <!--<div style="margin-bottom:10px;">
+                        <span style="color:red; font-size:16px;"><i class="fa fa-warning"></i>&nbsp;<strong>Warning:</strong>&nbsp;Updating the name may change URLs & result in other issues for users of this category!</span>
+                    </div>-->
+                    <input type="text" class="input-sm form-control" style="font-weight: normal; font-size:36px; max-width:620px; height:63px; margin-right:5px;" data-ng-model="vm.CategoryNameStatus.NewCategoryName" placeholder="Category Name" />
+                    <span style="padding:10px;">
+                        <button class="btn btn-default" data-ng-click="vm.cancelUpdateCategoryName()" style="margin-left:5px;">Cancel</button>
+                        <button data-ng-show="vm.CategoryNameStatus.NewCategoryName == vm.category.CategoryName" class="btn btn-disabled">Rename Category</button>
+                        <button data-ng-show="vm.CategoryNameStatus.NewCategoryName != vm.category.CategoryName" class="btn btn-primary" data-ng-click="vm.updateCategoryName()">Rename Category</button>
+                    </span>
+
+                </div>
+                <!--Processing-->
+                <div data-ng-show="vm.CategoryNameStatus.Updating && !vm.CategoryNameStatus.SendingComplete" style="margin:30px">
+                    <p style="font-size:20px; color:darkgrey; padding-bottom:12px;"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating category name...</p>
+                </div>
+                <!--Result-->
+                <div data-ng-show="vm.CategoryNameStatus.SendingComplete" style="margin:17px; margin-bottom:18px">
+                    <p data-ng-show="vm.CategoryNameStatus.Results.IsSuccess" style="color:green; font-size:18px;"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.CategoryNameStatus.Results.Message }}</p>
+                    <p data-ng-show="!vm.CategoryNameStatus.Results.IsSuccess" style="color:red; font-size:18px;"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.CategoryNameStatus.Results.Message }}</p>
+                    <!--<span data-ng-show="vm.CategoryNameStatus.Results.IsSuccess"><button class="btn btn-default btn-sm" data-ng-click="vm.refresh()" style="margin-left:5px;">OK (reload category)</button></span>-->
+                    <span data-ng-show="!vm.CategoryNameStatus.Results.IsSuccess"><button class="btn btn-default btn-sm" data-ng-click="vm.CategoryNameStatus.Retry()" style="margin-left:5px;">Try again</button></span>
+                </div>
+            </div>
+        </div>
+
+        <!--<div style="width:80%; float:left; margin-bottom:30px; margin-top:10px"><span style="font-size:32px">{{ vm.category.CategoryName }}</span></div>
+            <div class="hidden-xs" style="text-align:right; width:20%; float:left">
+
+            <button id="addCategoryBtn" class="btn btn-md btn-primary" data-ng-click="vm.initiateImageUpload()"><i class="fa fa-plus"></i> Add Category</button>
+
+        </div>-->
+        <br style="clear:both" />
+
+        <!-- END Filter/Add Header -->
+        <tabset>
+            <tab heading="{{vm.mainTabTitle}}" style="cursor:pointer;">
+
+                <div style="margin:20px; margin-bottom:5px; margin-top:30px;">
+
+                    <!-- Account has subcategories set -->
+                    <div data-ng-show="vm.category.Subcategories.length > 0">
+
+                        <table class="table table-striped table-responsive" data-ng-show="vm.category.Subcategories.length > 0" style="padding-bottom:0px">
+                            <tbody>
+                                <tr data-ng-repeat="subcategory in vm.category.Subcategories">
+                                    <td class="hidden-xs">
+                                        <div>
+                                            <h4 style="margin-top:3px; margin-bottom:3px;">
+                                                <strong>
+                                                    <span>
+                                                        <i data-ng-show="subcategory.Visible" title="Visible" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:8px;"></i>
+                                                        <i data-ng-show="!subcategory.Visible" title="Hidden" class="fa fa-circle" style="color:lightgrey; font-size:10px; vertical-align:middle; margin-right:8px;"></i>
+                                                        <a href="/subcategory/{{ vm.category.CategoryNameKey }}/{{subcategory.SubcategoryNameKey}}" data-ng-show="!subcategory.Visible" style="color:#595959">{{ subcategory.SubcategoryName }}</a>
+                                                        <a href="/subcategory/{{ vm.category.CategoryNameKey }}/{{subcategory.SubcategoryNameKey}}" data-ng-show="subcategory.Visible" style="color:#0974ED">{{ subcategory.SubcategoryName }}</a>
+                                                    </span>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                    </td>
+                                    <td class="visible-xs" style="padding:2px">
+                                        <div style="margin-left:5px;">
+                                            <h4>
+                                                <strong>
+                                                    <span>
+                                                        <i data-ng-show="subcategory.Visible" title="Visible" class="fa fa-circle" style="color:limegreen; font-size:6px; vertical-align:middle; margin-right:4px;"></i>
+                                                        <i data-ng-show="!subcategory.Visible" title="Hidden" class="fa fa-circle" style="color:lightgrey; font-size:6px; vertical-align:middle; margin-right:4px;"></i>
+                                                        <a href="/subcategory/{{ vm.category.CategoryNameKey }}/{{subcategory.SubcategoryNameKey}}" data-ng-show="!subcategory.Visible" style="color:#595959">{{ subcategory.SubcategoryName }}</a>
+                                                        <a href="/subcategory/{{ vm.category.CategoryNameKey }}/{{subcategory.SubcategoryNameKey}}" data-ng-show="subcategory.Visible" style="color:#0974ED">{{ subcategory.SubcategoryName }}</a>
+                                                    </span>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                    </td>
+                                    <td data-ng-show="vm.checkRole('Manager')" style="text-align:right;">
+                                        <div style="text-align:right; margin-top:0px;">
+                                            <div style="text-align:right;">
+                                                <small style="color:darkgrey; font-size:10px">
+                                                    <strong>
+                                                        <span data-ng-show="subcategory.Visible">Visible </span>
+                                                        <span data-ng-show="!subcategory.Visible && subcategory.Visible != null">Hidden </span>
+                                                    </strong>
+                                                </small>
+                                                <span>
+                                                    <img data-ng-show="subcategory.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeSubcategoryHidden($index)" />
+                                                    <img data-ng-show="!subcategory.Visible && subcategory.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeSubcategoryVisible($index)" />
+                                                    <img data-ng-show="subcategory.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        
+                        <div data-ng-show="vm.category.Subcategories.length > 0 && vm.checkRole('Manager')" style="text-align:right; margin-top:30px;">
+                            <!------ Make sure plan allows for ordering and that 2 or more items exist ------->
+                            <button data-ng-show="vm.account.PaymentPlan.AllowCustomOrdering && vm.category.Subcategories.length > 1" style="margin-right:5px;" class="btn btn-default hidden-xs hidden-sm" data-toggle="modal" data-ng-click="vm.startOrdering('subcategories')" data-target=".reorderItemsModalWindow"><i class="fa fa-reorder" style="font-size:10px; vertical-align:middle"></i> Reorder</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target=".createSubcategoryModal" data-ng-click="vm.newSubcategory.Clear()"><i class="fa fa-plus" style="font-size:10px; vertical-align:middle"></i> Add Subcategory</button>
+                        </div>
+                        <div data-ng-show="vm.category.Subcategories.length == 0 && vm.checkRole('Manager')">
+                            <small style="color:#5E5E5E; font-size:18px;"><strong>{{ vm.category.CategoryName }}</strong> has no subcategories</small><br /><br />
+                            <button class="btn btn-primary" style="font-size:18px; margin-top:-10px; margin-bottom:12px" data-toggle="modal" data-target=".createSubcategoryModal" data-ng-click="vm.newSubcategory.Clear()"><i class="fa fa-plus" style="font-size:10px; vertical-align:middle"></i> Create first subcategory for {{ vm.category.CategoryName }}</button>
+                        </div>
+                    </div>
+
+                    <!-- Account has Products set -->
+                    <products-panel></products-panel>
+
+                    <!-- Choose Products or Subcategories (Desktop) -->
+                    <div class="hidden-xs hidden-sm" data-ng-show="vm.category.Subcategories.length == 0 && vm.products.Results.length == 0" style="text-align:center;">
+
+                        <p style="color:#6596CF; font-size:26px; margin-bottom:-15px; margin-top:60px;">Please choose how <u>deep</u> or <u>shallow</u> the <strong>{{ vm.category.CategoryName }}</strong> category will be:</p><br /><br />
+
+                        <div>
+                            <div style="text-align:right; width:50%; height:330px; float:left; padding-right:27px; padding-top:25px;">
+
+
+
+                                <button style="font-size:24px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".createSubcategoryModal" data-ng-click="vm.newSubcategory.Clear()"><i class="fa fa-list" style="vertical-align:middle"></i>&nbsp;&nbsp;Use subcategories</button>
+                                <!--<br /><br /><small style="color:#8F8F8F; font-size:16px;">Adding subcategories to <strong>{{ vm.category.CategoryName }}:</strong></small>-->
+                                <br /><br /><small style="color:darkgrey"><i>Allows for easier management of large inventories.</i></small>
+
+                            </div>
+                            <div style="text-align:left; width:50%; height:330px; float:left; padding-left:30px; padding-top:25px; border-left:1px dashed #A9BBCF;">
+
+
+
+                                <button style="font-size:24px;" class="btn btn-default btn-lg" data-toggle="modal" data-target=".createProductModalWindow" data-ng-click="vm.newProduct.Clear()"><i class="fa fa-cubes" style="vertical-align:middle"></i>&nbsp;&nbsp;Create items here</button>
+                                <!--<br /><br /><small style="color:#8F8F8F; font-size:16px;">Adding inventory items to <strong>{{ vm.category.CategoryName }}:</strong></small>-->
+                                <br /><br /><small style="color:darkgrey"><i>Items will exist at this categorization level.</i></small>
+
+                            </div>
+
+                        </div>
+
+                        <br style="clear:both" />
+
+                    </div>
+
+
+                    <!-- Choose Products or Subcategories (Mobile) -->
+                    <div class="visible-xs visible-sm" data-ng-show="vm.category.Subcategories.length == 0 && vm.products.Results.length == 0" style="text-align:center;">
+
+                        <p style="color:#6596CF; font-size:22px; margin-bottom:-20px;">Please choose how <u>deep</u> or <u>shallow</u> the <strong>{{ vm.category.CategoryName }}</strong> category will be:</p><br /><br />
+
+                        <div style="text-align:center; margin-top:15px;">
+
+                            <!--<small style="color:black; font-size:22px;">Add subcategories to <strong>{{ vm.category.CategoryName }}:</strong></small><br /><br />-->
+                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target=".createSubcategoryModal" data-ng-click="vm.newSubcategory.Clear()"><i class="fa fa-list" style="vertical-align:middle"></i>&nbsp;&nbsp;Use subcategories</button>
+                            <br /><br /><small style="color:darkgrey"><i>Allows for easier management of large inventories.</i></small>
+
+                            <br /><br />
+                            <hr style="width:70%; border-bottom:1px dashed darkgrey;" />
+                            <br />
+
+                            <!--<small style="color:black; font-size:22px;">Add inventory items to <strong>{{ vm.category.CategoryName }}:</strong></small><br /><br />-->
+                            <button class="btn btn-default btn-lg" data-toggle="modal" data-target=".createProductModalWindow" data-ng-click="vm.newProduct.Clear()"><i class="fa fa-cubes" style="vertical-align:middle"></i>&nbsp;&nbsp;Create items here</button>
+                            <br /><br /><small style="color:darkgrey"><i>Items will exist at this level.</i></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </tab>
+            <tab class="hidden-xs" id="images" heading="Images" style="cursor:pointer">
+                <div style="margin:30px; margin-top:40px;">
+                    <shared-image-management-panel></shared-image-management-panel>
+                </div>
+            </tab>
+            <tab id="description" heading="Description" style="cursor:pointer" data-ng-click="">
+                <div style="margin:30px; margin-top:20px;">
+
+                    <!-- Default -->
+                    <div data-ng-show="!vm.descriptionIsEditing && !vm.descriptionIsUpdating">
+                        <!--No Value-->
+                        <span data-ng-show="vm.category.Description == null || vm.category.Description == ''"><button style="margin-top:25px" data-ng-show="vm.checkRole('Admin')" class="btn btn-lg btn-default hidden-xs" data-ng-click="vm.editDescription()"><i class="fa fa-plus"></i> Add a description</button><br /></span>
+                        <!--Value-->
+                        <span data-ng-show="vm.category.Description != null && vm.category.Description != ''">
+                            <br />
+                            <span style="font-size:22px;">{{ vm.category.Description }}</span>
+                            <button style="margin-left:4px; height:20px;" data-ng-show="vm.checkRole('Admin')" data-ng-click="vm.editDescription()" class="sahara-btn-edit-12 hidden-xs"></button>
+                        </span>
+                    </div>
+
+
+                    <!-- Editing -->
+                    <div data-ng-show="vm.descriptionIsEditing && !vm.descriptionIsUpdating" style="margin-top:40px;">
+                        <textarea style="overflow:auto; font-size:18px; height:230px;" type="text" maxlength="1200" class="form-control input" data-ng-model="vm.descriptionNewCopy" />
+                        <div style="margin-top:10px; text-align:right">
+                            <button style="margin-left:10px;" class="btn btn-md btn-default hidden-xs" data-ng-click="vm.cancelDescription()">Cancel</button>
+                            <button class="btn btn-md btn-primary hidden-xs" data-ng-click="vm.updateDescription()">Save</button>
+                        </div>
+                    </div>
+
+                    <!-- Updating -->
+                    <div data-ng-show="vm.descriptionIsUpdating" style="margin-top:40px;">
+                        <section-loader message="'Saving...'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+                    </div>
+
+                </div>
+            </tab>
+            <!--<tab class="hidden-xs" id="api" heading="API" style="cursor:pointer" data-ng-click="">
+                <div style="margin:30px; margin-bottom:5px; margin-top:40px;">
+                </div>
+            </tab>-->
+            <tab id="advanced" heading="Advanced" style="cursor:pointer" data-ng-show="vm.checkRole('Manager')" class="hidden-xs hiden-sm">
+                <div style="margin:30px; margin-top:40px;">
+                    <div id="DeleteError" data-ng-show="vm.categoryDeletion.Complete && !vm.categoryDeletion.IsSuccess">
+                        <h5>
+                            <i class="fa fa-warning" style="color:darkred"></i> <span style="color:darkred"><strong>&nbsp;{{ vm.categoryDeletion.Message }}</strong></span>
+                            <br /><br />
+                            <button class="btn btn-default btn-md" data-ng-click="vm.cancelDeletion()">OK</button>
+                        </h5>
+                    </div>
+                    <div id="StartDeletion" data-ng-show="!vm.categoryDeletion.Verify && !vm.categoryDeletion.Processing && !vm.categoryDeletion.Complete && vm.checkRole('Admin')">
+                        <button type="button" class="btn btn-danger" data-ng-click="vm.startDeletion()"><i class="glyphicon glyphicon-remove"></i> Delete This Category</button>
+                    </div>
+                    <div id="VerifyDeletion" data-ng-show="vm.categoryDeletion.Verify">
+                        <h4>
+                            <i class="fa fa-warning" style="color:darkred"></i> <span style="color:darkred"><strong>&nbsp;Are you sure you want to delete the "{{ vm.category.CategoryName }}" category?</strong></span>
+                        </h4>
+                        <div style="margin-bottom:20px;">
+                            <!--<span style="color:red">
+                                <strong>All associated subcategories will also be deleted including: </strong>
+                                <span data-ng-repeat="subcategory in vm.category.Subcategories">
+                                    <span>"{{ subcategory.SubcategoryName }}"</span><span ng-show=" ! $last">, </span>
+                                </span>
+                            </span>-->
+
+                        </div>
+                        <button class="btn btn-primary btn-md" data-ng-click="vm.cancelDeletion()">Cancel delete</button>
+                        <button class="btn btn-danger btn-md" data-ng-click="vm.deleteCategory()"><strong>YES!</strong> delete this category</button>
+                    </div>
+                    <div id="CategoryDeleting" data-ng-show="vm.categoryDeletion.Processing">
+                        <section-loader message="'Deleting category...'" loader-type="'inline'"></section-loader>
+                    </div>
+
+                </div>
+            </tab>
+        </tabset>
+
+        <legal-footer></legal-footer>
+
+    </div>
+
+</div>

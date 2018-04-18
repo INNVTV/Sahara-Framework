@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Inventory";
+}
+
+
+@section Head{
+    <!-- Scripts & STyles for JCRop MUST BE IN HEAD! (Also requires JQuery which is already in our bundle)-->
+    <script src="/Scripts/jquery.jcrop.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-extended.min.js" type="text/javascript"></script> <!--Extended version includes sliders-->
+    <link href="/Content/jquery.jcrop.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/Aristo.css" type="text/css" rel="stylesheet" />
+}
+
+
+<div data-ng-app="app">
+
+    <div data-ng-view></div>
+
+</div>
+
+
+<!-- Set in App_Start/BundleConfig -->
+@Scripts.Render("~/bundles/angular-inventory") 
+
+<script type="text/javascript">
+
+    //Variables injected into the base page be made availale to all routes of the SPA via JavaScript --------------
+
+    //Used to immediatly populate currentUserProfile before 45sec delay to get fresh data from CoreServices:
+    var CurrentUserProfile = '@Html.Raw(Json.Encode(AuthenticationCookieManager.GetAuthenticationCookie()))'
+
+    var termsLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.TermsAndConditionsUri));
+    var privacyLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.PrivacyPolicyUri));
+    var acceptableUseLink = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.AcceptableUse));
+    var serviceAgreement = @Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.ServiceAgreementUri));
+
+    var CoreServiceSettings_AccountUsers_RolesList = '@Html.Raw(Json.Encode(CoreServices.Accounts.UserRoles))'
+    var CoreServiceSettings_GoogleMapsApiKey = '@Html.Raw(Json.Encode(CoreServices.PlatformSettings.GoogleMapsAPIKey))'
+
+</script>

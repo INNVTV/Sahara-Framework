@@ -1,0 +1,172 @@
+﻿<div style="margin:30px; margin-top:40px;">
+
+    <div data-ng-show="vm.accountSettings == null">
+        <section-loader loader-type="'circle'" message="'Loading'"></section-loader>
+        <!--<section-loader message="'Loading general settings...'" loader-type="'inline'"></section-loader>-->
+    </div>
+
+    <div data-ng-show="vm.accountSettings != null">
+
+        <!-- Themes removed
+        <div data-ng-show="vm.account.PaymentPlan.AllowThemes" >
+            <h4><b>Theme</b></h4>
+
+            <div class="btn-group" style="margin-right:10px;">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.accountSettings.Theme }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="theme in vm.themes">
+                        <a data-ng-show="vm.accountSettings.Theme != theme.Name" style="cursor:pointer" data-ng-click="vm.updateAccountTheme(theme.Name)">{{ theme.Name }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <span id="themeUpdating" style="display:none"><i style="color:darkgray; margin-left:-5px;" class="fa fa-refresh fa-spin"></i></span>
+            <span id="themeSuccess" style="display:none"><i style="color:limegreen; margin-left:-5px;" class="fa fa-check"></i></span>
+
+            <hr />
+
+        </div> -->
+
+        <!-- Custom Domain -->
+        <div>
+            <h4><b>Custom Domain</b></h4>
+            <edit-custom-domain-modal></edit-custom-domain-modal>
+
+            <span data-ng-show="vm.accountSettings.CustomDomain != null && vm.accountSettings.CustomDomain != ''" style="margin-bottom:6px;"><i style="color:darkgray" class="fa fa-globe"></i> <span style="font-size:16px;">{{vm.accountSettings.CustomDomain}}</span></span>
+            <button data-ng-show="vm.accountSettings.CustomDomain == null || vm.accountSettings.CustomDomain == ''" style="margin-top:3px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".editCustomDomainModalWindow" data-ng-click="vm.initializeCustomDomainUpdate()">Add</button>
+
+            <span data-ng-show="vm.accountSettings.CustomDomain != null && vm.accountSettings.CustomDomain != ''" >&nbsp;<button data-toggle="modal" data-target=".editCustomDomainModalWindow" data-ng-click="vm.initializeCustomDomainUpdate()" class="sahara-btn-edit-12" style="padding-top:-15px;"></button></span>
+
+            <div style="height:20px;"></div>
+        </div>
+
+
+        <!-- Sort settings
+        <div>
+            <h4><b>Sorting</b></h4>
+
+            <!-- Truncated -- >
+            <label>Truncated Listings</label><br />
+            <small>How do you want to sort inventory when items are truncated as part of a top level view?</small>
+            <br />
+            <div class="btn-group" style="margin-right:10px;">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.accountSettings.SortSettings.TruncatedListing.Name }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="theme in vm.themes">
+                        <a data-ng-show="vm.accountSettings.Theme != theme.Name" style="cursor:pointer" data-ng-click="vm.updateAccountTheme(theme.Name)">{{ theme.Name }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <span id="themeUpdating" style="display:none"><i style="color:darkgray; margin-left:-5px;" class="fa fa-refresh fa-spin"></i></span>
+            <span id="themeSuccess" style="display:none"><i style="color:limegreen; margin-left:-5px;" class="fa fa-check"></i></span>
+
+            <br /><br />
+            <!-- Mixed -- >
+            <label>Mixed Listings</label><br />
+            <small>How do you want to sort inventory when items are mixed with other items from other categorizations and/ore subcategorizations?</small>
+            <br />
+            <div class="btn-group" style="margin-right:10px;">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.accountSettings.SortSettings.MixedListing.Name }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="theme in vm.themes">
+                        <a data-ng-show="vm.accountSettings.Theme != theme.Name" style="cursor:pointer" data-ng-click="vm.updateAccountTheme(theme.Name)">{{ theme.Name }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <span id="themeUpdating" style="display:none"><i style="color:darkgray; margin-left:-5px;" class="fa fa-refresh fa-spin"></i></span>
+            <span id="themeSuccess" style="display:none"><i style="color:limegreen; margin-left:-5px;" class="fa fa-check"></i></span>
+
+            <br /><br />
+            <!-- Mixed -- >
+            <label>Full</label>
+            <small>How do you want to sort inventory when items are displayed at their root level?</small>
+            <br />
+            <div class="btn-group" style="margin-right:10px;">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.accountSettings.SortSettings.FullListing.Name }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="theme in vm.themes">
+                        <a data-ng-show="vm.accountSettings.Theme != theme.Name" style="cursor:pointer" data-ng-click="vm.updateAccountTheme(theme.Name)">{{ theme.Name }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <span id="themeUpdating" style="display:none"><i style="color:darkgray; margin-left:-5px;" class="fa fa-refresh fa-spin"></i></span>
+            <span id="themeSuccess" style="display:none"><i style="color:limegreen; margin-left:-5px;" class="fa fa-check"></i></span>
+
+            <hr />
+
+        </div> -->
+
+
+
+        <!--
+        <h4 style="margin-bottom:0px;"><b>Contact Visibility</b></h4>
+        <small style="color:#363636">Choose how much contact information is displayed to the public on your website:</small>
+        <div style="margin-top:10px;">
+
+            <!--Phone number-- >
+            <div style="margin-top:5px;">
+
+                <span>
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowPhoneNumber" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowPhoneNumber(false)" />
+                    <img data-ng-show="!vm.accountSettings.ContactSettings.ShowPhoneNumber && vm.accountSettings.ContactSettings.ShowPhoneNumber != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowPhoneNumber(true)" />
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowPhoneNumber == null" src="/Images/ui/switch/switch-loading.gif" />
+                </span>
+
+                <small style="color:black; font-size:12px">
+                    <span data-ng-show="vm.accountSettings.ContactSettings.ShowPhoneNumber"> Phone number is visible</span>
+                    <span style="color:darkgray" data-ng-show="!vm.accountSettings.ContactSettings.ShowPhoneNumber && vm.accountSettings.ContactSettings.ShowPhoneNumber != null"> Phone number is not visible</span>
+                    <span style="color:darkgray" data-ng-show="vm.accountSettings.ContactSettings.ShowPhoneNumber == null"> Updating...</span>
+                </small>
+
+            </div>
+
+            <!--Address-- >
+            <div style="margin-top:5px;">
+
+                <span>
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowAddress" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowAddress(false)" />
+                    <img data-ng-show="!vm.accountSettings.ContactSettings.ShowAddress && vm.accountSettings.ContactSettings.ShowAddress != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowAddress(true)" />
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowAddress == null" src="/Images/ui/switch/switch-loading.gif" />
+                </span>
+
+                <small style="color:black; font-size:12px">
+                    <span data-ng-show="vm.accountSettings.ContactSettings.ShowAddress"> Address is visible</span>
+                    <span style="color:darkgray" data-ng-show="!vm.accountSettings.ContactSettings.ShowAddress && vm.accountSettings.ContactSettings.ShowAddress != null"> Address is not visible</span>
+                    <span style="color:darkgray" data-ng-show="vm.accountSettings.ContactSettings.ShowAddress == null"> Updating...</span>
+                </small>
+
+            </div>
+
+            <!--Email-- >
+            <div style="margin-top:5px;">
+
+                <span>
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowEmail" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowEmail(false)" />
+                    <img data-ng-show="!vm.accountSettings.ContactSettings.ShowEmail && vm.accountSettings.ContactSettings.ShowEmail != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.updateAccountSettingContactShowEmail(true)" />
+                    <img data-ng-show="vm.accountSettings.ContactSettings.ShowEmail == null" src="/Images/ui/switch/switch-loading.gif" />
+                </span>
+
+                <small style="color:black; font-size:12px">
+                    <span data-ng-show="vm.accountSettings.ContactSettings.ShowEmail"> Email is visible</span>
+                    <span style="color:darkgray" data-ng-show="!vm.accountSettings.ContactSettings.ShowEmail && vm.accountSettings.ContactSettings.ShowEmail != null"> Email is not visible</span>
+                    <span style="color:darkgray" data-ng-show="vm.accountSettings.ContactSettings.ShowEmail == null"> Updating...</span>
+                </small>
+
+            </div>
+
+        </div>
+    -->
+    </div>
+
+</div>

@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PlatformManagementService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlatformManagementService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Snapshots.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.PaymentPlans.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Logging.PlatformLogs.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Billing.Models" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Reports.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Partitioning.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Settings.Models.Partitions" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Users.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPlatformManagementService_GetAccountsShapshot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsShapshot" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetAccountsShapshot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsShapshotResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetInfrastructureShapshot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfrastructureShapshot" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetInfrastructureShapshot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfrastructureShapshotResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetBillingShapshot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingShapshot" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetBillingShapshot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingShapshotResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetBillingReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingReport" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetBillingReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillingReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetDocumentPartitionProperties_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDocumentPartitionProperties" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetDocumentPartitionProperties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDocumentPartitionPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetDocumentPartitionTenantProperties_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDocumentPartitionTenantProperties" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetDocumentPartitionTenantProperties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDocumentPartitionTenantPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartitions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartitions" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartitions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartitionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartition_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartition" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartitionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartitionSchemas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartitionSchemas" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlPartitionSchemas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlPartitionSchemasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlSchemaVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlSchemaVersion" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlSchemaVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlSchemaVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlSchemaLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlSchemaLog" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSqlSchemaLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSqlSchemaLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSearchPartitions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSearchPartitions" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetSearchPartitions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSearchPartitionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetStoragePartitions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoragePartitions" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetStoragePartitions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoragePartitionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetAllowedIpAddresses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllowedIpAddresses" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetAllowedIpAddresses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllowedIpAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_AddAllowedIpAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAllowedIpAddress" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_AddAllowedIpAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAllowedIpAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_CreatePlatformUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePlatformUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_CreatePlatformUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePlatformUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUsers" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserRoles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserRoles" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserRoles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserRolesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_DeletePlatformUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlatformUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_DeletePlatformUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlatformUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserRole" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserFullName_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserFullName" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserFullName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserFullNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserActiveState_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserActiveState" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserActiveState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserActiveStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserEmail" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserProfilePhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserProfilePhoto" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserProfilePhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserProfilePhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_InvitePlatformUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:InvitePlatformUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_InvitePlatformUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InvitePlatformUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserInvitations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserInvitations" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserInvitations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserInvitationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserInvitation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserInvitation" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformUserInvitation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformUserInvitationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_DeletePlatformUserInvitation_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlatformUserInvitation" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_DeletePlatformUserInvitation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlatformUserInvitationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ResendPlatformUserInvitation_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResendPlatformUserInvitation" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ResendPlatformUserInvitation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResendPlatformUserInvitationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_RegisterInvitedPlatformUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterInvitedPlatformUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_RegisterInvitedPlatformUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterInvitedPlatformUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_UpdatePlatformUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ClaimLostPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClaimLostPassword" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ClaimLostPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ClaimLostPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetLostPasswordClaims_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLostPasswordClaims" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetLostPasswordClaims_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLostPasswordClaimsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetLostPasswordClaim_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLostPasswordClaim" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetLostPasswordClaim_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLostPasswordClaimResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ResetLostPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetLostPassword" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_ResetLostPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetLostPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLog" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByCategory" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByActivity" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByAccount" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByUser" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogCategories" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogActivities_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogActivities" />
+  </wsdl:message>
+  <wsdl:message name="IPlatformManagementService_GetPlatformLogActivities_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlatformLogActivitiesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPlatformManagementService">
+    <wsdl:operation name="GetAccountsShapshot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetAccountsShapshot" message="tns:IPlatformManagementService_GetAccountsShapshot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetAccountsShapshotResponse" message="tns:IPlatformManagementService_GetAccountsShapshot_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfrastructureShapshot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetInfrastructureShapshot" message="tns:IPlatformManagementService_GetInfrastructureShapshot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetInfrastructureShapshotResponse" message="tns:IPlatformManagementService_GetInfrastructureShapshot_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingShapshot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetBillingShapshot" message="tns:IPlatformManagementService_GetBillingShapshot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetBillingShapshotResponse" message="tns:IPlatformManagementService_GetBillingShapshot_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetBillingReport" message="tns:IPlatformManagementService_GetBillingReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetBillingReportResponse" message="tns:IPlatformManagementService_GetBillingReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentPartitionProperties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionProperties" message="tns:IPlatformManagementService_GetDocumentPartitionProperties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionPropertiesResponse" message="tns:IPlatformManagementService_GetDocumentPartitionProperties_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentPartitionTenantProperties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionTenantProperties" message="tns:IPlatformManagementService_GetDocumentPartitionTenantProperties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionTenantPropertiesResponse" message="tns:IPlatformManagementService_GetDocumentPartitionTenantProperties_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartitions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartitions" message="tns:IPlatformManagementService_GetSqlPartitions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartitionsResponse" message="tns:IPlatformManagementService_GetSqlPartitions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartition">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartition" message="tns:IPlatformManagementService_GetSqlPartition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartitionResponse" message="tns:IPlatformManagementService_GetSqlPartition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartitionSchemas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartitionSchemas" message="tns:IPlatformManagementService_GetSqlPartitionSchemas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlPartitionSchemasResponse" message="tns:IPlatformManagementService_GetSqlPartitionSchemas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlSchemaVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlSchemaVersion" message="tns:IPlatformManagementService_GetSqlSchemaVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlSchemaVersionResponse" message="tns:IPlatformManagementService_GetSqlSchemaVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlSchemaLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlSchemaLog" message="tns:IPlatformManagementService_GetSqlSchemaLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSqlSchemaLogResponse" message="tns:IPlatformManagementService_GetSqlSchemaLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPartitions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSearchPartitions" message="tns:IPlatformManagementService_GetSearchPartitions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetSearchPartitionsResponse" message="tns:IPlatformManagementService_GetSearchPartitions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoragePartitions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetStoragePartitions" message="tns:IPlatformManagementService_GetStoragePartitions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetStoragePartitionsResponse" message="tns:IPlatformManagementService_GetStoragePartitions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowedIpAddresses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetAllowedIpAddresses" message="tns:IPlatformManagementService_GetAllowedIpAddresses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetAllowedIpAddressesResponse" message="tns:IPlatformManagementService_GetAllowedIpAddresses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAllowedIpAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/AddAllowedIpAddress" message="tns:IPlatformManagementService_AddAllowedIpAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/AddAllowedIpAddressResponse" message="tns:IPlatformManagementService_AddAllowedIpAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePlatformUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/CreatePlatformUser" message="tns:IPlatformManagementService_CreatePlatformUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/CreatePlatformUserResponse" message="tns:IPlatformManagementService_CreatePlatformUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUsers" message="tns:IPlatformManagementService_GetPlatformUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUsersResponse" message="tns:IPlatformManagementService_GetPlatformUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUser" message="tns:IPlatformManagementService_GetPlatformUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserResponse" message="tns:IPlatformManagementService_GetPlatformUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserRoles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserRoles" message="tns:IPlatformManagementService_GetPlatformUserRoles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserRolesResponse" message="tns:IPlatformManagementService_GetPlatformUserRoles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlatformUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/DeletePlatformUser" message="tns:IPlatformManagementService_DeletePlatformUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/DeletePlatformUserResponse" message="tns:IPlatformManagementService_DeletePlatformUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserRole" message="tns:IPlatformManagementService_UpdatePlatformUserRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserRoleResponse" message="tns:IPlatformManagementService_UpdatePlatformUserRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserFullName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserFullName" message="tns:IPlatformManagementService_UpdatePlatformUserFullName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserFullNameResponse" message="tns:IPlatformManagementService_UpdatePlatformUserFullName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserActiveState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserActiveState" message="tns:IPlatformManagementService_UpdatePlatformUserActiveState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserActiveStateResponse" message="tns:IPlatformManagementService_UpdatePlatformUserActiveState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserEmail" message="tns:IPlatformManagementService_UpdatePlatformUserEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserEmailResponse" message="tns:IPlatformManagementService_UpdatePlatformUserEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserProfilePhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserProfilePhoto" message="tns:IPlatformManagementService_UpdatePlatformUserProfilePhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserProfilePhotoResponse" message="tns:IPlatformManagementService_UpdatePlatformUserProfilePhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InvitePlatformUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/InvitePlatformUser" message="tns:IPlatformManagementService_InvitePlatformUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/InvitePlatformUserResponse" message="tns:IPlatformManagementService_InvitePlatformUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserInvitations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitations" message="tns:IPlatformManagementService_GetPlatformUserInvitations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitationsResponse" message="tns:IPlatformManagementService_GetPlatformUserInvitations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserInvitation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitation" message="tns:IPlatformManagementService_GetPlatformUserInvitation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitationResponse" message="tns:IPlatformManagementService_GetPlatformUserInvitation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlatformUserInvitation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/DeletePlatformUserInvitation" message="tns:IPlatformManagementService_DeletePlatformUserInvitation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/DeletePlatformUserInvitationResponse" message="tns:IPlatformManagementService_DeletePlatformUserInvitation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResendPlatformUserInvitation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/ResendPlatformUserInvitation" message="tns:IPlatformManagementService_ResendPlatformUserInvitation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/ResendPlatformUserInvitationResponse" message="tns:IPlatformManagementService_ResendPlatformUserInvitation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterInvitedPlatformUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/RegisterInvitedPlatformUser" message="tns:IPlatformManagementService_RegisterInvitedPlatformUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/RegisterInvitedPlatformUserResponse" message="tns:IPlatformManagementService_RegisterInvitedPlatformUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserPassword" message="tns:IPlatformManagementService_UpdatePlatformUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserPasswordResponse" message="tns:IPlatformManagementService_UpdatePlatformUserPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClaimLostPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/ClaimLostPassword" message="tns:IPlatformManagementService_ClaimLostPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/ClaimLostPasswordResponse" message="tns:IPlatformManagementService_ClaimLostPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLostPasswordClaims">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaims" message="tns:IPlatformManagementService_GetLostPasswordClaims_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaimsResponse" message="tns:IPlatformManagementService_GetLostPasswordClaims_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLostPasswordClaim">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaim" message="tns:IPlatformManagementService_GetLostPasswordClaim_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaimResponse" message="tns:IPlatformManagementService_GetLostPasswordClaim_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetLostPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/ResetLostPassword" message="tns:IPlatformManagementService_ResetLostPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/ResetLostPasswordResponse" message="tns:IPlatformManagementService_ResetLostPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLog" message="tns:IPlatformManagementService_GetPlatformLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogResponse" message="tns:IPlatformManagementService_GetPlatformLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByCategory" message="tns:IPlatformManagementService_GetPlatformLogByCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByCategoryResponse" message="tns:IPlatformManagementService_GetPlatformLogByCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByActivity" message="tns:IPlatformManagementService_GetPlatformLogByActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByActivityResponse" message="tns:IPlatformManagementService_GetPlatformLogByActivity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByAccount" message="tns:IPlatformManagementService_GetPlatformLogByAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByAccountResponse" message="tns:IPlatformManagementService_GetPlatformLogByAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByUser" message="tns:IPlatformManagementService_GetPlatformLogByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogByUserResponse" message="tns:IPlatformManagementService_GetPlatformLogByUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogCategories" message="tns:IPlatformManagementService_GetPlatformLogCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogCategoriesResponse" message="tns:IPlatformManagementService_GetPlatformLogCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogActivities">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogActivities" message="tns:IPlatformManagementService_GetPlatformLogActivities_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlatformManagementService/GetPlatformLogActivitiesResponse" message="tns:IPlatformManagementService_GetPlatformLogActivities_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IPlatformManagementService" type="tns:IPlatformManagementService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlatformManagementService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetAccountsShapshot">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetAccountsShapshot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfrastructureShapshot">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetInfrastructureShapshot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingShapshot">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetBillingShapshot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillingReport">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetBillingReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentPartitionProperties">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentPartitionTenantProperties">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetDocumentPartitionTenantProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartitions">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSqlPartitions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartition">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSqlPartition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlPartitionSchemas">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSqlPartitionSchemas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlSchemaVersion">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSqlSchemaVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSqlSchemaLog">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSqlSchemaLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPartitions">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetSearchPartitions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoragePartitions">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetStoragePartitions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowedIpAddresses">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetAllowedIpAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAllowedIpAddress">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/AddAllowedIpAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePlatformUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/CreatePlatformUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUsers">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserRoles">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformUserRoles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlatformUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/DeletePlatformUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserRole">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserFullName">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserFullName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserActiveState">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserActiveState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserEmail">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserProfilePhoto">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserProfilePhoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvitePlatformUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/InvitePlatformUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserInvitations">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformUserInvitation">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformUserInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlatformUserInvitation">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/DeletePlatformUserInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendPlatformUserInvitation">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/ResendPlatformUserInvitation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterInvitedPlatformUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/RegisterInvitedPlatformUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatformUserPassword">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/UpdatePlatformUserPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClaimLostPassword">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/ClaimLostPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLostPasswordClaims">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaims" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLostPasswordClaim">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetLostPasswordClaim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetLostPassword">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/ResetLostPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLog">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByCategory">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogByCategory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByActivity">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogByActivity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByAccount">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogByAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogByUser">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogCategories">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogCategories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlatformLogActivities">
+      <soap12:operation soapAction="http://tempuri.org/IPlatformManagementService/GetPlatformLogActivities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PlatformManagementService">
+    <wsdl:port name="NetTcpBinding_IPlatformManagementService" binding="tns:NetTcpBinding_IPlatformManagementService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Platform/Management" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Platform/Management</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

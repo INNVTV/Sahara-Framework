@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedisServers</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+</head>
+<body style="margin:25px; margin-left:75px;">
+    
+    <div style="height:20px;"></div>
+
+    <h1>View all keys:</h1>
+    <a class="btn btn-default btn-lg" href="/Infrastructure/RedisServer_GetKeys">Get Redis Server Keys</a>
+
+    <div style="height:20px;"></div>
+
+    <h2>Purge:</h2>
+    <a class="btn btn-danger btn-sm" href="/Infrastructure/RedisServer_Flush">Flush All Keys</a>
+
+    <!--
+    <h1>Choose a Redis server</h1>
+
+    <br />
+
+    <a class="btn btn-default" href="/Infrastructure/RedisServer_GetKeys?ServerName=PlatformManager">Platform Manager Redis Server</a>
+
+    <br />
+    <br />
+
+    <a class="btn btn-default" href="/Infrastructure/RedisServer_GetKeys?ServerName=AccountManager">Account Manager Redis Server</a>-->
+
+
+
+    <!--URL MUST use a trailer slash "/" so that values with dots "." can be passed in routes without crashing
+    <a class="btn btn-default btn-xs" href="/Infrastructure/CacheObject/item.Key/item.Value"
+       onclick="window.open('/Infrastructure/CacheObject/item.Key/item.Value/', 'newwindow', 'width=400, height=500'); return false;"
+       target="_blank">View</a></td>-->
+</body>
+</html>

@@ -1,0 +1,987 @@
+﻿<div data-ng-controller="searchIndexController as vm" style="margin:-20px; padding:-30px; height:100%;">
+
+
+    <!--PAGE LOADERS-->
+    <div class="hidden-sm hidden-xs" data-ng-show="vm.pageLoaded == false" style="margin:auto; margin-top:145px; text-align:center; width:100%; position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-right:140px; transform: translate(-50%, -50%)">
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:52px; color:#dcdcdc"></i>
+        <div style="margin-top:10px;">
+            <p style="color:darkgray; font-size:16px">Preparing search</p>
+        </div>
+    </div>
+
+    <div class="visible-sm" data-ng-show="vm.pageLoaded == false" style="margin:auto; margin-top:125px; text-align:center; width:100%; position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-left:80px; transform: translate(-50%, -50%)">
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:46px; color:#dcdcdc"></i>
+        <div style="margin-top:10px;">
+            <p style="color:darkgray; font-size:14px">Preparing search</p>
+        </div>
+    </div>
+
+    <div class="visible-xs" data-ng-show="vm.pageLoaded == false" style="margin:auto; margin-top:85px; text-align:center; width:100%; position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-right:0px; transform: translate(-50%, -50%)">
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:36px; color:#dcdcdc"></i>
+        <div style="margin-top:10px;">
+            <p style="color:darkgray; font-size:12px">Preparing search</p>
+        </div>
+    </div>
+
+
+    <!--
+    <div style="margin-top:10px; margin-bottom:10px;">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="input-group">
+                <input style="height:50px; font-size:18px" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search query">
+                <span class="input-group-btn">
+                    <button style="height:50px;" data-ng-click="vm.search()" class="btn btn-primary" type="button">Search</button>
+                </span>
+            </div>
+        </div>
+
+        <!--<input style="height:50px; float:left; width:90%" type="text" class="form-control input" data-ng-model="vm.searchQuery" placeholder="Search query" />
+        <button style="margin-left:20px;" class="btn btn-lg btn-default">Search</button>
+
+        <br style="clear:both" />-- >
+
+    </div>
+
+    <br style="clear:both;" />
+    <hr />-->
+    <!-------------------- SEARCH BARs ------------------------------->
+    <!--Initial Search Bar (Large - LIST mode)-->
+    <div class="visible-lg" data-ng-show="vm.pageLoaded == true && vm.searchResults.Results == null && vm.searching == false && vm.searchMode == 'list'" style="margin:auto; margin-top:155px; text-align:center; width:100%">
+
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-right:140px; transform: translate(-50%, -50%)" ng-submit="vm.search()">
+            <img data-ng-show="vm.accountLogoWideUrl != null" src="{{ vm.accountLogoWideUrl }}" width="300" height="150" style="margin:20px; margin-top:140px;" />
+            <div id="search-box-initial" class="input-group" style="width:460px; text-align:center">
+                <input autofocus style="height:58px; width:460px; font-size:28px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search inventory">
+                <span class="input-group-btn">
+                    <button style="height:58px; font-size:28px;" class="btn btn-primary" type="Submit"><i class="fa fa-search"></i> Search</button>
+                </span>
+            </div>
+
+            <!-- Search mode selector -->
+            <div data-ng-show="vm.mapsInitiated == true" style="clear:both; margin-top:20px;">
+                <i class="fa fa-map-marker" style="color:darkgray"></i> <a style="cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('map', false)">Go to map search</a><!--#428bca-->
+            </div>
+
+        </form>
+
+    </div>
+
+    <!--Initial Search Bar (Large - MAP mode)-->
+    <div class="visible-lg" data-ng-show="vm.pageLoaded == true && vm.searchResults.Results == null && vm.searching == false && vm.searchMode == 'map'" style="margin:auto; margin-top:187px; text-align:center; width:100%">
+
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-right:140px; transform: translate(-50%, -50%)" ng-submit="vm.useSearchLocation(vm.defaultLocationFacet.FacetIndex)">
+            <img data-ng-show="vm.accountLogoWideUrl != null" src="{{ vm.accountLogoWideUrl }}" width="300" height="150" style="margin:20px; margin-top:140px;" />
+
+            <div data-ng-show="vm.locationFacets.length > 0">
+                <label style="float:left; margin-top:12px; margin-left:167px; margin-right:5px;">Within: </label>
+                <input maxlength="3" style="height:44px; width:85px; font-size:20px; float:left; padding-left:5px; text-align:center; font-weight:bold" type="text" class="form-control" data-ng-model="vm.defaultLocationFacet.LocationSearchDistance" placeholder="">
+
+                <!--Choose DistanceType-->
+                <div style="float:left; margin-left:5px; margin-right:5px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
+                            <span>{{ vm.defaultLocationFacet.SelectedDistanceType.label }} <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a data-ng-repeat="distanceType in vm.defaultLocationFacet.DistanceTypes" data-ng-show="vm.defaultLocationFacet.SelectedDistanceType.value != distanceType.value" style="cursor:pointer; font-size:12px;" data-ng-click="vm.updateLocationPropertyDistanceType(vm.defaultLocationFacet.FacetIndex, distanceType)">{{ distanceType.label }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <label style="float:left; margin-top:12px">of:</label>
+            </div>
+
+            <div style="clear:both; height:20px;" data-ng-show="vm.locationFacets.length > 0"></div>
+
+            <div id="search-box-initial" class="input-group" style="width:460px; text-align:center;" data-ng-show="vm.locationFacets.length > 0">
+                <input autofocus style="height:58px; width:460px; font-size:28px;" type="text" class="form-control" data-ng-model="vm.defaultLocationFacet.LocationSearchQuery" placeholder="Postal code, city or place...">
+                <span class="input-group-btn">
+                    <button style="height:58px; font-size:28px;" class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
+                </span>
+            </div>
+
+            <div data-ng-show="vm.locationFacets.length > 1" style="text-align:center; margin-top:20px; margin-left:240px; padding-bottom:30px;">
+                <label style="float:left; color:darkgray; font-weight:normal;">on</label>
+                <!--Choose Default Location Property-->
+                <div style="float:left; margin-left:5px; margin-right:5px;">
+                    <div class="btn-group">
+                        <button style="color:darkgray" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span>{{ vm.defaultLocationFacet.PropertyName }} <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a data-ng-repeat="locationFacet in vm.locationFacets" data-ng-show="vm.defaultLocationFacet.PropertyName != locationFacet.PropertyName" style="cursor:pointer; font-size:12px;" data-ng-click="vm.updateDefaultLocationFacet(locationFacet)">{{ locationFacet.PropertyName }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <label style="float:left; color:darkgray; font-weight:normal;">property</label>
+            </div>
+
+            <div data-ng-show="vm.locationFacets.length == 0">
+                <h3>Map search not available</h3>
+            </div>
+
+            <!-- Search mode selector -->
+            <div style="clear:both; margin-top:20px;">
+                <i class="fa fa-list" style="color:darkgray"></i> <a style="cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('list', false)">Go to list search</a><!--#428bca-->
+            </div>
+
+        </form>
+
+    </div>
+
+    <!--Initial Search Bar (Medium)-->
+    <div class="visible-md" data-ng-show="vm.pageLoaded == true && vm.searchResults.Results == null && vm.searching == false" style="margin:auto; margin-top:125px; text-align:center; width:100%">
+
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-right:140px; transform: translate(-50%, -50%)" ng-submit="vm.search()">
+            <img data-ng-show="vm.accountLogoWideUrl != null" src="{{ vm.accountLogoWideUrl }}" width="200" height="100" style="margin:20px;" />
+            <div id="search-box-initial" class="input-group" style="width:460px; text-align:center">
+                <input autofocus style="height:58px; width:460px; font-size:28px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search inventory">
+                <span class="input-group-btn">
+                    <button style="height:58px; font-size:28px;" class="btn btn-primary" type="Submit"><i class="fa fa-search"></i> Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <!--Initial Search Bar (small)
+    <div class="visible-sm" data-ng-show="vm.searchResults.Results == null && vm.searching == false" style="margin:auto; margin-top:125px; text-align:center; width:100%">
+        <img src="" width="150" height="75" style="margin:20px; border:1px solid lightgrey" />
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)" ng-submit="vm.search()">
+            <div id="search-box-initial-small" class="input-group" style="width:460px; text-align:center">
+                <input autofocus style="height:48px; width:420px; font-size:23px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search inventory">
+                <span class="input-group-btn">
+                    <button style="height:48px; font-size:23px;" data-ng-click="vm.search()" class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search</button>
+                </span>
+            </div>
+        </form>
+    </div>-->
+    <!--Initial Search Bar (Small)-->
+    <div class="visible-sm" data-ng-show="vm.pageLoaded == true && vm.searchResults.Results == null && vm.searching == false" style="margin:auto; margin-top:125px; text-align:center; width:100%">
+
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; padding-left:115px; transform: translate(-50%, -50%)" ng-submit="vm.search()">
+            <img data-ng-show="vm.accountLogoWideUrl != null" src="{{ vm.accountLogoWideUrl }}" width="150" height="75" style="margin:20px;" />
+            <div id="search-box-initial" class="input-group" style="width:460px; text-align:center">
+                <input autofocus style="height:58px; width:360px; font-size:28px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search inventory">
+                <span class="input-group-btn">
+                    <button style="height:58px; font-size:28px;" class="btn btn-primary" type="Submit"><i class="fa fa-search"></i> Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <!--Initial Search Bar (Mobile)-->
+    <div class="visible-xs" data-ng-show="vm.pageLoaded == true && vm.searchResults.Results == null && vm.searching == false" style="margin:auto; margin-top:80px; text-align:center; width:100%">
+        <form style="position:absolute; margin-left:0; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)" ng-submit="vm.search()">
+            <img data-ng-show="vm.accountLogoWideUrl != null" src="{{ vm.accountLogoWideUrl }}" width="120" height="60" style="margin:20px;" />
+            <div id="search-box-initial" class="input-group" style="width:260px; text-align:center">
+                <input autofocus style="height:36px; font-size:18px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search inventory">
+                <span class="input-group-btn">
+                    <button style="height:36px; font-size:18px;" class="btn btn-primary" type="Submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+
+    <!-------------------- RESULTS INFO ------------------------------->
+    <!-- Results info (Big LISTING)-->
+    <div class="visible-lg visible-md" data-ng-show="vm.searchResults != null && !vm.searching && vm.searchMode =='list'" style="color:darkgray; text-align:left; margin-left:20px; margin-right:255px; padding-top:10px;">
+
+        <div style="margin-left:20px; margin-top:25px;" data-ng-show="vm.resultsAvailable == 0 && vm.searchMode == 'list'">
+            <div style="font-size:16px;">
+                <b>No results.</b> Adjust your search parameters <i class="fa fa-arrow-right"></i>
+            </div>
+            
+            <div style="margin-top:5px;">
+                <span> <i style="color:darkgrey; font-size:14px;" class="fa fa-undo"></i>&nbsp;<a style="color:black; font-weight:bold; cursor:pointer; padding-top:5px; font-size:14px;" data-ng-click="vm.switchSearchMode('list', true)">Reset search</a></span>
+            </div>
+        </div>
+
+        <div style="margin-left:1px; margin-top:3px;  font-weight:normal; font-size:12px; color:#FF9D00;" data-ng-show="vm.resultsAvailable == 0 && vm.searchMode == 'map'">
+            <b>No results.</b> Adjust search using right panel options or move/zoom around map. <span style="float:right; margin-right:15px;"> You can also: <a style="color:#FF9D00; font-weight:bold; cursor:pointer; padding-top:5px;" data-ng-click="vm.switchSearchMode('map', true)">Reset location</a></span>
+        </div>
+
+
+        <span>
+            <small data-ng-show="vm.resultsAvailable == 1"><b>{{vm.resultsAvailable}}</b> result</small>
+            <small data-ng-show="vm.resultsAvailable > 1"><b>{{vm.resultsAvailable}}</b> results</small>
+        </span>
+
+        <!--<span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''" style="margin-left:5px;">
+            <button class="btn btn-xs btn-default" style="color:darkgray; border-color:darkgray"><i class="fa fa-filter"></i> Current filters</button>
+        </span>
+
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''" style="margin-left:5px;">
+            <small style="color:darkgray; border-color:darkgray;">|   s<i class="fa fa-filter"></i> Current filters</small>
+        </span>-->
+
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+
+
+            <small data-ng-show="vm.categorizationStringHtml != null">&nbsp;&nbsp;|&nbsp;&nbsp;Categorization: <b>{{ vm.categorizationStringHtml }}</b></small>
+
+            <small data-ng-show="vm.searchQueryCompleted != null && vm.searchQueryCompleted != ''">&nbsp;&nbsp;|&nbsp;&nbsp;Term: <b>"{{ vm.searchQueryCompleted }}"</b></small>
+
+            <small>&nbsp;&nbsp;|&nbsp;&nbsp;Sorted by: <b><span data-ng-show="vm.locationSearch.available">Distance, </span>{{ vm.searchSorting.SortLabel }}</b></small>
+
+            <small data-ng-show="vm.filterStringsArray.length > 0">&nbsp;&nbsp;|&nbsp;&nbsp;<span style="color:darkgray; border-color:darkgray;"> + <b title="{{ vm.filterTitleString }}" style="cursor:pointer">Filter(s)</b></span></small>
+
+            <span style="float:right; margin-right:15px;"> <i style="color:darkgrey; font-size:12px;" class="fa fa-undo"></i>&nbsp;<a style="color:black; font-weight:bold; cursor:pointer; padding-top:5px; font-size:12px;" data-ng-click="vm.switchSearchMode('list', true)">Reset search</a></span>
+
+            <!--<small data-ng-show="vm.filterStringsArray.length > 0">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default btn-xs" style="color:darkgray; border-color:darkgray; font-size:10px;" type="button"  data-container="body" data-toggle="popover" data-placement="bottom" data-content="test"> + {{ vm.filterStringsArray.length }} filter(s)</button></small>
+
+
+
+                        <small data-ng-repeat="filter in vm.filterStringsArray">
+                            <span data-ng-show="vm.searchResults.Results != ''">&nbsp;&nbsp;|&nbsp;&nbsp;{{ filter.label }}: <b>{{ filter.values }}</b></span>
+                        </small>
+            -->
+
+        </span>
+
+        <!--
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+
+            <small data-ng-show="vm.searchQueryCompleted != null && vm.searchQueryCompleted != ''">&nbsp;&nbsp;|&nbsp;&nbsp;Term: <b>"{{ vm.searchQueryCompleted }}"</b></small>
+
+            <small data-ng-repeat="filter in vm.filterStringsArray">
+                <span data-ng-show="vm.searchResults.Results != ''">&nbsp;&nbsp;|&nbsp;&nbsp;{{ filter.label }}: <b>{{ filter.values }}</b></span>
+            </small>
+
+
+            <small data-ng-show="vm.categorizationStringHtml != null">&nbsp;&nbsp;|&nbsp;&nbsp;Categorization: <b>{{ vm.categorizationStringHtml }}</b></small>
+
+            <small>&nbsp;&nbsp;|&nbsp;&nbsp;Sorted by: <b><span data-ng-show="vm.locationSearch.available">Distance, </span>{{ vm.searchSorting.SortLabel }}</b></small>
+
+        </span>-->
+        <!--<div style="float:right; margin-right:15px;" data-ng-show="vm.locationFacets.length > 0 && vm.resultsAvailable > 0">
+            <a data-ng-show="vm.searchMode == 'list'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('map', true)"><i class="fa fa-map-marker" style="margin-right:5px;"></i>Switch to map mode</a>
+            <!--<a data-ng-show="vm.searchMode == 'map'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('list', true)"><i class="fa fa-list" style="margin-right:5px;"></i>Switch to listing mode</a>-- >
+        </div>-->
+        <!--
+        <div style="float:right; margin-right:15px;" data-ng-show="vm.locationSearch.available && vm.resultsAvailable > 0">
+            <a data-ng-show="vm.searchMode == 'list'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.showMapView()"><i class="fa fa-map-marker" style="margin-right:5px;"></i>Map view</a>
+            <a data-ng-show="vm.searchMode == 'map'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.hideMapView()"><i class="fa fa-list" style="margin-right:5px;"></i>List view</a>
+        </div>
+        -->
+
+    </div>
+
+    <!-- Results info (Big MAP)-->
+    <div class="visible-lg visible-md" data-ng-show="vm.searchResults != null && !vm.searching && !vm.searchingMore && vm.searchMode =='map'" style="color:darkgray; text-align:left; margin-left:25px; margin-right:260px; padding-top:10px;">
+
+        <div style="margin-left:20px; margin-top:25px;" data-ng-show="vm.resultsAvailable == 0 && vm.searchMode == 'list'"><b>No results.</b> Adjust your search <i class="fa fa-arrow-right"></i></div>
+        <div style="margin-left:1px; margin-top:3px;  font-weight:normal; font-size:12px; color:darkgrey;" data-ng-show="vm.resultsAvailable == 0 && vm.searchMode == 'map'"><b style="color:Red">No results.&nbsp;</b> Adjust parameters or move/zoom around map to update search region. <span style="float:right; margin-right:15px;"> <i style="color:darkgrey; font-size:12px;" class="fa fa-undo"></i>&nbsp;<a style="color:black; font-weight:bold; font-size:12px; cursor:pointer; padding-top:5px;" data-ng-click="vm.switchSearchMode('map', true)">Reset search</a></span></div>
+
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+            <small>Showing <b>{{ vm.paginationInfo.pageStartAt }}</b>-<b>{{ vm.paginationInfo.pageEndAt }}</b> of </small>
+        </span>
+
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+            <small data-ng-show="vm.resultsAvailable == 1"><b>{{vm.resultsAvailable}}</b> result</small>
+            <small data-ng-show="vm.resultsAvailable > 1"><b>{{vm.resultsAvailable}}</b> results</small>
+        </span>
+
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+
+
+
+
+            <small data-ng-show="vm.categorizationStringHtml != null">&nbsp;&nbsp;|&nbsp;&nbsp;Categorization: <b>{{ vm.categorizationStringHtml }}</b></small>
+
+            <small data-ng-show="vm.searchQueryCompleted != null && vm.searchQueryCompleted != ''">&nbsp;&nbsp;|&nbsp;&nbsp;Term: <b>"{{ vm.searchQueryCompleted }}"</b></small>
+
+            <small>&nbsp;&nbsp;|&nbsp;&nbsp;Sorted by: <b>Distance</b></small>
+            <!--<small>&nbsp;&nbsp;|&nbsp;&nbsp;Sorted by: <b><span data-ng-show="vm.locationSearch.available">Distance, </span>{{ vm.searchSorting.SortLabel }}</b></small>-->
+
+            <small data-ng-show="vm.filterStringsArray.length > 1">&nbsp;&nbsp;|&nbsp;&nbsp;<span style="color:darkgray; border-color:darkgray;"> + <b title="{{ vm.filterTitleString }}" style="cursor:pointer">Filter(s)</b></span></small>
+
+            <span style="float:right; margin-right:15px;"> <i style="color:darkgrey; font-size:12px;" class="fa fa-undo"></i>&nbsp;<a style="color:black; font-weight:bold; cursor:pointer; padding-top:5px; font-size:12px;" data-ng-click="vm.switchSearchMode('map', true)">Reset search</a></span>
+
+        </span>
+
+        <!--
+        <span data-ng-show="vm.resultsAvailable > 0 && vm.searchResults.Results != ''">
+
+            <small data-ng-show="vm.searchQueryCompleted != null && vm.searchQueryCompleted != ''">&nbsp;&nbsp;|&nbsp;&nbsp;Term: <b>"{{ vm.searchQueryCompleted }}"</b></small>
+
+            <small data-ng-repeat="filter in vm.filterStringsArray">
+                <span data-ng-show="vm.searchResults.Results != ''">&nbsp;&nbsp;|&nbsp;&nbsp;{{ filter.label }}: <b>{{ filter.values }}</b></span>
+            </small>
+
+
+            <small data-ng-show="vm.categorizationStringHtml != null">&nbsp;&nbsp;|&nbsp;&nbsp;Categorization: <b>{{ vm.categorizationStringHtml }}</b></small>
+
+
+        </span>-->
+        <!--<div style="float:right; margin-right:15px;" data-ng-show="vm.locationFacets.length > 0 && vm.resultsAvailable > 0">
+            <a data-ng-show="vm.searchMode == 'list'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('map', true)"><i class="fa fa-map-marker" style="margin-right:5px;"></i>Switch to map mode</a>
+            <a data-ng-show="vm.searchMode == 'map'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.switchSearchMode('list', true)"><i class="fa fa-list" style="margin-right:5px;"></i>Switch to listing mode</a>
+        </div>-->
+        <!--
+        <div style="float:right; margin-right:15px;" data-ng-show="vm.locationSearch.available && vm.resultsAvailable > 0">
+            <a data-ng-show="vm.searchMode == 'list'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.showMapView()"><i class="fa fa-map-marker" style="margin-right:5px;"></i>Map view</a>
+            <a data-ng-show="vm.searchMode == 'map'" style="text-align:right; cursor:pointer; color:darkgray" data-ng-click="vm.hideMapView()"><i class="fa fa-list" style="margin-right:5px;"></i>List view</a>
+        </div>
+        -->
+
+    </div>
+
+
+    <!-- Results info (Small)-->
+    <div class="visible-sm" data-ng-show="vm.searchResults != null && !vm.searching" style="color:darkgray; text-align:left; margin-left:45px; padding-top:10px;">
+        <h3 style="margin-top:25px; margin-right:45px; text-align:center; " data-ng-show="vm.resultsAvailable == 0">No results, try to adjust your search.</h3>
+        <h4 data-ng-show="vm.resultsAvailable == 1">{{vm.resultsAvailable}} result</h4>
+        <h4 data-ng-show="vm.resultsAvailable > 1">{{vm.resultsAvailable}} total results</h4>
+    </div>
+
+    <!-- Results info (Mobile)-->
+    <div class="visible-xs" data-ng-show="vm.searchResults != null && !vm.searching" style="color:darkgray; text-align:left; margin-left:45px; padding-top:20px;">
+        <h4 style="margin-top:25px; margin-right:45px; text-align:center; " data-ng-show="vm.resultsAvailable == 0">No results, try to adjust your search.</h4>
+        <h4 data-ng-show="vm.resultsAvailable == 1">{{vm.resultsAvailable}} result</h4>
+        <h4 data-ng-show="vm.resultsAvailable > 1">{{vm.resultsAvailable}} total results</h4>
+    </div>
+
+
+    <!-------------------- RESULTS (GRIDs) ------------------------------->
+    <!-- Results (Desktop Large/Medium - New Tab +  Responsive w/ Hover + Infinite SCroll) -->
+    <div data-ng-show="vm.searchMode == 'list'" id="results-desktop" class="visible-lg visible-md" style="height:100%; margin-left:10px; margin-right:260px; margin-top:10px; text-align:center">
+
+        <!--Loading-->
+        <section-loader data-ng-if="vm.searching == true" message="'Searching'" loader-type="'inline'" style="margin-left:15px; margin-right:15px; margin-bottom:50px;"></section-loader>
+
+        <!--No results
+        <div data-ng-show="vm.searchResults != null && vm.searchResults.Results.length == 0">
+            <small>No results match your query</small>
+        </div>-->
+        <!--GRID-->
+        <div class="row" data-ng-show="vm.searchResults != null && vm.searchResults.Results.length > 0 && vm.searching == false" style="text-align:center;">
+
+            <div class="col-xl-12 col-lg-12 col-md-12">
+
+
+                <!--NEW GRID-->
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3" style="text-align:left; padding:10px; padding-top:0px; padding-bottom:0px;" data-ng-repeat="result in vm.searchResults.Results">
+
+
+                    <a data-ng-show="result.Document.visible" href="/item/{{ result.Document.fullyQualifiedName }}" target="_blank">
+                        <img style="border: 1px solid black" onmouseover="this.style.opacity = '0.95'" onmouseout="this.style.opacity = '1'" class="img-responsive" data-ng-show="result.Images.default.thumbnail.url != null" ng-src="{{ result.Images.default.thumbnail.url }}" />
+                        <img style="border: 1px solid black" onmouseover="this.style.opacity = '0.95'" onmouseout="this.style.opacity = '1'" class="img-responsive" data-ng-show="result.Images.default.thumbnail.url == null" ng-src="/Images/ui/fpo/search-thumbnail.jpg" />
+                    </a>
+
+                    <a data-ng-show="!result.Document.visible" href="/item/{{ result.Document.fullyQualifiedName }}" target="_blank">
+                        <img style="-webkit-filter: grayscale(100%); filter: grayscale(100%); border: 1px solid #595959" onmouseover="this.style.opacity = '0.95'" onmouseout="this.style.opacity = '1'" class="img-responsive" data-ng-show="result.Images.default.thumbnail.url != null" ng-src="{{ result.Images.default.thumbnail.url }}" />
+                        <img style="-webkit-filter: grayscale(100%); filter: grayscale(100%); border: 1px solid #595959" onmouseover="this.style.opacity = '0.95'" onmouseout="this.style.opacity = '1'" class="img-responsive" data-ng-show="result.Images.default.thumbnail.url == null" ng-src="/Images/ui/fpo/search-thumbnail.jpg" />
+                    </a>
+
+                    <!--Height based on feature property count. 0 = 115 1 = 120, 2 = 120, 3 = 135-->
+                    <div style="height:120px; margin-bottom:12px; overflow:hidden" data-ng-style="vm.featuredProperties.length == '1' && {'height': '120'} || vm.featuredProperties.length == '2' && {'height': '135'} || vm.featuredProperties.length >= '3' && {'height': '152'}">
+
+                        <!--Name w/o active indicator
+            <h4 data-ng-show="result.Document.visible" style="font-weight:bold; text-decoration:none; text-align:left; margin-bottom:2px; margin-top:2px;"><a style="color:#0974ED;" href="/item/{{ result.Document.fullyQualifiedName }}"><i data-ng-show="result.Document.visible" title="Visible" class="fa fa-circle" style="color:limegreen; font-size:10px; vertical-align:middle; margin-right:8px;"></i>{{ result.Document.name }}</a></h4>
+            <h4 data-ng-show="!result.Document.visible" style="font-weight:bold; text-decoration:none; text-align:left; margin-bottom:2px; margin-top:2px;"><a style="color:#595959;" href="/item/{{ result.Document.fullyQualifiedName }}"><i data-ng-show="!result.Document.visible" title="Hidden" class="fa fa-circle" style="color:#595959; font-size:10px; vertical-align:middle; margin-right:8px;"></i>{{ result.Document.name }}</a></h4>
+            -->
+                        <!--Name w/ active<!--Name w/ active indicator-->
+                        <!--Box 1-->
+                        <div style="background-color:#f5f5f5; padding:5px; padding-left:7px; border:1px solid #e1e1e1; padding-bottom:2px;">
+                            <p data-ng-show="result.Document.visible" style="margin:0px; font-weight:normal; font-size:16px; text-decoration:none; text-align:left;"><a style="color:#0974ED;" href="/item/{{ result.Document.fullyQualifiedName }}">{{ result.Document.name }}</a></p>
+                            <p data-ng-show="!result.Document.visible" style="margin:0px; font-weight:normal; font-size:16px; text-decoration:none; text-align:left;"><a style="color:#595959;" href="/item/{{ result.Document.fullyQualifiedName }}">{{ result.Document.name }}</a></p>
+                        </div>
+
+                        <!--Line
+                        <div style="border-bottom:1px solid #e1e1e1; border-top:none; margin-top:0px; margin-bottom:2px; margin-left:-5px; margin-right:-5px"></div>-->
+                        
+                        <!--Box 2-->
+                        <div style="padding:7px; border:1px solid #f5f5f5; border-top:none; min-height:30px;">
+                            <!--Hide/Show-->
+                            <div data-ng-show="vm.checkRole('Manager')" style="text-align:right; margin-top:-4px;">
+                                <div style="text-align:right;">
+                                    <!--<small style="color:darkgrey; font-size:10px">
+                                        <strong>
+                                            <span data-ng-show="result.Document.visible">Visible </span>
+                                            <span data-ng-show="!result.Document.visible && result.Document.visible != null">Hidden </span>
+                                        </strong>
+                                    </small>-->
+                                    <span>
+                                        <img title="Visible" data-ng-show="result.Document.visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeProductHidden($index)" />
+                                        <img title="Hidden" data-ng-show="!result.Document.visible && result.Document.visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeProductVisible($index)" />
+                                        <img data-ng-show="result.Document.visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div data-ng-show="!vm.checkRole('Manager')" style="height:20px; text-align:right"></div>
+
+                            <!-- Featured Properties (1-3)-->
+                            <div style="margin-top:-16px;">
+                                <div style="margin-bottom:0px; font-size:7px;" data-ng-repeat="featuredProperty in vm.featuredProperties | limitTo:3">
+
+                                    <!--First Seperator
+                        <div data-ng-show="$first" style="border-top:1px solid #dcdcdc; height:1px; margin:-2px; "></div>-->
+                                    <!-- STRING -->
+                                    <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'string'">
+                                        <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span> <span class="productListingPropertyValue">{{result.Document[featuredProperty.PropertyNameKey]}}</span></span>
+                                    </span>
+
+
+                                    <!-- DATE-->
+                                    <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'datetime'">
+                                        <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span> <span class="productListingPropertyValue">{{result.Document[featuredProperty.PropertyNameKey] | date }}</span></span>
+                                    </span>
+
+
+                                    <!-- NUMBER-->
+                                    <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'number'">
+
+                                        <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+                                            <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+                                            <span class="productListingPropertyValue">
+                                                <span data-ng-show="featuredProperty.Symbol != null && featuredProperty.SymbolPlacement == 'leading'" style="margin-right:1.5px;">{{ featuredProperty.Symbol }}</span><span data-ng-show="result.Document[featuredProperty.PropertyNameKey] >= 1000">{{result.Document[featuredProperty.PropertyNameKey] | number }}</span><span data-ng-show="result.Document[featuredProperty.PropertyNameKey] < 1000">{{result.Document[featuredProperty.PropertyNameKey] }}</span><span data-ng-show="featuredProperty.Symbol != null && featuredProperty.SymbolPlacement == 'trailing'" style="margin-left:1.5px;">{{ featuredProperty.Symbol }}</span>
+                                            </span>
+                                        </span>
+
+                                    </span>
+
+                                    <!-- LIST -->
+                                    <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'predefined'">
+                                        <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+                                            <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+                                            <span class="productListingPropertyValue" data-ng-repeat="item in result.Document[featuredProperty.PropertyNameKey] track by $index | limitTo: 2">{{item}}<span data-ng-show="!$last">, </span></span>
+                                        </span>
+                                    </span>
+
+                                    <!-- SWATCH-->
+                                    <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'swatch'">
+                                        <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+
+                                            <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+
+                                            <span data-ng-repeat="item in (result.Document[featuredProperty.PropertyNameKey]) track by $index">
+                                                <span data-ng-repeat="swatch in featuredProperty.Swatches">
+                                                    <img style="cursor:pointer; height:10px; width:10px; margin-left:1px; margin-top:-2px; border:0px" data-ng-if="swatch.PropertySwatchLabel == item" data-ng-src="{{swatch.PropertySwatchImageSmall}}" title="{{item}}" alt="{{item}}" />
+                                                </span>
+                                            </span>
+
+                                        </span>
+
+                                    </span>
+
+                                </div>
+                            </div>
+                            <!-- END Featured Properties-->
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Load More
+    <div data-ng-show="vm.amountToSkip < vm.resultsAvailable && !vm.searchingMore" style="text-align:center">
+        <button style="display: block; width: 90%;" class="btn btn-default btn-md" data-ng-click="vm.searchMore('append')">Load more</button>
+    </div> -->
+    <!-- Fully Loaded Results
+    <div data-ng-show="vm.amountToSkip >= vm.resultsAvailable && !vm.searching">No more results</div> -->
+    <!-- Loading more indicator -->
+    <section-loader data-ng-if="vm.searchingMore == true && vm.searchMode == 'list'" message="'Loading more'" loader-type="'inline'" style="margin-left:20px; margin-right:270px; margin-bottom:35px; padding-bottom:20px; margin-top:-95px;"></section-loader>
+
+
+
+
+    <!-- Results (Mobile/Tablet - Responsive) -->
+    <div id="results-desktop" class="visible-sm visible-xs" style="height:100%; margin-top:15px; text-align:center">
+
+        <section-loader data-ng-if="vm.searching == true" message="'Searching'" loader-type="'inline'" style="margin:25px;"></section-loader>
+
+
+        <div data-ng-show="vm.searchResults != null && vm.searchResults.Results.length == 0">
+            <small>No results match your query</small>
+        </div>
+
+
+        <div class="container-fluid" data-ng-show="vm.searchResults != null && vm.searchResults.Results.length > 0 && vm.searching == false" style="text-align:center;">
+            <div class="col-xs-12 col-sm-12">
+                <div class="col-xs-12 col-sm-6" style="cursor:pointer; text-align:left;" data-ng-repeat="result in vm.searchResults.Results">
+
+                    <a href="item/{{ result.Document.fullyQualifiedName }}" target="_self">
+                        <img class="img-responsive" data-ng-if="result.Images.default.thumbnail.url != null" ng-src="{{ result.Images.default.thumbnail.url }}" />
+                        <img class="img-responsive" data-ng-show="result.Images.default.thumbnail.url == null" ng-src="/Images/ui/fpo/search-thumbnail.jpg" />
+                    </a>
+                    <div style="height:60px;">
+                        <h5 style="font-weight:bold; text-decoration:none; text-align:left; margin-bottom:2px;"><a style="color:#26201B;" href="item/{{ result.Document.fullyQualifiedName }}" target="_blank">{{ result.Document.name }}</a></h5>
+                        <!--<div style="margin-top:0px; font-size:12px; color:#7D6D63">
+                            <a style="font-size:10px; color:#7D6D63" href="/category/{{ result.Document.categoryNameKey }}" target="_blank">{{ result.Document.categoryName }}</a>
+                            <span data-ng-show="result.Document.subcategoryName != null"> / <a style="font-size:10px; color:#7D6D63" href="/subcategory/{{ result.Document.categoryNameKey }}/{{ result.Document.subcategoryNameKey }}" target="_blank">{{ result.Document.subcategoryName }}</a></span>
+                            <span data-ng-show="result.Document.subsubcategoryName != null"> / <a style="font-size:10px; color:#7D6D63" href="/subsubcategory/{{ result.Document.categoryNameKey }}/{{ result.Document.subcategoryNameKey }}/{{result.Document.subsubcategoryNameKey}}" target="_blank">{{ result.Document.subsubcategoryName }}</a></span>
+                            <span data-ng-show="result.Document.subsubsubcategoryName != null"> / <a style="font-size:10px; color:#7D6D63" href="/subsubsubcategory/{{ result.Document.categoryNameKey }}/{{ result.Document.subcategoryNameKey }}/{{result.Document.subsubcategoryNameKey}}/{{result.Document.subsubsubcategoryNameKey}}" target="_blank">{{ result.Document.subsubsubcategoryName }}</a></span>
+                        </div>-->
+
+                        <!-- Featured Property (1)-->
+                        <div style="margin-bottom:-2px;" data-ng-repeat="featuredProperty in vm.featuredProperties">
+
+                            <div data-ng-show="$first">
+                                <!-- STRING -->
+                                <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'string'">
+                                    <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span> <span class="productListingPropertyValue">{{result.Document[featuredProperty.PropertyNameKey]}}</span></span>
+                                </span>
+
+
+                                <!-- DATE-->
+                                <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'datetime'">
+                                    <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''"> <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span> <span class="productListingPropertyValue">{{result.Document[featuredProperty.PropertyNameKey] | date }}</span></span>
+                                </span>
+
+
+                                <!-- NUMBER-->
+                                <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'number'">
+
+                                    <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+                                        <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+                                        <span class="productListingPropertyValue">
+                                            <span data-ng-show="featuredProperty.Symbol != null && featuredProperty.SymbolPlacement == 'leading'" style="margin-right:1.5px;">{{ featuredProperty.Symbol }}</span><span data-ng-show="result.Document[featuredProperty.PropertyNameKey] >= 1000">{{result.Document[featuredProperty.PropertyNameKey] | number }}</span><span data-ng-show="result.Document[featuredProperty.PropertyNameKey] < 1000">{{result.Document[featuredProperty.PropertyNameKey] }}</span><span data-ng-show="featuredProperty.Symbol != null && featuredProperty.SymbolPlacement == 'trailing'" style="margin-left:1.5px;">{{ featuredProperty.Symbol }}</span>
+                                        </span>
+                                    </span>
+
+                                </span>
+
+                                <!-- LIST -->
+                                <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'predefined'">
+                                    <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+                                        <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+                                        <span class="productListingPropertyValue" data-ng-repeat="item in result.Document[featuredProperty.PropertyNameKey] track by $index">{{item}}<span data-ng-show="!$last">, </span></span>
+                                    </span>
+                                </span>
+
+                                <!-- SWATCH-->
+                                <span data-ng-show="featuredProperty.PropertyTypeNameKey == 'swatch'">
+                                    <span data-ng-show="result.Document[featuredProperty.PropertyNameKey] != null && result.Document[featuredProperty.PropertyNameKey] != ''">
+
+                                        <span class="productListingPropertyLabel">{{featuredProperty.PropertyName}}:</span>
+
+                                        <span data-ng-repeat="item in (result.Document[featuredProperty.PropertyNameKey]) track by $index">
+                                            <span data-ng-repeat="swatch in featuredProperty.Swatches">
+                                                <img style="cursor:pointer; height:10px; width:10px; margin-left:1px; margin-top:-2px; border:0px" data-ng-if="swatch.PropertySwatchLabel == item" data-ng-src="{{swatch.PropertySwatchImageSmall}}" title="{{item}}" alt="{{item}}" />
+                                            </span>
+                                        </span>
+
+                                    </span>
+
+                                </span>
+                            </div>
+
+                            
+
+                        </div>
+                        <!-- END Featured Properties-->
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Load More or Reset (if no infinite scroll)-->
+    <div class="visible-xs visible-sm" data-ng-show="vm.searchResults != null && !vm.searchingMore  && !vm.infiniteScroll" style="text-align:center; margin-left:35px">
+        <button data-ng-show="vm.amountToSkip < vm.resultsAvailable" style="display: block; width: 90%;" class="btn btn-primary btn-lg" data-ng-click="vm.searchMore('append')">Load more</button>
+        <button style="display: block; width: 90%; margin-top:20px; margin-bottom:30px;" class="btn btn-default btn-lg" data-ng-click="vm.resetSearch()">Search again</button>
+    </div>
+
+    <!-- Loading more indicator
+       <section-loader data-ng-show="vm.searchingMore && vm.searchMode == 'list'" message="'Loading more'" loader-type="'inline'" style="margin-left:15px; margin-right:15px; margin-bottom:20px; margin-top:-60px;"></section-loader>
+    -->
+    <!-------------------- RESULTS (MAP) -------------------------------->
+    <section-loader data-ng-if="vm.searching == true && vm.searchMode == 'map'" message="'Updating'" loader-type="'inline'" style="clear:both; margin-left:25px; margin-right:275px; margin-bottom:-18px; margin-top:-34px;"></section-loader>
+    <section-loader data-ng-if="vm.searchingMore == true && vm.searchMode == 'map'" message="'Updating'" loader-type="'inline'" style="clear:both; margin-left:25px; margin-right:275px; margin-bottom:-18px; margin-top:-34px;"></section-loader>
+
+
+
+    <div id="map-results-pane" data-ng-show="vm.searchMode == 'map' && vm.searchResults != null" class="visible-lg visible-md" style="clear:both; margin-right:250px; height:500px">
+
+        <div id="google-map" style="height:100%; border:1px solid darkgray; margin:25px; margin-bottom:-25px; margin-top:10px;"></div>
+
+    </div>
+
+    <div data-ng-show="vm.searchMode == 'map' && vm.searchResults != null" style="padding-top:10px;">
+        <small data-ng-hide="vm.paginationInfo.pageStartAt <= 1" style="float:left; margin-left:25px; color:#C4C4C4"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<a style="color:darkgray; cursor:pointer" data-ng-click="vm.searchMore('last')">Previous results</a></small>
+        <small data-ng-hide="vm.paginationInfo.pageEndAt >= vm.resultsAvailable" style="float:right; margin-right:275px; color:#C4C4C4"><a style="color:darkgray; cursor:pointer;" data-ng-click="vm.searchMore('next')">Next results</a>&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></small>
+    </div>
+
+
+    <!-------------------- Filter String (For Testing ------------------------------->
+    <!--
+    <div data-ng-show="vm.searchQuery != null" style="margin-top:40px; margin-left:20px; clear:both; color:darkgray"><small>{{ vm.searchQuery }}</small></div>
+    <div data-ng-show="vm.filterString != null" style="margin-top:40px; margin-left:20px; clear:both; color:darkgray"><small>{{ vm.filterString }}</small></div>-->
+    <!-- we hide sidebar on map search until results exist-->
+    <div id="search-powerbar" class="hidden-xs hidden-sm nano"
+         style="overflow-y: auto; overflow-x:hidden; padding:18px; background-color:#12203b; width:250px; height:100%; position: fixed; z-index: 1000; right:0; top:0;">
+
+        <div class="nano-content" style="padding:18px" data-ng-hide="vm.searchMode == 'map' && vm.searchResults.Results == null">
+
+            <form data-ng-show="vm.searchResults.Results != null" ng-submit="vm.search()">
+                <div id="search-box-sidebar" class="input-group">
+                    <input style="height:30px; font-size:14px;" type="text" class="form-control" data-ng-model="vm.searchQuery" placeholder="Search query">
+                    <span class="input-group-btn">
+                        <button style="height:30px; font-size:12px;" class="btn btn-primary" type="Submit"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+                <hr style="border-color:#132E45; margin-bottom:10px;" />
+
+            </form>
+
+
+            <!---------------------------- CATEGORIES ------------------------>
+
+
+            <div id="categorizationFilter">
+
+                <!--Drawer Label-->
+                <div style="height:28px; font-size:14px; color:#6B8396; cursor:pointer; padding-bottom:7px; clear:both" data-ng-click="vm.updateCategoryDrawerUI()"
+                     type="button" onmouseover="style.color = 'white'" onmouseout="style.color = '#6B8396'"
+                     aria-expanded="false" data-toggle="collapse" data-target="#categorization-filters">
+                    <span><strong>Categories</strong></span> <span style="margin-left:5px;">
+                        <i data-ng-show="vm.categoryDrawerOpen == true" class="fa fa-caret-up"></i>
+                        <i data-ng-show="vm.categoryDrawerOpen == false" class="fa fa-caret-down"></i>
+                    </span>
+                </div>
+
+                <div id="categorization-filters" class="collapse">
+                    <div style="margin-bottom:25px; margin-top:20px; margin-left:15px;">
+                        <!--Choose Category-->
+                        <div style="margin-bottom:5px;">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    <span data-ng-show="vm.searchCategorization.Category != null">{{ vm.searchCategorization.Category.CategoryName }} <span class="caret"></span></span>
+                                    <span data-ng-show="vm.searchCategorization.Category == null" style="color:#3D609C">All Categories <span class="caret"></span></span>
+                                </button>
+                                <ul style="margin-left:-25px" class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a data-ng-show="vm.searchCategorization.Category != null" style="cursor:pointer" data-ng-click="vm.resetCategorizations()">All Categories</a>
+                                        <a data-ng-repeat="category in vm.categories" style="cursor:pointer" data-ng-click="vm.searchCategorization.updateCategory(category)">{{ category.CategoryName }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Choose Subcategory-->
+                        <div style="margin-bottom:5px;">
+                            <div data-ng-show="vm.searchCategorization.Category != null && vm.subcategories.length > 0" class="btn-group">
+                                <!--<span data-ng-show="vm.subcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+                                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" ng-class="vm.searchCategorization.Subcategory == null ? ' btn-primary' : ' btn-default'">
+                                    <span data-ng-show="vm.searchCategorization.Subcategory != null">{{ vm.searchCategorization.Subcategory.SubcategoryName }} <span class="caret"></span></span>
+                                    <span data-ng-show="vm.searchCategorization.Subcategory == null">More <span class="caret"></span></span>
+                                </button>
+                                <ul style="margin-left:-25px" class="dropdown-menu" role="menu">
+                                    <li data-ng-repeat="subcategory in vm.subcategories">
+                                        <a style="cursor:pointer" data-ng-click="vm.searchCategorization.updateSubcategory(subcategory)">{{ subcategory.SubcategoryName }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!--Choose Subsubcategory-->
+                        <div style="margin-bottom:5px;">
+                            <div data-ng-show="vm.searchCategorization.Subcategory != null && vm.subsubcategories.length > 0" class="btn-group">
+                                <!--<span data-ng-show="vm.subsubcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+                                <div data-ng-show="vm.subsubcategories.length > 0">
+                                    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" ng-class="vm.searchCategorization.Subsubcategory == null ? ' btn-primary' : ' btn-default'">
+                                        <span data-ng-show="vm.searchCategorization.Subsubcategory != null">{{ vm.searchCategorization.Subsubcategory.SubsubcategoryName }} <span class="caret"></span></span>
+                                        <span data-ng-show="vm.searchCategorization.Subsubcategory == null">More <span class="caret"></span></span>
+                                    </button>
+                                    <ul style="margin-left:-25px" class="dropdown-menu" role="menu">
+                                        <li data-ng-repeat="subsubcategory in vm.subsubcategories">
+                                            <a style="cursor:pointer" data-ng-click="vm.searchCategorization.updateSubsubcategory(subsubcategory)">{{ subsubcategory.SubsubcategoryName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Choose Subsubsubcategory-->
+                        <div>
+                            <div data-ng-show="vm.searchCategorization.Subsubcategory != null && vm.subsubsubcategories.length > 0" class="btn-group">
+                                <!--<span data-ng-show="vm.subsubsubcategories == null"><img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" /></span>-->
+                                <div data-ng-show="vm.subsubsubcategories.length > 0">
+                                    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" ng-class="vm.searchCategorization.Subsubsubcategory == null ? ' btn-primary' : ' btn-default'">
+                                        <span data-ng-show="vm.searchCategorization.Subsubsubcategory != null">{{ vm.searchCategorization.Subsubsubcategory.SubsubsubcategoryName }} <span class="caret"></span></span>
+                                        <span data-ng-show="vm.searchCategorization.Subsubsubcategory == null">More <span class="caret"></span></span>
+                                    </button>
+                                    <ul style="margin-left:-25px" class="dropdown-menu" role="menu">
+                                        <li data-ng-repeat="subsubsubcategory in vm.subsubsubcategories">
+                                            <a style="cursor:pointer" data-ng-click="vm.searchCategorization.updateSubsubsubcategory(subsubsubcategory)">{{ subsubsubcategory.SubsubsubcategoryName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Update
+                        <div data-ng-show="vm.showCategoryUpdateButton" style="text-align:right;">
+                            <button data-ng-click="vm.search();" class="btn btn-primary btn-xs">Update</button>
+                        </div> -->
+                        <!--Clear floats and add bottom margin to category drawers-->
+                        <div style="clear:both; height:1px;"></div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <hr style="border-color:#132E45; margin-bottom:10px; margin-top:5px;" />
+
+            <!---------------------------- FACETS ------------------------>
+
+            <div class="panel-group" data-ng-repeat="facet in vm.facets">
+
+
+                <div data-ng-hide="facet.PropertyType == 'location' && vm.searchMode == 'map'">
+                    <!-- Hide location drawers during map search -->
+                    <!-- Closed Drawer -->
+                    <div id="filter-{{facet.SearchFieldName}}-closed" style="height:28px; font-size:14px; color:#6B8396; cursor:pointer; padding-bottom:7px; clear:both" data-ng-click="vm.updateDrawerUI(facet.SearchFieldName, 'open')"
+                         type="button" onmouseover="style.color = 'white'" onmouseout="style.color = '#6B8396'"
+                         aria-expanded="false" data-toggle="collapse" data-target="#filter-{{facet.SearchFieldName}}">
+                        <span><strong>{{ facet.PropertyName }}</strong></span> <span style="margin-left:5px;"><i class="fa fa-caret-down"></i></span>
+                    </div>
+                    <!-- Open Drawer -->
+                    <div id="filter-{{facet.SearchFieldName}}-open" style="display:none; height:28px; font-size:14px; color:#6B8396; cursor:pointer; padding-bottom:7px; clear:both" data-ng-click="vm.updateDrawerUI(facet.SearchFieldName, 'closed')"
+                         type="button" onmouseover="style.color = 'white'" onmouseout="style.color = '#6B8396'"
+                         aria-expanded="false" data-toggle="collapse" data-target="#filter-{{facet.SearchFieldName}}">
+                        <span><strong>{{ facet.PropertyName }}</strong></span> <span style="margin-left:5px;"><i class="fa fa-caret-up"></i></span>
+                    </div>
+                    <div style="clear:both;" id="filter-{{facet.SearchFieldName}}" class="collapse">
+
+                        <!-- Add additional top margin to swatch type drawers-->
+                        <div data-ng-show="facet.PropertyType == 'swatch'" style="height:10px;"></div>
+
+                        <!-- Checklist & Swatch Loop -->
+                        <div style="margin-left:10px;" ng-repeat="item in facet.Values">
+
+                            <!-- Checklists -->
+                            <div data-ng-show="facet.PropertyType != 'swatch' && facet.PropertyType != 'location'">
+                                <label class="facetCheckbox" style="font-weight:normal; cursor:pointer;">
+                                    <input type="checkbox"
+                                           style="cursor:pointer;"
+                                           value="{{item.Filter}}"
+                                           data-ng-model="item.Selected"
+                                           data-ng-change="vm.search()">
+
+                                    <span data-ng-show="!item.Selected" style="color:#6B8396; font-size:11px">{{item.Name}} <span style="color:#6B8396">({{item.Count | number }})</span></span>
+                                    <span data-ng-show="item.Selected" style="color:white; font-size:11px; font-weight:bold">{{item.Name}} <span style="color:#6B8396">({{item.Count | number }})</span></span>
+
+                                </label>
+                            </div>
+
+                            <!-- Swatches -->
+                            <div data-ng-show="facet.PropertyType == 'swatch'" style="float:left; margin:6px">
+
+                                <img data-ng-show="item.Selected" data-ng-click="vm.deselectSwatchFilter($parent.$index, $index)" title="{{item.Value}} ({{item.Count}})" alt="{{item.Filter}}" ng-src="{{item.Image}}" height="35" width="35" style="border:2px solid white; cursor:pointer;" />
+                                <img data-ng-show="!item.Selected" data-ng-click="vm.selectSwatchFilter($parent.$index, $index)" title="{{item.Value}} ({{item.Count}})" alt="{{item.Filter}}" ng-src="{{item.Image}}" height="35" width="35" style="border:1px solid black;opacity:.7; cursor:pointer;" />
+
+                            </div>
+
+                        </div>
+
+                        <!-- Location Form If not map search -->
+                        <div data-ng-show="facet.PropertyType == 'location'" style="float:left; margin:6px">
+
+                            <form ng-submit="vm.useSearchLocation($index)">
+
+                                <div style="text-align:center">
+                                    <span style="float:left; color:#516778; margin-right:5px; margin-top:4px; font-weight:bold; font-size:10px">Within:</span>
+                                    <input data-ng-model="facet.LocationSearchDistance" style="float:left; margin-right:5px; height:22px; width:50px; font-size:11px; padding:5px;" type="text" class="form-control input">
+
+                                    <!--Choose DistanceType-->
+                                    <div style="float:left;">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                <span>{{ facet.SelectedDistanceType.label }} <span class="caret"></span></span>
+                                            </button>
+                                            <ul style="margin-left:-35px" class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a data-ng-repeat="distanceType in facet.DistanceTypes" data-ng-show="facet.SelectedDistanceType.value != distanceType.value" style="cursor:pointer; font-size:12px;" data-ng-click="vm.updateLocationPropertyDistanceType($parent.$index, distanceType)">{{ distanceType.label }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <span style="float:left; color:#516778; margin-left:5px; margin-top:4px; font-weight:bold; font-size:10px">of: </span>
+
+                                </div>
+
+                                <div style="clear:both; height:10px;"></div>
+
+                                <div>
+
+
+                                    <div class="input-group">
+                                        <input style="height:28px; font-size:12px; padding:6px; font-weight:bold" type="text" class="form-control" data-ng-model="facet.LocationSearchQuery" placeholder="Postal code, city or place">
+                                        <span class="input-group-btn">
+                                            <button type="Submit" style="height:28px; font-size:12px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+
+
+                                    <!--<span><input data-ng-model="facet.LocationSearchQuery" style="float:left; height:22px; width:180px; font-size:12px;" type="text" class="form-control input"></span>
+                                    <span class="input-group-btn">
+                                        <button style="height:58px; font-size:28px;" data-ng-click="vm.useSearchLocation($index)" class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search</button>
+                                    </span>-->
+                                </div>
+
+                                <div data-ng-show="vm.locationSearch.available && vm.locationSearch.facetIndex == $index">
+                                    <div style="clear:both; height:10px;"></div>
+                                    <div style="text-align:right; margin-bottom:-10px;">
+                                        <!--<button data-ng-click="vm.useSearchLocation($index)" class="btn btn-primary btn-xs" type="button">Search</button>-->
+                                        <button style="font-size:10px;" data-ng-click="vm.locationSearch.Clear($index, true)" class="btn btn-default btn-xs" type="button"><i class="fa fa-times"></i> Clear location</button>
+
+                                    </div>
+                                </div>
+
+
+
+                                <!--
+                                <button style="height:26px; font-size:12px;" data-ng-click="vm.search()" class="btn btn-primary" type="button"><i class="fa fa-list-alt"></i> Listing</button>
+                                <button style="height:26px; font-size:12px;" data-ng-click="vm.search()" class="btn btn-primary" type="button"><i class="fa fa-map-marker"></i> Map</button>
+                                -->
+                            </form>
+
+                        </div>
+
+                        <!--Clear floats and add bottom margin to swatch type drawers
+                        <div data-ng-show="facet.PropertyType == 'swatch'" style="clear:both; height:6px;"></div>-->
+                        <div style="clear:both; height:12px;"></div>
+
+                        <!--Advanced Options-->
+                        <div data-ng-show="facet.HasSelectedItems" style="clear:both; margin-left:0px; margin-top:-5px;">
+                            <!--Closed-->
+                            <div data-ng-show="!facet.ShowAdvanced">
+                                <div style="clear:both;"></div>
+                                <small data-ng-click="vm.showAdvancedOptions($index)" style="color:#2C4254; cursor:pointer" onmouseover="this.style.color = '#4A6478'" onmouseout="this.style.color = '#2C4254';">Advanced options <i class="fa fa-caret-down"></i></small>
+                            </div>
+                            <!--Open-->
+                            <div data-ng-show="facet.ShowAdvanced">
+                                <div style="clear:both;"></div>
+                                <small data-ng-click="vm.hideAdvancedOptions($index)" style="color:#2C4254; cursor:pointer" onmouseover="this.style.color = '#4A6478'" onmouseout="this.style.color = '#2C4254';">Advanced options <i class="fa fa-caret-up"></i></small>
+                                <div style="clear:both; margin-top:10px; margin-bottom:10px; margin-left:10px;">
+
+                                    <!--All (AND)-->
+                                    <div data-ng-show="facet.BooleanOperator == 'and'">
+                                        <!--<img src="/Images/ui/switch/search-any-toggle.png" style="cursor:pointer" data-ng-click="vm.setOperatorToOr($index)" /><span>ALL</span>-->
+                                        <div style="height:5px;"></div>
+                                        <span><i data-ng-click="vm.setOperatorToOr($index)" class="fa fa-lock" style="cursor:pointer; font-size:18px; margin-right:2px; font-weight:bold; color:#5D778C" onmouseover="this.style.color = 'white'" onmouseout="this.style.color = '#5D778C';"></i> </span>
+                                        <small style="color:#40596E; font-size:12px"> Search <b><u>ONLY</u></b> for items that contain <b><u>ALL</u></b> selected <b><u>{{facet.PropertyName}}</u></b> options</small>
+                                    </div>
+
+                                    <!--Any (OR)-->
+                                    <div data-ng-show="facet.BooleanOperator == 'or'">
+                                        <!--<img src="/Images/ui/switch/search-all-toggle.png" style="cursor:pointer" data-ng-click="vm.setOperatorToAnd($index)" /><span>ANY</span>-->
+                                        <div style="height:5px;"></div>
+                                        <span><i data-ng-click="vm.setOperatorToAnd($index)" class="fa fa-unlock" style="cursor:pointer; font-size:18px; margin-right:2px; font-weight:bold; color:white" onmouseover="this.style.color = '#5D778C'" onmouseout="this.style.color = 'white';"></i> </span>
+                                        <small style="color:#4F6B82; font-size:12px"> Search for items that contain <b><u>ANY</u></b> of the selected <b><u>{{facet.PropertyName}}</u></b> options</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+                <!-- NUMBERRANGE STYLE
+                <div data-ng-show="facet.FilterStyle == 'numberrange'">
+                    <br />
+                    <h5>rangeslider-{{facet.SearchFieldName}}</h5>
+                    <p style="cursor:pointer; clear:both" type="button" aria-expanded="false" data-toggle="collapse" data-target="#filter-{{facet.PropertyName}}"><strong style="font-size:14px;">{{ facet.PropertyName }}</strong></p>
+                    <div id="filter-{{facet.SearchFieldName}}" class="collapse in">
+                        <p>
+                            <h4>
+                                <input type="text" id="rangeslider-{{facet.SearchFieldName}}-min" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px">
+                                To
+                                <input type="text" id="rangeslider-{{facet.SearchFieldName}}-max" readonly style="border:1px thin #EDEDED; text-align:center; width:45px; color:cornflowerblue; font-size:18px">
+                            </h4>
+                        </p>
+                        <div id="rangeslider-{{facet.SearchFieldName}}" style="height:8px; margin-bottom:35px; cursor:pointer; width:60%"></div>
+                    </div>
+                </div>
+                <hr style="float:left;-->
+
+
+
+                <hr style="float:left; width:100%; border-color:#132E45; margin-top:5px; margin-bottom:5px" data-ng-hide="facet.PropertyType == 'location' && vm.searchMode == 'map'" />
+                <!--<hr style="float:left; width:60%; border-color:#132E45" />-->
+
+            </div>
+
+            <!---------------------------- SORTABLES ------------------------>
+
+            <div id="sortingFilter" data-ng-hide="vm.searchMode == 'map'">
+
+                <!--Drawer Label-->
+                <div style="height:28px; font-size:14px; color:#6B8396; cursor:pointer; padding-bottom:7px; clear:both" data-ng-click="vm.updateSortingDrawerUI()"
+                     type="button" onmouseover="style.color = 'white'" onmouseout="style.color = '#6B8396'"
+                     aria-expanded="false" data-toggle="collapse" data-target="#sorting-filters">
+                    <span><strong>Sort by</strong></span> <span style="margin-left:5px;">
+                        <i data-ng-show="vm.sortingDrawerOpen == true" class="fa fa-caret-up"></i>
+                        <i data-ng-show="vm.sortingDrawerOpen == false" class="fa fa-caret-down"></i>
+                    </span>
+                </div>
+
+
+                <div id="sorting-filters" class="collapse">
+                    <div style="margin-bottom:25px; margin-top:20px; margin-left:15px;">
+
+                        <!--Choose Sorting-->
+                        <div style="margin-bottom:5px;">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    <span>{{ vm.searchSorting.SortLabel }} <span class="caret"></span></span>
+                                </button>
+                                <ul style="margin-left:-25px" class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a data-ng-repeat="sortable in vm.sortables" style="cursor:pointer" data-ng-click="vm.updateSorting(sortable)">{{ sortable.SortLabel }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+                <hr style="border-color:#132E45; margin-bottom:10px; margin-top:5px;" data-ng-hide="vm.searchMode == 'map'" />
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+

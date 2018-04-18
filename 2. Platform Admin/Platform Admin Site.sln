@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform Admin Site", "Project\Platform Admin Site.csproj", "{0850D51E-9E1A-4242-A6AF-B323C5F84B86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{55A6EAEB-C3F6-4BEF-82AA-0520F653D21E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Stage|Any CPU = Stage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Stage|Any CPU.ActiveCfg = Stage|Any CPU
+		{0850D51E-9E1A-4242-A6AF-B323C5F84B86}.Stage|Any CPU.Build.0 = Stage|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,189 @@
+﻿<div>
+
+    <div id="CommunicationModals">
+
+        <!--New Notification Modal-->
+        <div class="modal fade newNotificationModal" tabindex="-1" role="dialog" aria-labelledby="newNotificationModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+                        <h3 style="margin-top:-2px; margin-bottom:-2px;">
+                            <i class="fa fa-bell"></i>
+                            Send a notification to the <u>{{ vm.account.AccountName }}</u> account
+                        </h3>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <!--Input State-->
+                        <div id="UserForm" data-ng-show="!vm.newNotification.update.processing && !vm.newNotification.update.complete">
+                            <div>
+                                <div class="form">
+
+                                    <!-- NOTIFICATION TYPE Buttton Dropdown -->
+                                    <small>Type:</small>
+                                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                                        <button type="button" class="btn {{vm.currentNotificationType.cssClass}} btn-sm dropdown-toggle" data-toggle="dropdown" style="color:white; cursor:pointer">
+                                            <strong><i class="fa {{vm.currentNotificationType.faClass}}"></i>  {{ vm.currentNotificationType.label }} <span class="caret"></span></strong>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-repeat="notificationType in vm.notificationTypes">
+                                                <a data-ng-click="vm.updateCurrentNotificationType(notificationType)" style="cursor:pointer">{{ notificationType.label }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- RECIPIENT Buttton Dropdown -->
+                                    <small>To:</small>
+                                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
+                                            {{ vm.currentNotificationRecipient.label }} <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-repeat="notificationRecipient in vm.notificationRecipients">
+                                                <a data-ng-click="vm.updateCurrentNotificationRecipient(notificationRecipient)" style="cursor:pointer">{{ notificationRecipient.label }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                    <!-- USER Buttton Dropdown -->
+                                    <!--<small data-ng-show="vm.currentNotificationRecipient.value == 'one'">User:</small>-->
+                                    <div data-ng-show="vm.currentNotificationRecipient.value == 'one'" class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">
+                                            {{ vm.currentNotificationUser.FirstName }} {{ vm.currentNotificationUser.LastName }} <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li data-ng-repeat="user in vm.account.Users">
+                                                <a data-ng-click="vm.updateCurrentNotificationUser(user)" style="cursor:pointer">{{ user.FirstName }} {{ user.LastName }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                    <hr />
+
+
+                                    <div class="form-group">
+                                        <label>{{ vm.newNotification.notificationType }} Message:</label>
+                                        <input type="text" class="form-control input" data-ng-model="vm.newNotification.message" placeholder="{{ vm.newNotification.notificationType }} Message" />
+                                    </div>
+
+                                    <hr />
+
+                                    <!-- Expiration Checkbox -->
+                                    <div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" data-ng-model="vm.newNotification.setExpiration">
+                                                <strong data-ng-show="!vm.newNotification.setExpiration">Set an expiration time for this notification</strong>
+                                                <strong data-ng-show="vm.newNotification.setExpiration">Turn off expiration for this notification</strong>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" data-ng-show="vm.newNotification.setExpiration">
+                                        <label>Expiration Minutes:</label>
+                                        <span>
+                                            <input type="text" class="form-control input" data-ng-model="vm.newNotification.expirationMinutes" placeholder="Minutes" style="width:120px" />
+
+                                        </span>
+                                        <div data-ng-show="vm.newNotification.expirationMinutes > 0" style="padding:5px; margin:5px" class="v-line-thin">
+                                            <span>This notification will expire at: <br /><strong>{{ vm.generateExpirationDate(vm.newNotification.expirationMinutes)  | date : 'EEE MMM, dd yyyy (h:mm a)'  }}</strong></span>
+                                            <br />
+                                            <!--<small><i class="fa fa-info-circle" style="color:cornflowerblue; font-size:12px;"></i>  Trial ends <strong am-time-ago="vm.generateNotificationDate1(vm.newNotification.expirationMinutes)"></strong></small>
+                                            <small><i class="fa fa-info-circle" style="color:cornflowerblue; font-size:12px;"></i>  Trial ends <strong am-time-ago="vm.generateNotificationDate2(vm.newNotification.expirationMinutes)"></strong></small>-->
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <small>
+                                        <span data-ng-show="vm.currentNotificationRecipient.value == 'all'">This <u>{{ vm.currentNotificationType.name }} Notification</u> will be sent to <u>All Users</u> of the <u>{{ vm.account.AccountName }}</u> account</span>
+                                        <span data-ng-show="vm.currentNotificationRecipient.value == 'owners'">This <u>{{ vm.currentNotificationType.name }} Notification</u> will be sent to all <u>Owners</u> of the <u>{{ vm.account.AccountName }}</u> account </span>
+                                        <span data-ng-show="vm.currentNotificationRecipient.value == 'one'">This <u>{{ vm.currentNotificationType.name }} Notification</u> will be sent to only <u>{{ vm.currentNotificationUser.FirstName }} {{ vm.currentNotificationUser.LastName }}</u> </span>
+                                        <span data-ng-show="vm.newNotification.expirationMinutes > 0"> and will <u>Expire</u> about <u>{{ vm.newNotification.expirationMinutes }} Minute(s)</u> from now</span>
+                                        <span>.</span>
+                                    </small>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <section-loader message="'Sending Notification...'" loader-type="'inline'" data-ng-show="vm.newNotification.update.processing && !vm.newNotification.update.complete"></section-loader>
+
+
+                        <!--Results State-->
+                        <div id="MessagingResults" data-ng-show="!vm.newNotification.update.processing && vm.newNotification.update.complete">
+
+                            <div ng-class="vm.newNotification.results.isSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                                <div>
+                                    <i data-ng-show="vm.newNotification.results.isSuccess" class="fa fa-check" style="color:green"></i>
+                                    <i data-ng-show="!vm.newNotification.results.isSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                    {{ vm.newNotification.results.message }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <!--Input Footer-->
+                        <div data-ng-show="!vm.newNotification.update.processing && !vm.newNotification.update.complete">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                            <button data-ng-show="vm.currentNotificationType.name == 'Success'" type="button" class="btn btn-success" data-ng-click="vm.sendNotification()"><i class="fa fa-check"></i> Send {{ vm.currentNotificationType.name }}</button>
+                            <button data-ng-show="vm.currentNotificationType.name == 'Information'" type="button" class="btn btn-primary" data-ng-click="vm.sendNotification()"><i class="fa fa-info-circle"></i> Send {{ vm.currentNotificationType.name }}</button>
+                            <button data-ng-show="vm.currentNotificationType.name == 'Warning'" type="button" class="btn btn-warning" data-ng-click="vm.sendNotification()"><i class="fa fa-warning"></i> Send {{ vm.currentNotificationType.name }}</button>
+                            <button data-ng-show="vm.currentNotificationType.name == 'Alert'" type="button" class="btn btn-danger" data-ng-click="vm.sendNotification()"><i class="fa fa-warning"></i> Send {{ vm.currentNotificationType.name }}</button>
+
+                        </div>
+
+                        <!--Loading Footer-->
+                        <div data-ng-show="vm.newNotification.update.processing && !vm.newNotification.complete">
+
+                        </div>
+
+                        <!--Results Footer Success-->
+                        <div data-ng-show="vm.newNotification.update.complete && vm.newNotification.results.isSuccess">
+                            <!--<button type="button" class="btn btn-default" data-ng-click="vm.newUser.Clear()">Send Another</button>-->
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+
+                        <!--Results Footer Failure-->
+                        <div data-ng-show="vm.newNotification.update.complete && !vm.newNotification.results.isSuccess">
+                            <button type="button" class="btn btn-warning" data-ng-click="vm.newNotification.retry()">Try again</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--End New Notification Modal-->
+
+
+    </div>
+
+    <!-- Removed
+    <div id="CommunicationOptions">
+
+        <h3 class="branding-accent-color-dark">Communications</h3>
+
+        <div>
+
+            <hr class="dataCardLines" />
+            <br />
+            <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".newNotificationModal" data-ng-click="vm.activateSendNotificationModal()" style="margin-bottom: 8px;"><i class="fa fa-bell"></i> Send Notification</button>
+
+        </div>
+
+    </div> -->
+
+</div>

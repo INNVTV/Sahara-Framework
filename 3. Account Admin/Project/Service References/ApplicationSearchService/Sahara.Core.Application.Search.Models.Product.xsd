@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Search.Models.Product" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Search.Models.Product" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProductSearchFacet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductSearchFacet" nillable="true" type="tns:ProductSearchFacet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductSearchFacet" nillable="true" type="tns:ArrayOfProductSearchFacet" />
+  <xs:complexType name="ProductSearchFacet">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BooleanOperator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SearchFieldName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShowAdvanced" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Values" nillable="true" type="tns:ArrayOfFacetValue" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductSearchFacet" nillable="true" type="tns:ProductSearchFacet" />
+  <xs:complexType name="ArrayOfFacetValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FacetValue" nillable="true" type="tns:FacetValue" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFacetValue" nillable="true" type="tns:ArrayOfFacetValue" />
+  <xs:complexType name="FacetValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Count" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Filter" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Image" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Selected" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FacetValue" nillable="true" type="tns:FacetValue" />
+  <xs:complexType name="ArrayOfProductSearchSortable">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductSearchSortable" nillable="true" type="tns:ProductSearchSortable" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductSearchSortable" nillable="true" type="tns:ArrayOfProductSearchSortable" />
+  <xs:complexType name="ProductSearchSortable">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrderByString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortLabel" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductSearchSortable" nillable="true" type="tns:ProductSearchSortable" />
+</xs:schema>

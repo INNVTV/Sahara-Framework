@@ -1,0 +1,137 @@
+﻿@model IEnumerable<PlatformAdminSite.PlatformLogsService.ClosedAccount>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Deprovisioned</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNameKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPartition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Verified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VerifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provisioned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProvisionedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastPaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextPaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrialEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeAgo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNameKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Users)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPartition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Verified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VerifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provisioned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProvisionedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastPaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextPaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrialEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeAgo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Properties.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Application.Properties.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfPropertyTypeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyTypeModel" nillable="true" type="tns:PropertyTypeModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyTypeModel" nillable="true" type="tns:ArrayOfPropertyTypeModel" />
+  <xs:complexType name="PropertyTypeModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PropertyTypeDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyTypeID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertyTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyTypeNameKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyTypeModel" nillable="true" type="tns:PropertyTypeModel" />
+  <xs:simpleType name="PropertyListType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Listings" />
+      <xs:enumeration value="Details" />
+      <xs:enumeration value="Featured" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PropertyListType" nillable="true" type="tns:PropertyListType" />
+  <xs:complexType name="ArrayOfPropertyModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyModel" nillable="true" type="tns:PropertyModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyModel" nillable="true" type="tns:ArrayOfPropertyModel" />
+  <xs:complexType name="PropertyModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlwaysFacetable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Appendable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Details" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FacetInterval" type="xs:int" />
+      <xs:element minOccurs="0" name="FacetOrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="Facetable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FeaturedID" type="xs:int" />
+      <xs:element minOccurs="0" name="Listing" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumericDescriptor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="PropertyID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyTypeNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SearchFieldName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sortable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Swatches" nillable="true" type="tns:ArrayOfPropertySwatchModel" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SymbolPlacement" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values" nillable="true" type="tns:ArrayOfPropertyValueModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyModel" nillable="true" type="tns:PropertyModel" />
+  <xs:complexType name="ArrayOfPropertySwatchModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertySwatchModel" nillable="true" type="tns:PropertySwatchModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertySwatchModel" nillable="true" type="tns:ArrayOfPropertySwatchModel" />
+  <xs:complexType name="PropertySwatchModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="PropertyID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertySwatchID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertySwatchImage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertySwatchImageMedium" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertySwatchImageSmall" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertySwatchLabel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertySwatchNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertySwatchModel" nillable="true" type="tns:PropertySwatchModel" />
+  <xs:complexType name="ArrayOfPropertyValueModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyValueModel" nillable="true" type="tns:PropertyValueModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyValueModel" nillable="true" type="tns:ArrayOfPropertyValueModel" />
+  <xs:complexType name="PropertyValueModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="PropertyID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertyValueID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PropertyValueName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyValueNameKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyValueModel" nillable="true" type="tns:PropertyValueModel" />
+</xs:schema>

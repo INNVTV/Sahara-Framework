@@ -1,0 +1,47 @@
+﻿<div>
+    
+    <h5 style="margin-left:1px; margin-bottom:3px;"><strong>Available credits:</strong></h5>
+    <div id="countUpElement" class="numberBox" data-ng-class="{green: vm.availableCredits > 0}" style="font-size:36px; margin:0px; width:240px;">{{ vm.availableCredits }} </div>
+    <hr />
+
+    <small style="color:darkgray"><i class="fa fa-random"></i> Current exchange rate:</small>
+    <h4 style="margin-top:3px;">$1.00 = {{ vm.creditsToDollarExchangeRate }} credits</h4>
+
+    <hr />
+
+    <h3>Credits Transaction Log</h3>
+
+    <div data-ng-show="vm.creditsTransactionLog.length > 0">
+
+        <table class="table table-responsive table-striped" data-ng-show="vm.creditsTransactionLog.length > 0">
+            <!--<thead class="hidden-xs">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>-->
+            <tr data-ng-repeat="logItem in vm.creditsTransactionLog">
+
+                <td>
+                    <strong><i class="fa fa-history" style="color:#A6A6A6;"></i> <small am-time-ago="logItem.Timestamp"></small></strong>
+                </td>
+
+                <td>
+                    <small>
+                        {{ logItem.Details }}
+                    </small>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+    <div data-ng-show="vm.creditsTransactionLog.length == 0">
+        <small>No credit transactions captured.</small>
+    </div>
+
+</div>
+

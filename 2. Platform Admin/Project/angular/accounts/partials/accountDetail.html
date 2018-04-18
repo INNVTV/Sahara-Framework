@@ -1,0 +1,711 @@
+﻿<div data-ng-controller="accountDetailController as vm">
+
+    <section-loader data-ng-show="vm.showGetAccountLoading == true && vm.showGetAccountNull == false" message="'Loading account...'" loader-type="'inline'"></section-loader>
+    <div data-ng-show="vm.showGetAccountNull == true">
+        <strong>"{{vm.routeId}}"</strong> does not exist
+    </div>
+    <div id="DetailPage" data-ng-show="vm.showGetAccountLoading == false && vm.showGetAccountNull == false">
+        <div id="Header">
+
+            <div class="hidden-md hidden-lg" style="font-size:32px; text-align:center;">
+                {{ vm.account.AccountName }}
+            </div>
+            <div style="text-align:center;" class="hidden-sm hidden-xs">
+                <div data-ng-show="!vm.AccountNameStatus.SendingComplete && !vm.AccountNameStatus.Updating && !vm.AccountNameStatus.Editing" style="font-size:65px; margin-left:10px;">
+                    {{ vm.account.AccountName }}&nbsp;<button data-ng-show="vm.checkRole('SuperAdmin') && vm.account.StripeCustomerID == null" data-ng-click="vm.editAccountName()" class="sahara-btn-edit-16" style="padding-top:50px;"></button>
+                </div>
+                <div id="ProcessNameUpdate">
+                    <!--Edit Name-->
+                    <div class="form-inline" data-ng-show="vm.AccountNameStatus.Editing" style="padding-bottom:0px; margin-top:-5px">
+                        <!--<div style="margin-bottom:10px;">
+                            <span style="color:red; font-size:16px;"><i class="fa fa-warning"></i>&nbsp;<strong>Warning:</strong>&nbsp;Updating the name may change URLs & result in other issues for users of this account!</span>
+                        </div>-->
+                        <input type="text" class="input-sm form-control" style="font-weight: normal; font-size:40px; max-width:620px; height:63px; margin-right:5px;" data-ng-model="vm.AccountNameStatus.NewAccountName" placeholder="Account Name" />
+                        <div style="padding:10px;">
+                            <button class="btn btn-default" data-ng-click="vm.cancelUpdateAccountName()" style="margin-left:5px;">Cancel</button>
+                            <button data-ng-show="vm.AccountNameStatus.NewAccountName == vm.account.AccountName" class="btn btn-disabled">Rename Account</button>
+                            <button data-ng-show="vm.AccountNameStatus.NewAccountName != vm.account.AccountName" class="btn btn-primary" data-ng-click="vm.updateAccountName()">Rename Account</button>
+                            <!--<button class="btn btn-primary" data-ng-click="vm.updateAccountName()">Update</button>-->
+                        </div>
+
+                    </div>
+                    <!--Processing-->
+                    <div data-ng-show="vm.AccountNameStatus.Updating && !vm.AccountNameStatus.SendingComplete" style="margin:30px">
+                        <p style="font-size:16px;"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating name...</p>
+                    </div>
+                    <!--Result-->
+                    <div data-ng-show="vm.AccountNameStatus.SendingComplete" style="margin:30px">
+                        <p data-ng-show="vm.AccountNameStatus.Results.IsSuccess" style="color:green; font-size:16px;"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ vm.AccountNameStatus.Results.Message }}</p>
+                        <p data-ng-show="!vm.AccountNameStatus.Results.IsSuccess" style="color:red; font-size:16px;"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;{{ vm.AccountNameStatus.Results.Message }}</p>
+                        <span data-ng-show="vm.AccountNameStatus.Results.IsSuccess"><button class="btn btn-default btn-sm" data-ng-click="vm.refresh()" style="margin-left:5px;">OK (reload page)</button></span>
+                        <span data-ng-show="!vm.AccountNameStatus.Results.IsSuccess"><button class="btn btn-default btn-sm" data-ng-click="vm.AccountNameStatus.Retry()" style="margin-left:5px;">Try again</button></span>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-width:thick; border-color:black; margin-bottom:0; margin-top:8px" />
+            <div style="padding:6px" data-ng-style="{'background-color': vm.headerBGColor}">
+                <div style="float:left; padding-top:2px;">
+                    <i data-ng-show="vm.account.AccountStatusString == 'Active'" class="fa fa-circle" style="color:limegreen; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px;"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'Inactive'" class="fa fa-circle" style="color:lightgrey; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'Unprovisioned'" class="fa fa-dot-circle-o" style="color:lightgrey; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'Unverified'" class="fa fa-circle-o" style="color:lightgrey; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'Closed'" class="fa fa-times" style="color:lightgrey; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'PastDue'" class="fa fa-usd" style="color:orange; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <i data-ng-show="vm.account.AccountStatusString == 'Unpaid'" class="fa fa-usd" style="color:red; font-size:14px; vertical-align:middle; margin-right:4px; margin-bottom:5px"></i>
+                    <!--<img src="/Images/Icons/AccountStatus/icon_{{ vm.account.AccountStatusString }}.png" title="{{ vm.account.AccountStatusString }}" style="vertical-align:middle; margin-right:5px; margin-bottom:5px;" />-->
+                    <span>
+                        {{ vm.account.AccountStatusString }}
+                    </span>
+
+                </div>
+                <div>
+                    <div style="text-align:right; padding-bottom:4px; padding-right:4px;">
+                        <div data-ng-if="vm.account.PaymentPlan.PaymentPlanName == 'Unprovisioned'">
+                            <span class="label label-default">{{vm.account.PaymentPlan.PaymentPlanName}}</span>
+                        </div>
+                        <div data-ng-if="vm.account.PaymentPlan.PaymentPlanName != 'Unprovisioned'">
+                            <span class="label label-success">{{vm.account.PaymentPlan.PaymentPlanName}} ({{vm.account.PaymentFrequency.PaymentFrequencyName}})</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-width:thin; border-color:darkgrey; margin-top:0" />
+        <div id="Main" class="container-fluid">
+            <div class="row">
+                <div id="LeftColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <h3 class="branding-accent-color-dark">Basic Info</h3>
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>AccountID:</strong></small>
+                        <small>{{ vm.account.AccountID }}</small>
+                    </div>
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>AccountNameKey:</strong></small>
+                        <small>{{ vm.account.AccountNameKey }}</small>
+                    </div>
+                    <div>
+                        <hr class="dataCardLines" />
+                        <small><strong>Phone:</strong></small>
+                        <small>{{ vm.account.PhoneNumber }}</small>
+                    </div>
+                    <div data-ng-show="vm.account.AccountManagementUrl != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Admin:</strong></small>
+                        <small><a href="http://{{ vm.account.AccountManagementUrl }}" target="_blank">{{ vm.account.AccountManagementUrl }}</a></small>
+                    </div>
+                    <div data-ng-show="vm.account.AccountApiUrl != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>API:</strong></small>
+                        <small><a href="http://{{ vm.account.AccountApiUrl }}" target="_blank">{{ vm.account.AccountApiUrl }}</a></small>
+                    </div>
+                    <div data-ng-show="vm.account.AccountSiteUrl != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Site:</strong></small>
+                        <small><a href="http://{{ vm.account.AccountSiteUrl }}" target="_blank">{{ vm.account.AccountSiteUrl }}</a></small>
+                    </div>
+                    <div data-ng-show="vm.account.SqlPartition != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>SQL Partition:</strong></small>
+                        <small>{{ vm.account.SqlPartition }}</small>
+                        <!--<small><a href="/partitions/{{ vm.account.SqlPartition }}">{{ vm.account.SqlPartition }}</a></small>-->
+                    </div>
+
+                    <div data-ng-show="vm.account.DocumentPartition != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Document Partition:</strong></small>
+                        <small>{{ vm.account.DocumentPartition }}</small>
+                    </div>
+
+                    <div data-ng-show="vm.account.StoragePartition != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Storage Partition:</strong></small>
+                        <small>{{ vm.account.StoragePartition }}</small>
+                    </div>
+
+                    <div data-ng-show="vm.account.SearchPartition != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Search Partition:</strong></small>
+                        <small>{{ vm.account.SearchPartition }}</small>
+                    </div>
+
+                    <div data-ng-show="vm.account.ProductSearchIndex != null">
+                        <hr class="dataCardLines" />
+                        <small><strong>Product Search Index:</strong></small>
+                        <small>{{ vm.account.ProductSearchIndex }}</small>
+                    </div>
+
+                    <!--<div data-ng-show="vm.account.StripeCustomerID != null">
+                        <hr class="dataCardLines" />
+                        <div>
+                            <small><strong>Plan:</strong></small>
+                            <small>{{ vm.account.PaymentPlan.PaymentPlanName }}</small>
+                            <!-- Removed from THIS scenario
+                            <account-detail-manage-plans-modal></account-detail-manage-plans-modal>
+                            <div style="margin-top:7px;"><a class="btn btn-xs btn-default" data-toggle="modal" data-target=".manageAccountPlanModal" data-ng-click="vm.activateManagePlanModal()"><i class="fa fa-cog" style="margin-right:2px;"></i> Change plan</a></div>
+                        -- >
+                </div>
+            </div>-->
+
+            <div data-ng-show="vm.checkRole('Admin') && vm.account.Provisioned == true">
+                <account-detail-communications></account-detail-communications>
+            </div>
+
+        </div>
+
+        <div class="visible-xs visible-sm col-xs-12">
+            <hr style="border-width:thin; border-color:darkgray" />
+        </div>
+
+        <div id="CenterColumn" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+            <div id="Unsubscribed" data-ng-show="vm.account.StripeCustomerID == null && vm.account.Provisioned == false">
+                <h3 class="branding-accent-color-dark">Not Subscribed</h3>
+                <div>
+                    <hr style="margin-bottom:10px;" class="dataCardLines" />
+                    <account-detail-create-subscription-modal></account-detail-create-subscription-modal>
+                    <a class="btn btn-xs btn-primary" data-toggle="modal" data-target=".newSubscriptionModal" data-ng-click="vm.goToSubscriptionStep1(true)"><i class="fa fa-dollar"></i> Subscribe to account plan</a>
+                </div>
+            </div>
+
+            <div id="Unprovisioned" data-ng-show="vm.account.StripeCustomerID != null && vm.account.Provisioned == false && vm.account.Active == false">
+                <h3 class="branding-accent-color-dark">Not Provisioned</h3>
+                <div>
+                    <hr style="margin-bottom:10px;" class="dataCardLines" />
+
+
+                    <a data-ng-show="vm.provisioningStatus == null && vm.partitionAvailabilityData.isSuccess" class="btn btn-xs btn-primary" data-ng-click="vm.provisionAccount()"><i class="fa fa-cog"></i> Provision account</a>
+                    <a data-ng-show="vm.provisioningStatus == null && !vm.partitionAvailabilityData.isSuccess" class="btn btn-xs btn-warning disabled"><i class="fa fa-cog"></i> Partition(s) unavailable!</a>
+
+                    <!--<span data-ng-show="vm.provisioningStatus == null"> <i style="color:orange; font-size:16px; padding-top:15px;" class="fa fa-level-down"></i></span>-->
+
+                    <a data-ng-show="vm.provisioningStatus == 'sending'" class="btn btn-xs btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i> Sending request...</a>
+                    <small data-ng-show="vm.provisioningStatus == 'success'" style="color:green"><b>Provisioning requested</b> (ETA: < {{ vm.PlatformWorkerFrequencyDescription }})</small>
+                    <small data-ng-show="vm.provisioningStatus == 'error'" style="color:red"><b>{{ vm.provisioningStatusError }}</b></small>
+
+                    <!--<div data-ng-show="vm.provisioningStatus == null" style="margin-top:5px; margin-bottom:20px;">
+                        <small style="color:orange; font-size:13px;"><u>Prior to provisioning add CNAMEs on <b style="color:darkorange">CloudFlare:</b></u></small>
+
+                        <p style="color:#757575; font-size:11px; margin-top:5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountManagementDomain }}</p>                       
+                        <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountSiteDomain }}</p>
+                        <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountApiDomain }}</p>
+
+                    </div>-->
+                </div>
+            </div>
+
+            <div id="ProvisioningPending" data-ng-show="vm.account.StripeCustomerID != null && vm.account.Provisioned == false && vm.account.Active == true">
+                <h3 class="branding-accent-color-dark">Provisioning pending...</h3>
+                <div>
+                    <hr style="margin-bottom:10px;" class="dataCardLines" />
+                    <small>ETA: < {{ vm.PlatformWorkerFrequencyDescription }}</small>
+
+                </div>
+            </div>
+
+            <div id="StripeInfo" data-ng-show="vm.account.StripeCustomerID != null">
+                <h3 class="branding-accent-color-dark">Billing/Stripe Info</h3>
+                <div data-ng-show="vm.account.Delinquent">
+                    <hr class="dataCardLines" />
+                    <small><strong style="color:red; font-size:12px"><i class="fa fa-warning"></i>&nbsp;&nbsp;Account is delinquent!</strong></small>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <account-detail-manage-plans-modal></account-detail-manage-plans-modal>
+                    <div>
+                        <small><strong>Plan:</strong></small>
+                        <small>{{ vm.account.PaymentPlan.PaymentPlanName }}</small>                        
+                        <span data-ng-show="vm.upgradePathAvailable.isSuccess" style="margin-top:7px; margin-bottom:7px;"><a style="font-size:10px;" class="btn btn-xs btn-default" data-toggle="modal" data-target=".manageAccountPlanModal" data-ng-click="vm.activateManagePlanModal()"><i class="fa fa-cog" style="margin-right:2px;"></i> <b>Upgrade</b></a></span>
+                    </div>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Stripe Customer ID:</strong></small>
+                    <small>{{ vm.account.StripeCustomerID }}</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Stripe Subscription ID:</strong></small>
+                    <small data-ng-show="vm.account.StripeSubscriptionID != null">{{ vm.account.StripeSubscriptionID }}</small>
+                    <small data-ng-show="vm.account.StripeSubscriptionID == null" style="color:lightgrey">Not subscribed to a plan.</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Stripe Plan ID:</strong></small>
+                    <small data-ng-show="vm.account.StripePlanID != null">{{ vm.account.StripePlanID }}</small>
+                    <small data-ng-show="vm.account.StripePlanID == null" style="color:lightgrey">Not subscribed to a plan.</small>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Stripe Card ID:</strong></small>
+                    <small data-ng-show="vm.account.StripeCardID != null">{{ vm.account.StripeCardID }}</small>
+                    <small data-ng-show="vm.account.StripeCardID == null" style="color:lightgrey">No card on file.</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Card Name:</strong></small>
+                    <small data-ng-show="vm.creditCardInfo.CardName != null">{{ vm.creditCardInfo.CardName }}</small>
+                    <small data-ng-show="vm.creditCardInfo.CardName == null" style="color:lightgrey">No card on file.</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Card Description:</strong></small>
+                    <small data-ng-show="vm.creditCardInfo.CardDescription != null">{{ vm.creditCardInfo.CardDescription }}</small>
+                    <small data-ng-show="vm.creditCardInfo.CardDescription == null" style="color:lightgrey">No card on file.</small>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong>Card Expiration:</strong></small>
+                    <small>{{ vm.creditCardInfo.ExpirationDescription }}</small>
+                    <small data-ng-show="vm.creditCardInfo.ExpirationDescription != null">{{ vm.account.ExpirationDescription }}</small>
+                    <small data-ng-show="vm.creditCardInfo.ExpirationDescription == null" style="color:lightgrey">No card on file.</small>
+                    <account-detail-add-update-card-modal></account-detail-add-update-card-modal>
+                    <div data-ng-show="vm.account.StripeCardID != null" style="margin-top:7px;"><a class="btn btn-xs btn-default" data-toggle="modal" data-target=".newCreditCardModal" data-ng-click="vm.actvateNewCreditCardModal()"><i class="fa fa-credit-card" style="margin-right:2px;"></i> Update card</a></div>
+                </div>
+                <!--
+                <div data-ng-if="vm.account.SqlPartition == null ? false : true">
+                    <hr class="dataCardLines" />
+                    <small><strong>Data Partition:</strong></small>
+                    <small><a href="http://partitions/{{ vm.account.SqlPartition }}">{{ vm.account.SqlPartition }}</a></small>
+                </div>
+
+                <hr class="dataCardLines" st
+
+                            <hr class="dataCardLines" style="margin-bottom:15px;" />-->
+            </div>
+
+        </div>
+
+
+        <div class="visible-xs visible-sm col-xs-12">
+            <hr style="border-width:thin; border-color:darkgray" />
+        </div>
+        <div id="RightColumn-KeyDates" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <h3 class="branding-accent-color-dark">Key Dates</h3>
+            <div>
+
+                <div data-ng-show="vm.account.AccountEndDate != null">
+                    <hr class="dataCardLines" />
+                    <small style="color:#D10000"><i class="fa fa-warning" style="font-size:13px; margin-left:2px; margin-top:2px"></i>&nbsp;&nbsp;Account Closing: <strong am-time-ago="vm.account.AccountEndDate"></strong></small>
+
+                    <div>
+                        <i class="fa fa-clock-o" style="color:#D10000; font-size:10px;"></i>
+                        <small style="color:#D10000"> {{ vm.account.AccountEndDate | date : 'h:mm a' }} on {{ vm.account.AccountEndDate | date : 'EEE MMM dd, yyyy' }}</small>
+                    </div>
+                </div>
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><i class="fa fa-bolt" style="color:#005EFF; font-size:13px; margin-left:2px; margin-top:2px"></i>&nbsp;&nbsp;Last Activity: <strong am-time-ago="vm.lastActivityDate"></strong></small>
+                    <div data-ng-show="!vm.lastActivityDateLoading">
+                        <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                        <small style="color:#8A8A8A"> {{ vm.lastActivityDate | date : 'h:mm a' }} on {{ vm.lastActivityDate | date : 'EEE MMM dd, yyyy' }}</small>
+                    </div>
+                    <div data-ng-show="vm.lastActivityDateLoading">
+                        <i class="fa fa-circle-o-notch fa-spin" style="color:lightgray; font-size:10px;"></i>
+                        <small style="color:#8A8A8A">Loading</small>
+                    </div>
+                </div>
+
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span>&nbsp;&nbsp;Created: <strong am-time-ago="vm.account.CreatedDate"></strong></small>
+                    <br />
+                    <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                    <small style="color:#8A8A8A">{{ vm.account.CreatedDate | date : 'h:mm a' }} on {{ vm.account.CreatedDate | date : 'EEE MMM dd, yyyy' }}</small>
+                    <!--<small><strong><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span> Created:</strong></small>
+                    <small>{{ vm.account.CreatedDate | date : 'MMM dd, yyyy  |  h:mm a' }}</small>-->
+                </div>
+                <!--<div>
+                    <em style="color:darkgray"><strong><small am-time-ago="vm.account.CreatedDate"></small></strong></em>
+                </div>-->
+            </div>
+
+            <div data-ng-show="vm.account.Provisioned">
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span> Provisioned: <strong am-time-ago="vm.account.ProvisionedDate"></strong></small>
+                    <br />
+                    <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                    <small style="color:#8A8A8A">{{ vm.account.ProvisionedDate | date : 'h:mm a' }} on {{ vm.account.ProvisionedDate | date : 'EEE MMM dd, yyyy' }}</small>
+                    <!--<small><strong><span class="glyphicon glyphicon-ok" style="color:green; font-size:10px;"></span> Provisioned:</strong></small>
+                    <small>{{ vm.account.ProvisionedDate | date : 'MMM dd, yyyy  |  h:mm a' }}</small>-->
+                </div>
+                <!--<div>
+                    <em style="color:darkgray"><strong><small am-time-ago="vm.account.ProvisionedDate"></small></strong></em>
+                </div>-->
+            </div>
+            <div data-ng-show="!vm.account.Provisioned">
+                <div>
+                    <hr class="dataCardLines" />
+                    <small><strong><span class="glyphicon glyphicon-remove" style="color:red; font-size:10px;"></span> Provisioned:</strong></small>
+                    <small>Not Provisioned</small>
+                </div>
+            </div>
+            <hr class="dataCardLines" style="margin-bottom:15px;" />
+        </div>
+
+    </div>
+</div>
+<div style="margin:50px"></div>
+<div id="Tabs">
+    <tabset>
+
+        <tab active="vm.closureTabActive" style="cursor:pointer" id="ClosureStatus" heading="Closure Status" data-ng-show="vm.account.AccountEndDate != null">
+            <div style="padding:30px; padding-bottom:0;">
+                <div data-ng-show="vm.closureApprovalRequired == null && vm.reactivatingSubscription == false">
+                    <section-loader message="'Getting closure status...'" loader-type="'inline'"></section-loader>
+                </div>
+
+                <div data-ng-show="vm.accelerateAccountClosureComplete" style="margin-top:10px;">
+                    <h3><i class="fa fa-check" style="color:green"></i> Account will be closed on next custodial cycle.</h3>
+                </div>
+
+                <div data-ng-show="vm.accelerateAccountClosureProcessing">
+                    <section-loader message="'Sending request...'" loader-type="'inline'"></section-loader>
+                </div>
+                <div data-ng-show="vm.reactivateSubscription == null">
+                    <section-loader message="'Reactivating subscription...'" loader-type="'inline'"></section-loader>
+                </div>
+                <div data-ng-show="vm.reactivateSubscription != null && vm.reactivateSubscription.isSuccess != null">
+
+                    <div data-ng-show="vm.reactivateSubscription.isSuccess">
+                        <h3 style="color:green"><i class="fa fa-check"></i> {{ vm.reactivateSubscription.SuccessMessage }}</h3>
+                        <button style="margin-left:32px;" class="btn btn-default btn-md" data-ng-click="vm.refreshAccount(false)"><i class="fa fa-refresh"></i> Refresh</button>
+                    </div>
+                    <div data-ng-show="!vm.reactivateSubscription.isSuccess">
+                        <h3 style="color:red"><i class="fa fa-warning"></i> {{ vm.reactivateSubscription.ErrorMessage }}</h3>
+                    </div>
+                </div>
+
+                <div data-ng-show="vm.closureApprovalRequired && vm.closureApprovalRequired != null">
+                    <h3>Account closure requires approval</h3>
+                    <button data-ng-click="vm.approveClosure()" class="btn btn-danger btn-md"><i class="fa fa-thumbs-up fa-flip-horizontal"></i> Approve Account Closure</button>
+                    <br /><br />
+                    <button data-ng-click="vm.reactivateSubscription()" class="btn btn-primary btn-sm"><i class="fa fa-reply"></i> Reactivate subscription</button>
+                </div>
+                <div data-ng-show="!vm.accelerateAccountClosureComplete && !vm.accelerateAccountClosureProcessing && !vm.closureApprovalRequired && vm.closureApprovalRequired != null">
+                    <h3><i class="fa fa-check" style="color:green"></i> Account closure approved</h3>
+                    <div style="margin-left:33px; margin-top:16px;">
+                        <div style="padding:8px; border:1px solid #E0ADAD; width:270px; padding-left:12px;">
+                            <small style="color:#D10000"><strong>Account scheduled for closure <span am-time-ago="vm.account.AccountEndDate"></span></strong></small>
+                            <br />
+                            <!--<i class="fa fa-clock-o" style="color:#D10000; font-size:10px;"></i>-->
+                            <small style="color:#D10000">At: {{ vm.account.AccountEndDate | date : 'h:mm a' }} on {{ vm.account.AccountEndDate | date : 'EEE MMM dd, yyyy' }}</small>
+                            <br />
+                            <small style="color:#D10000"><strong>All data will be purged at this time</strong></small>
+                        </div>
+                        <div style="margin-top:16px;">
+                            <small>
+                                To close account at another time simply set the <b>AccountEndDate</b> in SQL to the desired datetime in <b>UTC</b>. If you decide to extend the time past the pro-rated subscription remainder, please keep in mind that the customer will no longer be covering the resource costs as the <b>Stripe</b> plan will be closed. To resubscribe the account reverse the approval (button below) and then reactivate the subscription using the button on the next screen. If you decide to close the account sooner be aware thar the Stripe customer associated with this account will also be deleted.
+                            </small>
+                        </div>
+                    </div>
+
+                    <button style="margin-left:33px; margin-top:12px;" class="btn btn-xs btn-default" data-ng-click="vm.reverseClosureApproval()"><i class="fa fa-reply"></i> Reverse approval</button>
+
+                    <div data-ng-show="!vm.accelerateAccountClosureAccept && !vm.accelerateAccountClosureComplete">
+                        <button style="margin-left:33px; margin-top:12px;" class="btn btn-xs btn-danger" data-ng-click="vm.startAccelerateAccountClosure()"><i class="fa fa-fighter-jet"></i> Accelerate closure</button>
+                    </div>
+
+                    <div data-ng-show="vm.accelerateAccountClosureAccept && !vm.accelerateAccountClosureComplete">
+                        <h3 style="margin-left:33px;">Are you sure you want to deprovision this account immediatly?</h3>
+                        <button style="margin-left:33px; margin-right:5px; margin-top:12px;" class="btn btn-xs btn-default" data-ng-click="vm.cancelAccelerateAccountClosure()">No</button>
+                        <button style="margin-top:12px;" class="btn btn-xs btn-danger" data-ng-click="vm.accelerateAccountClosure()">Yes</button>
+                    </div>
+
+
+
+                </div>
+
+                <!--
+                <hr />
+                <div style="margin-top:15px; margin-bottom:20px;">
+                    <small style="color:orange; font-size:13px;"><u>Remeber to remove CNAMEs on <b style="color:darkorange">CloudFlare:</b></u></small>
+                    <p style="color:#757575; font-size:11px; margin-top:5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountManagementDomain }}</p>
+                    <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountSiteDomain }}</p>
+                    <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountApiDomain }}</p>
+                </div>-->
+
+                <hr />
+                <small style="color:darkgrey">
+                    *  When a paid subscription is closed by an account owner it is marked for closure by its "AccountEndDate". The Custodian will purge all account data after this date is reached provided that a Platform Admin has approved the closure by marking "ClosureApproved" to TRUE.
+                    This extra step of validation is a safety measure to allow for time to ensure that the account holder did not make the closure in error or to allow time to archive data manually should the account holder want to retain their data.
+                    If a reversal of the closure occurs while the subscription is still active on Stripe the plan can be reactivated as it once was.
+                    If a reversal of the closure occurs after the subscription has ended a new Stripe SubscriptionID is created and a new plan cycle is created using the previous plan and plan frequency settings as well as the existing credit card on file at Stripe.
+                </small>
+            </div>
+
+        </tab>
+
+        <tab active="vm.billingTabActive" style="cursor:pointer" id="BillingsTab" heading="Billings">
+
+            <div id="billing-sub-menu" data-ng-show="vm.account.PaymentPlan.MonthlyRate > 0">
+                <ul class="sahara-nav-pills">
+                    <li data-ng-show="vm.account.Delinquent">
+                        <a data-ng-class="{'active' : vm.billingSubMenu.dunningButton}" data-ng-click="vm.billingSubMenu.update('dunningAttempts')" href="#">DUNNING ATTEMPTS</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'active' : vm.billingSubMenu.activeButton}" data-ng-click="vm.billingSubMenu.update('active')" href="#">UPCOMING INVOICE</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'active' : vm.billingSubMenu.paymentHistoryButton}" data-ng-click="vm.billingSubMenu.update('paymentHistory')" href="#">PAYMENT HISTORY</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'active' : vm.billingSubMenu.invoiceHistoryButton}" data-ng-click="vm.billingSubMenu.update('invoiceHistory')" href="#">INVOICE HISTORY</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="subMenuPadding" style="padding-bottom:20px;" data-ng-show="vm.account.PaymentPlan.MonthlyRate == 0">
+            </div>
+            <account-detail-dunning-attempts-panel data-ng-show="vm.billingSubMenu.dunningButton"></account-detail-dunning-attempts-panel>
+            <account-detail-invoice-next-panel data-ng-show="vm.billingSubMenu.activeButton && vm.account.PaymentPlan.PaymentPlanName != 'Unprovisioned'"></account-detail-invoice-next-panel>
+            <payment-history-panel class="container-fluid" style="padding-left:15px; padding-right:15px" data-ng-show="vm.billingSubMenu.paymentHistoryButton || vm.account.PaymentPlan.PaymentPlanName == 'Unprovisioned'"></payment-history-panel>
+            <invoice-history-panel class="container-fluid" style="padding-left:15px; padding-right:15px" data-ng-show="vm.billingSubMenu.invoiceHistoryButton"></invoice-history-panel>
+
+            <div style="padding:30px;" data-ng-show="vm.account.StripeCardID == null && vm.payments == null">
+                <span style="color:darkgrey; padding:6px; border:1px solid lightgrey; font-size:12px;"><strong>No card on file.</strong></span>
+                <br /><br />
+            </div>
+        </tab>
+
+        <!--
+        <tab style="cursor:pointer" id="CommerceTab" heading="Commerce" data-ng-click="vm.activateCommercePanel()">
+
+            <div id="commerce-sub-menu">
+                <ul class="sahara-nav-pills">
+                    <li>
+                        <a data-ng-class="{'active' : vm.commerceSubMenu.creditsButton}" data-ng-click="vm.commerceSubMenu.update('credits')" href="#">CREDITS</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'active' : vm.commerceSubMenu.ordersButton}" data-ng-click="vm.commerceSubMenu.update('orders')" href="#">ORDERS</a>
+                    </li>
+                </ul>
+            </div>
+            <commerce-credits-panel style="padding:15px;" data-ng-show="vm.commerceSubMenu.creditsButton"></commerce-credits-panel>
+            <commerce-orders-panel style="padding:15px;" data-ng-show="vm.commerceSubMenu.ordersButton"></commerce-orders-panel>
+        </tab>-->
+
+
+        <tab style="cursor:pointer" id="LogsTab" heading="Logs" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activateLogPanel()">
+            <div class="container-fluid" style="padding:15px">
+                <div id="logs-sub-menu">
+                    <ul class="sahara-nav-pills">
+                        <li>
+                            <a data-ng-class="{'active' : vm.logsSubMenu.allButton}" data-ng-click="vm.logsSubMenu.update('all')" href="#">ALL</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.logsSubMenu.categoryButton}" data-ng-click="vm.logsSubMenu.update('category')" href="#">BY CATEGORY</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.logsSubMenu.activityButton}" data-ng-click="vm.logsSubMenu.update('activity')" href="#">BY ACTIVITY</a>
+                        </li>
+                        <li>
+                            <a data-ng-class="{'active' : vm.logsSubMenu.userButton}" data-ng-click="vm.logsSubMenu.update('user')" href="#">BY USER</a>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <account-logs-panel style="padding-left:15px; padding-right:15px;"></account-logs-panel>
+            </div>
+        </tab>
+
+        <!--
+        <tab style="cursor:pointer" class="hidden-xs" heading="Application Data" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activateApplicationDataPanel()">
+            <div class="container-fluid" style="padding:45px; padding-top:55px;">
+                <account-detail-application-data-panel></account-detail-application-data-panel>
+            </div>
+        </tab>-->
+
+        <!--
+        <tab style="cursor:pointer" class="hidden-xs" heading="Data Injection" data-ng-show="vm.account.Provisioned && vm.checkRole('SuperAdmin')">
+            <div class="container-fluid" style="padding:30px">
+
+                <account-detail-data-injection-panel></account-detail-data-injection-panel>
+
+            </div>
+        </tab>-->
+
+        <!-- Removed - Use Azure Portal To View
+        <tab style="cursor:pointer" id="DocumentDBTab" heading="Document Partition" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activateDocumentPartitionPanel()">
+            <div class="container-fluid" style="padding:15px">
+
+                <account-detail-document-partition-panel></account-detail-document-partition-panel>
+
+            </div>
+        </tab> -->
+
+        <tab style="cursor:pointer" id="SqlPartitionTab" heading="SQL Partition" class="hidden-xs" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activateSqlPartitionPanel()">
+            <div class="container-fluid" style="padding:15px">
+                <account-detail-sql-partition-panel></account-detail-sql-partition-panel>
+            </div>
+        </tab>
+
+
+        <!--
+
+            <tab style="cursor:pointer" id="Users" heading="Users" data-ng-show="vm.checkRole('SuperAdmin')">
+
+                <tabset type="pills" style="margin-top: 20px; padding-top: 20px">
+
+                    <tab style="cursor:pointer" id="Users" heading="Users">
+
+                        <account-detail-users-panel></account-detail-users-panel>
+
+                    </tab>
+
+                    <tab style="cursor:pointer" id="UserInvites" heading="User Invites" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activateInvitationsPanel()">
+
+                        <account-detail-invitations-panel></account-detail-invitations-panel>
+
+                    </tab>
+
+
+                    <tab style="cursor:pointer" id="PasswordClaims" heading="Password Claims" data-ng-show="vm.account.Provisioned" data-ng-click="vm.activatePasswordClaimsPanel()">
+
+                        <account-detail-password-claims-panel></account-detail-password-claims-panel>
+
+                    </tab>
+
+                </tabset>
+
+            </tab>-->
+
+        <tab style="cursor:pointer" id="Users" heading="Users" data-ng-click="vm.activateInvitationsPanel()">
+            <div id="users-sub-menu" data-ng-show="vm.account.Provisioned">
+                <ul class="sahara-nav-pills">
+                    <li>
+                        <a data-ng-class="{'active' : vm.userSubMenu.activeButton}" data-ng-click="vm.userSubMenu.update('active')" href="#">ACTIVE</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'active' : vm.userSubMenu.invitationsButton}" data-ng-click="vm.userSubMenu.update('invitations')" href="#">INVITATIONS</a>
+                    </li>
+                    <li data-ng-show="vm.checkRole('SuperAdmin')">
+                        <a data-ng-class="{'active' : vm.userSubMenu.passwordClaimsButton}" data-ng-click="vm.userSubMenu.update('passwordClaims')" href="#">PASSWORD CLAIMS</a>
+                    </li>
+                </ul>
+            </div>
+            <account-detail-users-panel data-ng-show="vm.userSubMenu.activeButton"></account-detail-users-panel>
+            <account-detail-invitations-panel data-ng-show="vm.userSubMenu.invitationsButton"></account-detail-invitations-panel>
+            <account-detail-password-claims-panel data-ng-show="vm.checkRole('SuperAdmin') && vm.userSubMenu.passwordClaimsButton"></account-detail-password-claims-panel>
+            <!--
+                <account-detail-users-panel></account-detail-users-panel>
+
+                <account-detail-invitations-panel></account-detail-invitations-panel>
+
+                <account-detail-password-claims-panel data-ng-show="vm.checkRole('SuperAdmin')"></account-detail-password-claims-panel>-->
+        </tab>
+
+        <!--<tab style="cursor:pointer" class="hidden-xs" heading="Messages" data-ng-show="vm.account.Provisioned">
+
+            <div id="messages-sub-menu">
+                <ul class="sahara-nav-pills">
+                    <li>
+                        <a class="active" data-ng-click="" href="#">ALERTS</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="" data-ng-click="" href="#">NOTIFICATIONS</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="container-fluid" style="padding:15px">
+                <h6><strong><span class="glyphicon glyphicon-star branding-accent-color"></span> Displays notifications and alerts.</strong></h6>
+            </div>
+        </tab>-->
+
+
+
+        <tab style="cursor:pointer" class="hidden-xs" heading="Advanced" data-ng-show="vm.account.Provisioned && vm.account.AccountEndDate == null && vm.checkRole('SuperAdmin')">
+            <div class="container-fluid" style="padding:30px">
+                <div data-ng-show="vm.account.AccountEndDate == null && vm.checkRole('SuperAdmin')">
+                    <div data-ng-show="vm.accountClosure.defaultState">
+                        <small style="color:darkgrey">Close this account</small>
+                        <br /><br />
+                        <button data-ng-click="vm.startAccountClosure()" type="button" class="btn btn-danger btn-md"><i class="glyphicon glyphicon-remove"></i> Close account</button>
+
+                        <!--<div style="margin-top:15px; margin-bottom:20px;">
+                            <small style="color:orange; font-size:13px;"><u>Remeber to remove CNAMEs on <b style="color:darkorange">CloudFlare:</b></u></small>
+
+                            <p style="color:#757575; font-size:11px; margin-top:5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountManagementDomain }}</p>
+                            <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountSiteDomain }}</p>
+                            <p style="color:#757575; font-size:11px; margin-top:-5px;"><i style="color:#757575" class="fa fa-cog"></i> <span style="color:red; font-weight:bold">{{ vm.account.AccountNameKey }}</span>.{{ vm.AccountApiDomain }}</p>
+
+                        </div>-->
+
+                    </div>
+                    <div data-ng-show="vm.accountClosure.warningState">
+                        <h2 style="color:red"><i class="fa fa-warning"></i> Are you sure you want to permanently close this account?!</h2>
+                        <h5 data-ng-show="vm.account.PaymentPlanName != 'Unprovisioned'" style="color:red">This account will remain active for the remainder of the paid subcription plan cycle. After this date all the account data will be deleted (pending closure approval).</h5>
+                        <h5 data-ng-show="vm.account.PaymentPlanName == 'Unprovisioned'" style="color:red">This account will be immediately closed.</h5>
+                        <hr />
+                        <button data-ng-click="vm.cancelAccountClosure()" class="btn btn-primary btn-lg">No. Please keep this account open!</button>
+                        <br /><br />
+                        <button data-ng-click="vm.processAccountClosure()" class="btn btn-danger btn-sm">Yes, I am sure. Close this account immediately.</button>
+                    </div>
+                    <div data-ng-show="vm.accountClosure.processingState">
+                        <section-loader message="'Closing account...'" loader-type="'inline'"></section-loader>
+                    </div>
+                    <div data-ng-show="vm.accountClosure.completedState">
+                        <div data-ng-show="vm.accountClosure.isSuccess">
+                            <h3 style="color:green"><i class="fa fa-check"></i> {{ vm.accountClosure.message }}</h3>
+                            <button style="margin-left:32px;" class="btn btn-default btn-md" data-ng-click="vm.getAccount()"><i class="fa fa-refresh"></i> Refresh</button>
+                        </div>
+                        <div data-ng-show="!vm.accountClosure.isSuccess">
+                            <p style="color:red">{{ vm.accountClosure.message }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </tab>
+
+
+        <tab style="cursor:pointer" class="hidden-xs" heading="Advanced" data-ng-show="!vm.account.Provisioned && vm.account.StripeCustomerID == null && vm.checkRole('SuperAdmin')">
+            <div class="container-fluid" style="padding:30px">
+                <div data-ng-show="vm.checkRole('SuperAdmin')">
+                    <div data-ng-show="vm.accountUnprovisionedClosure.defaultState">
+                        <small style="color:darkgrey">Close this account</small>
+                        <br /><br />
+                        <button data-ng-click="vm.startAccountUnprovisionedClosure()" type="button" class="btn btn-danger btn-md"><i class="glyphicon glyphicon-remove"></i> Close unprovisioned account</button>
+                    </div>
+                    <div data-ng-show="vm.accountUnprovisionedClosure.warningState">
+                        <h2 style="color:red"><i class="fa fa-warning"></i> Are you sure you want to permanently close this account?!</h2>
+                        <h5 data-ng-show="vm.account.PaymentPlanName != 'Unprovisioned'" style="color:red">This account will remain active for the remainder of the paid subcription plan cycle. After this date all the account data will be deleted (pending closure approval).</h5>
+                        <h5 data-ng-show="vm.account.PaymentPlanName == 'Unprovisioned'" style="color:red">This account will be immediately closed.</h5>
+                        <hr />
+                        <button data-ng-click="vm.cancelAccountUnprovisionedClosure()" class="btn btn-primary btn-lg">No. Please keep this account open!</button>
+                        <br /><br />
+                        <button data-ng-click="vm.processAccountUnprovisionedClosure()" class="btn btn-danger btn-sm">Yes, I am sure. Close this account immediately.</button>
+                    </div>
+                    <div data-ng-show="vm.accountUnprovisionedClosure.processingState">
+                        <section-loader message="'Closing account...'" loader-type="'inline'"></section-loader>
+                    </div>
+                    <div data-ng-show="vm.accountUnprovisionedClosure.completedState">
+                        <div data-ng-show="vm.accountUnprovisionedClosure.isSuccess">
+                            <h3 style="color:green"><i class="fa fa-check"></i> {{ vm.accountUnprovisionedClosure.message }}</h3>
+                            <button style="margin-left:32px;" class="btn btn-default btn-md" data-ng-click="vm.backToAccounts()"><i class="fa fa-refresh"></i> Back to account list</button>
+                        </div>
+                        <div data-ng-show="!vm.accountUnprovisionedClosure.isSuccess">
+                            <p style="color:red">{{ vm.accountUnprovisionedClosure.message }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </tab>
+
+
+        <tab style="cursor:pointer" class="hidden-xs" heading="Advanced" data-ng-show="vm.account.StripeCustomerID != null && vm.account.Provisioned == false && vm.account.Active == false && vm.checkRole('SuperAdmin')">
+            <div class="container-fluid" style="padding:30px; padding-top:50px">
+                <small style="color:darkgray">Please complete account provisioning to unlock advanced options.</small>
+            </div>
+        </tab>
+
+</tabset>
+</div>
+    </div>
+</div>

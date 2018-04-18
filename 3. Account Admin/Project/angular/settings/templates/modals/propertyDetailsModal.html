@@ -1,0 +1,460 @@
+﻿<div>
+    <!--About Properties Modal-->
+    <div class="modal fade propertyDetailsModalWindow" tabindex="-1" role="dialog" aria-labelledby="propertyDetailsModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetail.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <tabset>
+
+                        <!-- Basic Management -->
+                        <tab active="vm.propertyDetailReset" id="Basic" heading="Basic" style="cursor:pointer;">
+
+                            <div style="margin:20px; margin-top:30px;">
+
+                                <p><label>Name: </label> {{vm.propertyDetail.PropertyName}}</p>
+                                <p><label>Type: </label> {{vm.propertyDetail.PropertyTypeNameKey}}</p>
+                                <p><label>Search Field: </label> {{vm.propertyDetail.SearchFieldName}}</p>
+
+                            </div>
+
+                        </tab>
+
+                        <!-- Predefined Value Management -->
+                        <tab data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'predefined'" id="Values" heading="Values" style="cursor:pointer;">
+
+
+                            <!--Deleting indicator-->
+                            <div data-ng-show="vm.deletingPropertyValue">
+                                <section-loader message="'Deleting property value...'" loader-type="'inline'" style="margin-top:5px; margin-bottom:5px;"></section-loader>
+                            </div>
+
+                            <!--Deletion Errors-->
+                            <div style="text-align:left; margin-top:20px;" data-ng-show="vm.deletePropertyValueErrorMessage != null && vm.deletePropertyValueErrorMessage != ''">
+                                <div class="alert alert-danger" role="alert">
+                                    <div>
+                                        <i data-ng-show="!vm.newPropertyValue.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                        {{ vm.deletePropertyValueErrorMessage }}
+                                    </div>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                    <button class="btn btn-xs btn-warning" data-ng-click="vm.cleareDeletePropertyValueErrorMessage()">OK</button>
+                                </div>
+                            </div>
+
+                            <!--Listing View-->
+                            <div style="margin-top:30px;" data-ng-show="vm.propertyDetail.Values.length > 0">
+                                <label>Predefined values:</label>
+                                <div style="height:10px;"></div>
+                                <table class="table table-responsive table-striped">
+                                    <tr data-ng-repeat="value in vm.propertyDetail.Values">
+                                        <td style="width:45%">
+                                            <strong style="color:#595959">
+                                                <i title="Visible" class="fa fa-circle" style="color:limegreen; font-size:10px; margin-right:5px;"></i> {{ value.PropertyValueName }}
+                                            </strong>
+                                        <td style="text-align:right">
+                                            <button class="btn btn-xs btn-danger" data-ng-click="vm.deletePropertyValue($index)">Delete value</button>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+
+                                <div style="height:5px;"></div>
+                                <hr style="border-color:darkgrey" />
+
+                            </div>
+
+                            <div data-ng-show="vm.propertyDetail.Values.length == 0" style="height:30px;"></div>
+
+                            <div style="text-align:right;">
+                                <!--Input State-->
+                                <div id="propertyValueForm" data-ng-show="!vm.newPropertyValue.IsSending && !vm.newPropertyValue.SendingComplete">
+                                    <div>
+                                        <div class="form">
+                                            <div class="form-group" style="text-align:left">
+                                                <label>Create a new value:</label>
+                                                <div style="height:10px;"></div>
+                                                <input type="text" class="form-control input" data-ng-model="vm.newPropertyValue.Name" placeholder="Value" />
+                                                <div style="text-align:right; margin-top:10px;">
+                                                    <button data-ng-show="vm.newPropertyValue.Name != null && vm.newPropertyValue.Name != ''" class="btn btn-sm btn-primary" data-ng-click="vm.createPropertyValue()"><i class="fa fa-plus"></i> Add Value</button>
+                                                    <button data-ng-show="vm.newPropertyValue.Name == null || vm.newPropertyValue.Name == ''" class="btn btn-sm btn-primary disabled"><i class="fa fa-plus"></i> Add Value</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Loading State-->
+                                <section-loader message="'Adding value...'" loader-type="'inline'" data-ng-show="vm.newPropertyValue.IsSending && !vm.newPropertyValue.SendingComplete"></section-loader>
+                                <!--Results State-->
+                                <div style="text-align:left;" id="CreatePropertyValueResults" data-ng-show="!vm.newPropertyValue.IsSending && vm.newPropertyValue.SendingComplete">
+                                    <div ng-class="vm.newPropertyValue.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                                        <div>
+                                            <i data-ng-show="vm.newPropertyValue.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                            <i data-ng-show="!vm.newPropertyValue.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                            {{ vm.newPropertyValue.Results.Message }}
+                                        </div>
+                                    </div>
+                                    <!-- If the error is due to a constraint on the plan -->
+                                    <div data-ng-show="vm.propertyValueConstraint">
+                                        <p>Contact support to upgrade your plan</p>
+                                    </div>
+                                    <div style="text-align:right; margin-top:10px;">
+                                        <button class="btn btn-sm btn-danger" data-ng-click="vm.resetCreatePropertyValue()">Try again</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+
+                        <!-- Swatch Value Management -->
+                        <tab data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'swatch'" id="Swatches" heading="Swatches" style="cursor:pointer;">
+
+
+                            <!--Deleting indicator-->
+                            <div data-ng-show="vm.deletingSwatchValue">
+                                <section-loader message="'Deleting swatch...'" loader-type="'inline'" style="margin-top:5px; margin-bottom:5px;"></section-loader>
+                            </div>
+
+                            <!--Deletion Errors-->
+                            <div style="text-align:left; margin-top:20px;" data-ng-show="vm.deleteSwatchValueErrorMessage != null && vm.deleteSwatchValueErrorMessage != ''">
+                                <div class="alert alert-danger" role="alert">
+                                    <div>
+                                        <i data-ng-show="!vm.newSwatchValue.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                        {{ vm.deleteSwatchValueErrorMessage }}
+                                    </div>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                    <button class="btn btn-xs btn-warning" data-ng-click="vm.cleareDeleteSwatchValueErrorMessage()">OK</button>
+                                </div>
+                            </div>
+
+                            <!--Listing View-->
+                            <div style="margin-top:30px;" data-ng-show="vm.propertyDetail.Swatches.length > 0">
+                                <label>Available swatches:</label>
+                                <div style="height:10px;"></div>
+                                <div>
+                                    <div style="float:left; margin:7px; margin-bottom:14px; border:1px solid darkgray; padding:7px" data-ng-repeat="swatch in vm.propertyDetail.Swatches">
+                                        <div>
+                                            <img style="border:1px solid black;" ng-src="{{ swatch.PropertySwatchImageMedium }}" width="112" height="112" />
+                                            <p style="font-size:12px; margin-top:5px;"><strong>{{ swatch.PropertySwatchLabel }}</strong></p>
+                                            <div style="margin-top:12px; text-align:right">
+                                                <button class="btn btn-xs btn-danger" data-ng-click="vm.deleteSwatchValue($index)">Delete</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="height:10px; clear:both"></div>
+                            <hr style="border-color:darkgrey" />
+
+                            <div style="text-align:right;">
+                                <!--Input State-->
+                                <div id="swatchValueForm" data-ng-show="!vm.newSwatchValue.IsSending && !vm.newSwatchValue.SendingComplete">
+                                    <div>
+                                        <div class="form">
+                                            <div class="form-group" style="text-align:left">
+                                                <label style="margin-bottom:-5px;">Add a swatch:</label>
+                                                <hr />
+                                                <div style="height:10px;"></div>
+
+                                                <div style="margin-left:30px;">
+                                                    <div id="swatchImageUploader" style="float:left">
+                                                        <!-- SWATCH Image w/ Uploader -->
+                                                        <!-- Hidden File Input / Uploader [trigger via vm.initiateSwatchUpdate()] -->
+                                                        <input id="swatchUploadInput" type="file" style="display:none" />
+                                                        <!-- SWATCH IMAGE UI -->
+                                                        <div id="swatchImage" data-ng-click="vm.initiateSwatchUpdate()"
+                                                             ng-style="{'background-image':'url(/Images/ui/fpo/swatch-empty-slot2.jpg)'}"
+                                                             style="background-size: 100px 100px; background-repeat: no-repeat; margin-right:10px;
+                                                            box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30); overflow:hidden;
+                                                            width:100px; height:100px; cursor:pointer; ">
+                                                            <div id="uploadingSwatchAnimation" style="width: 100px; height:100px;text-align:center; padding:28px 0 0px 0; background:rgba(0,0,0,.65); display:none">
+                                                                <div style="color:white"><i class="fa fa-refresh fa-spin" style="font-size:24px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong>Uploading</strong></h6></div>
+                                                            </div>
+                                                            <div id="swatchImageOverlay" style="width: 100px; height:100px; background:rgba(0,0,0,.65);
+                                                            text-align:center;padding:28px 0 0px 0; display:none">
+                                                                <div style="color:white"><i class="fa fa-upload" style="font-size:24px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong>Upload Swatch</strong></h6></div>
+                                                            </div>
+                                                        </div>
+                                                        <h5 id="swatchUploadErrorMessage" style="color:red; display:none; padding-top:15px;"><strong><i class="fa fa-warning"></i> <span id="swatchUploadErrorText"></span></strong></h5>
+                                                    </div>
+
+                                                    <div style="float:left; width:300px; margin-left:30px">
+                                                        <label id="swatchLabel" style="color:darkgray">Swatch label:</label>
+                                                        <input id="swatchInput" disabled type="text" class="form-control input" data-ng-model="vm.newSwatchValue.Label" placeholder="Swatch label" />
+                                                        <div style="text-align:right; margin-top:10px;">
+                                                            <button data-ng-show="vm.newSwatchValue.Url != null && vm.newSwatchValue.Url != '' && vm.newSwatchValue.Label != null && vm.newSwatchValue.Label != ''" class="btn btn-sm btn-primary" data-ng-click="vm.createSwatchValue()"><i class="fa fa-plus"></i> Add Swatch</button>
+                                                            <button data-ng-show="vm.newSwatchValue.Url == null || vm.newSwatchValue.Url == '' || vm.newSwatchValue.Label == null || vm.newSwatchValue.Label == ''" class="btn btn-sm btn-primary disabled"><i class="fa fa-plus"></i> Add Swatch</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div style="clear:both"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Loading State-->
+                                <section-loader message="'Adding swatch...'" loader-type="'inline'" data-ng-show="vm.newSwatchValue.IsSending && !vm.newSwatchValue.SendingComplete"></section-loader>
+                                <!--Results State-->
+                                <div style="text-align:left;" id="CreateSwatchValueResults" data-ng-show="!vm.newSwatchValue.IsSending && vm.newSwatchValue.SendingComplete">
+                                    <div ng-class="vm.newSwatchValue.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                                        <div>
+                                            <i data-ng-show="vm.newSwatchValue.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                            <i data-ng-show="!vm.newSwatchValue.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                            {{ vm.newSwatchValue.Results.Message }}
+                                        </div>
+                                    </div>
+                                    <!-- If the error is due to a constraint on the plan -->
+                                    <div data-ng-show="vm.swatchValueConstraint">
+                                        <p>Contact support to upgrade your plan</p>
+                                    </div>
+                                    <div style="text-align:right; margin-top:10px;">
+                                        <button class="btn btn-sm btn-danger" data-ng-click="vm.resetCreateSwatchValue()">Try again</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+
+                        <!--Advanced Management -->
+                        <tab data-ng-show="vm.propertyDetail.PropertyTypeNameKey != 'paragraph'" id="Advanced" heading="Advanced" style="cursor:pointer;">
+
+                            <div style="margin:20px; margin-top:30px;">
+
+                                <!-- SORTABLE STATE -->
+                                <div id="edit-sortable-bool" data-ng-show="vm.propertyDetail.PropertyTypeNameKey != 'paragraph' && vm.propertyDetail.PropertyTypeNameKey != 'swatch' && vm.propertyDetail.PropertyTypeNameKey != 'predefined' && vm.propertyDetail.PropertyTypeNameKey != 'location'">
+                                    <p>
+                                        <label>
+                                            <span data-ng-show="vm.propertyDetail.Sortable" style="color:#0974ED"><i class="fa fa-sort"></i> Sortable:</span>
+                                            <span data-ng-show="!vm.propertyDetail.Sortable" style="color:#404040"><i class="fa fa-sort"></i> Sortable:</span>
+                                        </label>
+
+                                        <span>
+                                            <img data-ng-show="vm.propertyDetail.Sortable" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeNotSortable()" />
+                                            <img data-ng-show="!vm.propertyDetail.Sortable &&vm.propertyDetail.Sortable != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeSortable()" />
+                                            <img data-ng-show="vm.propertyDetail.Sortable == null" src="/Images/ui/switch/switch-loading.gif" />
+                                        </span>
+
+                                        <small style="color:darkgrey; font-size:10px">
+                                            <strong>
+                                                <span data-ng-show="vm.propertyDetail.Sortable">Available as a search sortable</span>
+                                                <span data-ng-show="!vm.propertyDetail.Sortable && vm.propertyDetail.Sortable != null">Not used as a search sortable</span>
+                                            </strong>
+                                        </small>
+
+                                    </p>
+                                </div>
+
+                                <!-- APPENDABLE STATE -->
+                                <div id="edit-appendable-bool" data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'predefined'  || vm.propertyDetail.PropertyTypeNameKey == 'swatch'">
+                                    <p>
+                                        <label>
+                                            <span data-ng-show="vm.propertyDetail.Appendable" style="color:#0974ED"><i class="fa fa-plus"></i> Appendable:</span>
+                                            <span data-ng-show="!vm.propertyDetail.Appendable" style="color:#404040"><i class="fa fa-plus"></i> Appendable:</span>
+                                        </label>
+
+                                        <span>
+                                            <img data-ng-show="vm.propertyDetail.Appendable" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeNotAppendable()" />
+                                            <img data-ng-show="!vm.propertyDetail.Appendable &&vm.propertyDetail.Appendable != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeAppendable()" />
+                                            <img data-ng-show="vm.propertyDetail.Appendable == null" src="/Images/ui/switch/switch-loading.gif" />
+                                        </span>
+
+                                        <small style="color:darkgrey; font-size:10px">
+                                            <strong>
+                                                <span data-ng-show="vm.propertyDetail.Appendable">Multiple values can be assigned per product</span>
+                                                <span data-ng-show="!vm.propertyDetail.Appendable && vm.propertyDetail.Appendable != null">Only a single value can be assigned per product</span>
+                                            </strong>
+                                        </small>
+
+                                    </p>
+                                </div>
+
+                                <!-- FACETABLE STATE -->
+                                <div id="edit-facetable-bool" data-ng-show="vm.propertyDetail.PropertyTypeNameKey != 'paragraph' && vm.propertyDetail.PropertyTypeNameKey != 'string'">
+                                    <p>
+                                        <label>
+                                            <span data-ng-show="vm.propertyDetail.Facetable" style="color:#0974ED">
+                                                <i class="fa fa-list-alt"></i>
+                                                 <span data-ng-show="vm.propertyDetail.PropertyTypeNameKey != 'location'">Facetable:</span>
+                                                 <span data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'location'">Searchable:</span>
+                                            </span>
+                                            <span data-ng-show="!vm.propertyDetail.Facetable" style="color:#404040">
+                                                <i class="fa fa-list-alt"></i>
+                                                 <span data-ng-show="vm.propertyDetail.PropertyTypeNameKey != 'location'">Facetable:</span>
+                                                 <span data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'location'">Searchable:</span>
+                                            </span>
+
+                                        </label>
+
+                                        <span>
+                                            <img data-ng-show="vm.propertyDetail.Facetable" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.makeNotFacetable()" />
+                                            <img data-ng-show="!vm.propertyDetail.Facetable &&vm.propertyDetail.Facetable != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.makeFacetable()" />
+                                            <img data-ng-show="vm.propertyDetail.Facetable == null" src="/Images/ui/switch/switch-loading.gif" />
+                                        </span>
+
+                                        <small style="color:darkgrey; font-size:10px">
+                                            <strong>
+                                                <span data-ng-show="vm.propertyDetail.Facetable">Available as a search option</span>
+                                                <span data-ng-show="!vm.propertyDetail.Facetable && vm.propertyDetail.Facetable != null">Not used as a search option</span>
+                                            </strong>
+                                        </small>
+
+                                    </p>
+                                </div>
+
+
+
+
+                                <!-- Numeric settings -->
+                                <div data-ng-show="vm.propertyDetail.PropertyTypeNameKey == 'number'">
+
+                                    <!-- FACET INTERVAL MANAGEMENT -->
+                                    <div id="edit-facet-interval" data-ng-show="vm.propertyDetail.Facetable == true">
+                                        <!-- Default -->
+                                        <div data-ng-show="!vm.FacetIntervalStatus.SendingComplete && !vm.FacetIntervalStatus.Updating && !vm.FacetIntervalStatus.Editing">
+                                            <p><label>Facet Interval: </label> <span style="padding:2px; padding-left:5px; padding-right:5px; border:1px solid lightgrey">{{vm.propertyDetail.FacetInterval}}</span>&nbsp;<button data-ng-click="vm.editFacetInterval()" class="sahara-btn-edit-16" style="padding-top:-15px;"></button></p>
+                                        </div>
+
+                                        <!--Edit -->
+                                        <div class="form-inline" data-ng-show="vm.FacetIntervalStatus.Editing">
+                                            <p>
+                                                <label>Facet Interval: </label>
+                                                <input type="text" class="input-sm form-control" style="width:70px; height:23px; font-weight:bold;" data-ng-model="vm.FacetIntervalStatus.NewFacetInterval" placeholder="Facet interval" />
+                                                <span style="margin-left:1px">
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUpdateFacetInterval()" style="margin-left:5px; margin-right:5px;">Cancel</button>
+                                                    <button data-ng-show="vm.FacetIntervalStatus.NewFacetInterval == vm.propertyDetail.FacetInterval" class="btn btn-disabled btn-xs">Update Interval</button>
+                                                    <button data-ng-show="vm.FacetIntervalStatus.NewFacetInterval != vm.propertyDetail.FacetInterval" class="btn btn-primary btn-xs" data-ng-click="vm.updateFacetInterval()">Update Interval</button>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <!--Processing-->
+                                        <div data-ng-show="vm.FacetIntervalStatus.Updating && !vm.FacetIntervalStatus.SendingComplete">
+                                            <p><label>Facet Interval: </label> <span style="color:darkgrey;"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating interval...</span></p>
+                                        </div>
+                                        <!--Result-->
+                                        <div data-ng-show="vm.FacetIntervalStatus.SendingComplete">
+                                            <p>
+                                                <label>Facet Interval: </label>
+                                                <span data-ng-show="vm.FacetIntervalStatus.Results.IsSuccess" style="color:green;">&nbsp;{{ vm.FacetIntervalStatus.Results.Message }}</span>
+                                                <span data-ng-show="!vm.FacetIntervalStatus.Results.IsSuccess" style="color:red;">&nbsp;{{ vm.FacetIntervalStatus.Results.Message }}</span>
+                                                <span data-ng-show="!vm.FacetIntervalStatus.Results.IsSuccess"><button class="btn btn-default btn-xs" data-ng-click="vm.FacetIntervalStatus.Retry()" style="margin-left:5px;">Try again</button></span>
+                                            </p>
+                                        </div>
+
+                                        <!-- NOTES -->
+                                        <div>
+                                            <small style="color:darkgray; font-size:10px;">* <b>Facet Intervals</b> allow you to create ranges of numerc values in your search queries.</small>
+                                            <br />
+                                            <small style="color:darkgray; font-size:10px;">** You may set <b>FacetInterval</b> to '0' to use indivisual values rather than ranges.</small>
+                                        </div>
+
+                                    </div>
+
+                                    <hr />
+
+                                    <!-- SYMBOL MANAGEMENT -->
+                                    <div id="edit-symbol">
+
+                                        <!-- Default -->
+                                        <div data-ng-show="!vm.SymbolStatus.SendingComplete && !vm.SymbolStatus.Updating && !vm.SymbolStatus.Editing">
+                                            <p data-ng-show="vm.propertyDetail.Symbol != null && vm.propertyDetail.Symbol != ''"><label>Symbol: </label> <span data-ng-trim="false" style="padding:2px; padding-left:5px; padding-right:5px; border:1px solid lightgrey">{{vm.propertyDetail.Symbol}}</span>&nbsp;<button data-ng-click="vm.editSymbol()" class="sahara-btn-edit-16" style="padding-top:-15px;"></button></p>
+                                            <p data-ng-show="vm.propertyDetail.Symbol == null || vm.propertyDetail.Symbol == ''"><label>Symbol: </label> <span style="padding:2px; padding-left:5px; padding-right:5px; border:1px solid lightgrey">None</span>&nbsp;<button data-ng-click="vm.editSymbol()" class="sahara-btn-edit-16" style="padding-top:-15px;"></button></p>
+                                        </div>
+                                        <!--Edit -->
+                                        <div class="form-inline" data-ng-show="vm.SymbolStatus.Editing">
+                                            <p>
+                                                <label>Symbol: </label>
+                                                <input type="text" class="input-sm form-control" style="width:70px; height:23px; font-weight:bold;" data-ng-model="vm.SymbolStatus.NewSymbol" placeholder="" />
+                                                <span style="margin-left:1px">
+                                                    <button class="btn btn-default btn-xs" data-ng-click="vm.cancelUpdateSymbol()" style="margin-left:5px; margin-right:5px;">Cancel</button>
+                                                    <button data-ng-show="vm.SymbolStatus.NewSymbol == vm.propertyDetail.Symbol" class="btn btn-disabled btn-xs">Update Symbol</button>
+                                                    <button data-ng-show="vm.SymbolStatus.NewSymbol != vm.propertyDetail.Symbol" class="btn btn-primary btn-xs" data-ng-click="vm.updateSymbol()">Update Symbol</button>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <!--Processing-->
+                                        <div data-ng-show="vm.SymbolStatus.Updating && !vm.SymbolStatus.SendingComplete">
+                                            <p><label>Symbol: </label> <span style="color:darkgrey;"><i class="fa fa-repeat fa-spin" style="color:darkgray"></i>&nbsp;&nbsp;Updating interval...</span></p>
+                                        </div>
+                                        <!--Result-->
+                                        <div data-ng-show="vm.SymbolStatus.SendingComplete">
+                                            <p>
+                                                <label>Symbol: </label>
+                                                <span data-ng-show="vm.SymbolStatus.Results.IsSuccess" style="color:green;">&nbsp;{{ vm.SymbolStatus.Results.Message }}</span>
+                                                <span data-ng-show="!vm.SymbolStatus.Results.IsSuccess" style="color:red;">&nbsp;{{ vm.SymbolStatus.Results.Message }}</span>
+                                                <span data-ng-show="!vm.SymbolStatus.Results.IsSuccess"><button class="btn btn-default btn-xs" data-ng-click="vm.SymbolStatus.Retry()" style="margin-left:5px;">Try again</button></span>
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- SYMBOL PLACEMENT MANAGEMENT -->
+                                    <div id="symbolPacement" data-ng-show="vm.propertyDetail.Symbol != null">
+                                        <div class="form-horizontal">
+                                            <label>Symbol Placement:</label>
+                                            <div class="btn-group" style="margin-right:10px;">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                    {{ vm.propertyDetail.SymbolPlacement }} <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li data-ng-show="vm.propertyDetail.SymbolPlacement == 'leading'">
+                                                        <a style="cursor:pointer" data-ng-click="vm.updateSymbolPlacement('trailing')">trailing</a>
+                                                    </li>
+                                                    <li data-ng-show="vm.propertyDetail.SymbolPlacement == 'trailing'">
+                                                        <a style="cursor:pointer" data-ng-click="vm.updateSymbolPlacement('leading')">leading</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- SYMBOL NOTES -->
+                                    <div>
+                                        <small style="color:darkgray; font-size:10px;">* <b>Symbols</b> allow you to add trailing or leading symbols to your numeric values</small>
+                                        <br />
+                                        <small style="color:darkgray; font-size:10px;">** Use an underscore '_' character in front or behind to create a leading or trailing space</small>
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- <hr />
+
+                                DELETION MANAGEMENT
+                                <h5>If admin can delete</h5> -->
+                                <!--Error Message-->
+                                <div data-ng-show="vm.showPropertyDetailsErrorMessage" style="margin-top:20px; margin-bottom:10px;">
+                                    <b style="color:red">{{ vm.propertyDetailsErrorMessage }}</b>
+                                </div>
+
+                            </div>
+
+                        </tab>
+
+                    </tabset>
+
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

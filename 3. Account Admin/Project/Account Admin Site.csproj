@@ -1,0 +1,1498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{194D292D-75F4-4385-88F5-A97543436B8D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AccountAdminSite</RootNamespace>
+    <AssemblyName>AccountAdminSite</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.13.2\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Search, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Search.3.0.1\lib\net45\Microsoft.Azure.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.4\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.4\lib\net45\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.1.1\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.0.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.1.608.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.608\lib\net46\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AuthenticationCookieManager.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\DataInjectionController.cs" />
+    <Compile Include="Controllers\InfrastructureController.cs" />
+    <Compile Include="Controllers\LeadsController.cs" />
+    <Compile Include="Controllers\AccountSettingsController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
+    <Compile Include="Controllers\CommerceController.cs" />
+    <Compile Include="Controllers\CommunicationController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ImageRecordsController.cs" />
+    <Compile Include="Controllers\ImagingController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\InvitationsController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\MarketplaceController.cs" />
+    <Compile Include="Controllers\PasswordController.cs" />
+    <Compile Include="Controllers\PaymentPlansController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\ScaffoldController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\SubController.cs" />
+    <Compile Include="CoreServices.cs" />
+    <Compile Include="EnvironmentSettings.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JsonNetResult.cs" />
+    <Compile Include="Models\Authentication\Login.cs" />
+    <Compile Include="Models\Authentication\PasswordClaim.cs" />
+    <Compile Include="Models\Authentication\ResetPassword.cs" />
+    <Compile Include="Models\ImageFormat\ImageGroupTypeSettingsModel.cs" />
+    <Compile Include="Models\Imaging\ImagingInstructionsModel.cs" />
+    <Compile Include="Models\Product\ProductProperty.cs" />
+    <Compile Include="Models\Search\SearchResult.cs" />
+    <Compile Include="Models\Users\CreateUserFromInvitationModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedisCacheKeys.cs" />
+    <Compile Include="Service References\AccountAuthenticationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountBillingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountCommerceService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountCommunicationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountManagementService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AccountPaymentPlanService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationApiKeysService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationCategorizationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationImageFormatsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationImageRecordsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationImagesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationLeadsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationProductService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationPropertiesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationSearchService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ApplicationTagsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlatformSettingsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="TableEntities\SalesLeads\SalesLeadTableEntity.cs" />
+    <Compile Include="WCFManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angular\account\directives\accountBillingDunningAttemptsPanel.js" />
+    <Content Include="angular\account\directives\accountBillingInvoiceNextPanel.js" />
+    <Content Include="angular\account\directives\accountBillingPaymentHistoryPanel.js" />
+    <Content Include="angular\api\app.js" />
+    <Content Include="angular\api\controllers\apiController.js" />
+    <Content Include="angular\api\partials\apiIndex.html" />
+    <Content Include="angular\api\services\apiKeyServices.js" />
+    <Content Include="angular\dataInjection\appProductBatch.js" />
+    <Content Include="angular\dataInjection\app.js" />
+    <Content Include="angular\dataInjection\controllers\dataInjectionDetailController.js" />
+    <Content Include="angular\dataInjection\controllers\dataInjectionProductBatchController.js" />
+    <Content Include="angular\dataInjection\controllers\dataInjectionIndexController.js" />
+    <Content Include="angular\dataInjection\partials\dataInjectionDetail.html" />
+    <Content Include="angular\dataInjection\partials\dataInjectionProductBatch.html" />
+    <Content Include="angular\dataInjection\partials\dataInjectionIndex.html" />
+    <Content Include="angular\dataInjection\services\dataInjectionDetailServices.js" />
+    <Content Include="angular\dataInjection\services\dataInjectionServices.js" />
+    <Content Include="angular\leads\services\leadsServices.js" />
+    <Content Include="angular\settings\directives\editCustomDomainModal.js" />
+    <Content Include="angular\settings\directives\editLeadDescriptionCopyModal.js" />
+    <Content Include="angular\settings\directives\editLeadButtonCopyModal.js" />
+    <Content Include="angular\settings\directives\editLeadLabelsModal.js" />
+    <Content Include="angular\settings\directives\editSalesAlertsModal.js" />
+    <Content Include="angular\account\directives\addUpdateContactModal.js" />
+    <Content Include="angular\settings\templates\modals\editCustomDomainModal.html" />
+    <Content Include="angular\settings\templates\modals\editLeadDescriptionCopyModal.html" />
+    <Content Include="angular\settings\templates\modals\editLeadButtonCopyModal.html" />
+    <Content Include="angular\settings\templates\modals\editLeadLabelsModal.html" />
+    <Content Include="angular\settings\templates\modals\editSalesAlertsModal.html" />
+    <Content Include="angular\account\templates\addUpdateContactModal.html" />
+    <Content Include="angular\inventory\app.js" />
+    <Content Include="angular\inventory\controllers\productDetailController.js" />
+    <Content Include="angular\inventory\controllers\categoryDetailController.js" />
+    <Content Include="angular\inventory\controllers\inventoryIndexController.js" />
+    <Content Include="angular\inventory\controllers\subsubsubcategoryDetailController.js" />
+    <Content Include="angular\inventory\controllers\subsubcategoryDetailController.js" />
+    <Content Include="angular\inventory\controllers\subcategoryDetailController.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editLocationPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editDatetimePropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editParagraphPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editBasicPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editSwatchPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editPredefinedAppendablePropertiesModal.js" />
+    <Content Include="angular\inventory\directives\propertyManagement\editPredefinedPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\moveProductModal.js" />
+    <Content Include="angular\inventory\directives\productPropertiesPanel.js" />
+    <Content Include="angular\inventory\directives\productsPanel.js" />
+    <Content Include="angular\inventory\directives\reorderItemsModal.js" />
+    <Content Include="angular\inventory\partials\subsubsubcategoryDetail.html" />
+    <Content Include="angular\inventory\partials\subsubcategoryDetail.html" />
+    <Content Include="angular\inventory\templates\modals\moveProductModal.html" />
+    <Content Include="angular\inventory\templates\modals\reorderItemsModal.html" />
+    <Content Include="angular\inventory\templates\productPropertiesPanel.html" />
+    <Content Include="angular\inventory\templates\productsPanel.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editLocationPropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editDatetimePropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editParagraphPropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editBasicPropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editSwatchPropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editPredefinedAppendablePropertiesModal.html" />
+    <Content Include="angular\inventory\templates\propertyManagementModals\editPredefinedPropertiesModal.html" />
+    <Content Include="angular\search\app.js" />
+    <Content Include="angular\search\controllers\searchIndexController.js" />
+    <Content Include="angular\search\partials\searchIndex.html" />
+    <Content Include="angular\search\services\searchServices.js" />
+    <Content Include="angular\settings\directives\aboutImageFormatsModal.js" />
+    <Content Include="angular\settings\directives\aboutTagsModal.js" />
+    <Content Include="angular\settings\directives\aboutPropertiesModal.js" />
+    <Content Include="angular\inventory\directives\createProductModal.js" />
+    <Content Include="angular\inventory\directives\editProductTagsModal.js" />
+    <Content Include="angular\settings\directives\salesPanel.js" />
+    <Content Include="angular\settings\directives\generalPanel.js" />
+    <Content Include="angular\settings\directives\updateFeaturedPropertiesModal.js" />
+    <Content Include="angular\settings\directives\propertyDetailsModal.js" />
+    <Content Include="angular\settings\directives\imageFormatsPanel.js" />
+    <Content Include="angular\inventory\directives\categoriesPanel.js" />
+    <Content Include="angular\settings\directives\tagsPanel.js" />
+    <Content Include="angular\settings\directives\propertiesPanel.js" />
+    <Content Include="angular\inventory\directives\reorderUpgradeModal.js" />
+    <Content Include="angular\settings\directives\createTagModal.js" />
+    <Content Include="angular\settings\directives\createPropertyModal.js" />
+    <Content Include="angular\inventory\directives\createCategoryModal.js" />
+    <Content Include="angular\inventory\models\categoryModels.js" />
+    <Content Include="angular\inventory\models\inventoryIndexModels.js" />
+    <Content Include="angular\inventory\partials\productDetail.html" />
+    <Content Include="angular\inventory\partials\categoryDetail.html" />
+    <Content Include="angular\inventory\partials\inventoryIndex.html" />
+    <Content Include="angular\inventory\partials\subcategoryDetail.html" />
+    <Content Include="angular\inventory\services\productServices.js" />
+    <Content Include="angular\inventory\services\categoryServices.js" />
+    <Content Include="angular\inventory\services\inventoryIndexServices.js" />
+    <Content Include="angular\settings\services\imageFormatServices.js" />
+    <Content Include="angular\settings\services\propertiesServices.js" />
+    <Content Include="angular\inventory\templates\categoriesPanel.html" />
+    <Content Include="angular\settings\templates\salesPanel.html" />
+    <Content Include="angular\settings\templates\imageFormatsPanel.html" />
+    <Content Include="angular\settings\templates\modals\aboutImageFormatsModal.html" />
+    <Content Include="angular\inventory\templates\modals\editProductTagsModal.html" />
+    <Content Include="angular\inventory\templates\modals\createProductModal.html" />
+    <Content Include="angular\settings\templates\modals\propertyDetailsModal.html" />
+    <Content Include="angular\settings\templates\modals\aboutTagsModal.html" />
+    <Content Include="angular\inventory\templates\modals\createCategoryModal.html" />
+    <Content Include="angular\settings\templates\modals\aboutPropertiesModal.html" />
+    <Content Include="angular\settings\templates\modals\updateFeaturedPropertiesModal.html" />
+    <Content Include="angular\settings\templates\propertiesPanel.html" />
+    <Content Include="angular\inventory\templates\modals\reorderUpgradeModal.html" />
+    <Content Include="angular\settings\templates\modals\createTagModal.html" />
+    <Content Include="angular\settings\templates\modals\createPropertyModal.html" />
+    <Content Include="angular\settings\templates\generalPanel.html" />
+    <Content Include="angular\settings\templates\tagsPanel.html" />
+    <Content Include="angular\leads\app.js" />
+    <Content Include="angular\leads\controllers\leadsController.js" />
+    <Content Include="angular\leads\partials\leadsIndex.html" />
+    <Content Include="angular\shared\directives\legalFooter.js" />
+    <Content Include="angular\shared\directives\sharedImageManagementPanel.js" />
+    <Content Include="angular\shared\services\accountSettingsServices.js" />
+    <Content Include="angular\shared\services\imageServices.js" />
+    <Content Include="angular\shared\templates\legalFooter.html" />
+    <Content Include="angular\shared\templates\sharedImageManagementPanel.html" />
+    <Content Include="angular\subscribe\app.js" />
+    <Content Include="angular\subscribe\controllers\subscribeController.js" />
+    <Content Include="angular\subscribe\partials\subscribe.html" />
+    <Content Include="Content\bootstrapXL.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\nanoscroller.css" />
+    <Content Include="Images\Backgrounds\sub-background-lg.jpg" />
+    <Content Include="Images\Backgrounds\sub-background-sm.jpg" />
+    <Content Include="Images\Backgrounds\sub-background-xs.jpg" />
+    <Content Include="Images\Buttons\Edit_sm\off.png" />
+    <Content Include="Images\Buttons\Edit_sm\on.png" />
+    <Content Include="Images\Buttons\HiddenEdit\H1\off.gif" />
+    <Content Include="Images\Buttons\HiddenEdit\H1\on.gif" />
+    <Content Include="Images\Buttons\HiddenEdit\H3\off.gif" />
+    <Content Include="Images\Buttons\HiddenEdit\H3\on.gif" />
+    <Content Include="Images\Loaders\global_red.gif" />
+    <Content Include="Images\Logos\logo_sm-2.png" />
+    <Content Include="Images\Logos\logo_sm.png" />
+    <Content Include="Images\Logos\sahara-logo-menu _old.png" />
+    <Content Include="Images\PropertyTypes\datetime.jpg" />
+    <Content Include="Images\PropertyTypes\location.jpg" />
+    <Content Include="Images\PropertyTypes\number.jpg" />
+    <Content Include="Images\PropertyTypes\paragraph.jpg" />
+    <Content Include="Images\PropertyTypes\predefined.jpg" />
+    <Content Include="Images\PropertyTypes\string.jpg" />
+    <Content Include="Images\PropertyTypes\swatch.jpg" />
+    <Content Include="Images\ui\fpo\gallery-frame-right-light.gif" />
+    <Content Include="Images\ui\fpo\gallery-frame-right.gif" />
+    <Content Include="Images\ui\fpo\gallery-frame-top-light.gif" />
+    <Content Include="Images\ui\fpo\gallery-frame-top.gif" />
+    <Content Include="Images\ui\fpo\image-format-bg.jpg" />
+    <Content Include="Images\ui\fpo\search-thumbnail.jpg" />
+    <Content Include="Images\ui\fpo\swatch-empty-slot.jpg" />
+    <Content Include="Images\ui\fpo\swatch-empty-slot2.jpg" />
+    <Content Include="Images\ui\fpo\variable-width-bookend-left.gif" />
+    <Content Include="Images\ui\fpo\variable-width-bookend-right.gif" />
+    <Content Include="Images\ui\fpo\variable-width-bookend.gif" />
+    <Content Include="Images\ui\map\blue-marker.png" />
+    <Content Include="Images\ui\map\gray-marker.png" />
+    <Content Include="Images\ui\map\red-marker.png" />
+    <Content Include="Images\ui\views\grid.gif" />
+    <Content Include="Images\ui\views\list.gif" />
+    <Content Include="Scripts\angular-location-update.min.js" />
+    <Content Include="Scripts\combodate.js" />
+    <Content Include="Scripts\jquery-ui-extended.min.js" />
+    <Content Include="Scripts\jquery.nanoscroller.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ng-infinite-scroll.min.js" />
+    <Content Include="Scripts\ng-map.js" />
+    <Content Include="Scripts\ng-map.min.js" />
+    <Content Include="Scripts\sortable.js" />
+    <Content Include="angular\shared\services\billingServices.js" />
+    <Content Include="angular\account\templates\accountBillingDunningAttemptsPanel.html" />
+    <Content Include="angular\account\templates\accountBillingInvoiceNextPanel.html" />
+    <Content Include="angular\account\templates\accountBillingPaymentHistoryPanel.html" />
+    <Content Include="angular\logs\app.js" />
+    <Content Include="angular\logs\controllers\logsController.js" />
+    <Content Include="angular\logs\directives\logsTestDirective.js" />
+    <Content Include="angular\logs\models\logsIndexModels.js" />
+    <Content Include="angular\logs\partials\logsIndex.html" />
+    <Content Include="angular\logs\services\logsServices.js" />
+    <Content Include="angular\logs\templates\logsTestDirective.html" />
+    <Content Include="angular\marketplace\directives\marketplaceCreditsLogPanel.js" />
+    <Content Include="angular\marketplace\templates\marketplaceCreditsLogPanel.html" />
+    <Content Include="angular\shared\directives\addUpdateCardModal.js" />
+    <Content Include="angular\account\directives\managePlansModal.js" />
+    <Content Include="angular\shared\templates\addUpdateCardModal.html" />
+    <Content Include="angular\account\templates\managePlansModal.html" />
+    <Content Include="angular\dashboard\app.js" />
+    <Content Include="angular\dashboard\controllers\dashboardIndexController.js" />
+    <Content Include="angular\dashboard\directives\dashboardTestDirective.js" />
+    <Content Include="angular\dashboard\models\dashboardIndexModels.js" />
+    <Content Include="angular\dashboard\partials\dashboardIndex.html" />
+    <Content Include="angular\dashboard\services\dashboardIndexServices.js" />
+    <Content Include="angular\dashboard\templates\dashboardTestDirective.html" />
+    <Content Include="angular\marketplace\app.js" />
+    <Content Include="angular\marketplace\controllers\marketplaceIndexController.js" />
+    <Content Include="angular\marketplace\directives\marketplaceGoodsServicesPanel.js" />
+    <Content Include="angular\marketplace\directives\marketplaceCardPanel.js" />
+    <Content Include="angular\marketplace\directives\marketplaceCreditsPanel.js" />
+    <Content Include="angular\marketplace\models\marketplaceIndexModels.js" />
+    <Content Include="angular\marketplace\partials\marketplaceIndex.html" />
+    <Content Include="angular\marketplace\templates\marketplaceGoodsServicesPanel.html" />
+    <Content Include="angular\marketplace\templates\marketplaceCardPanel.html" />
+    <Content Include="angular\marketplace\templates\marketplaceCreditsPanel.html" />
+    <Content Include="angular\profile\app.js" />
+    <Content Include="angular\profile\controllers\profileIndexController.js" />
+    <Content Include="angular\profile\partials\profileIndex.html" />
+    <Content Include="angular\profile\services\profileIndexServices.js" />
+    <Content Include="angular\scaffold\app.js" />
+    <Content Include="angular\scaffold\controllers\scaffoldDetailController.js" />
+    <Content Include="angular\scaffold\controllers\scaffoldIndexController.js" />
+    <Content Include="angular\scaffold\directives\scaffoldTestDirective.js" />
+    <Content Include="angular\scaffold\models\scaffoldDetailModels.js" />
+    <Content Include="angular\scaffold\models\scaffoldIndexModels.js" />
+    <Content Include="angular\scaffold\partials\scaffoldDetail.html" />
+    <Content Include="angular\scaffold\partials\scaffoldIndex.html" />
+    <Content Include="angular\scaffold\services\scaffoldDetailServices.js" />
+    <Content Include="angular\scaffold\services\scaffoldIndexServices.js" />
+    <Content Include="angular\scaffold\templates\scaffoldTestDirective.html" />
+    <Content Include="angular\account\app.js" />
+    <Content Include="angular\account\controllers\accountIndexController.js" />
+    <Content Include="angular\account\directives\createSubscriptionModal.js" />
+    <Content Include="angular\account\directives\accountInvitationsPanel.js" />
+    <Content Include="angular\account\directives\accountUsersPanel.js" />
+    <Content Include="angular\account\models\accountIndexModels.js" />
+    <Content Include="angular\account\partials\accountIndex.html" />
+    <Content Include="angular\account\services\paymentPlanServices.js" />
+    <Content Include="angular\shared\services\accountServices.js" />
+    <Content Include="angular\account\services\accountUserServices.js" />
+    <Content Include="angular\account\templates\createSubscriptionModal.html" />
+    <Content Include="angular\account\templates\accountInvitationsPanel.html" />
+    <Content Include="angular\account\templates\accountTestDirective.html" />
+    <Content Include="angular\account\templates\accountUsersPanel.html" />
+    <Content Include="angular\settings\app.js" />
+    <Content Include="angular\settings\controllers\settingsIndexController.js" />
+    <Content Include="angular\settings\partials\settingsIndex.html" />
+    <Content Include="angular\shared\directives\sectionLoader.js" />
+    <Content Include="angular\shared\services\commerceServices.js" />
+    <Content Include="angular\shared\services\sharedServices.js" />
+    <Content Include="angular\shared\templates\sectionLoader.html" />
+    <Content Include="angular\settings\services\tagServices.js" />
+    <Content Include="Content\Aristo.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\branding.css" />
+    <Content Include="Content\buttons.css" />
+    <Content Include="Content\font-awesome_old.css" />
+    <Content Include="Content\images\bg_fallback.png" />
+    <Content Include="Content\images\icon_sprite.png" />
+    <Content Include="Content\images\Jcrop.gif" />
+    <Content Include="Content\images\progress_bar.gif" />
+    <Content Include="Content\images\slider_handles.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Content\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="Content\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
+    <Content Include="Content\jquery.tagit.css" />
+    <Content Include="Content\ng-sortable.min.css" />
+    <Content Include="Content\ng-sortable.style.min.css" />
+    <Content Include="Content\notifications.css" />
+    <Content Include="Content\sidebarlayout.css" />
+    <Content Include="Content\site.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Backgrounds\login-background-lg.jpg" />
+    <Content Include="Images\Backgrounds\login-background-sm.jpg" />
+    <Content Include="Images\Backgrounds\login-background-xs.jpg" />
+    <Content Include="Images\Buttons\Edit\off.png" />
+    <Content Include="Images\Buttons\Edit\on.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_active.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_closed.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_grace.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_inactive.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_lapsed.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_unprovisioned.png" />
+    <Content Include="Images\Icons\AccountStatus\icon_unverified.png" />
+    <Content Include="Images\Icons\Imaging\addimage.jpg" />
+    <Content Include="Images\Icons\Imaging\addimage_96x96.jpg" />
+    <Content Include="Images\Icons\Logs\icon_complete.png" />
+    <Content Include="Images\Icons\Logs\icon_document.png" />
+    <Content Include="Images\Icons\Logs\icon_error.png" />
+    <Content Include="Images\Icons\Logs\icon_failed.png" />
+    <Content Include="Images\Icons\Logs\icon_initialized.png" />
+    <Content Include="Images\Icons\Logs\icon_processing.png" />
+    <Content Include="Images\Icons\Logs\icon_registration_failed.png" />
+    <Content Include="Images\Icons\Logs\icon_scheduled_task.png" />
+    <Content Include="Images\Icons\Logs\icon_sleep.png" />
+    <Content Include="Images\Icons\Logs\icon_started.png" />
+    <Content Include="Images\Icons\Logs\icon_success.png" />
+    <Content Include="Images\Icons\Profile\nophoto_128x128.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_16x16.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_32x32.jpg" />
+    <Content Include="Images\Icons\Profile\nophoto_64x64.jpg" />
+    <Content Include="Images\Loaders\global.gif" />
+    <Content Include="Images\Loaders\initializing.gif" />
+    <Content Include="Images\Loaders\initializing_old.gif" />
+    <Content Include="Images\Loaders\initializing_org.gif" />
+    <Content Include="Images\Logos\sahara-logo-login-ko-lg.png" />
+    <Content Include="Images\Logos\sahara-logo-login-ko-md.png" />
+    <Content Include="Images\Logos\sahara-logo-login-ko.png" />
+    <Content Include="Images\Logos\sahara-logo-login.png" />
+    <Content Include="Images\Logos\sahara-logo-md.jpg" />
+    <Content Include="Images\Logos\sahara-logo-menu-xs-o.png" />
+    <Content Include="Images\Logos\sahara-logo-menu-xs.png" />
+    <Content Include="Images\Logos\sahara-logo-menu.png" />
+    <Content Include="Images\Logos\sahara-logo-sm.jpg" />
+    <Content Include="Images\Menu\side-bar-active-triangle-xs.gif" />
+    <Content Include="Images\Menu\side-bar-active-triangle.gif" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Images\Notifications\Close.png" />
+    <Content Include="Images\Notifications\CloseBox.png" />
+    <Content Include="Images\Notifications\CloseThin.png" />
+    <Content Include="Images\Notifications\CloseWide.png" />
+    <Content Include="Images\ui\bars\blue.jpg" />
+    <Content Include="Images\ui\bars\orange.jpg" />
+    <Content Include="Images\ui\checkboxes\cheak-off.png" />
+    <Content Include="Images\ui\checkboxes\cheak-on.png" />
+    <Content Include="Images\ui\switch\switch-loading.gif" />
+    <Content Include="Images\ui\switch\switch-off.gif" />
+    <Content Include="Images\ui\switch\switch-on-blue-checked.gif" />
+    <Content Include="Images\ui\switch\switch-on-blue.gif" />
+    <Content Include="Images\ui\switch\switch-on-green-checked.gif" />
+    <Content Include="Images\ui\switch\switch-on-green.gif" />
+    <Content Include="Images\ui\tree\subcategory-name-tree.gif" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-moment.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\countUp.js" />
+    <Content Include="config\imageprocessor\security.config" />
+    <Content Include="config\imageprocessor\processing.config" />
+    <Content Include="config\imageprocessor\cache.config" />
+    <Content Include="Images\ui\switch\switch-loading-dots-transparent.psd" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tag-it.js" />
+    <Content Include="Scripts\tag-it.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Service References\AccountAuthenticationService\AccountAdminSite.AccountAuthenticationService.AuthenticationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountAuthenticationService\configuration91.svcinfo" />
+    <None Include="Service References\AccountAuthenticationService\configuration.svcinfo" />
+    <None Include="Service References\AccountAuthenticationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountBillingService\AccountAdminSite.AccountBillingService.Charge.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\AccountAdminSite.AccountBillingService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\AccountAdminSite.AccountBillingService.DunningAttempt.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountBillingService\AccountAdminSite.AccountBillingService.Invoice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountAuthenticationService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountAuthenticationService\service1.wsdl" />
+    <None Include="Service References\AccountAuthenticationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountAuthenticationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountAuthenticationService\System.Security.Claims1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountAuthenticationService\WCF.WcfEndpoints.Contracts.Account.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\configuration91.svcinfo" />
+    <None Include="Service References\AccountBillingService\configuration.svcinfo" />
+    <None Include="Service References\AccountBillingService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountCommerceService\AccountAdminSite.AccountCommerceService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Platform.Billing.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\service1.wsdl" />
+    <None Include="Service References\AccountBillingService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountBillingService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\configuration91.svcinfo" />
+    <None Include="Service References\AccountCommerceService\configuration.svcinfo" />
+    <None Include="Service References\AccountCommerceService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountCommunicationService\AccountAdminSite.AccountCommunicationService.UserNotification.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountCommunicationService\AccountAdminSite.AccountCommunicationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountCommerceService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\service1.wsdl" />
+    <None Include="Service References\AccountCommerceService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommerceService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\configuration91.svcinfo" />
+    <None Include="Service References\AccountCommunicationService\configuration.svcinfo" />
+    <None Include="Service References\AccountCommunicationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.AccountUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.UserAccount.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.UserInvitation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.UserPasswordResetClaim.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.AccountCreditCardInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.AccountActivityLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.AccountCapacity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.AccountSettingsDocumentModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountManagementService\AccountAdminSite.AccountManagementService.ThemeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Accounts.Notifications.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\service1.wsdl" />
+    <None Include="Service References\AccountCommunicationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountCommunicationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\configuration91.svcinfo" />
+    <None Include="Service References\AccountManagementService\configuration.svcinfo" />
+    <None Include="Service References\AccountManagementService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\AccountPaymentPlanService\AccountAdminSite.AccountPaymentPlanService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountPaymentPlanService\AccountAdminSite.AccountPaymentPlanService.PaymentFrequency.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AccountPaymentPlanService\AccountAdminSite.AccountPaymentPlanService.PaymentPlan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Capacity.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.DocumentModels1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Accounts.Themes.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Logging.AccountLogs.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service1.wsdl" />
+    <None Include="Service References\AccountManagementService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountManagementService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\configuration91.svcinfo" />
+    <None Include="Service References\AccountPaymentPlanService\configuration.svcinfo" />
+    <None Include="Service References\AccountPaymentPlanService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationApiKeysService\AccountAdminSite.ApplicationApiKeysService.ApiKeyModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationApiKeysService\AccountAdminSite.ApplicationApiKeysService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Accounts.PaymentPlans.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\service1.wsdl" />
+    <None Include="Service References\AccountPaymentPlanService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountPaymentPlanService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationApiKeysService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationApiKeysService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.CategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.SubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.SubsubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.SubsubsubcategoryModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationCategorizationService\AccountAdminSite.ApplicationCategorizationService.CategoryTreeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationApiKeysService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Application.ApiKeys.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Common.ResponseTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\Sahara.Core.Platform.Requests.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\service.wsdl" />
+    <None Include="Service References\ApplicationApiKeysService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationApiKeysService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationCategorizationService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationCategorizationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationImageFormatsService\AccountAdminSite.ApplicationImageFormatsService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageFormatsService\AccountAdminSite.ApplicationImageFormatsService.ImageFormatGroupModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageFormatsService\AccountAdminSite.ApplicationImageFormatsService.ImageFormatGroupTypeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Application.Categorization.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\service1.wsdl" />
+    <None Include="Service References\ApplicationCategorizationService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationCategorizationService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationImageFormatsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationImageFormatsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationImageRecordsService\AccountAdminSite.ApplicationImageRecordsService.ImageRecordGroupModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationImageRecordsService\AccountAdminSite.ApplicationImageRecordsService.ImageRecordTableEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Application.Images.Formats.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\service1.wsdl" />
+    <None Include="Service References\ApplicationImageFormatsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageFormatsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationImageRecordsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationImageRecordsService\Microsoft.WindowsAzure.Storage.Table1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationImagesService\AccountAdminSite.ApplicationImagesService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationImageRecordsService\Sahara.Core.Application.Images.Records.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\Sahara.Core.Application.Images.Records.TableEntities1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\service1.wsdl" />
+    <None Include="Service References\ApplicationImageRecordsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImageRecordsService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationImagesService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationImagesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationLeadsService\AccountAdminSite.ApplicationLeadsService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationImagesService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\Sahara.Core.Imaging.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\service1.wsdl" />
+    <None Include="Service References\ApplicationImagesService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationImagesService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationLeadsService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationLeadsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationLeadsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationLeadsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationProductService\AccountAdminSite.ApplicationProductService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationProductService\AccountAdminSite.ApplicationProductService.ProductDocumentModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationLeadsService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationLeadsService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationLeadsService\service1.wsdl" />
+    <None Include="Service References\ApplicationLeadsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationLeadsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationProductService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationProductService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationPropertiesService\AccountAdminSite.ApplicationPropertiesService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationPropertiesService\AccountAdminSite.ApplicationPropertiesService.PropertyModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationPropertiesService\AccountAdminSite.ApplicationPropertiesService.PropertyTypeModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Application.DocumentModels.Product1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Common.Types1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\service1.wsdl" />
+    <None Include="Service References\ApplicationProductService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationProductService\System1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationPropertiesService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationPropertiesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationSearchService\AccountAdminSite.ApplicationSearchService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationSearchService\AccountAdminSite.ApplicationSearchService.ProductSearchFacet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ApplicationSearchService\AccountAdminSite.ApplicationSearchService.ProductSearchSortable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Application.Properties.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\service1.wsdl" />
+    <None Include="Service References\ApplicationPropertiesService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationPropertiesService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationSearchService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationSearchService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\ApplicationTagsService\AccountAdminSite.ApplicationTagsService.DataAccessResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationSearchService\Sahara.Core.Application.Search.Models.Product.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\service1.wsdl" />
+    <None Include="Service References\ApplicationSearchService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationSearchService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationTagsService\configuration.svcinfo" />
+    <None Include="Service References\ApplicationTagsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\PlatformSettingsService\AccountAdminSite.PlatformSettingsService.CorePlatformSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ApplicationTagsService\Sahara.Core.Common.ResponseTypes1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\Sahara.Core.Platform.Requests.Models1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\service1.wsdl" />
+    <None Include="Service References\ApplicationTagsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApplicationTagsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\configuration91.svcinfo" />
+    <None Include="Service References\PlatformSettingsService\configuration.svcinfo" />
+    <None Include="Service References\PlatformSettingsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Imaging\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\LogOut.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Scaffold\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_AuthenticatedLayout.cshtml" />
+    <Content Include="Views\Shared\_PublicLayout.cshtml" />
+    <Content Include="Views\Password\Forgot.cshtml" />
+    <Content Include="Views\Password\Sent.cshtml" />
+    <Content Include="Views\Invitations\Index.cshtml" />
+    <Content Include="Views\Invitations\Success.cshtml" />
+    <Content Include="Views\Password\Reset.cshtml" />
+    <Content Include="Views\Password\Success.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Marketplace\Index.cshtml" />
+    <Content Include="Views\Shared\_BackgroundImageLayout.cshtml" />
+    <Content Include="Views\Imaging\Instructions.cshtml" />
+    <Content Include="Views\Imaging\Error.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Sales\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_ImageEditingLayout.cshtml" />
+    <Content Include="Views\Leads\Index.cshtml" />
+    <Content Include="Views\Api\Index.cshtml" />
+    <Content Include="Views\DataInjection\Index.cshtml" />
+    <Content Include="Views\Sub\Index.cshtml" />
+    <Content Include="Views\Shared\_SubscribeLayout.cshtml" />
+    <Content Include="Views\DataInjection\ProductBatch.cshtml" />
+    <None Include="Service References\PlatformSettingsService\Sahara.Core.Settings.Models.Partitions1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service1.wsdl" />
+    <None Include="Service References\PlatformSettingsService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlatformSettingsService\WCF.WcfEndpoints.Contracts.Platform.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Stage.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="angular\api\directives\" />
+    <Folder Include="angular\api\models\" />
+    <Folder Include="angular\api\templates\" />
+    <Folder Include="angular\dataInjection\directives\" />
+    <Folder Include="angular\dataInjection\models\" />
+    <Folder Include="angular\dataInjection\templates\" />
+    <Folder Include="angular\leads\directives\" />
+    <Folder Include="angular\leads\models\" />
+    <Folder Include="angular\leads\templates\" />
+    <Folder Include="angular\marketplace\services\" />
+    <Folder Include="angular\settings\models\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\AccountLogs\" />
+    <Folder Include="Views\AccountSettings\" />
+    <Folder Include="Views\Billing\" />
+    <Folder Include="Views\Commerce\" />
+    <Folder Include="Views\Communication\" />
+    <Folder Include="Views\ImageRecords\" />
+    <Folder Include="Views\Infrastructure\" />
+    <Folder Include="Views\PaymentPlan\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AccountAuthenticationService\" />
+    <WCFMetadataStorage Include="Service References\AccountBillingService\" />
+    <WCFMetadataStorage Include="Service References\AccountCommerceService\" />
+    <WCFMetadataStorage Include="Service References\AccountCommunicationService\" />
+    <WCFMetadataStorage Include="Service References\AccountManagementService\" />
+    <WCFMetadataStorage Include="Service References\AccountPaymentPlanService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationApiKeysService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationCategorizationService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationImageFormatsService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationImageRecordsService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationImagesService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationLeadsService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationProductService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationPropertiesService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationSearchService\" />
+    <WCFMetadataStorage Include="Service References\ApplicationTagsService\" />
+    <WCFMetadataStorage Include="Service References\PlatformSettingsService\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56583</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56583/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.13.2\build\Microsoft.Azure.DocumentDB.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

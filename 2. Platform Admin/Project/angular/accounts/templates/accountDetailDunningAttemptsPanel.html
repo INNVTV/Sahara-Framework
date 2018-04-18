@@ -1,0 +1,90 @@
+﻿ <div>
+
+     <div id="DunningAttemptsPanelLoading" class="container-fluid" style="padding-top:20px" data-ng-show="vm.dunningAttemptsPanelLoading">
+         <section-loader message="'Getting upcoming invoice...'" loader-type="'inline'"></section-loader>
+     </div>
+
+     <div id="DunningAttempts" class="container-fluid" style="padding-top:20px" data-ng-show="!vm.dunningAttemptsPanelLoading">
+
+
+         <div data-ng-show="vm.dunningAttempts != null">
+
+
+             <table class="table table-striped table-responsive" data-ng-show="vm.dunningAttempts.length > 0">
+                 <!--<thead class="hidden-xs">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Key</th>
+                        <th></th>
+                    </tr>
+                </thead>-->
+                 <tr data-ng-repeat="dunningAttempt in vm.dunningAttempts.slice().reverse()">
+
+                     <td>
+                         <div style="color:red">
+                             <strong>
+                                <i class="fa fa-warning"></i>
+                                <span data-ng-show="$index == 0">
+                                    First Warning
+                                </span>
+                                <span data-ng-show="$index == 1">
+                                    Second Warning
+                                </span>
+                                <span data-ng-show="$index == 2">
+                                    Third Warning
+                                </span>
+                                <span data-ng-show="$index == 3">
+                                    Final Warning
+                                </span>
+                                <span data-ng-show="$index == 4">
+                                    Fifth Warning
+                                </span>
+                                <span data-ng-show="$index >= 5 ">
+                                    Warning # {{ $index + 1 }}
+                                </span>
+                            </strong>
+                         </div>
+                         <div style="color:orange;">
+                             <small><i class="fa fa-history"> </i></small> <small am-time-ago="dunningAttempt.WarningDate"></small>
+                         </div>
+                     </td>
+
+
+                     <td class="hidden-xs hidden-sm">
+                         <i class="fa fa-calendar" style="color:lightgray; font-size:10px;"></i>
+                         {{ dunningAttempt.WarningDate | date : 'EEE MMM, dd yyyy' }}
+                         <br/>
+                         <i class="fa fa-clock-o" style="color:lightgray; font-size:10px;"></i>
+                         <small style="color:#8A8A8A">
+                             {{ dunningAttempt.WarningDate | date : 'h:mm a' }}                       
+                         </small>
+                     </td>
+
+
+                     <td> <small>Falure Message:</small><br /><strong>{{ dunningAttempt.Description }} </strong></td>
+
+                     <td class="hidden-xs"> <small>EventId:</small><br /><strong>{{ dunningAttempt.StripeEventId }}</strong> </td>
+
+                     <td class="hidden-xs hidden-sm"><small>ChargeId:</small><br /><strong>{{ dunningAttempt.StripeChargeId }}</strong></td>
+
+                     <td style="text-align:right">
+                         <small>Amount:</small><br /><strong style="color:red; font-size:18px">{{ dunningAttempt.Amount }}</strong>
+                    </td>
+                 </tr>
+             </table>
+
+
+         </div>
+
+
+         <div data-ng-show="vm.dunningAttempts == null && vm.dunningAttemptsPanelLoading == false">
+             <h6><strong><i class="fa fa-times-circle branding-accent-color"></i> No dunning attempts available to display.</strong></h6>
+         </div>
+
+
+
+     </div>
+
+</div>

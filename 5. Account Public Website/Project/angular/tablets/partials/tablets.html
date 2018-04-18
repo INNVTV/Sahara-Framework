@@ -1,0 +1,871 @@
+﻿<div data-ng-controller="tabletsController as vm" style="height:100%; width:100%">
+
+    <sales-lead-form></sales-lead-form>
+
+    <!-- LOADER -->
+    <div data-ng-show="vm.loading == true" style="text-align:center;">
+        <img src="/Images/Loaders/loading.gif" />
+    </div>
+
+    <!-- LIST HEADER (LOCKED) -->
+    <nav id="stickyNav" data-ng-hide="vm.categoryPageType == 'categories'" class="fixed-nav-bar" style="padding-top:3px; display:none;">
+
+        <!--
+        <div data-ng-show="vm.pageType != 'productDetails' && vm.categoryPageType == 'categories'" style="float:left; margin-left:20px;">
+            <img data-ng-show="vm.account.images.logos.wide.url != '' && vm.account.images.logos.wide.url != null" src="{{ vm.account.images.logos.wide.url }}" height="50" />
+            <p data-ng-show="vm.account.images.logos.wide.url == '' || vm.account.images.logos.wide.url == null" class="tabletMenuHeaderText"><span>{{vm.account.accountName}}</span></p>
+        </div>-->
+
+        <div style="float:left; margin-left:20px; height:50px; overflow:hidden;">
+
+            <p data-ng-show="vm.loading == false && vm.pageType != 'productDetails' && vm.categoryPageType == 'category'" data-ng-click="vm.goBack()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span class="hidden-xs">{{vm.category.name}}</span><span class="hidden-sm hidden-md hidden-lg hidden-xl">Back</span></p>
+            <p data-ng-show="vm.loading == false && vm.pageType != 'productDetails' && vm.categoryPageType == 'subcategory'" data-ng-click="vm.goBack()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span class="hidden-xs">{{vm.subcategory.name}}</span><span class="hidden-sm hidden-md hidden-lg hidden-xl">Back</span></p>
+            <p data-ng-show="vm.loading == false && vm.pageType != 'productDetails' && vm.categoryPageType == 'subsubcategory'" data-ng-click="vm.goBack()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span class="hidden-xs">{{vm.subsubcategory.name}}</span><span class="hidden-sm hidden-md hidden-lg hidden-xl">Back</span></p>
+            <p data-ng-show="vm.loading == false && vm.pageType != 'productDetails' && vm.categoryPageType == 'subsubsubcategory'" data-ng-click="vm.goBack()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span class="hidden-xs">{{vm.subsubsubcategory.name}}</span><span class="hidden-sm hidden-md hidden-lg hidden-xl">Back</span></p>
+
+            <!--<p data-ng-show="vm.pageType == 'productDetails'" data-ng-click="vm.goBackFromDetails()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span>{{vm.product.name}}</span></p>-->
+            <p data-ng-show="vm.loading == false && vm.pageType == 'productDetails'" data-ng-click="vm.goBackFromDetails()" class="tabletMenuBack"><i class="fa fa-arrow-circle-o-left"></i> <span>Back</span></p>
+
+        </div>
+
+        <!--<a class="tabletSearchButton" href="/search/" target="_self">
+            <i class="fa fa-search"></i> <b>Search</b>
+        </a>-->
+
+        <div style="float:right">
+
+
+            <!-- Sorting -->
+            <div data-ng-show="vm.pageType == 'productList'" style="margin-right:8px; margin-top:8px;">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-md dropdown-toggle" style="border-radius:0px; height:35px;" data-toggle="dropdown">
+                        <span>&nbsp;{{ vm.currentSelectedSortable.label }}&nbsp;&nbsp;<span class="caret"></span></span>
+                    </button>
+                    <ul class="dropdown-menu  pull-right" role="menu">
+                        <li>
+                            <a data-ng-repeat="sortable in vm.sortables" style="cursor:pointer" data-ng-click="vm.updateSorting(sortable)">{{ sortable.label }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sales Leads Button -->
+            <div data-ng-show="vm.pageType == 'productDetails' && vm.account.salesSettings.useSalesLeads == true" style="margin-right:8px; margin-top:8px;">
+                <button class="btn btn-default btn-md" data-ng-click="vm.startSalesLead()" style="border-radius:0px; height:35px; color:white; background-color:black"><i class="fa fa-check"></i>&nbsp;{{ vm.account.salesSettings.buttonCopy }}</button>
+            </div>
+
+
+
+        </div>
+
+    </nav>
+
+
+    <!--Mobile Category/ProductListing Headers-->
+    <div class="visible-xs" data-ng-show="vm.loading == false && (vm.pageType == 'categoryList' || vm.pageType == 'productList')" style="text-align:center; font-size:42px; color:darkgray; margin-top:75px; margin-bottom:-55px;">
+        <p data-ng-show="vm.categoryPageType == 'category'">{{vm.category.name}}</p>
+        <p data-ng-show="vm.categoryPageType == 'subcategory'">{{vm.subcategory.name}}</p>
+        <p data-ng-show="vm.categoryPageType == 'subsubcategory'">{{vm.subsubcategory.name}}</p>
+        <p data-ng-show="vm.categoryPageType == 'subsubsubcategory'">{{vm.subsubsubcategory.name}}</p>
+    </div>
+
+
+    <!-- CATEGORY LIST PAGE TYPE -->
+    <div id="categoriesDiv" data-ng-show="vm.loading == false && vm.pageType == 'categoryList'" style="margin-left:5px; margin-top:75px;">
+
+        <!--HOME/'Categories' LOGO-->
+        <div data-ng-show="vm.categoryPageType == 'categories' && vm.account.images.logos.wide.url != '' && vm.account.images.logos.wide.url != null" style="margin-bottom:35px; margin-top:-60px; text-align:center" >
+            <img class="hidden-xs" src="{{ vm.account.images.logos.wide.url }}" style="height:165px; text-align:center" />
+            <img class="visible-xs img-responsive" src="{{ vm.account.images.logos.wide.url }}" style="text-align:center; padding-left:30px; padding-right:30px; margin-bottom:-5px;" />
+        </div>
+
+        <!-- Categories -->
+        <div data-ng-show="vm.categoryPageType == 'categories'" style="float:left; width:100%;">
+            <div style="margin-right:0px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="category in vm.categories">
+                    <category-item-tablet></category-item-tablet>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Category -->
+        <div data-ng-show="vm.categoryPageType == 'category'" style="float:left; width:100%;">
+            <div style="margin-right:0px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="category in vm.category.subcategories">
+                    <category-item-tablet></category-item-tablet>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subcategory -->
+        <div data-ng-show="vm.categoryPageType == 'subcategory'" style="float:left; width:100%;">
+            <div style="margin-right:0px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="category in vm.subcategory.subsubcategories">
+                    <category-item-tablet></category-item-tablet>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subsubcategory -->
+        <div data-ng-show="vm.categoryPageType == 'subsubcategory'" style="float:left; width:100%;">
+            <div style="margin-right:0px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="category in vm.subsubcategory.subsubsubcategories">
+                    <category-item-tablet></category-item-tablet>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subsubsubcategory -->
+        <div data-ng-show="vm.categoryPageType == 'subsubsubcategory'" style="float:left; width:100%;">
+            <div style="margin-right:10px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="category in vm.subsubsubcategory.subsubsubsubcategories">
+                    <category-item-tablet></category-item-tablet>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCT LIST PAGE TYPE -->
+    <div id="productListingDiv" data-ng-show="vm.loading == false && vm.pageType == 'productList'" style="margin-left:5px; margin-top:75px;">
+
+        <!-- Products -->
+        <div style="float:left; width:100%;">
+            <div style="margin-right:0px; width:100%">
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4" data-ng-repeat="product in vm.productResults">
+                    <product-item-tablet></product-item-tablet>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading more indicator -->
+        <section-loader data-ng-if="vm.searchingMore == true" message="'Loading more'" loader-type="'inline'" style="clear:both; margin-left:15px; margin-right:20px; margin-bottom:20px; padding-bottom:20px; margin-top:10px;"></section-loader>
+
+    </div>
+
+
+    <!-- PRODUCT DETAILS PAGE TYPE -->
+    <div id="productDetailsDiv" data-ng-show="vm.loading == false && vm.pageType == 'productDetails'">
+
+        <!-- Product PORTRAIT-->
+        <div class="visible-xs visible-sm" style="margin-top:30px;">
+
+            
+            <!--Main Image-->
+            <img data-ng-show="vm.product.images.default.thumbnail.url != null && vm.product.images.default.thumbnail.url != ''" class="img-responsive" ng-src="{{vm.product.images.default.thumbnail.url}}" style="width:100%" />
+            <img data-ng-show="vm.product.images.default.thumbnail.url == null || vm.product.images.default.thumbnail.url == ''" class="img-responsive" src="/Images/ui/fpo/search-thumbnail.jpg" style="width:100%" />
+
+            <!--Properties-->
+            <div style="height:300px; padding:20px">
+                <h3>{{vm.product.name}}</h3>
+                <p>Content</p>
+            </div>
+
+            <!-- Product Images -->
+            <div>
+                <div style="height:5px; clear:both"></div>
+                <div data-ng-repeat="image in vm.product.images.main.gallery.images">
+                    <img class="img-responsive" ng-src="{{image.url}}" style="width:100%"/>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Product LANDSCAPE-->
+        <div class="hidden-xs hidden-sm" style="margin-top:55px; margin-bottom:-55px;">
+
+            <!--Main Image-->
+            <div style="float:left;">
+                <img data-ng-show="vm.product.images.main.featured.url != null && vm.product.images.main.featured.url != ''" class="img-responsive" ng-src="{{vm.product.images.main.featured.url}}" style="height:100vh; padding-top:55px; padding-bottom:-55px" />
+                <img data-ng-show="vm.product.images.main.featured.url == null || vm.product.images.main.featured.url == ''" class="img-responsive" src="/Images/ui/fpo/product-detail.jpg" style="height:100vh; padding-top:55px; padding-bottom:-55px" />
+            </div>
+
+            <div style="float:left; padding:20px; height:100vh; padding-top:55px; padding-bottom:-55px">
+                <h3>{{vm.product.name}}</h3>
+                <p>Landscape Content</p>
+            </div>
+
+
+            <!-- Product Images
+            <div style="float:left;">
+                <span data-ng-repeat="image in vm.product.images.main.gallery.images" style="float:left">
+                    <img class="img-responsive" ng-src="{{image.url}}" style="float:left; height:100vh; margin-top:55px; margin-bottom:-55px" />
+                </span>
+            </div> -->
+
+            <!-- Product Images -->
+            <div style="float:left;">
+                <span data-ng-repeat="image in vm.product.images.main.gallery.images" style="float:left">
+                    <img class="img-responsive" ng-src="{{image.url}}" style="display:inline-block; height:100vh; margin-top:55px; margin-bottom:-55px" />
+                </span>
+            </div>
+
+            <!-- Product Images
+            <div style="float:left;">
+                <ul style="margin: 0; padding: 0; white-space: nowrap; overflow-x: auto;">
+                    <li data-ng-repeat="image in vm.product.images.main.gallery.images" style="display: inline;">
+                        <img class="img-responsive" ng-src="{{image.url}}" style="height:100vh; margin-top:55px; margin-bottom:-55px" />
+                    </li>
+                </ul>
+                
+            </div> -->
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <div id="desktopDiv" class="hidden-xs" style="float:left; width:100%; display:none">
+
+
+        <!-- Body (DESKTOP) -->
+        <div style="padding-left:0px;">
+
+
+
+            <!-- BREADCRUMBS -->
+            <div data-ng-show="vm.breadcrumbs.length > 1" style="margin-left:15px; margin-top:30px; margin-bottom:10px; display:none">
+                <span data-ng-repeat="breadcrumb in vm.breadcrumbs">
+                    <span class="breadcrumbLink" data-ng-show="breadcrumb.link != null && breadcrumb.link != ''"><a data-ng-click="vm.loadBreadcrumb(breadcrumb.link)" style="cursor:pointer">{{breadcrumb.name}}</a><span style="color:lightgray"> /</span></span>
+                    <span data-ng-show="breadcrumb.link == null || breadcrumb.link == ''"><b>{{breadcrumb.name}}</b></span>
+                </span>
+            </div>
+
+
+
+            <!--SEARCH BUTTON (Home) -->
+            <div data-ng-show="vm.loading == false && vm.pageType == 'home'" style="float:right; margin-right:40px; margin-top:30px; ">
+                <!--<small>Sorted by: </small>-->
+                <a class="searchButton" href="/search/" target="_self">
+                    <i class="fa fa-search"></i> <b>Search</b>
+                </a>
+            </div>
+
+            <!--SEARCH BUTTON (Partial or Product Detail) -->
+            <div data-ng-show="vm.loading == false && (vm.pageType == 'browse-partial' || vm.pageType == 'product')" style="float:right; margin-right:40px; margin-top:-30px; ">
+                <!--<small>Sorted by: </small>-->
+                <a class="searchButton" href="/search/" target="_self">
+                    <b><i class="fa fa-search"></i> Search</b>
+                </a>
+            </div>
+
+            <!--Sorting and Search on Full Pages-->
+            <div style="float:right; margin-bottom:20px;">
+
+                <!--SEARCH (Without Sorting) -->
+                <div data-ng-show="vm.pageType == 'browse-full' && vm.fullResults.length < 2" style="float:left; margin-right:40px; margin-top:-30px; ">
+                    <!--<small>Sorted by: </small>-->
+                    <a class="searchButton" href="/search/" target="_self">
+                        <i class="fa fa-search"></i> <b>Search</b>
+                    </a>
+                </div>
+
+                <!--SEARCH (With Sorting) -->
+                <div data-ng-show="vm.pageType == 'browse-full' && vm.fullResults.length > 1" style="float:left; margin-right:20px; margin-top:-30px; ">
+                    <!--<small>Sorted by: </small>-->
+                    <a class="searchButton" href="/search/" target="_self">
+                        <i class="fa fa-search"></i> <b>Search</b>
+                    </a>
+                </div>
+                <!--SORTING (Full Only)-->
+                <div data-ng-show="vm.pageType == 'browse-full' && vm.fullResults.length > 1" style="float:right; margin-right:20px; margin-top:-35px;">
+                    <!--<small>Sorted by: </small>-->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span>{{ vm.currentSelectedSortable.label }} <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu  pull-right" role="menu">
+                            <li>
+                                <a data-ng-repeat="sortable in vm.sortables" style="cursor:pointer" data-ng-click="vm.updateSorting(sortable)">{{ sortable.label }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <!--Category Results-->
+            <div>
+                <!-- Categorization Menus -->
+                <div data-ng-show="vm.pageType != 'product' && vm.pageType != 'browse-full' && vm.pageType == 'browse' && vm.loading == false" style="text-align:center; margin-bottom:30px;">
+
+                    <!--Home-->
+                    <div id="slider0" data-ng-show="vm.pageType == 'home'" style="margin-top:30px;">
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="category in vm.categories.items">
+                                <category-item></category-item>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category/Subcategory Menu -->
+                    <div id="slider1" data-ng-show="vm.categorizationType == 'category'">
+
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="category in vm.category.items">
+                                <category-item></category-item>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Subcategory/Subsubcategory Menu -->
+                    <div id="slider2" data-ng-show="vm.categorizationType == 'subcategory'">
+
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="category in vm.subcategory.items">
+                                <category-item></category-item>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Subsubcategory/Subsubsubcategory Menu -->
+                    <div id="slider3" data-ng-show="vm.categorizationType == 'subsubcategory'">
+
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="category in vm.subsubcategory.items">
+                                <category-item></category-item>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PRODUCT RESULTS-->
+            <div style="height:100%;">
+
+                <!-- BROWSE-HOME (pageType)-->
+                <div id="home-body" data-ng-show="vm.pageType == 'home' && vm.loading == false" style="margin-top:30px;">
+
+
+
+                    <!--<div>
+                        <img data-ng-src="{{vm.account.images.logos.wide.url}}" height="120" />
+                    </div>-->
+                    <!-- Fetaured
+                    <div data-ng-show="vm.featuredProducts.length > 5">
+                        <h1 style="padding:15px; margin-bottom:10px;">Featured</h1>
+                        <div style="margin-right:20px;">
+                            <div class="visible-xl hidden-lg col-xl-2" data-ng-repeat="product in vm.featuredProducts | limitTo:6">
+                                <product-item style="padding:15px;"></product-item>
+                            </div>
+                            <div class="hidden-xl visible-lg visible-md col-lg-3 col-md-3" data-ng-repeat="product in vm.featuredProducts | limitTo:4">
+                                <product-item></product-item>
+                            </div>
+                            <div class="visible-sm col-sm-6" data-ng-repeat="product in vm.featuredProducts | limitTo:2">
+                                <product-item></product-item>
+                            </div>
+                        </div>
+
+                        <hr style="border-color:#ADADAD; margin-right:30px; margin-top:10px; clear:both" />
+
+                    </div> -->
+                    <!-- Partial
+                    <div data-ng-repeat="category in vm.homeResults">
+                        <div data-ng-show="category.items.length > 5">
+
+                            <h1 style="padding:15px; margin-bottom:10px;">{{ category.name }}</h1>
+                            <div style="margin-right:20px;">
+                                <div class="visible-xl hidden-lg col-xl-2" data-ng-repeat="product in category.items | limitTo:6">
+                                    <product-item style="padding:15px;"></product-item>
+                                </div>
+                                <div class="hidden-xl visible-lg visible-md col-lg-3 col-md-3" data-ng-repeat="product in category.items | limitTo:4">
+                                    <product-item></product-item>
+                                </div>
+                                <div class="visible-sm col-sm-6" data-ng-repeat="product in category.items | limitTo:2">
+                                    <product-item></product-item>
+                                </div>
+                            </div>
+                            <div style="text-align:right; margin-right:35px; margin-top:-10px;">
+                                <a class="morelink" ng-href="tablets/{{category.nameKey}}">See more in: <b>{{category.name}}</b> <i class="fa fa-arrow-right"></i> </a>
+                            </div>
+
+                            <hr style="border-color:#ADADAD; margin-right:30px; margin-top:10px; clear:both" />
+
+                        </div>
+
+                    </div> -->
+                    <!--Remaining Products
+                    <div data-ng-show="vm.homeResultsRemaining.length > 0" style="width:100%">
+
+                        <h1 data-ng-show="vm.showRemainingHeader" style="padding:15px; margin-bottom:15px;">More products</h1>
+                        <h1 data-ng-show="!vm.showRemainingHeader" style="padding:15px; margin-bottom:15px;">Our products</h1>
+
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="product in vm.homeResultsRemaining">
+                                <product-item></product-item>
+                            </div>
+                        </div>
+
+                    </div>-->
+
+
+                </div>
+
+                <!-- BROWSE-PARTIAL (pageType)-->
+                <div id="browse-partial-body" data-ng-show="vm.pageType == 'browse-partial' && vm.loading == false">
+
+                    <!--Partial Categories-->
+                    <div data-ng-repeat="category in vm.partialResults" style="width:100%">
+                        <div data-ng-show="category.items.length > 5" style="width:100%">
+
+                            <h1 style="padding:15px; margin-bottom:10px;">{{ category.name }}</h1>
+                            <div style="margin-right:20px;">
+                                <div class="visible-xl hidden-lg col-xl-2" data-ng-repeat="product in category.items | limitTo:6">
+                                    <product-item style="padding:15px;"></product-item>
+                                </div>
+                                <div class="hidden-xl visible-lg visible-md col-lg-3 col-md-3" data-ng-repeat="product in category.items | limitTo:4">
+                                    <product-item></product-item>
+                                </div>
+                                <div class="visible-sm col-sm-6" data-ng-repeat="product in category.items | limitTo:2">
+                                    <product-item></product-item>
+                                </div>
+                            </div>
+                            <div style="text-align:right; margin-right:35px; margin-top:-10px;">
+                                <a class="morelink" ng-href="tablets/{{category.fullyQualifiedName}}">See more in: <b>{{category.name}}</b> <i class="fa fa-arrow-right"></i> </a>
+                            </div>
+
+                            <hr style="border-color:#ADADAD; margin-right:30px; margin-top:10px; clear:both" />
+
+                        </div>
+
+                    </div>
+
+                    <!--Remaining Products-->
+                    <div data-ng-show="vm.partialResultsRemaining.length > 0" style="width:100%">
+
+                        <h1 style="padding:15px; margin-bottom:10px;">More in {{vm.currentSectionName}}</h1>
+
+                        <div style="margin-right:20px; width:100%">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="product in vm.partialResultsRemaining">
+                                <product-item></product-item>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BROWSE-FULL (pageType)-->
+                <div id="browse-full-body" data-ng-show="vm.pageType == 'browse-full' && vm.loading == false" style="width:100%">
+
+                    <div style="margin-right:20px; width:100%">
+                        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" data-ng-repeat="product in vm.fullResults">
+                            <product-item></product-item>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PRODUCT DETAILS -->
+                <div id="product-body" data-ng-show="vm.pageType == 'product' && vm.loading == false" style="position: absolute; height: 100%; max-height:100%; min-height:100%; display:inline; top: 0; bottom: 0;">
+
+
+                    <!-- Main Product Image (Desktop) -->
+                    <div data-ng-show="vm.product.images.main.featured.url != null && vm.product.images.main.featured.url != ''" style="float:left; height:100%">
+                        <img class="img-responsive" ng-src="{{vm.product.images.main.featured.url}}" style="height: 100%;" />
+                    </div>
+
+                    <div data-ng-show="vm.product.images.main.featured.url == null || vm.product.images.main.featured.url == ''" style="float:left; height:100%">
+                        <img class="img-responsive" src="/Images/ui/fpo/product-detail.jpg" style="height: 100%;" />
+                    </div>
+
+                    <style>
+                        /* Let's get this party started
+                                          ::-webk
+                                                         width: 10px;
+                                          } */
+
+                        /* Track
+                                          ::-webkit-scrollbar-track {
+                                              /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);* /
+                                              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+                                              -webkit-border-radiu
+                                                  border-radius: 8px;
+                                          } */
+
+                        /* Handles
+                                          ::-webkit-scrollbar-thumb {
+                                              -webkit-border-radius: 10px;
+                                              border-radius: 10px;
+                                              /*background: rgba(122,122,122,0.8);
+                                              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); * /
+                                              background: rgba(122,122,122,0.0);
+                                              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+                                          }
+                                          ::-webkit-scrollbar-thumb:window-inactive {
+                                              /*background: rgba(166,166,166,0.4); * /
+                        ckground: rgba(166,166,16 0.0);
+
+                                             *
+                    </style>
+                    <div style="float:l
+                        t; height:95%; width:320px; margin:20px; overflow-y:scroll;  font-family:'Segoe UI';">
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                        <p>Test</p>
+                    </div>
+
+                    <span data-ng-repeat="image in vm.product.images.main.gallery.images" style="float:left; height:100%; display:inline; ">
+                        <img class="img-responsive" ng-src="{{image.url}}" style="float:left; height:100%; display:inline;" />
+                    </span>
+
+                    <!--
+                    <div style="float:left; height:100%">
+                        <span data-ng-repeat="image in vm.product.images.main.gallery.images" style="float:left; height:100%">
+                            <img class="img-responsive" ng-src="{{image.url}}" style="float:left; height:100%" />
+                        </span>
+                    </div>-->
+                    <!--
+                    <div data-ng-repeat="image in vm.product.images.main.gallery.images" style="float:left; height:100%">
+                        <img ng-src="{{image.url}}" style="float:left; height:100%" />
+                    </div>-->
+                    <!--Legacy-->
+                    <div style="float: none; margin: 0 auto; display:none">
+
+                        <!-- Product Top -->
+                        <div>
+
+                            <!-- Main Product Image (Desktop) -->
+                            <div data-ng-show="vm.product.images.main.featured.url != null && vm.product.images.main.featured.url != ''" style="float:left;">
+                                <img ng-src="{{vm.product.images.main.featured.url}}" style="height:100%" />
+                            </div>
+
+                            <div data-ng-show="vm.product.images.main.featured.url == null || vm.product.images.main.featured.url == ''" style="float:left;">
+                                <img src="/Images/ui/fpo/product-detail.jpg" style="height:100%" />
+                            </div>
+
+
+
+
+
+                            <div style="float:left; padding-left:60px; width:50%">
+
+                                <!-- Header -->
+                                <h2 style="margin-top:0px; margin-bottom:20px; word-wrap:break-word;">{{vm.product.name}}</h2>
+
+                                <!-- Featured Properties -->
+                                <div data-ng-repeat="property in vm.featuredProperties">
+
+                                    <!-- Button -->
+                                    <div data-ng-if="(vm.product[property.searchField]).indexOf('http') == 0">
+                                        <div style="padding-top:10px; padding-bottom:15px;">
+                                            <a class="btn btn-default btn-sm" href="{{ ( vm.product[property.searchField] ) }}" target="_blank">{{property.propertyName}}</a>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Not Button -->
+                                    <div data-ng-if="(vm.product[property.searchField]).indexOf('http') != 0 && vm.product[property.searchField] != null && vm.product[property.searchField] != ''" style="padding-bottom:15px;">
+
+                                        <div>
+
+                                            <span class="hidden-md hidden-sm" style="font-size:14px; color:#CFCFCF">{{property.propertyName}}:</span>
+                                            <span class="hidden-lg" style="font-size:12px; color:#CFCFCF">{{property.propertyName}}:</span>
+
+
+                                            <!--String-->
+                                            <div data-ng-show="property.propertyType == 'string'">
+                                                <span class="hidden-md hidden-sm" style="font-size:18px;"> {{ (vm.product[property.searchField]) }}</span>
+                                                <span class="hidden-lg" style="font-size:14px;"> {{ (vm.product[property.searchField]) }}</span>
+                                            </div>
+
+                                            <!--Number-->
+                                            <div data-ng-show="property.propertyType == 'number'">
+
+                                                <span class="hidden-md hidden-sm" style="font-size:18px;">
+                                                    <span data-ng-show="property.symbol != null && property.symbol.placement == 'leading'" style="margin-right:1.5px;">{{property.symbol.value}}</span><span data-ng-show="(vm.product[property.searchField]) >= 1000">{{ (vm.product[property.searchField]) | number }}</span><span data-ng-show="(vm.product[property.searchField]) < 1000">{{ (vm.product[property.searchField]) }}</span><span data-ng-show="property.symbol != null && property.symbol.placement == 'trailing'" style="margin-left:1.5px;">{{property.symbol.value}}</span>
+                                                </span>
+
+                                                <span class="hidden-lg" style="font-size:14px;">
+                                                    <span data-ng-show="property.symbol != null && property.symbol.placement == 'leading'" style="margin-right:1.5px;">{{property.symbol.value}}</span><span data-ng-show="(vm.product[property.searchField]) >= 1000">{{ (vm.product[property.searchField]) | number }}</span><span data-ng-show="(vm.product[property.searchField]) < 1000">{{ (vm.product[property.searchField]) }}</span><span data-ng-show="property.symbol != null && property.symbol.placement == 'trailing'" style="margin-left:1.5px;">{{property.symbol.value}}</span>
+                                                </span>
+
+                                            </div>
+
+                                            <!--Predefined-->
+                                            <div data-ng-show="property.propertyType == 'predefined'">
+                                                <span data-ng-repeat="item in (vm.product[property.searchField]) track by $index">
+                                                    <span class="hidden-md hidden-sm" style="font-size:18px;"> {{item}}<span data-ng-show="!$last">, </span></span>
+                                                    <span class="hidden-lg" style="font-size:14px;"> {{item}}<span data-ng-show="!$last">, </span></span>
+                                                </span>
+                                            </div>
+
+                                            <!--Swatch-->
+                                            <div data-ng-show="property.propertyType == 'swatch'">
+
+                                                <span data-ng-repeat="item in (vm.product[property.searchField])  track by $index">
+
+                                                    <span data-ng-repeat="swatch in property.swatches">
+                                                        <img class="hidden-sm" style="height:40px; width:40px; margin-right:5px; float:left" data-ng-if="swatch.label == item" data-ng-src="{{swatch.imageMedium}}" title="{{item}}" alt="{{item}}" />
+                                                        <img class="visible-sm" style="height:30px; width:30px; margin-right:5px; float:left" data-ng-if="swatch.label == item" data-ng-src="{{swatch.imageMedium}}" title="{{item}}" alt="{{item}}" />
+                                                    </span>
+
+                                                </span>
+
+                                                <div style="clear:both;"></div>
+
+                                            </div>
+
+
+                                            <!--DateTime-->
+                                            <div data-ng-show="property.propertyType == 'datetime'">
+                                                <span class="hidden-md hidden-sm" style="font-size:18px;"> {{ (vm.product[property.searchField]) | date }}</span>
+                                                <span class="hidden-lg" style="font-size:14px;"> {{ (vm.product[property.searchField]) | date }}</span>
+                                            </div>
+
+
+                                            <!--Location-->
+                                            <div data-ng-show="property.propertyType == 'location'">
+
+
+                                                <p>
+                                                    <span data-ng-show="(vm.product[property.searchField]).name != null && (vm.product[property.searchField]).name != ''" style="font-size:14px;"><b>{{ (vm.product[property.searchField]).name }}</b><br /></span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).address1 != null && (vm.product[property.searchField]).address1 != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).address1 }}</span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).address2 != null && (vm.product[property.searchField]).address2 != ''" style="font-size:14px;"> {{ (vm.product[property.searchField]).address2 }}<br /></span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).city != null && (vm.product[property.searchField]).city != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).city }}</span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).state != null && (vm.product[property.searchField]).state != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).state }}, </span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).postalCode != null && (vm.product[property.searchField]).postalCode != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).postalCode }} </span>
+                                                    <span data-ng-show="(vm.product[property.searchField]).country != null && (vm.product[property.searchField]).country != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).country }}</span>
+                                                </p>
+
+
+                                                <p class="visible-sm">
+                                                    <a data-ng-show="(vm.product[property.searchField]).geospatial != null && (vm.product[property.searchField]).geospatial != ''" class="btn btn-default btn-xs" href="https://maps.google.com/?q={{ (vm.product[property.searchField]).geospatial.Latitude }},{{ (vm.product[property.searchField]).geospatial.Longitude }}" target="_blank">View on map</a>
+                                                </p>
+
+                                                <iframe class="hidden-sm" style="margin-bottom:5px; margin-right:10px; border:1px solid darkgray;" scrolling="no" frameborder="1" width="320" height="110" data-ng-src="{{vm.generateMapEmbedUrl((vm.product[property.searchField]).geospatial.Latitude, (vm.product[property.searchField]).geospatial.Longitude) | trustAsResourceUrl}}"></iframe>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div data-ng-show="vm.account.salesSettings.useSalesLeads" style="margin-top:15px;">
+                                    <button class="btn btn-default btn-lg visible-lg" data-toggle="modal" data-target=".createSalesLeadModal" data-ng-click="vm.initiateNewSalesLead()">{{ vm.account.salesSettings.buttonCopy }}</button>
+                                    <button class="btn btn-default btn-md hidden-lg" data-toggle="modal" data-target=".createSalesLeadModal" data-ng-click="vm.initiateNewSalesLead()">{{ vm.account.salesSettings.buttonCopy }}</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Other Properties -->
+                        <div style="clear:both; padding-top:50px; padding-bottom:10px; text-align:left;">
+
+                            <!-- initial loop-->
+                            <div data-ng-repeat="property in vm.detailProperties">
+
+                                <div data-ng-show="property.propertyType != 'paragraph' && property.propertyType != 'location' && vm.product[property.searchField] != null && vm.product[property.searchField] != ''" style="margin-bottom:20px;">
+
+                                    <!-- Button -->
+                                    <div data-ng-if="(vm.product[property.searchField]).indexOf('http') == 0">
+                                        <a class="btn btn-default btn-sm" href="{{ ( vm.product[property.searchField] ) }}" target="_blank">{{property.propertyName}}</a>
+                                    </div>
+
+                                    <!-- Not Button -->
+                                    <div data-ng-if="(vm.product[property.searchField]).indexOf('http') != 0 && vm.product[property.searchField] != null && vm.product[property.searchField] != ''">
+
+                                        <div>
+
+                                            <label>{{property.propertyName}}</label>
+
+
+                                            <!--String-->
+                                            <div data-ng-show="property.propertyType == 'string'">
+                                                <p>{{ ( vm.product[property.searchField] ) }}</p>
+                                            </div>
+
+                                            <!--Number-->
+                                            <div data-ng-show="property.propertyType == 'number'">
+                                                <p>
+                                                    <span data-ng-show="property.symbol != null && property.symbol.placement == 'leading'" style="margin-right:1.5px;">{{ property.symbol.value }}</span><span data-ng-show="(vm.product[property.searchField]) >= 1000">{{ (vm.product[property.searchField]) | number }}</span><span data-ng-show="(vm.product[property.searchField]) < 1000">{{ (vm.product[property.searchField]) }}</span><span data-ng-show="property.symbol != null && property.symbol.placement == 'trailing'" style="margin-left:1.5px;">{{ property.symbol.value }}</span>
+                                                </p>
+                                            </div>
+
+                                            <!--Predefined-->
+                                            <div data-ng-show="property.propertyType == 'predefined'">
+                                                <span data-ng-repeat="item in (vm.product[property.searchField])  track by $index">
+                                                    <span>{{item}}<span data-ng-show="!$last">, </span></span>
+                                                </span>
+                                            </div>
+
+
+                                            <!--Swatch-->
+                                            <div data-ng-show="property.propertyType == 'swatch'">
+
+                                                <span data-ng-repeat="item in (vm.product[property.searchField])  track by $index">
+
+                                                    <span data-ng-repeat="swatch in property.swatches">
+                                                        <img style="height:40px; width:40px; margin-right:5px; float:left" data-ng-if="swatch.label == item" data-ng-src="{{swatch.imageMedium}}" title="{{item}}" alt="{{item}}" />
+                                                    </span>
+
+                                                </span>
+
+                                                <div style="clear:both;"></div>
+
+                                            </div>
+
+                                            <!--DateTime-->
+                                            <div data-ng-show="property.propertyType == 'datetime'">
+                                                <p>{{ ( vm.product[property.searchField] ) | date }}</p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- second loop for locations -->
+                            <div data-ng-repeat="property in vm.detailProperties">
+
+                                <div data-ng-show="property.propertyType == 'location' && vm.product[property.searchField] != null && vm.product[property.searchField] != ''">
+
+                                    <div style="margin-bottom:20px;">
+
+                                        <label>{{property.propertyName}}</label>
+
+                                        <div>
+                                            <iframe class="hidden-sm" style="float:left; margin-bottom:5px; margin-right:10px; border:1px solid darkgray;" scrolling="no" frameborder="1" width="300" height="160" data-ng-src="{{vm.generateMapEmbedUrl((vm.product[property.searchField]).geospatial.Latitude, (vm.product[property.searchField]).geospatial.Longitude) | trustAsResourceUrl}}"></iframe>
+
+
+                                            <p style="float:left">
+                                                <span data-ng-show="(vm.product[property.searchField]).name != null && (vm.product[property.searchField]).name != ''" style="font-size:14px;"><b>{{ (vm.product[property.searchField]).name }}</b><br /></span>
+                                                <span data-ng-show="(vm.product[property.searchField]).address1 != null && (vm.product[property.searchField]).address1 != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).address1 }}</span>
+                                                <span data-ng-show="(vm.product[property.searchField]).address2 != null && (vm.product[property.searchField]).address2 != ''" style="font-size:14px;"> {{ (vm.product[property.searchField]).address2 }}<br /></span>
+                                                <span data-ng-show="(vm.product[property.searchField]).city != null && (vm.product[property.searchField]).city != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).city }}</span>
+                                                <span data-ng-show="(vm.product[property.searchField]).state != null && (vm.product[property.searchField]).state != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).state }}, </span>
+                                                <span data-ng-show="(vm.product[property.searchField]).postalCode != null && (vm.product[property.searchField]).postalCode != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).postalCode }} </span>
+                                                <span data-ng-show="(vm.product[property.searchField]).country != null && (vm.product[property.searchField]).country != ''" style="font-size:14px;">{{ (vm.product[property.searchField]).country }}</span>
+                                            </p>
+
+
+                                            <p class="visible-sm">
+                                                <a data-ng-show="(vm.product[property.searchField]).geospatial != null && (vm.product[property.searchField]).geospatial != ''" class="btn btn-default btn-xs" href="https://maps.google.com/?q={{ (vm.product[property.searchField]).geospatial.Latitude }},{{ (vm.product[property.searchField]).geospatial.Longitude }}" target="_blank">View on map</a>
+                                            </p>
+                                        </div>
+
+
+
+                                        <div style="clear:both;"></div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- third loop for paragraphs  -->
+                            <div data-ng-repeat="property in vm.detailProperties">
+
+                                <div data-ng-show="property.propertyType == 'paragraph' && vm.product[property.searchField] != null && vm.product[property.searchField] != ''" style="margin-bottom:20px;">
+                                    <label>{{property.propertyName}}</label>
+
+                                    <div>
+                                        <p style="padding-right:60px;">{{ ( vm.product[property.searchField] ) }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- Product Images (Desktop w/ Masonry)-->
+                        <div masonry class="visible-lg visible-md">
+                            <div style="height:30px; clear:both"></div>
+                            <div>
+                                <div data-ng-repeat="image in vm.product.images.main.gallery.images">
+                                    <img ng-src="{{image.url}}" height="400" style="float:left; margin-right:5px; margin-bottom:5px;" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Product Images (Smaller)-->
+                        <div class="visible-sm">
+                            <div style="height:30px; clear:both"></div>
+                            <div data-ng-repeat="image in vm.product.images.main.gallery.images">
+                                <img class="img-responsive" ng-src="{{image.url}}" style="margin:5px;" />
+                            </div>
+                        </div>
+
+
+                        <!-- Product Footer/Sales Lead -->
+                        <div style="height:50px; clear:both"></div>
+
+                        <div data-ng-show="vm.account.salesSettings.useSalesLeads" style="text-align:center">
+                            <h4 data-ng-show="vm.account.salesSettings.leadsDescription != null && vm.account.salesSettings.leadsDescription != ''">{{ vm.account.salesSettings.leadsDescription }}</h4>
+                            <button style="margin-top:5px;" class="btn btn-default btn-lg" data-toggle="modal" data-target=".createSalesLeadModal" data-ng-click="vm.initiateNewSalesLead()">{{ vm.account.salesSettings.buttonCopy }}</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

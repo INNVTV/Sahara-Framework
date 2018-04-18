@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApplicationImagesService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IApplicationImagesService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Imaging.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IApplicationImagesService_ProcessImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcessImage" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_ProcessImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcessImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordTitle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordTitle" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordTitle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordTitleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordGalleryTitle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordGalleryTitle" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordGalleryTitle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordGalleryTitleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordGalleryDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordGalleryDescription" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_UpdateImageRecordGalleryDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageRecordGalleryDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_ReorderImageRecordGallery_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderImageRecordGallery" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_ReorderImageRecordGallery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReorderImageRecordGalleryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_DeleteImageRecord_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteImageRecord" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_DeleteImageRecord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteImageRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_DeleteGalleryImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGalleryImage" />
+  </wsdl:message>
+  <wsdl:message name="IApplicationImagesService_DeleteGalleryImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGalleryImageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IApplicationImagesService">
+    <wsdl:operation name="ProcessImage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/ProcessImage" message="tns:IApplicationImagesService_ProcessImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/ProcessImageResponse" message="tns:IApplicationImagesService_ProcessImage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordTitle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordTitle" message="tns:IApplicationImagesService_UpdateImageRecordTitle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordTitleResponse" message="tns:IApplicationImagesService_UpdateImageRecordTitle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordDescription" message="tns:IApplicationImagesService_UpdateImageRecordDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordDescriptionResponse" message="tns:IApplicationImagesService_UpdateImageRecordDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordGalleryTitle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryTitle" message="tns:IApplicationImagesService_UpdateImageRecordGalleryTitle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryTitleResponse" message="tns:IApplicationImagesService_UpdateImageRecordGalleryTitle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordGalleryDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryDescription" message="tns:IApplicationImagesService_UpdateImageRecordGalleryDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryDescriptionResponse" message="tns:IApplicationImagesService_UpdateImageRecordGalleryDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReorderImageRecordGallery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/ReorderImageRecordGallery" message="tns:IApplicationImagesService_ReorderImageRecordGallery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/ReorderImageRecordGalleryResponse" message="tns:IApplicationImagesService_ReorderImageRecordGallery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImageRecord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/DeleteImageRecord" message="tns:IApplicationImagesService_DeleteImageRecord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/DeleteImageRecordResponse" message="tns:IApplicationImagesService_DeleteImageRecord_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGalleryImage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IApplicationImagesService/DeleteGalleryImage" message="tns:IApplicationImagesService_DeleteGalleryImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IApplicationImagesService/DeleteGalleryImageResponse" message="tns:IApplicationImagesService_DeleteGalleryImage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IApplicationImagesService" type="tns:IApplicationImagesService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IApplicationImagesService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ProcessImage">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/ProcessImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordTitle">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/UpdateImageRecordTitle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/UpdateImageRecordDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordGalleryTitle">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryTitle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageRecordGalleryDescription">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/UpdateImageRecordGalleryDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReorderImageRecordGallery">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/ReorderImageRecordGallery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImageRecord">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/DeleteImageRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGalleryImage">
+      <soap12:operation soapAction="http://tempuri.org/IApplicationImagesService/DeleteGalleryImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApplicationImagesService">
+    <wsdl:port name="NetTcpBinding_IApplicationImagesService" binding="tns:NetTcpBinding_IApplicationImagesService">
+      <soap12:address location="net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Images" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://sahara.westus2.cloudapp.azure.com:8080/Services/Application/Images</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

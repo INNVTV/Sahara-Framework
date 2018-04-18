@@ -1,0 +1,30 @@
+﻿<div data-ng-controller="dataInjectionIndexController as vm" >
+
+    <div style="margin-left:40px;">
+
+        <h3>Data Injection Service</h3>
+
+        <a data-ng-show="!vm.injectionRunning && vm.account != null" data-ng-click="vm.injectCategories()" class="btn btn-md btn-primary">Inject categories</a>
+        <a data-ng-show="!vm.injectionRunning && vm.account != null" data-ng-click="vm.injectProducts()" class="btn btn-md btn-primary">Inject products</a>
+
+        <a data-ng-show="vm.injectionRunning" class="btn btn-md btn-primary disabled"><i class="fa fa-circle-o-notch fa-spin"></i> Injecting...</a>
+
+        <div style="margin-top:20px; margin-bottom:-20px;">
+            <small style="color:darkgray">output:</small>
+        </div>
+        <hr />
+        <div id="logOutput">
+            <div data-ng-repeat="log in vm.outputLog">
+                <div>
+                    <p data-ng-show="log.success" style="color:green;"><b>{{log.instance}}</b> {{log.description}} <b>OK!</b></p>
+                    <p data-ng-show="!log.success" style="color:red;"><b>{{log.instance}}</b> {{log.description}} <b>{{log.error}}</b></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+

@@ -1,0 +1,753 @@
+﻿<div>
+
+    <!--Image Editing Modal-->
+    <div id="imageEditModal" class="modal fade imageEditingModalWindow" tabindex="-1" role="dialog" aria-labelledby="imageEditingModalWindow" aria-hidden="true">
+        <div style="width:705px" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;"><b>Edit & Save Image</b></h3>
+                </div>
+                <div class="modal-body">
+
+                    <!-- iFRAME containing the /Instructionss view for image cropping -->
+                    <div style="text-align:center">
+                        <iframe scrolling="no" style="display:block; text-align:center" frameborder="0" width="655" height="480" id="imageEditingFrame" src=""></iframe>
+                    </div>
+
+                </div>
+                <!--<div class="modal-footer">
+                    Footer
+                    <div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Upooad</button>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+
+    <!--Image Details Modal-->
+    <div class="modal fade manageImageRecordModalWindow" tabindex="-1" role="dialog" aria-labelledby="manageImageRecordModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;"><span style="color:lightgray">{{ vm.imageGroupNameDetails }} / </span><b>{{ vm.imageRecordDetails.FormatName }}</b></h3>
+                </div>
+                <div class="modal-body">
+
+                    <tabset>
+                        <tab active="vm.resetImageDetailsTab" id="details" heading="Details" style="cursor:pointer;">
+
+                            <!-- Singe image details -->
+                            <div style="margin:10px; margin-top:30px;">
+                                <div data-ng-show="vm.imageRecordDetails.Type == 'single'">
+
+                                    <div style="margin-top:20px;">
+                                        <img data-ng-if="vm.imageRecordDetails.Url != null && vm.imageRecordDetails.Url != ''" data-ng-src="{{ vm.imageRecordDetails.Url_sm }}" height="150" data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*150) }" style="border:1px solid black" />
+                                    </div>
+
+                                    <!-- Title/Description -->
+                                    <div>
+                                        <hr />
+
+                                        <div>
+                                            <label>Group:</label><span> {{ vm.imageGroupNameDetails }}</span>
+                                        </div>
+
+                                        <div>
+                                            <label>Format:</label><span> {{ vm.imageRecordDetails.FormatName }}</span>
+                                        </div>
+
+                                        <div data-ng-show="vm.imageRecordDetails.Width > 0">
+                                            <label>Size:</label><span> {{ vm.imageRecordDetails.Width }} X {{ vm.imageRecordDetails.Height }}</span>
+                                        </div>
+
+                                        <div data-ng-show="vm.imageRecordDetails.Width == 0">
+                                            <label>Size:</label><span> {{ vm.imageRecordDetails.Height }}px tall <span style="color:darkgray">(variable width)</span></span>
+                                        </div>
+
+                                        <!-- Title Value -->
+                                        <div data-ng-show="!vm.imageTitleEditing && !vm.imageTitleProcessing">
+                                            <label>Title:</label>
+                                            <span data-ng-show="vm.imageRecordDetails.Title != ''"> {{ vm.imageRecordDetails.Title }}</span>
+                                            <span data-ng-show="vm.imageRecordDetails.Title == ''" style="color:lightgray"> No title</span>
+                                            <button style="margin-left:8px;" data-ng-show="vm.checkRole('Manager') && !vm.globalImageEditingState" data-ng-click="vm.editImageTitle()" class="sahara-btn-edit-12 hidden-xs"></button>
+                                        </div>
+
+                                        <!-- Title Editing -->
+                                        <div style="margin-bottom:15px;" data-ng-show="vm.imageTitleEditing">
+                                            <label style="color:#0974ED">Update Title:</label>
+                                            <input maxlength="50" style="font-size:14px; height:25px; width:500px" type="text" class="form-control input" data-ng-model="vm.newImageRecordTitle" />
+                                            <div style="margin-top:8px;">
+                                                <button class="btn btn-default btn-xs" data-ng-click="vm.resetAllImageEditingVars()" style="margin-right:5px;">Cancel</button>
+                                                <button data-ng-show="vm.newImageRecordTitle == null || vm.newImageRecordTitle == vm.imageRecordDetails.Title" class="btn btn-primary btn-xs disabled">Update</button>
+                                                <button data-ng-show="vm.newImageRecordTitle != null && vm.newImageRecordTitle != vm.imageRecordDetails.Title" class="btn btn-primary btn-xs" data-ng-click="vm.updateImageTitle()">Update</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Title Processing -->
+                                        <div style="margin-bottom:15px;" data-ng-show="vm.imageTitleProcessing">
+                                            <label>Title:</label>
+                                            <img style="margin-top:-5px;" src="/Images/Loaders/initializing.gif" />
+                                        </div>
+
+
+
+                                        <!-- Description Value -->
+                                        <div data-ng-show="!vm.imageDescriptionEditing && !vm.imageDescriptionProcessing">
+                                            <label>Description:</label>
+                                            <span data-ng-show="vm.imageRecordDetails.Description != ''"> {{ vm.imageRecordDetails.Description }}</span>
+                                            <span data-ng-show="vm.imageRecordDetails.Description == ''" style="color:lightgray"> No Description</span>
+                                            <button style="margin-left:8px;" data-ng-show="vm.checkRole('Manager') && !vm.globalImageEditingState" data-ng-click="vm.editImageDescription()" class="sahara-btn-edit-12 hidden-xs"></button>
+                                        </div>
+
+                                        <!-- Description Editing -->
+                                        <div style="margin-bottom:15px;" data-ng-show="vm.imageDescriptionEditing">
+                                            <label style="color:#0974ED">Update Description:</label>
+                                            <textarea rows="4" class="form-control" style="font-weight: normal; font-size:12px;" placeholder="" maxlength="140" data-ng-model="vm.newImageRecordDescription"></textarea>
+                                            <!--<input maxlength="140" style="font-size:14px; height:25px; width:500px" type="text" class="form-control input" data-ng-model="vm.newImageRecordDescription" />-->
+                                            <div style="margin-top:8px;">
+                                                <button class="btn btn-default btn-xs" data-ng-click="vm.resetAllImageEditingVars()" style="margin-right:5px;">Cancel</button>
+                                                <button data-ng-show="vm.newImageRecordDescription == null || vm.newImageRecordDescription == vm.imageRecordDetails.Description" class="btn btn-primary btn-xs disabled">Update</button>
+                                                <button data-ng-show="vm.newImageRecordDescription != null && vm.newImageRecordDescription != vm.imageRecordDetails.Description" class="btn btn-primary btn-xs" data-ng-click="vm.updateImageDescription()">Update</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Description Processing -->
+                                        <div style="margin-bottom:15px;" data-ng-show="vm.imageDescriptionProcessing">
+                                            <label>Description:</label>
+                                            <img style="margin-top:-5px;" src="/Images/Loaders/initializing.gif" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <!-- Gallery details -->
+                            <div data-ng-show="vm.imageRecordDetails.Type == 'gallery'">
+                                <div style="height:1px; border-bottom:1px solid black" />
+                                <div style="height:1px; border-bottom:1px solid lightgray" />
+                                <div style="margin:10px; margin-top:20px;" data-ng-repeat="galleryRecord in vm.imageRecordDetails.GalleryImages">
+                                    <div data-ng-show="vm.imageGalleryIndexToDelete != $index">
+
+                                        <!--Image & Delete-->
+                                        <div>
+
+                                            <!-- Image -->
+                                            <div data-ng-if="galleryRecord.Url_sm != null && galleryRecord.Url_sm != ''">
+                                                <img data-ng-src="{{galleryRecord.Url_sm}}" data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*120)}" style="float:left; height:120px; background-position:center; background-repeat:no-repeat; background-size:cover; border:1px solid black;" />
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- Title/Description -->
+                                        <div style="clear:both;">
+                                            <div style="height:5px;">
+
+                                            </div>
+                                            <div style="margin-top:5px;">
+
+                                                <hr style="margin-bottom:10px; margin-top:10px;" />
+
+                                                <!--Delete-->
+                                                <div>
+                                                    <button style="float:right;" data-ng-click="vm.deleteImageGalleryItem($index)" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>
+                                                </div>
+
+                                                <div>
+                                                    <label>Group:</label><span> {{ vm.imageGroupNameDetails }}</span>
+                                                </div>
+
+                                                <div>
+                                                    <label>Format:</label><span> {{ vm.imageRecordDetails.FormatName }}</span>
+                                                </div>
+
+                                                <div data-ng-show="vm.imageRecordDetails.Width > 0">
+                                                    <label>Size:</label><span> {{ vm.imageRecordDetails.Width }} X {{ vm.imageRecordDetails.Height }}</span>
+                                                </div>
+
+                                                <div data-ng-show="vm.imageRecordDetails.Width == 0">
+                                                    <label>Size:</label><span> {{ vm.imageRecordDetails.Height }}px tall <span style="color:darkgray">(variable width)</span></span>
+                                                </div>
+
+                                                <!-- Title Value -->
+                                                <div data-ng-hide="vm.visibleGallerTitleEditingIndex == $index">
+                                                    <!--data-ng-show="!vm.imageGalleryTitleEditing && !vm.imageGalleryTitleProcessing">-->
+                                                    <label>Title:</label>
+                                                    <span data-ng-show="galleryRecord.Title != ''"> {{ galleryRecord.Title }}</span>
+                                                    <span data-ng-show="galleryRecord.Title == ''" style="color:lightgray"> No title</span>
+                                                    <button style="margin-left:8px;" data-ng-show="vm.checkRole('Manager') && !vm.globalImageEditingState" data-ng-click="vm.editImageGalleryTitle($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                                                </div>
+
+                                                <!-- Title Editing -->
+                                                <div style="margin-bottom:15px;" data-ng-show="vm.imageGalleryTitleEditing && vm.visibleGalleryTitleEditingIndex == $index">
+                                                    <label style="color:#0974ED">Update Title:</label>
+                                                    <input maxlength="50" style="font-size:14px; height:25px; width:500px" type="text" class="form-control input" data-ng-model="vm.newImageRecordGalleryTitle" />
+                                                    <div style="margin-top:8px;">
+                                                        <button class="btn btn-default btn-xs" data-ng-click="vm.resetAllImageEditingVars()" style="margin-right:5px;">Cancel</button>
+                                                        <button data-ng-show="vm.newImageRecordGalleryTitle == null || vm.newImageRecordGalleryTitle == galleryRecord.Title" class="btn btn-primary btn-xs disabled">Update</button>
+                                                        <button data-ng-show="vm.newImageRecordGalleryTitle != null && vm.newImageRecordGalleryTitle != galleryRecord.Title" class="btn btn-primary btn-xs" data-ng-click="vm.updateImageGalleryTitle($index)">Update</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Title Processing -->
+                                                <div style="margin-bottom:15px;" data-ng-show="vm.imageGalleryTitleProcessing && vm.visibleGalleryTitleEditingIndex == $index">
+                                                    <label>Title:</label>
+                                                    <img style="margin-top:-5px;" src="/Images/Loaders/initializing.gif" />
+                                                </div>
+
+
+
+                                                <!-- Description Value -->
+                                                <div data-ng-hide="vm.visibleGalleryDescriptionEditingIndex == $index">
+                                                    <label>Description:</label>
+                                                    <span data-ng-show="galleryRecord.Description != ''"> {{ galleryRecord.Description }}</span>
+                                                    <span data-ng-show="galleryRecord.Description == ''" style="color:lightgray"> No Description</span>
+                                                    <button style="margin-left:8px;" data-ng-show="vm.checkRole('Manager') && !vm.globalImageEditingState" data-ng-click="vm.editImageGalleryDescription($index)" class="sahara-btn-edit-12 hidden-xs"></button>
+                                                </div>
+
+                                                <!-- Description Editing -->
+                                                <div style="margin-bottom:15px;" data-ng-show="vm.imageGalleryDescriptionEditing && vm.visibleGalleryDescriptionEditingIndex == $index">
+                                                    <label style="color:#0974ED">Update Description:</label>
+                                                    <textarea rows="4" class="form-control" style="font-weight: normal; font-size:12px;" placeholder="" maxlength="140" data-ng-model="vm.newImageRecordGalleryDescription"></textarea>
+                                                    <!--<input maxlength="140" style="font-size:14px; height:25px; width:500px" type="text" class="form-control input" data-ng-model="vm.newImageRecordGalleryDescription" />-->
+                                                    <div style="margin-top:8px;">
+                                                        <button class="btn btn-default btn-xs" data-ng-click="vm.resetAllImageEditingVars()" style="margin-right:5px;">Cancel</button>
+                                                        <button data-ng-show="vm.newImageRecordGalleryDescription == null || vm.newImageRecordGalleryDescription == galleryRecord.Description" class="btn btn-primary btn-xs disabled">Update</button>
+                                                        <button data-ng-show="vm.newImageRecordGalleryDescription != null && vm.newImageRecordGalleryDescription != galleryRecord.Description" class="btn btn-primary btn-xs" data-ng-click="vm.updateImageGalleryDescription($index)">Update</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Description Processing -->
+                                                <div style="margin-bottom:15px;" data-ng-show="vm.imageGalleryDescriptionProcessing && vm.visibleGalleryDescriptionEditingIndex == $index">
+                                                    <label>Description:</label>
+                                                    <img style="margin-top:-5px;" src="/Images/Loaders/initializing.gif" />
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- URLs -->
+                                        <div>
+
+                                            <!--<h5><b>URLs:</b></h5>-->
+
+                                            <div style="text-align:right; margin-top:10px;">
+                                                <button data-ng-show="vm.visibleGalleryUrlIndex != $index" data-ng-click="vm.setVisibleGalleryUrlIndex($index)" style="font-size:10px;" class="btn btn-default btn-xs">Show URLs <i class="fa fa-caret-right"></i></button>
+                                                <button data-ng-show="vm.visibleGalleryUrlIndex == $index" data-ng-click="vm.setVisibleGalleryUrlIndex(null)" style="font-size:10px;" class="btn btn-default btn-xs">Hide URLs <i class="fa fa-caret-down"></i></button>
+                                            </div>
+
+                                            <div style="margin-bottom:25px;" data-ng-show="vm.visibleGalleryUrlIndex == $index">
+                                                <hr />
+                                                <small><b>Full size:</b></small><br />
+                                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ galleryRecord.Url }}">{{ galleryRecord.Url }}</a>
+                                                <br /><br />
+                                                <small><b>1/2 size:</b></small><br />
+                                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ galleryRecord.Url_sm }}">{{ galleryRecord.Url_sm }}</a>
+                                                <br /><br />
+                                                <small><b>1/4 size:</b></small><br />
+                                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ galleryRecord.Url_xs }}">{{ galleryRecord.Url_xs }}</a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Bottom Line -->
+                                        <div data-ng-show="!$last && vm.imageGalleryIndexToDelete != $index">
+                                            <div style="margin-left:-10px; margin-right:-10px; height:1px; margin-top:15px; border-top:1px solid black;  border-bottom:1px solid lightgray" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </tab>
+
+
+                        <tab data-ng-show="vm.imageRecordDetails.Type == 'single'" id="urls" heading="URLs" style="cursor:pointer;">
+                            <!--Single Image URLs-->
+                            <div style="margin:20px; margin-top:30px;">
+
+                                <h5><b>Full size:</b></h5>
+
+                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ vm.imageRecordDetails.Url }}">{{ vm.imageRecordDetails.Url }}</a>
+                                <br />
+                                <br />
+
+                                <h5><b>Small (1/2 size):</b></h5>
+
+                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ vm.imageRecordDetails.Url_sm }}">{{ vm.imageRecordDetails.Url_sm }}</a>
+                                <br />
+                                <br />
+
+                                <h5><b>X-Small (1/4 size):</b></h5>
+
+                                <a style="color:#6E6E6E; font-size:14px" margin-top:5px; target="_blank" href="{{ vm.imageRecordDetails.Url_xs }}">{{ vm.imageRecordDetails.Url_xs }}</a>
+
+                            </div>
+
+                        </tab>
+
+                        <!-- Reorder Gallery -->
+                        <tab data-ng-show="vm.imageRecordDetails.GalleryImages != null" id="orderGallery" heading="Ordering" data-ng-click="vm.initializeImageGalleryOrderPanel()" style="cursor:pointer;">
+
+
+                            <div data-ng-show="!vm.imageOrderProcessing" style="margin:8px; margin-top:16px;">
+
+                                <!-- Reorder Instructions -->
+                                <div style="text-align:left; margin-top:0;">
+                                    <p style="padding:10px; padding-left:5px; font-size:13px; color:darkgray">
+                                        Drag & drop images to change order, then click on 'Apply changes' below.
+                                    </p>
+                                </div>
+
+                                <!-- Reorder Grid -->
+                                <ul class="list-group" ui-sortable="sortableOptions" ng-model="vm.newGalleryImageOrder" style="list-style-type: none; margin: 0; padding: 0; width:530px;">
+                                    <li class="list-group-item" style="float:left; cursor:pointer; padding:1px; margin:5px 5px 5px 0;"
+                                        ng-repeat="image in vm.newGalleryImageOrder">
+                                        <img data-ng-src="{{image.url}}" height="45" data-ng-style="{'width': ((imageRecordDetails.Width/imageRecordDetails.Height)*45) }" style="border:1px solid black; margin-right:5px;" />
+                                    </li>
+                                </ul>
+
+
+                                <div style="clear:both; height:10px;">
+                                </div>
+
+                                <hr />
+
+                                <div style="margin-top:5px; text-align:left">
+                                    <div id="imageOrderingSuccess" style="float:left; color:green; font-weight:bold; display:none">Image order update complete!</div>
+                                    <button style="float:right;" class="btn btn-primary btn-sm" data-ng-click="vm.updateImageGalleryOrdering()">Apply changes</button>
+                                </div>
+
+                                <div style="clear:both; height:0px; margin-bottom:-10px;"></div>
+
+                            </div>
+
+                            <div data-ng-show="vm.imageOrderProcessing" id="imageProcessingBar" style="margin-top:30px; margin-bottom:30px;">
+                                <small>Updating order...</small>
+                                <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:blue; background-image:url('/Images/Loaders/global.gif'); background-size:100%"></div>
+                            </div>
+
+                        </tab>
+                        <tab id="advanced" heading="Advanced" style="cursor:pointer;">
+
+                            <div style="margin:15px; margin-left:15px; padding-top:15px;">
+
+                                <!--Input State-->
+                                <div data-ng-show="!vm.imageRecordDeleteApproval && !vm.imageRecordDeleting">
+                                    <button style="font-size:18px;" data-ng-show="vm.imageRecordDetails.Type == 'single'" type="button" class="btn btn-danger btn-md" data-ng-click="vm.approveImageRecordDeletion()"><i class="fa fa-times"></i> Delete this image</button>
+                                    <button style="font-size:18px;" data-ng-show="vm.imageRecordDetails.Type == 'gallery'" type="button" class="btn btn-danger btn-md" data-ng-click="vm.approveImageRecordDeletion()"><i class="fa fa-times"></i> Clear this gallery</button>
+                                </div>
+
+                                <!--Approval State-->
+                                <div data-ng-show="vm.imageRecordDeleteApproval && !vm.imageRecordDeleting">
+                                    <h4 data-ng-show="vm.imageRecordDetails.Type == 'single'"><b>Are you sure you want to permenently delete this image?</b></h4>
+                                    <h4 data-ng-show="vm.imageRecordDetails.Type == 'gallery'"><b>Are you sure you want to permenently delete all images within this gallery?</b></h4>
+                                    <div style="margin-top:20px;">
+                                        <button style="margin-right:5px;" type="button" class="btn btn-default btn-sm" data-ng-click="vm.disproveImageRecordDeletion()">Cancel</button>
+                                        <button data-ng-show="vm.imageRecordDetails.Type == 'single'" type="button" class="btn btn-danger btn-sm" data-ng-click="vm.deleteImageRecord()">Yes, delete this image</button>
+                                        <button data-ng-show="vm.imageRecordDetails.Type == 'gallery'" type="button" class="btn btn-danger btn-sm" data-ng-click="vm.deleteImageRecord()">Yes, delete this gallery</button>
+
+                                    </div>
+                                </div>
+
+                                <!--Deleting State-->
+                                <div data-ng-show="vm.imageRecordDeleteApproval && vm.imageRecordDeleting">
+                                    <small>Deleting...</small>
+                                    <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:red; background-image:url('/Images/Loaders/global_red.gif'); background-size:100%"></div>
+                                    <!--<section-loader message="'Deleting...'" loader-type="'inline'"></section-loader>-->
+                                </div>
+                            </div>
+
+                        </tab>
+                    </tabset>
+
+
+                </div>
+                <div class="modal-footer">
+                    <!--Footer-->
+                    <div>
+                        <button data-ng-show="vm.imageRecordDeletion.IsSending || !vm.imageRecordDeletion.SendingComplete" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button data-ng-show="!vm.imageRecordDeletion.IsSending && vm.imageRecordDeletion.SendingComplete" type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Image Panel-->
+    <div>
+
+
+        <!--DEFAULT GROUP (THUMBNAIL) EXCEPTION We show default larger and at the top always!-->
+        <div data-ng-repeat="imageGroup in vm.imageRecords" style="margin-right:-50px;">
+            <div data-ng-if="imageGroup.GroupNameKey == 'default'">
+                <div id="imageThumbnailsPanel-{{imageGroup.GroupNameKey}}" style="margin-top:15px; margin-bottom:15px">
+                    <div data-ng-repeat="imageRecord in imageGroup.ImageRecords">
+
+                        <h2 style="margin-bottom:20px;">Default Thumbnail</h2>
+
+                        <!-- Uloading Intermediary Image-->
+                        <div id="intermediaryImageUploading-{{imageGroup.GroupNameKey}}" style="display:none">
+                            <div style="height:15px"></div>
+                            <small>Uploading...</small>
+                            <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:blue; background-image:url('/Images/Loaders/global.gif'); background-size:100%"></div>
+                            <div style="height:35px"></div>
+                        </div>
+
+                        <!-- Upload Error Message-->
+                        <div id="intermediaryUploadErrorImage-{{imageGroup.GroupNameKey}}" class="alert alert-danger" style="display:none; font-weight:bold; color:red; margin-top:15px; margin-bottom:35px;">
+                        </div>
+
+                        <div>
+
+                            <div style="clear:both; margin-bottom:15px;">
+                                <!-- REMOVED FOR VARIABLE WIDTHs: data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"-->
+                                <!--NO IMAGE (Single Uploader Slug w/ LOCKED ASPECT RATIO)-->
+                                <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                     data-ng-show="imageRecord.Width > 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" height="200"
+                                     data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*200) }"
+                                     style="clear:both; cursor:pointer; background-color:#E3E3E3; height:200px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                     onmouseover="this.style.background = '#CFCFCF'"
+                                     onmouseout="this.style.background = '#E3E3E3'">
+                                    <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:24px; margin-top:50px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                </div>
+
+                                <!--NO IMAGE (Single Uploader Slug w/ VARIABLE WIDTH)-->
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="float:left; height:200px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                     data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" width="120" height="200"
+                                     style="float:left; cursor:pointer; background-color:#E3E3E3; height:200px; width:120px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                     onmouseover="this.style.background = '#CFCFCF'"
+                                     onmouseout="this.style.background = '#E3E3E3'">
+                                    <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:24px; margin-top:50px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                </div>
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="float:left; height:200px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="clear:both; height:0px;"></div>
+
+
+
+
+                                <div data-ng-show="imageRecord.Type == 'single' && imageRecord.Url != null && imageRecord.Url != ''">
+                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                         data-ng-src="{{imageRecord.Url_sm}}" height="200"
+                                         style="clear:both; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" /> <!--  REMOVED FOR VARIABLE WIDTHs: data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"-->
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+                            <div style="clear:both;">
+
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'single'  && imageRecord.Url != null && imageRecord.Url != ''" class="btn btn-default btn-xs">Replace thumbnail</button>
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'single'  && imageRecord.Url == null && imageRecord.Url != ''" class="btn btn-default btn-xs">Create thumbnail</button>
+
+                            <!--<div style="font-size:14px; margin-top:6px;"><b>{{ imageRecord.FormatName }}</b><small data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" style="color:darkgrey"> ({{ imageRecord.GalleryImages.length }})</small></div>-->
+                            <div style="margin-top:5px;">
+                                <small data-ng-show="imageRecord.Width > 0" style="color:darkgrey">{{ imageRecord.Width }}x{{ imageRecord.Height }}</small>
+                            </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <hr style="clear:both" />
+
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+
+
+        <div data-ng-repeat="imageGroup in vm.imageRecords" style="margin-right:-50px;">
+
+            <div data-ng-if="imageGroup.GroupNameKey != 'default'">
+                <h2 style="margin-bottom:20px;">{{ imageGroup.GroupName }}</h2>
+
+                <!-- Uloading Intermediary Image-->
+                <div id="intermediaryImageUploading-{{imageGroup.GroupNameKey}}" style="display:none">
+                    <div style="height:15px"></div>
+                    <small>Uploading...</small>
+                    <div style="position:relative; height:2px; z-index:110; top:0px; left:0px; background-color:blue; background-image:url('/Images/Loaders/global.gif'); background-size:100%"></div>
+                    <div style="height:35px"></div>
+                </div>
+
+                <!-- Upload Error Message-->
+                <div id="intermediaryUploadErrorImage-{{imageGroup.GroupNameKey}}" class="alert alert-danger" style="display:none; font-weight:bold; color:red; margin-top:15px; margin-bottom:35px;">
+                </div>
+
+                <div id="imageThumbnailsPanel-{{imageGroup.GroupNameKey}}" style="margin-top:15px; margin-bottom:15px">
+                    <div data-ng-repeat="imageRecord in imageGroup.ImageRecords">
+                        <div style="float:left; margin-right:35px; margin-bottom:30px;">
+
+                            <div style="clear:both; margin-bottom:15px;">
+                                <!-- REMOVED FOR VARIABLE WIDTHs: data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"-->
+                                <!--NO IMAGE (Single Uploader Slug w/ LOCKED ASPECT RATIO)-->
+                                <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                     data-ng-show="imageRecord.Width > 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" height="100"
+                                     data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                     style="clear:both; cursor:pointer; background-color:#E3E3E3; height:100px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                     onmouseover="this.style.background = '#CFCFCF'"
+                                     onmouseout="this.style.background = '#E3E3E3'">
+                                    <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:18px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                </div>
+
+                                <!--NO IMAGE (Single Uploader Slug w/ VARIABLE WIDTH)-->
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="float:left; height:100px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                     data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" width="120" height="100"
+                                     style="float:left; cursor:pointer; background-color:#E3E3E3; height:100px; width:120px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                     onmouseover="this.style.background = '#CFCFCF'"
+                                     onmouseout="this.style.background = '#E3E3E3'">
+                                    <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:18px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                </div>
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="float:left; height:100px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'single' && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" style="clear:both; height:0px;"></div>
+
+
+
+                                <!--NO IMAGE (Gallery Uploader Slug w/ LOCKED ASPECT RATIO)-->
+                                <div data-ng-show="imageRecord.Width > 0 && imageRecord.Type == 'gallery' && imageRecord.GalleryImages == null" data-ng-style="{'width': (((imageRecord.Width/imageRecord.Height)*100)+4) }" style="clear:both;">
+                                    <div style="float:left">
+                                        <!--Image Gallery Top-->
+                                        <div style="height:4px; background-image:url('/Images/ui/fpo/gallery-frame-top-light.gif')" data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"></div>
+
+                                        <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                             data-ng-show="imageRecord.Type == 'gallery'  && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" height="100"
+                                             data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                             style="float:left; cursor:pointer; background-color:#E3E3E3; height:100px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                             onmouseover="this.style.background = '#CFCFCF'"
+                                             onmouseout="this.style.background = '#E3E3E3'">
+
+                                            <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:18px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                        </div>
+                                    </div>
+                                    <!--Image Gallery Right-->
+                                    <div data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages == null"
+                                         style="float:left; height:104px; width:4px; background-image:url('/Images/ui/fpo/gallery-frame-right-light.gif')"></div>
+                                </div>
+
+
+
+                                <!--NO IMAGE (Gallery Uploader Slug w/ VARIABLE WIDTH)-->
+                                <div data-ng-show="imageRecord.Width == 0 && imageRecord.Type == 'gallery' && imageRecord.GalleryImages == null" style="clear:both;">
+                                    <div style="float:left; margin-top:4px; height:100px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                    <div style="float:left">
+                                        <!--Image Gallery Top-->
+                                        <div style="height:4px; width:120px; background-image:url('/Images/ui/fpo/gallery-frame-top-light.gif')"></div>
+
+                                        <div data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)"
+                                             data-ng-show="imageRecord.Type == 'gallery'  && imageRecord.Url == null  && imageRecord.Url != '' && imageRecord.GalleryImages == null" height="100" width="120"
+                                             style="float:left; cursor:pointer; background-color:#E3E3E3; height:100px; width:120px; text-align:center; padding-top:40px; box-shadow:inset 1px 1px 8px 0 rgba(0,0,0,.30);"
+                                             onmouseover="this.style.background = '#CFCFCF'"
+                                             onmouseout="this.style.background = '#E3E3E3'">
+
+                                            <div style="color:#A8A8A8"><i class="fa fa-upload" style="font-size:18px; margin-bottom:5px;"></i><h6 style="color:darkgrey"><strong></strong></h6></div>
+                                        </div>
+                                    </div>
+                                    <!--Image Gallery Right-->
+                                    <div data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages == null"
+                                         style="float:left; height:104px; width:4px; background-image:url('/Images/ui/fpo/gallery-frame-right-light.gif')"></div>
+                                    <div style="float:left; margin-top:4px; height:100px; width:0px; background-image:url('/Images/ui/fpo/variable-width-bookend.gif')"></div>
+                                </div>
+
+
+
+                                <!--Image exists (single - HIGH Quality)
+                                <div data-ng-show="imageRecord.Width >= 300 && imageRecord.Type == 'single' && imageRecord.Url != null && imageRecord.Url != ''">
+                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                         data-ng-src="{{imageRecord.Url_sm}}" height="100"
+                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                         style="clear:both; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                </div>
+
+                                <!--Image exists (single - LOW Quality)-- >
+                                <div data-ng-show="imageRecord.Width < 300 && imageRecord.Type == 'single' && imageRecord.Url != null && imageRecord.Url != ''">
+                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                         data-ng-src="{{imageRecord.Url}}" height="100"
+                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                         style="clear:both; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                </div>-->
+                                <!--Image exists (single - HIGH Quality)
+                                <div-->
+                                <div data-ng-show="imageRecord.Type == 'single' && imageRecord.Url != null && imageRecord.Url != ''">
+                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                         data-ng-src="{{imageRecord.Url_sm}}" height="100"
+                                         style="clear:both; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" /> <!--  REMOVED FOR VARIABLE WIDTHs: data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"-->
+                                </div>
+
+
+                                <!--Gallery Images Exist
+                                <div data-ng-if="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" style="margin-top:-4px" data-ng-style="{'width': (((imageRecord.Width/imageRecord.Height)*100)+4) }">
+                                    <div style="float:left">
+                                        <!--Image Gallery Top-- >
+                                        <div style="height:4px; background-image:url('/Images/ui/fpo/gallery-frame-top.gif')" data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"></div>
+
+                                        <div id="carousel-{{imageGroup.GroupNameKey}}-{{imageRecord.FormatNameKey}}" class="carousel slide" data-interval="3600" data-wrap="true" data-ride="carousel">
+                                            <div class="carousel-inner" role="listbox">
+
+                                                <!--First load-- >
+                                                <div data-ng-if="!vm.imagesReloaded" data-ng-class="{'item active':$first }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         data-ng-src="{{image.Url_sm}}" height="100"
+                                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                                         style="cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                                <!--Each subsequent reload-- >
+                                                <div data-ng-if="vm.imagesReloaded" data-ng-class="{'item active':$last }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         data-ng-src="{{image.Url_sm}}" height="100"
+                                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                                         style="cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--Image Gallery Right-- >
+                                    <div data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null"
+                                         style="float:left; height:104px; width:4px; background-image:url('/Images/ui/fpo/gallery-frame-right.gif')"></div>
+                                </div>-->
+                                <!--Gallery Images Exist (LOCKED ASPECT RATIO) -->
+                                <div data-ng-if="imageRecord.Width > 0 && imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" style="margin-top:-4px; margin-bottom:2px;" data-ng-style="{'width': (((imageRecord.Width/imageRecord.Height)*100)+4) }">
+                                    <div style="float:left">
+                                        <!--Image Gallery Top-->
+                                        <div style="height:4px; background-image:url('/Images/ui/fpo/gallery-frame-top.gif')" data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"></div>
+
+                                        <div id="carousel-{{imageGroup.GroupNameKey}}-{{imageRecord.FormatNameKey}}" class="carousel slide" data-interval="3600" data-wrap="true" data-ride="carousel">
+                                            <div class="carousel-inner" role="listbox">
+
+                                                <!--First load-->
+                                                <div data-ng-if="!vm.imagesReloaded" data-ng-class="{'item active':$first }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         data-ng-src="{{image.Url_sm}}" height="100"
+                                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                                         style="cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                                <!--Each subsequent reload-->
+                                                <div data-ng-if="vm.imagesReloaded" data-ng-class="{'item active':$last }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         data-ng-src="{{image.Url_sm}}" height="100"
+                                                         data-ng-style="{'width': ((imageRecord.Width/imageRecord.Height)*100) }"
+                                                         style="cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--Image Gallery Right-->
+                                    <div data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null"
+                                         style="float:left; height:104px; width:4px; background-image:url('/Images/ui/fpo/gallery-frame-right.gif')"></div>
+                                </div>
+
+
+
+                                <!--Gallery Images Exist (VARIABLE WIDTH)-->
+                                <div data-ng-if="imageRecord.Width == 0 && imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" style="margin-top:-4px; margin-bottom:4px; width:124px">
+                                    <div style="float:left">
+                                        <!--Image Gallery Top-->
+                                        <div style="height:4px; width:120px; background-image:url('/Images/ui/fpo/gallery-frame-top.gif')"></div>
+
+                                        <div id="carousel-{{imageGroup.GroupNameKey}}-{{imageRecord.FormatNameKey}}" class="carousel slide" data-interval="3600" data-wrap="true" data-ride="carousel">
+                                            <div class="carousel-inner" role="listbox">
+                                                <!-- style="height:100px"-->
+                                                <!--First load-->
+                                                <div data-ng-if="!vm.imagesReloaded" data-ng-class="{'item active':$first }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         style="height:100px; width:120px; color:black; background-image:url('{{image.Url_sm}}'); background-size:contain; background-color:black; background-repeat:no-repeat; background-position:center; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                                <!--Each subsequent reload-->
+                                                <div data-ng-if="vm.imagesReloaded" data-ng-class="{'item active':$last }" data-ng-repeat="image in imageRecord.GalleryImages" class="item">
+                                                    <img data-toggle="modal" data-target=".manageImageRecordModalWindow"
+                                                         data-ng-click="vm.loadImageDetails(imageGroup.GroupNameKey, imageGroup.GroupName, imageRecord)"
+                                                         style="height:100px; width:120px; color:black; background-image:url('{{image.Url_sm}}'); background-size:contain; background-color:black; background-repeat:no-repeat; background-position:center; cursor:pointer; border:1px solid black" onmouseover="this.style.opacity = '0.82'" onmouseout="this.style.opacity = '1'" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--Image Gallery Right-->
+                                    <div data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null"
+                                         style="float:left; height:104px; width:4px; background-image:url('/Images/ui/fpo/gallery-frame-right.gif')"></div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div data-ng-show="imageRecord.Type == 'gallery'" style="clear:both; height:11px;"></div>
+
+                            <div style="clear:both;">
+
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'single'  && imageRecord.Url != null && imageRecord.Url != ''" class="btn btn-default btn-xs">Replace image</button>
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" class="btn btn-default btn-xs">Add to gallery</button>
+
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'single'  && imageRecord.Url == null && imageRecord.Url != ''" class="btn btn-default btn-xs">Create image</button>
+                                <button data-ng-click="vm.initiateIntermediaryImageUpload(imageRecord, imageGroup.GroupNameKey)" data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages == null" class="btn btn-default btn-xs">Create gallery</button>
+
+                                <div style="font-size:14px; margin-top:6px;"><b>{{ imageRecord.FormatName }}</b><small data-ng-show="imageRecord.Type == 'gallery' && imageRecord.GalleryImages != null" style="color:darkgrey"> ({{ imageRecord.GalleryImages.length }})</small></div>
+                                <small data-ng-show="imageRecord.Width > 0" style="color:darkgrey">{{ imageRecord.Width }}x{{ imageRecord.Height }}</small>
+                                <small data-ng-show="imageRecord.Width == 0" style="color:darkgrey">{{ imageRecord.Height }}px tall</small>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <br style="clear:both" />
+                <hr style="clear:both" />
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,74 @@
+﻿<div>
+
+    <!--Edit Predefined Properties Modal-->
+    <div class="modal fade editPredefinedAppendablePropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="editPredefinedAppendablePropertiesModalWindow" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" style="width:500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetails.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:10px;">
+
+                        <!-- Current Values -->
+                        <div data-ng-show="vm.propertyDetails.AssignedValues.length > 0">
+                            <label>Current value(s):</label>
+                            <div style="margin-top:-6px;">
+                                <small style="color:darkgray; font-size:11px">Click on a value to remove it from the {{ vm.propertyDetails.PropertyName }} property</small>
+                            </div>
+                            
+                            <div data-ng-repeat="assignedValue in vm.propertyDetails.AssignedValues" style="margin-top:20px;">
+                                <button data-ng-show="vm.movingCollectionProperty" class="btn btn-sm btn-default disabled" style="background-color:#F0FBFF; float:left; margin:5px;"> {{ assignedValue }} </button>
+                                <button data-ng-show="!vm.movingCollectionProperty" data-ng-click="vm.removeProductPropertyPredefinedCollectionItem($index)" class="btn btn-sm btn-default" style="background-color:#F0FBFF; float:left; margin:5px; "> {{ assignedValue }} </button>
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+                            
+                        </div>
+
+                        <hr data-ng-show="!vm.movingCollectionProperty && vm.propertyDetails.AssignedValues.length > 0" />
+                        <section-loader data-ng-show="vm.movingCollectionProperty" loader-type="'inline'" style="margin-bottom:-1px;"></section-loader>
+
+                        <!-- Available Values -->
+                        <div data-ng-show="vm.propertyDetails.PredefinedValuesDiff.length > 0">
+                            <label>Available value(s):</label>
+                            <div style="margin-top:-6px;">
+                                <small style="color:darkgray; font-size:11px">Click on a value to append it to the {{ vm.propertyDetails.PropertyName }} property</small>
+                            </div>                            
+                            <div data-ng-repeat="availableValue in vm.propertyDetails.PredefinedValuesDiff" style="margin-top:20px;">
+                                <button data-ng-show="vm.movingCollectionProperty" class="btn btn-xs btn-default disabled" style="float:left; margin:3px; "> {{ availableValue }} </button>
+                                <button data-ng-show="!vm.movingCollectionProperty" data-ng-click="vm.appendProductPropertyPredefinedCollectionItem($index)" class="btn btn-xs btn-default" style="float:left; margin:3px; "> {{ availableValue }} </button>
+                            </div>
+
+                            <div style="height:10px; clear:both;"></div>
+
+                            
+
+                        </div>
+
+                        <!-- Error -->
+                        <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <br />
+                            <hr />
+                            <br />
+                            <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.propertyDetails.Results.Message }}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Appendable footer-->
+                <div class="modal-footer">
+                    <div>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

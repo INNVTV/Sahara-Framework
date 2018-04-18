@@ -1,0 +1,85 @@
+﻿<div>
+    <!--Create Product Modal-->
+    <div class="modal fade createProductModalWindow" tabindex="-1" role="dialog" aria-labelledby="createProductModalWindow" aria-hidden="true" style="padding-top:100px;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Create Item</h3>
+                </div>
+                <div class="modal-body">
+
+                    <!--Input State-->
+                    <div id="ProductForm" data-ng-show="!vm.newProduct.IsSending && !vm.newProduct.SendingComplete">
+                        <div>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label>Item Name:</label>
+                                    <input maxlength="110" type="text" class="form-control input" data-ng-model="vm.newProduct.Name" placeholder="Item Name" ng-style="vm.newProduct.Name.length >= 32 && vm.newProduct.Name.length <= 45 && {'font-size':'13px'} || vm.newProduct.Name.length >= 46 && {'font-size':'11px'}" />
+                                    <div style="height:2px;"></div>
+                                    <!--<small style="font-size:8px;">{{vm.newProduct.Name.length}}<span style="color:lightgray"> / </span><span style="color:darkgray">110</span></small>
+                                    <input maxlength="23" data-ng-show="vm.newProduct.Name == null || vm.newProduct.Name == '' || {{vm.newProduct.Name.length}} >= 22" type="text" class="form-control input" data-ng-model="vm.newProduct.Name" placeholder="Product Name" />
+                                    <textarea maxlength="110" data-ng-show="{{vm.newProduct.Name.length}} > 22" style="overflow:auto; resize:none; font-size:14px; height:160px;" type="text" class="form-control input" data-ng-model="vm.newProduct.Name" />
+                                    <input maxlength="110" data-ng-show="vm.newProductName.length > 23" type="text" rows="2" height="120" class="form-control input" data-ng-model="vm.newProduct.Name" placeholder="Product Name" />-->
+                                </div>
+                                <div class="form-group" style="margin-bottom:0px; text-align:right">
+                                    <!-- VISIBILITY -->
+                                    <small style="color:darkgrey; font-size:10px">
+                                        <strong>
+                                            <span data-ng-show="vm.newProduct.Visible">Visible </span>
+                                            <span data-ng-show="!vm.newProduct.Visible && vm.newProduct.Visible != null">Hidden </span>
+                                        </strong>
+                                    </small>
+                                    <span>
+                                        <img data-ng-show="vm.newProduct.Visible" src="/Images/ui/switch/switch-on-green-checked.gif" style="cursor:pointer" data-ng-click="vm.newProduct.Hide()" />
+                                        <img data-ng-show="!vm.newProduct.Visible && vm.newProduct.Visible != null" src="/Images/ui/switch/switch-off.gif" style="cursor:pointer" data-ng-click="vm.newProduct.Show()" />
+                                        <img data-ng-show="vm.newProduct.Visible == null" src="/Images/ui/switch/switch-loading.gif" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Loading State-->
+                    <section-loader message="'Creating item...'" loader-type="'inline'" data-ng-show="vm.newProduct.IsSending && !vm.newProduct.SendingComplete"></section-loader>
+                    <!--Results State-->
+                    <div id="CreateProductResults" data-ng-show="!vm.newProduct.IsSending && vm.newProduct.SendingComplete">
+                        <div style="margin-top:7px; margin-bottom:7px;" ng-class="vm.newProduct.Results.IsSuccess ? 'alert alert-success' : 'alert alert-danger'" role="alert">
+                            <div>
+                                <i data-ng-show="vm.newProduct.Results.IsSuccess" class="fa fa-check" style="color:green"></i>
+                                <i data-ng-show="!vm.newProduct.Results.IsSuccess" class="fa fa-warning" style="color:darkred"></i>
+                                {{ vm.newProduct.Results.Message }}
+                                <!--Button to edit new object-->
+                                <span><a data-ng-show="vm.newProduct.Results.IsSuccess" style="float:right; margin-bottom:5px; margin-top:-7px; margin-right:-7px;" class="btn btn-success" href="/item/{{ vm.newProductPath }}" target="_self">Edit</a></span>
+                            </div>
+                        </div>
+                        <!-- If the error is due to a constraint on the plan -->
+                        <div data-ng-show="vm.productConstraint">
+                            <p>Contact support to upgrade your plan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--Input Footer-->
+                    <div data-ng-show="!vm.newProduct.IsSending && !vm.newProduct.SendingComplete">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.createProduct()">Create Item</button>
+                    </div>
+                    <!--Loading Footer-->
+                    <div data-ng-show="vm.newProduct.IsSending && !vm.newProduct.SendingComplete">
+                    </div>
+                    <!--Results Footer Success-->
+                    <div data-ng-show="vm.newProduct.SendingComplete && vm.newProduct.Results.IsSuccess">
+                        <button type="button" class="btn btn-default" data-ng-click="vm.newProduct.Clear()">Create Another</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+                    <!--Results Footer Failure-->
+                    <div data-ng-show="vm.newProduct.SendingComplete && !vm.newProduct.Results.IsSuccess">
+                        <!--<button class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <button data-ng-show="!vm.userConstraint" class="btn btn-warning" data-ng-click="vm.newProduct.Retry()">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

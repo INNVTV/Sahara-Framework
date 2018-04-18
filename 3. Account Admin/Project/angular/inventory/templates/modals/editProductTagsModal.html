@@ -1,0 +1,40 @@
+﻿<div>
+    <!--Edit Product Tags Modal-->
+    <div class="modal fade editProductTagsModalWindow" tabindex="-1" role="dialog" aria-labelledby="editProductTagsModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">Add/Remove Tags</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:40px; margin-left:60px;">
+                        <section-loader data-ng-show="vm.tags == null" message="'Loading tags...'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+
+                        <span data-ng-repeat="tag in vm.tags">
+                            <label data-ng-show="!tag.Checked && tag.Name != null" style="width:185px; height:35px">
+                                <img data-ng-show="!vm.tagUpdating" data-ng-click="vm.addProductTag($index)" style="cursor:pointer; margin-top:-2px;" src="/Images/ui/checkboxes/cheak-off.png"><span data-ng-show="!vm.tagUpdating" data-ng-click="vm.addProductTag($index)" style="font-style:normal; font-weight:100; color:darkgray; cursor:pointer">{{ tag.Name }}</span>
+                                <img data-ng-show="vm.tagUpdating" style="margin-top:-2px; opacity:.7" src="/Images/ui/checkboxes/cheak-off.png"><span data-ng-show="vm.tagUpdating" style="font-style:normal; font-weight:100; color:darkgray; opacity:.7">{{ tag.Name }}</span>
+                            </label>
+                            <label data-ng-show="tag.Checked && tag.Name != null" style="width:185px; height:35px">
+                                <img data-ng-show="!vm.tagUpdating" data-ng-click="vm.removeProductTag($index)" style="cursor:pointer; margin-top:-2px;" src="/Images/ui/checkboxes/cheak-on.png"><strong data-ng-show="!vm.tagUpdating"  data-ng-click="vm.removeProductTag($index)" style="cursor:pointer; color:#1d8bd3">{{ tag.Name }}</strong>
+                                <img data-ng-show="vm.tagUpdating" style="margin-top:-2px; opacity:.7" src="/Images/ui/checkboxes/cheak-on.png"><strong data-ng-show="vm.tagUpdating" style="color:#1d8bd3; opacity:.7">{{ tag.Name }}</strong>
+                            </label>
+                            <span data-ng-show="tag.Name == null" height:34px">
+                                <img src="/Images/Loaders/initializing.gif" style="margin-right:117px; margin-top:-2px;"/>
+                            </span>
+                        </span>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿<div>
+    <!--Reorder Modal-->
+    <div class="modal fade reorderItemsModalWindow" tabindex="-1" role="dialog" aria-labelledby="reorderItemsModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 data-ng-show="vm.reorderType == 'categories'" style="margin-top:-2px; margin-bottom:-2px;">Reorder Categories</h3>
+                    <h3 data-ng-show="vm.reorderType == 'subcategories'" style="margin-top:-2px; margin-bottom:-2px;">Reorder Subcategories</h3>
+                    <h3 data-ng-show="vm.reorderType == 'subsubcategories'" style="margin-top:-2px; margin-bottom:-2px;">Reorder Subsubcategories</h3>
+                    <h3 data-ng-show="vm.reorderType == 'subsubsubcategories'" style="margin-top:-2px; margin-bottom:-2px;">Reorder Subsubsubcategories</h3>
+                    <h3 data-ng-show="vm.reorderType == 'products'" style="margin-top:-2px; margin-bottom:-2px;">Reorder Items</h3>
+                </div>
+
+                <!-- Body: Editing Mode -->
+                <div data-ng-show="!vm.reorderProcessing && !vm.reorderProcessingSuccess && !vm.reorderProcessingFailed" class="modal-body">
+                    <div style="text-align:left; margin-top:0;">
+                        <div data-ng-show="vm.reorderType != 'products'" class="alert alert-warning" role="alert" style="padding:10px; padding-left:14px; font-size:13px;">
+                            Drag & drop items to change order.  You may also lock your list to always order alphabetically.
+                        </div>
+                        <div data-ng-show="vm.reorderType == 'products'" class="alert alert-warning" role="alert" style="padding:10px; padding-left:14px; font-size:13px;">
+                            Drag & drop items to change order.
+                        </div>
+                    </div>
+                    <!--Sort Unlocked-->
+                    <div data-ng-show="!vm.useAlphabeticalOrdering" class="list-group" ui-sortable="sortableOptions" ng-model="vm.newOrder">
+                        <a ng-style="item.Visible === true && {'color': '#0974ED'} || item.Visible === false && {'color': '#595959'}"
+                           href="#" class="list-group-item" style="cursor:pointer; padding:3px; padding-left:5px; font-size:14px; font-weight:bold; color:#0974ED"
+                           ng-repeat="item in vm.newOrder">
+                            <i ng-style="item.Visible === true && {'color': 'limegreen'} || item.Visible === false && {'color': 'lightgrey'}"
+                               class="fa fa-circle" style="font-size:6px; vertical-align:middle; margin-right:6px;"></i>
+                            {{ item.Name }} <i style="float:right; font-weight:normal; font-size:9px; color:darkgrey; margin-top:5px; margin-right:8px;" class="fa fa-arrows-v"></i>
+                        </a>
+                    </div>
+                    <!--Sort Locked-->
+                    <div data-ng-show="vm.useAlphabeticalOrdering" class="list-group" ng-model="vm.newOrder">
+                        <a ng-style="item.Visible === true && {'color': '#0974ED'} || item.Visible === false && {'color': '#595959'}"
+                           href="#" class="list-group-item" style="cursor:pointer; padding:3px; padding-left:5px; font-size:14px; font-weight:bold; color:#0974ED; background-color:#F5F5F5"
+                           ng-repeat="item in vm.newOrder">
+                            <i ng-style="item.Visible === true && {'color': 'limegreen'} || item.Visible === false && {'color': 'lightgrey'}"
+                               class="fa fa-circle" style="font-size:6px; vertical-align:middle; margin-right:6px;"></i>
+                            {{ item.Name }} <i style="float:right; font-weight:normal; font-size:9px; color:#595959; margin-top:5px; margin-right:8px;" class="fa fa-lock"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Body: Processing Mode -->
+                <div data-ng-show="vm.reorderProcessing" class="modal-body">
+                    <br />
+                    <small style="margin-left:25px; font-size:18px; margin-bottom:14px;"><strong>Reordering items...</strong></small>
+                    <br />
+                    <img style="margin-left:20px;" src="/Images/Loaders/initializing.gif" />
+                    <br /><br />
+                </div>
+
+                <!-- Body: Processing Success Mode -->
+                <div data-ng-show="vm.reorderProcessingSuccess" class="modal-body">
+                    <h3 style="margin-left:20px; margin-top:28px; font-size:22px"><i class="fa fa-check" style="font-size:25px; color:limegreen; margin-right:8px;"></i> <strong>Item ordering has been saved!</strong></h3>
+                    <h5 style="margin-left:60px;" data-ng-show="!vm.useAlphabeticalOrdering">Future items added to this list will be added to the bottom</h5>
+                    <h5 style="margin-left:60px;" data-ng-show="vm.useAlphabeticalOrdering">Future items added to this list will be added alphabetically</h5>
+                    <br />
+                </div>
+
+                <!-- Body: Processing Fail Mode -->
+                <div data-ng-show="vm.reorderProcessingFailed" class="modal-body">
+                    <h4 style="color:darkred; margin-left:20px; margin-top:20px; margin-bottom:25px;">{{ vm.reorderErrorMessage }}</h4>
+                </div>
+
+
+                <!-- Footer: Editing Mode -->
+                <div data-ng-show="!vm.reorderProcessing && !vm.reorderProcessingSuccess && !vm.reorderProcessingFailed" class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button data-ng-show="!vm.useAlphabeticalOrdering && vm.reorderType != 'products'" type="button" class="btn btn-default" data-ng-click="vm.toggleAlphabeticalOrdering()"><i class="fa fa-sort-alpha-asc" style="margin-right:5px;"></i> Sort alphabetically</button>
+                        <button data-ng-show="vm.useAlphabeticalOrdering && vm.reorderType != 'products'" type="button" class="btn btn-success" data-ng-click="vm.toggleAlphabeticalOrdering()"><i class="fa fa-lock" style="margin-right:5px;"></i> Sort alphabetically</button>
+                        <button type="button" class="btn btn-primary" data-ng-click="vm.saveOrder()"><i class="fa fa-save" style="margin-right:5px;"></i> Save</button>
+                        <!--<button data-ng-show="!vm.useAlphabeticalOrdering" type="button" class="btn btn-primary" data-ng-click="vm.saveOrder()"><i class="fa fa-save"></i> Save this order</button>
+                        <button data-ng-show="vm.useAlphabeticalOrdering" type="button" class="btn btn-primary" data-ng-click="vm.saveOrder()"><i class="fa fa-save"></i> Save alphabetical order</button>-->
+                    </div>
+                </div>
+
+                <!-- Footer: Processing Mode -->
+                <div data-ng-show="vm.reorderProcessing" class="modal-footer">
+                    <div>
+                    </div>
+                </div>
+
+                <!-- Footer: Processing Success Mode -->
+                <div data-ng-show="vm.reorderProcessingSuccess" class="modal-footer">
+                    <div>
+                        <button style="margin-right:5px;" data-dismiss="modal" class="btn btn-default">OK</button>
+                    </div>
+                </div>
+
+                <!-- Footer: Processing Fail Mode -->
+                <div data-ng-show="vm.reorderProcessingFailed" class="modal-footer">
+                    <div>
+                        <button style="margin-right:5px;" data-dismiss="modal" class="btn btn-default">OK</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

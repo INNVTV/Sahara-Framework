@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" />
+  <xs:element name="GetAccountUserNotifications">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationStatus" type="q1:NotificationStatus" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAccountUserNotificationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="GetAccountUserNotificationsResult" nillable="true" type="q2:ArrayOfUserNotification" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAccountUserNotificationsByType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationType" type="q3:NotificationType" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationStatus" type="q4:NotificationStatus" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAccountUserNotificationsByTypeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="GetAccountUserNotificationsByTypeResult" nillable="true" type="q5:ArrayOfUserNotification" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateNotificationStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationType" type="q6:NotificationType" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationStatus" type="q7:NotificationStatus" />
+        <xs:element minOccurs="0" name="currentStatus" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="notificationMessageId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateNotificationStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="UpdateNotificationStatusResult" nillable="true" type="q8:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationType" type="q9:NotificationType" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="notificationMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="expirationMinutes" type="xs:double" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q10:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendNotificationToUserResult" nillable="true" type="q11:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationType" type="q12:NotificationType" />
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="notificationMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="expirationMinutes" type="xs:double" />
+        <xs:element minOccurs="0" name="accountOwnersOnly" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q13:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendNotificationToAccountResult" nillable="true" type="q14:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToBulkAccounts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Sahara.Core.Accounts.Notifications.Models" minOccurs="0" name="notificationType" type="q15:NotificationType" />
+        <xs:element minOccurs="0" name="notificationMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="expirationMinutes" type="xs:double" />
+        <xs:element minOccurs="0" name="accountOwnersOnly" type="xs:boolean" />
+        <xs:element minOccurs="0" name="columnName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="columnValue" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q16:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendNotificationToBulkAccountsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendNotificationToBulkAccountsResult" nillable="true" type="q17:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fromName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fromEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailSubject" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isImportant" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q18:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendEmailToUserResult" nillable="true" type="q19:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accountId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fromName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fromEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailSubject" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isImportant" type="xs:boolean" />
+        <xs:element minOccurs="0" name="accountOwnersOnly" type="xs:boolean" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q20:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendEmailToAccountResult" nillable="true" type="q21:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToBulkAccounts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fromEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailSubject" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailMessage" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isImportant" type="xs:boolean" />
+        <xs:element minOccurs="0" name="accountOwnersOnly" type="xs:boolean" />
+        <xs:element minOccurs="0" name="columnName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="columnValue" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requesterId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Sahara.Core.Platform.Requests.Models" minOccurs="0" name="requesterType" type="q22:RequesterType" />
+        <xs:element minOccurs="0" name="sharedClientKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendEmailToBulkAccountsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Sahara.Core.Common.ResponseTypes" minOccurs="0" name="SendEmailToBulkAccountsResult" nillable="true" type="q23:DataAccessResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

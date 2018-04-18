@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Accounts";
+}
+
+<div data-ng-app="app"> 
+
+    <div data-ng-view></div>
+
+</div>
+
+
+@Scripts.Render("~/bundles/angular-accounts")
+
+<script type="text/javascript">
+
+    //Variables injected into the base page be made availale to all routes of the SPA via JavaScript --------------
+
+    //Used to immediatly populate currentUserProfile before 45sec delay to get fresh data from CoreServices:
+    var CurrentUserProfile = '@Html.Raw(Json.Encode(AuthenticationCookieManager.GetAuthenticationCookie()))'
+
+    var CoreServiceSettings_Custodian_FrequencyDescription = '@CoreServices.PlatformSettings.Custodian.CustodianFrequencyDescription'
+    var CoreServiceSettings_PlatformWorker_FrequencyDescription = '@CoreServices.PlatformSettings.Worker.WorkerFrequencyDescription'
+
+    var CoreServiceSettings_AccountUsers_RolesList = '@Html.Raw(Json.Encode(CoreServices.Accounts.UserRoles))'
+    var CoreServiceSettings_PlatformUsers_RolesList = '@Html.Raw(Json.Encode(CoreServices.Platform.UserRoles))'
+
+    var CoreServiceSettings_AccountManagementDomain = '@CoreServices.PlatformSettings.Urls.AccountManagementDomain'
+    var CoreServiceSettings_AccountApiDomain = '@CoreServices.PlatformSettings.Urls.AccountServiceDomain'
+    var CoreServiceSettings_AccountSiteDomain = '@CoreServices.PlatformSettings.Urls.AccountSiteDomain'
+
+    var CoreServiceSettings_AccountUsers_InvitationUrl = '@CoreServices.PlatformSettings.Urls.AccountUserAcceptInvitationUrl'
+    var CoreServiceSettings_AccountUsers_PasswordClaimUrl = '@CoreServices.PlatformSettings.Urls.AccountUserPasswordClaimUrl'
+
+    //var CoreServiceSettings_Urls_AccountImagesCdnUri = '(AT)Html.Raw(Json.Encode(CoreServices.PlatformSettings.Urls.AccountImagingCdnUri))'
+
+
+</script>

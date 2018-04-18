@@ -1,0 +1,370 @@
+﻿<div data-ng-controller="logsController as vm" >
+
+
+    <!--Log Details Modal-->
+    <div class="modal fade logDetailModal" tabindex="-1" role="dialog" aria-labelledby="logDetailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!--<div class="modal-header" style="border-width:0;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 style="margin-top:-5px; margin-bottom:-5px;">Log details</h2>
+                </div>-->
+
+
+                <div class="modal-body">
+
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <h1 style="margin-top:-20px;"><small style="font-size:12px;">Category:</small><br />{{ vm.logDetail.Category }}</h1>
+                    <h3 class="hidden-xs" style="margin-top:-2px;"><small style="font-size:12px;">Avtivity:</small><br />{{ vm.logDetail.Activity }}</h3>
+                    <h5 class="visible-xs" style="margin-top:-2px;"><small style="font-size:12px;">Avtivity:</small><br /><strong>{{ vm.logDetail.Activity }}</strong></h5>
+
+                    <hr style="border-color:#C2C2C2; margin-bottom:4px;" />
+                    <small style="font-size:11px;"><strong><i class="fa fa-history" style="color:#A6A6A6; margin-right:5px;"></i><span am-time-ago="vm.logDetail.Timestamp"></span></strong></small>
+                    <hr style="border-color:#C2C2C2; margin-top:4px; margin-bottom:30px;" />
+
+
+                    <h5><strong>Description</strong></h5>
+                    <pre><code>{{ vm.logDetail.Description }}</code></pre>
+                    <hr />
+
+                    <div data-ng-show="vm.logDetail.Details != null">
+                        <h5><strong>Details</strong></h5>
+                        <pre><code>{{ vm.logDetail.Details }}</code></pre>
+                        <hr />
+                    </div>
+
+                    <div data-ng-show="vm.logDetail.AccountID != null">
+                        <h5><strong>Account</strong></h5>
+                        <pre><code>Name: {{ vm.logDetail.AccountName }}</code></pre>
+                        <pre><code>ID: {{ vm.logDetail.AccountID }}</code></pre>
+                        <hr />
+                    </div>
+
+                    <div data-ng-show="vm.logDetail.UserID != null">
+                        <h5><strong>User</strong></h5>
+                        <pre><code>Name: {{ vm.logDetail.UserName }}</code></pre>
+                        <pre><code>ID: {{ vm.logDetail.UserID }}</code></pre>
+                        <pre><code>Email:  {{ vm.logDetail.UserEmail }}</code></pre>
+                        <hr />
+                    </div>
+
+                    <div data-ng-show="vm.logDetail.IPAddress != null">
+                        <h5><strong>IP Address</strong></h5>
+                        <pre><code>{{ vm.logDetail.IPAddress }}</code></pre>
+                        <hr />
+                    </div>
+
+                    <div data-ng-show="vm.logDetail.Origin != null">
+                        <h5><strong>Origin</strong></h5>
+                        <pre><code>{{ vm.logDetail.Origin }}</code></pre>
+                        <hr />
+                    </div>
+
+
+                    <div data-ng-show="vm.logDetail.Object != null">
+                        <h5><strong>Serialized Object</strong></h5>
+                        <pre><code>{{ vm.logDetail.Object }}</code></pre>
+                        <hr />
+                    </div>
+
+
+                    
+
+                    <h5><strong>Timestamp</strong></h5>
+                    <pre><code>{{ vm.logDetail.Timestamp | date : 'EEE MMM, dd yyyy' }}<small style="color:lightgrey"> | </small><strong>{{ vm.logDetail.Timestamp | date : 'h:mm a' }}</strong></code></pre>
+
+
+                </div>
+
+                <div class="modal-footer" style="margin-top:-5px">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!--End Log Details Modal-->
+
+
+    <div class="container-fluid" style="padding:5px; padding-top:0px; margin-top:-10px;">
+
+        <div class="hidden-xs" id="logs-sub-menu-lg">
+            <ul class="sahara-nav-pills">
+                <li>
+                    <a data-ng-class="{'active' : vm.logsSubMenu.allButton}" data-ng-click="vm.logsSubMenu.update('all')" href="#">ALL</a>
+                </li>
+                <li>
+                    <a data-ng-class="{'active' : vm.logsSubMenu.categoryButton}" data-ng-click="vm.logsSubMenu.update('category')" href="#">BY CATEGORY</a>
+                </li>
+                <li>
+                    <a data-ng-class="{'active' : vm.logsSubMenu.activityButton}" data-ng-click="vm.logsSubMenu.update('activity')" href="#">BY ACTIVITY</a>
+                </li>
+                <li>
+                    <a data-ng-class="{'active' : vm.logsSubMenu.userButton}" data-ng-click="vm.logsSubMenu.update('user')" href="#">BY USER</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="visible-xs" id="logs-sub-menu-xs">
+            <ul class="sahara-nav-pills">
+                <li style="margin-right:11px;">
+                    <a style="font-size:10.5px;" data-ng-class="{'active' : vm.logsSubMenu.allButton}" data-ng-click="vm.logsSubMenu.update('all')" href="#">ALL</a>
+                </li>
+                <li style="margin-right:11px;">
+                    <a style="font-size:10.5px;" data-ng-class="{'active' : vm.logsSubMenu.categoryButton}" data-ng-click="vm.logsSubMenu.update('category')" href="#">CATEGORY</a>
+                </li>
+                <li style="margin-right:11px;">
+                    <a style="font-size:10.5px;" data-ng-class="{'active' : vm.logsSubMenu.activityButton}" data-ng-click="vm.logsSubMenu.update('activity')" href="#">ACTIVITY</a>
+                </li>
+                <li style="margin-right:0px;">
+                    <a style="font-size:10.5px;" data-ng-class="{'active' : vm.logsSubMenu.userButton}" data-ng-click="vm.logsSubMenu.update('user')" href="#">USER</a>
+                </li>
+            </ul>
+        </div>
+
+        <br />
+
+        <div id="LogsBody" style="margin-top:5px; padding-left:15px; padding-right:10px;">
+
+            <div id="logFilters" style="float:left;">
+
+                <div data-ng-show="vm.logsSubMenu.allButton == true">
+
+                </div>
+
+                <div data-ng-show="vm.logsSubMenu.categoryButton == true">
+
+                    <!-- CATEGORY Buttton Dropdown -->
+                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            {{ vm.accountLogCategory }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="cursor:pointer; height: auto; max-height: 420px; overflow-x: hidden;">
+                            <li data-ng-repeat="category in vm.accountLogCategories" style="cursor:pointer">
+                                <a data-ng-click="vm.updateCurrentLogFilterCategory(category)">{{ category }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div data-ng-show="vm.logsSubMenu.activityButton == true">
+
+                    <!-- ACTIVITY Buttton Dropdown -->
+                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            {{ vm.accountLogActivity }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="cursor:pointer; height: auto; max-height: 420px; overflow-x: hidden;">
+                            <li data-ng-repeat="activity in vm.accountLogActivities track by $index" style="cursor:pointer">
+                                <a data-ng-if="activity != 'break'" data-ng-click="vm.updateCurrentLogFilterActivity(activity)">{{ activity }}</a>
+                                <div data-ng-if="activity == 'break'" class="divider"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div data-ng-show="vm.logsSubMenu.accountButton == true">
+
+                    <!-- ACCOUNT Input Box -->
+                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                        <input type="text" class="form-control input" data-ng-model="vm.accountLogAccountAttribute" placeholder="ID, Name or StripeID" style="height:30px; width:245px; font-size:12px;">
+                    </div>
+                       
+                    </div>
+
+                <div data-ng-show="vm.logsSubMenu.userButton == true">
+
+                    <!-- USER Buttton Dropdown -->
+                    <div class="btn-group" style="margin-right:10px; margin-bottom:15px;">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            {{ vm.accountLogUser.FirstName }} {{ vm.accountLogUser.LastName }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="cursor:pointer height: auto; max-height: 420px; overflow-x: hidden;">
+                            <li data-ng-repeat="user in vm.accountUsers" style="cursor:pointer;">
+                                <a data-ng-click="vm.updateCurrentLogFilterUser(user)">{{ user.FirstName }} {{ user.LastName }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="btn-group" style="margin-right:10px; margin-bottom:15px; float:left;">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{ vm.currentaccountLogRecordResultCount.label }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-ng-repeat="count in vm.accountLogRecordResultCounts" style="cursor:pointer">
+                        <a data-ng-click="vm.updateaccountLogRecordResultCount(count)">{{ count.label }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="float:left;">
+                <button data-ng-show="vm.accountLogLoading == false" class="btn btn-primary btn-sm" data-ng-click="vm.updateaccountLog()">Update</button>
+                <button data-ng-show="vm.accountLogLoading == true" class="btn btn-primary btn-sm"><i class="fa fa-circle-o-notch fa-spin"></i> Updating</button>
+            </div>
+
+
+            <div class="row" data-ng-show="vm.accountLog.length > 0">
+
+                <hr class="hidden-xs" style="clear:both; margin-left:15px; margin-right:15px; margin-bottom:-5px; margin-top:5px;" />
+                <div class="visible-xs" style="padding:10px;"></div>
+
+                
+                <div class="container-fluid">
+
+                    <table class="table table-responsive table-striped" data-ng-show="vm.accountLog.length > 0">
+
+                        <thead class="hidden-xs">
+                            <tr>
+                                <th>Time</th>
+                                <th class="hidden-xs hidden-sm">Category</th>
+                                <th>Activity</th>
+                                <!--<th>User</th>-->
+                                <th class="hidden-xs">Description</th>
+                                <th class="hidden-xs hidden-sm">Details</th>
+                                <th class="hidden-xs hidden-sm"></th>
+                                <th></th>
+                                <!--<th class="hidden-xs">IP</th>
+                <th class="hidden-xs hidden-sm">Origin</th>-->
+                            </tr>
+                        </thead>
+                        <tr data-ng-repeat="logItem in vm.accountLog">
+
+                            <td class="hidden-xs" style="width:147px; min-width:115px;">
+                                <span style="font-size:12px;"><strong><i class="fa fa-history" style="color:#A6A6A6; margin-right:5px;"></i><span am-time-ago="logItem.Timestamp"></span></strong></span>
+                            </td>
+                            <td class="visible-xs" style="width:112px;">
+                                <small style="font-size:10px;"><span am-time-ago="logItem.Timestamp"></span></small>
+                            </td>
+
+                            <td class="hidden-xs hidden-sm">
+                                <small>
+                                    {{ logItem.Category }}
+                                </small>
+                            </td>
+
+                            <td class="hidden-xs ">
+                                <small>
+                                    {{ logItem.Activity | limitTo : 32 }}<span data-ng-show="logItem.Activity.length > 32"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+                            <td class="visible-xs">
+                                <small style="font-size:10px">
+                                    {{ logItem.Activity | limitTo : 22 }}<span data-ng-show="logItem.Activity.length > 22"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+
+
+                            <!--<td>
+                <small>
+                    {{ logItem.UserName }}
+                </small>
+            </td>-->
+
+                            <!-- DESCRIPTIONS -->
+
+                            <td class="visible-lg">
+                                <small>
+                                    {{ logItem.Description | limitTo : 55 }}<span data-ng-show="logItem.Description.length > 55"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+                            <td class="visible-md">
+                                <small>
+                                    {{ logItem.Description | limitTo : 35 }}<span data-ng-show="logItem.Description.length > 35"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+                            <td class="visible-sm">
+                                <small>
+                                    {{ logItem.Description | limitTo : 15 }}<span data-ng-show="logItem.Description.length > 15"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+                            <!-- DETAILS -->
+
+                            <td class="visible-lg">
+                                <small>
+                                    {{ logItem.Details | limitTo : 60 }}<span data-ng-show="logItem.Details.length > 60"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+                            <td class="visible-md">
+                                <small>
+                                    {{ logItem.Details | limitTo : 35 }}<span data-ng-show="logItem.Details.length > 35"><strong>...</strong></span>
+                                </small>
+                            </td>
+
+
+
+                            <td class="hidden-xs hidden-sm">
+                                <small>
+                                    <!--<a href="/account/{{ logItem.AccountID }}">{{ logItem.AccountName }}</a>-->
+                                    <a style="cursor:pointer" data-ng-click="vm.goToAccount(logItem.AccountID)">{{ logItem.AccountName }}</a>
+                                </small>
+                            </td>
+
+                            <td style="text-align:right">
+                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".logDetailModal" data-ng-click="vm.getLogDetail($index, true)">Details</button> <!--<i class="fa fa-eye"></i>-->
+                            </td>
+                           
+
+
+
+                            <!--<td class="hidden-xs">
+                <small>
+                    {{ logItem.IPAddress }}
+                </small>
+            </td>
+
+            <td class="hidden-xs hidden-sm">
+                <small>
+                    {{ logItem.Origin }}
+                </small>
+            </td>-->
+
+                        </tr>
+                    </table>
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <div data-ng-show="vm.accountLog.length < 1" style="clear:both; margin-bottom:15px; padding-top:25px;">
+
+                <h4><i class="fa fa-times" style="color:red"></i> No logs available.</h4>
+                <h6>Try adjusting your filter options.</h6>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

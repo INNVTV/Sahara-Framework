@@ -1,0 +1,74 @@
+﻿<div>
+
+    <!--Edit basic Properties Modal-->
+    <div class="modal fade editBasicPropertiesModalWindow" tabindex="-1" role="dialog" aria-labelledby="editBasicPropertiesModalWindow" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" style="width:520px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 style="margin-top:-2px; margin-bottom:-2px;">{{ vm.propertyDetails.PropertyName }}</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div style="margin:15px;">
+
+                        <section-loader data-ng-show="vm.propertyDetails.IsSending == true" message="'Updating....'" loader-type="'inline'" style="margin-bottom:50px;"></section-loader>
+
+                        <div>
+
+                            <!-- Editing -->
+                            <div style="margin: 0 auto; margin-bottom:15px; text-align:center; width:100%" data-ng-show="vm.propertyDetails.IsSending == false && vm.propertyDetails.SendingComplete == false">
+                                <span data-ng-show="vm.propertyDetails.SymbolPlacement == 'leading' && vm.propertyDetails.Symbol != null" style="font-size:32px; float:left; margin-right:10px">{{vm.propertyDetails.Symbol}}</span>
+                                <span data-ng-show="vm.propertyDetails.Symbol == null"><input maxlength="80" style="font-size:24px; height:48px; width:450px; margin-right:7px; float:left" type="text" class="form-control input" data-ng-model="vm.propertyDetails.ValueToReplaceOrAppend" /></span>
+                                <span data-ng-show="vm.propertyDetails.Symbol != null && vm.propertyDetails.Symbol.length <= 3"><input maxlength="80" style="font-size:24px; height:48px; width:360px; margin-right:7px; float:left" type="text" class="form-control input" data-ng-model="vm.propertyDetails.ValueToReplaceOrAppend" /></span>
+                                <span data-ng-show="vm.propertyDetails.Symbol != null && vm.propertyDetails.Symbol.length > 3"><input maxlength="80" style="font-size:24px; height:48px; width:280px; margin-right:7px; float:left" type="text" class="form-control input" data-ng-model="vm.propertyDetails.ValueToReplaceOrAppend" /></span>
+                                <span data-ng-show="vm.propertyDetails.SymbolPlacement == 'trailing' && vm.propertyDetails.Symbol != null" style="font-size:32px; float:left; margin-left:10px">{{vm.propertyDetails.Symbol}}</span>
+                            </div>
+
+                            <div style="clear:both;"></div>
+
+                            <!-- Error -->
+                            <div style="margin-bottom:15px; margin-left:0px; font-size:18px;" data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                                <span style="color:red; font-weight:bold; margin-right:8px;">{{ vm.propertyDetails.Results.Message }}</span>
+                            </div>
+                        </div>
+
+                        <!-- More Options -->
+                        <div data-ng-show="vm.propertyDetails.SendingComplete == false && vm.propertyDetails.AssignedValue != null && vm.propertyDetails.IsSending == false" style="clear:both; margin-left:-15px; margin-top:15px; margin-bottom:-20px;">
+                            <div data-ng-show="!vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.ShowMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Show more options <i class="fa fa-caret-right"></i></button>
+                            </div>
+                            <div data-ng-show="vm.propertyDetails.ShowOptions">
+                                <div style="clear:both; height:10px;"></div>
+                                <button data-ng-click="vm.propertyDetails.HideMoreOptions()" class="btn btn-link btn-xs" style="color:darkgray">Hide more options <i class="fa fa-caret-up"></i></button>
+                                <div style="clear:both; margin-top:20px; margin-bottom:30px; margin-left:25px;">
+                                    <button class="btn btn-danger" data-ng-click="vm.clearProductProperty(true)">Reset value</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div data-ng-show="vm.propertyDetails.IsSending == false" class="modal-footer">
+                    <div>
+                        <!--<button data-ng-show="vm.propertyDetails.AssignedValue != null && vm.propertyDetails.AssignedValue != ''" type="button" class="btn btn-danger" style="margin-left:10px;" data-ng-click="vm.clearProductProperty(true)">Reset value</button>-->
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == false">
+                            <button data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend == null || vm.propertyDetails.ValueToReplaceOrAppend == '' || vm.propertyDetails.ValueToReplaceOrAppend == vm.propertyDetails.PreviousValue" class="btn btn-primary disabled">Update</button>
+                            <button data-ng-show="vm.propertyDetails.ValueToReplaceOrAppend != null && vm.propertyDetails.ValueToReplaceOrAppend != '' && vm.propertyDetails.ValueToReplaceOrAppend != vm.propertyDetails.PreviousValue" class="btn btn-primary" data-ng-click="vm.updateProductProperty(vm.propertyDetails.ValueType, true)">Update</button>
+                        </span>
+
+                        <span data-ng-show="vm.propertyDetails.SendingComplete == true && vm.propertyDetails.Results.IsSuccess == false">
+                            <button type="button" class="btn btn-warning" data-ng-click="vm.retryPropertyEdit()">Try Again</button>
+                        </span>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
