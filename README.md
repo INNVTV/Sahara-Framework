@@ -24,7 +24,7 @@ The Service Fabric components that are the heartbeat that the entire platform ru
 
   * **Sahara.Core**
     * Core business logic
-    * Most development will occur within [these classes] (https://github.com/INNVTV/Sahara-Framework/tree/master/1.%20Core%20Services/Sahara.Core)
+    * Most development will occur within [these classes](https://github.com/INNVTV/Sahara-Framework/tree/master/1.%20Core%20Services/Sahara.Core)
   * **Custodian**
     * Scheduled tasks
     * Garbage collection
