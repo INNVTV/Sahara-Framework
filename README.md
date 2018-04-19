@@ -3,29 +3,28 @@ A generalized platform for creating and managing multi-tenant SaaS applications 
 
 # Key Features
 
-
   * Customizable on-boarding process for new tenants.
   * Simple tenant and resource management.
   * Smart partitioning of resources across tenants.
   * Easily develop web and native applications.
   * Easily scale up or down as your needs evolve.
-  * Public and private API endpoints for your platform and for each tenant.
-  * Build any kind of business logic you need.
+  * Public and private API endpoints for the platform and each tenant.
+  * Build any kind of business logic required.
   * Integration with Stripe for billing/dunning.
   * Integration with CloudFlare for Domain & Subdomain Management, SSL, DDoS protection, and more. 
-  * Built on a microservices architecure with Service Fabric.
+  * Built on a microservices architecture with Service Fabric.
   * Focus on your application - not the plumbing!
 
 # Key Projects:
 
-Each root folder (1-8) corresponds to an independant Solution that can be managed by seperate teams or an individual. These solutions/projects are designed to be managed within Visual Studio Online (Team Services) and utilize the VSO Build and Release Management systems to control code updates to the associated resources and enviornments (Test/Stage/Production) on the Azure Cloud.
+Each root folder (1-8) corresponds to an independent Solution that can be managed by separate teams or an individual. These solutions/projects are designed to be managed within Visual Studio Online (Team Services) and utilize the VSO Build and Release Management systems for a controlled devops flow to the associated resources and environments (Test/Stage/Production) on the Azure Cloud.
 
 ## Core Services
-Service Fabric components that is the core set of services the entire platoform runs on:
+The Service Fabric components that are the heartbeat that the entire platform runs upon. This includes:
 
   * **Sahara.Core**
     * Core business logic
-    * Most development will occur within these classes
+    * Most development will occur within [these classes] (https://github.com/INNVTV/Sahara-Framework/tree/master/1.%20Core%20Services/Sahara.Core)
   * **Custodian**
     * Scheduled tasks
     * Garbage collection
@@ -45,7 +44,7 @@ Service Fabric components that is the core set of services the entire platoform 
 ## Platform Admin
 Dashboard for managing platform resources, accounts and tenant onboarding. Includes:
 
-  * Paritioning Management
+  * Partition Management
   * Tenant Management
   * Exception Logs
   * Billing Reports
@@ -59,7 +58,7 @@ Dashboard for tenants to manage their accounts:
   * Content Management
   * Search Engine
   * API Management
-    * API Key Management
+  * API Key Management
 
 
 ## Account Public API
@@ -75,45 +74,45 @@ API Endpoints for registering new tenants. Allows for both web and native applic
 Website that uses the registration endpoint for signing up new tenants.
 
 ## Imaging Service
-A service that allows for image processing to be handled as a remote backround task. Accessed through a set of APIs - orchastates through Blob Storage outside of Core Services.
+A service that allows for image processing to be handled as a remote background task. Accessed through a set of APIs - orchestrates through Blob Storage outside of Core Services.
 
 
 # Installation
 
-Each solution should have an isolated project with controlled access set up in Visual Studio Online (Team Services). Build and Release jobs can then be configured for each enviornment you will be targeting. You will want to move all of your access keys to Azure Key Vault and have your build system inject them into your project during compilation to maintain ideal security.
+Each solution should have an isolated project with controlled access set up in Visual Studio Online (Team Services). Build and Release jobs can then be configured for each environment you will be targeting. You will want to move all of your access keys to Azure Key Vault and have your build system inject them into your project during compilation to maintain ideal security.
 
 
 # Configuration
 
-**Note:** All configurable variables can be found by searcing for: **"[Config_"**
+**Note:** All configurable variables can be found by searching for: **"[Config_"**
 
 ## CloudFlare
-Found within the **Sahara.Core.Settings.Services.CloudFlare** class here
+Found within the **Sahara.Core.Settings.Services.CloudFlare** class.
 
-Used to configure or remove subdomains for tenats during provisioning and deprovisioning.
+Used to configure or remove subdomains for tenants during provisioning and deprovisioning.
 
-Please reference CloudFlares API documentation for further information.
+Please reference the CloudFlare API documentation for further information.
 
 ## Stripe
-Found within the **Sahara.Core.Settings.Services.Stripe** class here
+Found within the **Sahara.Core.Settings.Services.Stripe** class.
 
 ## Google Maps
-Found within the **Sahara.Core.Settings.Services.GoogleMaps** class here
+Found within the **Sahara.Core.Settings.Services.GoogleMaps** class.
 
 ## Send Grid
-Found within the **Sahara.Core.Settings.Services.SendGrid** class here
+Found within the **Sahara.Core.Settings.Services.SendGrid** class.
 
 ## Application Name and Default Time Zone
-Found within the **Sahara.Core.Settings.Application** class here
+Found within the **Sahara.Core.Settings.Application** class.
 
 ## Reserved Account Names
-Found within the **Sahara.Core.Settings.Accounts.Registration** class here
+Found within the **Sahara.Core.Settings.Accounts.Registration** class .re
 
 ## Roles
-Found within the **Sahara.Core.Settings.Accounts.Users.Authorization.Roles** class here
+Found within the **Sahara.Core.Settings.Accounts.Users.Authorization.Roles** class.
 
 ## Azure Resources
-Found within the **Sahara.Core.Settings.Azure.** classes here
+Found within the **Sahara.Core.Settings.Azure.** classes 
 
 ---
 
