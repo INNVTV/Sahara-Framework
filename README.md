@@ -1,9 +1,24 @@
 # The Sahara Framework
-A generalized group of projects for creating SaaS applications on the Azure cloud
+A generalized platform for creating and managing multi-tenant SaaS applications on the Azure cloud. 
+
+# Key Features
+
+
+  * Customizable on-boarding process for new tenants.
+  * Simple tenant and resource management.
+  * Smart partitioning of resources across tenants.
+  * Easily develop web and native applications.
+  * Easily scale up or down as your needs evolve.
+  * Public and private API endpoints for your platform and for each tenant.
+  * Build any kind of business logic you need.
+  * Integration with Stripe for billing/dunning.
+  * Integration with CloudFlare for Domain & Subdomain Management, SSL, DDoS protection, and more. 
+  * Built on a microservices architecure with Service Fabric.
+  * Focus on your application - not the plumbing!
 
 # Key Projects:
 
-Each root folder (1-7)corresponds to an independant Solution that can be managed by seperate teams or an individual. These solutions/projects are designed to be managed within Visual Studio Online (Team Services) and utilize the VSO Build and Release Management systems to control code updates to the associated resources and enviornments (Test/Stage/Production) on the Azure Cloud.
+Each root folder (1-8) corresponds to an independant Solution that can be managed by seperate teams or an individual. These solutions/projects are designed to be managed within Visual Studio Online (Team Services) and utilize the VSO Build and Release Management systems to control code updates to the associated resources and enviornments (Test/Stage/Production) on the Azure Cloud.
 
 ## Core Services
 Service Fabric components that is the core set of services the entire platoform runs on:
@@ -72,9 +87,6 @@ Each solution should have an isolated project with controlled access set up in V
 
 **Note:** All configurable variables can be found by searcing for: **"[Config_"**
 
-## WCF Key
-Text
-
 ## CloudFlare
 Found within the **Sahara.Core.Settings.Services.CloudFlare** class here
 
@@ -105,7 +117,7 @@ Found within the **Sahara.Core.Settings.Azure.** classes here
 
 ---
 
-**Note:** All of the above configurations *should* be moved to **Azure Key Vault** to secure your production resources.
+**Note:** All of the above configurations *should* be moved to **Azure Key Vault** to secure your production resources!
 
 ---
 
