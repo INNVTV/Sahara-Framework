@@ -35,12 +35,6 @@ namespace Sahara.Core.Common.MessageQueues.PlatformPipeline
         /// </summary>
         public static class  SendMessage
         {
-            //static CloudQueue _queue = EnvironmentSettings.StorageConnection.PlatformStorage.CreateCloudQueueClient().GetQueueReference(PipelineSettings.QueueReferenceName);
-
-            //static SendMessage()
-            //{
-            //    _queue.CreateIfNotExists();
-            //}
 
             #region Provisioning related Messages
 
@@ -140,25 +134,6 @@ namespace Sahara.Core.Common.MessageQueues.PlatformPipeline
 
             #region (OPTIONAL) Processing of 'manual' Invoice or Charge Failures
 
-            /*
-            public static void StripeInvoicePaymentFailed(string stripeCustomerID, string amount, string failureMessage, string invoiceId, string eventId)
-            {
-                string message = string.Format("{0},{1},{2},{3},{4},{5}", PlatformMessageTypes.StripeChargeFailed, stripeCustomerID, amount, failureMessage, invoiceId, eventId);
-
-                CloudQueueMessage cloudQueueMessage = new CloudQueueMessage(message);
-                _queue.AddMessage(cloudQueueMessage);
-
-            }
-
-            public static void StripeChargeFailed(string stripeCustomerID, string amount, string failureMessage, string eventId)
-            {
-                string message = string.Format("{0},{1},{2},{3},{4}", PlatformMessageTypes.StripeChargeFailed, stripeCustomerID, amount, failureMessage, eventId);
-
-                CloudQueueMessage cloudQueueMessage = new CloudQueueMessage(message);
-                _queue.AddMessage(cloudQueueMessage);
-
-            }
-            */
             #endregion
 
             #region Application related messages
@@ -257,10 +232,7 @@ namespace Sahara.Core.Common.MessageQueues.PlatformPipeline
                         System.Reflection.MethodBase.GetCurrentMethod().ToString()
                     );
 
-
-                    // Return NULL
                     return null;
-
                 }
             }
 
@@ -347,30 +319,6 @@ namespace Sahara.Core.Common.MessageQueues.PlatformPipeline
 
                     #region (OPTIONAL) Processing of manual Invoice or Charge Failures
 
-                        /*
-                    case PlatformMessageTypes.StripeInvoicePaymentFailed:
-                        StripeInvoicePaymentFailed_QueueMessage stripeInvoicePaymentFailed = new StripeInvoicePaymentFailed_QueueMessage();
-                        stripeInvoicePaymentFailed.rawMessage = message;
-                        stripeInvoicePaymentFailed.QueueMessageType = messageType;
-                        stripeInvoicePaymentFailed.StripeCustomerId = messageParts[1];
-                        stripeInvoicePaymentFailed.Amount = messageParts[2];
-                        stripeInvoicePaymentFailed.FailureMessage = messageParts[3];
-                        stripeInvoicePaymentFailed.StripeInvoiceId = messageParts[4];
-                        stripeInvoicePaymentFailed.StripeEventId = messageParts[5];
-                        return stripeInvoicePaymentFailed;
-
-                    case PlatformMessageTypes.StripeChargeFailed:
-                        StripeChargeFailed_QueueMessage stripeChargeFailed = new StripeChargeFailed_QueueMessage();
-                        stripeChargeFailed.rawMessage = message;
-                        stripeChargeFailed.QueueMessageType = messageType;
-                        stripeChargeFailed.StripeCustomerId = messageParts[1];
-                        stripeChargeFailed.Amount = messageParts[2];
-                        stripeChargeFailed.FailureMessage = messageParts[3];
-                        stripeChargeFailed.StripeEventId = messageParts[4];
-                        return stripeChargeFailed;
-
-                    */
-
                     #endregion
 
                     case PlatformMessageTypes.SendNotificationToBulkAccounts:
@@ -440,12 +388,8 @@ namespace Sahara.Core.Common.MessageQueues.PlatformPipeline
                     System.Reflection.MethodBase.GetCurrentMethod()
                 );
 
-
                 return null;
             }
-
-
-            //return queueMessage;
 
         }
 
