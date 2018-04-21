@@ -18,23 +18,16 @@ namespace Sahara.Core.Application.DocumentModels.Product
         [JsonProperty(PropertyName = "_self")]
         public string SelfLink { get; internal set; }
 
-        //----------- Isolate Tenant Products via AccountID & DocumentType -------------------------
-
-        //[DataMember]
-        //public string AccountID { get; set; }
-
-        //[DataMember]
-        //public string AccountNameKey { get; set; }
-
-        [DataMember]
-        public string DocumentType { get; set; }
-
-
-        [DataMember]
-        public string Name { get; set; }
+        //----------- Isolate Tenant Products via NameKey & DocumentType -------------------------
 
         [DataMember]
         public string NameKey { get; set; }
+        
+        [DataMember]
+        public string Name { get; set; }
+     
+        [DataMember]
+        public string DocumentType { get; set; }
 
         [DataMember]
         public string LocationPath { get; set; } //<-- categorynameshort/subcategorynameshort/subsubcategorynameshort/subsubsubcategorynameshort
@@ -75,16 +68,6 @@ namespace Sahara.Core.Application.DocumentModels.Product
 
         // ----------------------------------
 
-
-        //[DataMember]
-        //public string Title { get; set; }
-
-        //[DataMember]
-        //public string Description { get; set; }
-
-        //[DataMember]
-        //public string FilePath { get; set; }
-
         [DataMember]
         public int OrderID { get; set; }
 
@@ -105,24 +88,13 @@ namespace Sahara.Core.Application.DocumentModels.Product
         [DataMember]
         public Dictionary<string, PropertyLocationValue> Locations { get; set; } //<-- locations
 
-        //---------------------------------------------------------
 
+        
         //-------------- Collections -------------------------------
 
         [DataMember]
         public List<string> Tags { get; set; } //<-- Searchable tags
-
-        //---------------------------------------------------------
-
-        //-------------- Image Data -------------------------------
-
-        //[DataMember]
-        //public List<ImageGroup> Images;
-
-        // Images > Tablet > DetailMain
-        // Images > Tablet > Thumbnail
-
-        //---------------------------------------------------------
+      
     }
 
     [DataContract]
@@ -155,8 +127,6 @@ namespace Sahara.Core.Application.DocumentModels.Product
         [DataMember]
         public string Long { get; set; }
 
-        //[DataMember]
-        //public string GeographyPoint { get; set; }
     }
 
 
