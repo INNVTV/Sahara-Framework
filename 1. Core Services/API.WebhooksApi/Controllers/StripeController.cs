@@ -17,33 +17,12 @@ namespace API.WebhooksApi.Controllers
     [ServiceRequestActionFilter]
     public class StripeController : ApiController
     {
-        #region Fiddler Settings
-
-        /*
-         * [POST] http://[url]/stripe
-         *
-         * Content-type: application/json
-         * Authorization: Basic 
-         * 
-         * 
-         * REQUEST BODY:
-         {"created":1326853478,"livemode":false,"id":"evt_00000000000000","type":"charge.succeeded","object":"event","request":null,"data":{"object":{"id":"ch_00000000000000","object":"charge","created":1400109038,"livemode":false,"paid":true,"amount":19999,"currency":"usd","refunded":false,"card":{"id":"card_00000000000000","object":"card","last4":"4242","type":"Visa","exp_month":12,"exp_year":2015,"fingerprint":"2haIcwo8R7ZzRd7Q","country":"US","name":"Kazimir Dugandzic","address_line1":null,"address_line2":null,"address_city":null,"address_state":null,"address_zip":null,"address_country":null,"cvc_check":null,"address_line1_check":null,"address_zip_check":null,"customer":"cus_00000000000000"},"captured":true,"refunds":[],"balance_transaction":"txn_00000000000000","failure_message":null,"failure_code":null,"amount_refunded":0,"customer":"cus_00000000000000","invoice":"in_00000000000000","description":null,"dispute":null,"metadata":{},"statement_description":null}}}
-         * 
-         * 
-         */
-
-        #endregion
-
-
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         [Route("stripe")]
         [HttpPost]
         public HttpResponseMessage Post(StripeEvent stripeEvent)
         {
-
             HttpResponseMessage httpResponse = new HttpResponseMessage();
-
-
 
             string stripeEvent_ID = stripeEvent.Id;
 
@@ -54,19 +33,13 @@ namespace API.WebhooksApi.Controllers
             }
 
             #region Ensure idempotency
-            //To ensure that event calls are idempotent we log each event but first ensure that it has not been logged before. If it has we return an OK/200 call
-
+           
             bool isLogged = StripeWebhookEventsLogManager.HasEventBeenLogged(stripeEvent_ID);
 
             if (isLogged)
             {
                 //Event is logged -  return 200
                 return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            else
-            {
-
-                //Do nothing, we record the event as logged AFTER processing is complete
             }
 
             #endregion
@@ -102,7 +75,6 @@ namespace API.WebhooksApi.Controllers
                         {
                             stripePlanId = account.StripePlanID;
                         }
-
 
                         //Log Activity:
                         PlatformLogManager.LogActivity(
@@ -162,7 +134,6 @@ namespace API.WebhooksApi.Controllers
                         {
                             request = stripeEvent.Request; //<--- Not an automated call, was manually issued by a user request, or the Stripe dashboard
                         }
-
 
                         //(OPTIONAL)Send message queue for PlatformWorker to process
                         //PlatformQueuePipeline.SendMessage.StripeInvoicePaymentFailed(customerID, amount, failureMessage, invoiceId, StripeEvent_Id);
@@ -272,8 +243,6 @@ namespace API.WebhooksApi.Controllers
                                     stripePlanId = account.StripePlanID;
                                 }
 
-
-
                                 //Log Activity:
                                 PlatformLogManager.LogActivity(
                                     CategoryType.StripeEvent,
@@ -305,14 +274,10 @@ namespace API.WebhooksApi.Controllers
                                     account.AccountName
                                 );
 
-                                //PlatformLogManager.LogActivity(StripeWebhookLogActivity.ChargeSucceeded_Single,
-                                //account.AccountName + " | " + account.AccountID + " | " + "Single Charge (No Invoice) | " + amount,
-                                //request + " | " + stripeEvent.Id + " | " + stripeChargeId);
                             }
 
                             //Return 200 response
                             httpResponse = Request.CreateResponse(HttpStatusCode.OK); //<--Stripe expects a 200 response for successful transactions, otherwise it will call the service again later        
-
 
                             #endregion
                         }
@@ -456,12 +421,7 @@ namespace API.WebhooksApi.Controllers
                                         null,
                                         "webhook"
                                     );
-
-                                    //PlatformLogManager.LogActivity(StripeWebhookLogActivity.ChargeFailed_Single,
-                                    //account.AccountName + " | " + account.AccountID + " | " + "Single Charge (No Invoice) | " + amount,
-                                    //request + " | " + stripeEvent.Id + " | " + stripeChargeId);
                                 }
-
 
                                 // Log Billing Issue
                                 PlatformLogManager.LogActivity(
@@ -502,11 +462,8 @@ namespace API.WebhooksApi.Controllers
                             //Return 200 response (Since the message queue has been sent to the worker as well as the exception logged we return a 200 response so that Stripe does not attempt to call the webhook again and the customer does not get multiple failed cahrge notices)
                             httpResponse = Request.CreateResponse(HttpStatusCode.OK); //<--Stripe expects a 200 response for successful transactions, otherwise it will call the service again later  
 
-
                             #endregion
                         }
-
-
 
                     }
                     catch (Exception e)
@@ -633,8 +590,6 @@ namespace API.WebhooksApi.Controllers
                             "attempting to capture  the 'customer.source.updated' stripe webhook event",
                             System.Reflection.MethodBase.GetCurrentMethod()
                         );
-
-
 
                         httpResponse = Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
                     }
@@ -779,19 +734,11 @@ namespace API.WebhooksApi.Controllers
                             request = stripeEvent.Request; //<--- Not an automated call, was manually issued by a user request, or the Stripe dashboard
                         }
 
-
                         #region Manage Subscription Status Changes
 
                         try
                         {
                             //Get status updates and execute thusly
-                            
-                            //Possible values are: active, past_due, canceled, or unpaid. 
-                            // When payment to renew the subscription fails, the subscription becomes past_due.
-                             //After Stripe has exhausted all payment retry attempts, the subscription ends up with a status of either canceled or unpaid depending on your retry settings.
-                             //Note that when a subscription has a status of unpaid, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed.
-                             //Additionally, updating customer card details will not lead to Stripe retrying the latest invoice.). After receiving updated card details from a customer, you may choose to reopen and pay their closed invoices.
-                             
 
                             string newSubscriptionStatus = stripeEvent.Data.Object.status;
                             string previousSubscriptionStatus = stripeEvent.Data.PreviousAttributes.status;
@@ -856,10 +803,7 @@ namespace API.WebhooksApi.Controllers
                             }
                             else
                             {
-                                // Log it as a general Subscription Updated Event
-
                                 //Get the account
-                                //var account = AccountManager.GetAccountByStripeCustomerID(customerID, false);
                                 var account = AccountManager.GetAccount(customerID);
 
                                 //Log the Activity
@@ -1104,20 +1048,7 @@ namespace API.WebhooksApi.Controllers
             //Log the event:
             StripeWebhookEventsLogManager.LogWebhookEvent(stripeEvent_ID);
 
-            //Clear logs older than X days (once per day) (REVISIT THIS)
-            /*
-            if(lastDateLogsPurged != DateTime.UtcNow.ToShortDateString())
-            {
-                lastDateLogsPurged = DateTime.UtcNow.ToShortDateString();
-                StripeWebhookEventsLogManager.ClearStripeWebhookEventsLog(-1);
-            }*/
-
-
-
-
-
             return httpResponse;
-
 
         }
 
