@@ -24,7 +24,7 @@
     loadAccountProperties = function () {
 
         //Check if current payment plan allows for imaging
-
+        
         var date = new Date();
 
         $.ajax({
@@ -35,19 +35,23 @@
                 account = response;
 
                 if (account.PaymentPlan.AllowImageEnhancements) {
-                    //console.log("Image Enhancements Allowed")
+                    console.log("Image Enhancements Allowed")
                 }
                 else {
                     //console.log("Image Enhancements Not Allowed")
+                      
                     //Grey out copy
                     $("#EnhancementDiv").css({ "color": "darkgrey" });
+                    
                     //Disable sliders:
                     $("#enhance-brightness").slider("disable");
                     $("#enhance-contrast").slider("disable");
                     $("#enhance-saturation").slider("disable");
                     $("#enhance-sharpness").slider("disable");
+                    
                     //Disable filters:
                     $('#filtersDiv :input').attr('disabled', true);
+                    
                     //Hide Cursor
                     $('#filtersDiv :input').css({ "cursor": "initial" });
 
@@ -77,47 +81,11 @@
     submitJob = function () {
 
         $('#errorMessage').hide();
-
         $('#imageProcessingBar').show();
-
-        //Test calling the parent
-        //window.parent.imageEditingComplete("productDetailController");
-
-        // -- Title Check
-        /*
-        if ($("#imageTitleText").val() == "") {
-            $("#imageTitleLabel").text("Please include a title")
-            $("#imageTitleLabel").css({ color: 'red' })
-            $("#imageTitleText").css({ border: '1px solid red' })
-        }
-        else {
-            $("#imageTitleLabel").text("Title")
-            $("#imageTitleLabel").css({ color: 'black' })
-            $("#imageTitleText").css({ border: '1px solid lightgrey' })
-        }
-
-        // -- Description Check
-
-        if ($("#imageDescriptionText").val() == "") {
-            $("#imageDescriptionLabel").text("Please include a description")
-            $("#imageDescriptionLabel").css({ color: 'red' })
-            $("#imageDescriptionText").css({ border: '1px solid red' })
-        }
-        else {
-            $("#imageDescriptionLabel").text("Description")
-            $("#imageDescriptionLabel").css({ color: 'black' })
-            $("#imageDescriptionText").css({ border: '1px solid lightgrey' })
-        }
-        */
-
-        //if ($("#imageTitleText").val() != "" && $("#imageDescriptionText").val() != "") {
 
         disableImagingControls();
 
-        //showNotification("Processing images...", "Loading", null, 20000);
         $('#submitImageJob').hide();
-        //$('#submitImageProcessing').show();
-        //showGlobalLoader();
 
         var date = new Date();
         var type = '@Model.Type'
@@ -156,8 +124,6 @@
             },
             success: function (response) {
 
-                //console.trace(response);
-
                 if (response.isSuccess) {
 
                     //Preload new image using _xs version as this is the thumbnail we use in shared panel:
@@ -177,17 +143,6 @@
                         $('#imageProcessingBar').hide();
                     };
 
-                    //REMOVED to preload new image...
-                    //$('#hideContentDiv').show();
-                    //parent.imageEditingComplete();
-                    //$('#imageProcessingBar').hide();
-
-                    //Redirect to imaging index:
-                    //window.location.href = '/imaging/'
-
-
-                    //showNotification("Success!", "Success", null, 100);
-
                 }
                 else {
                     $('#submitImageJob').show();
@@ -199,26 +154,17 @@
 
                     $('#imageProcessingBar').hide();
 
-                    //Call parent (_Authenticated view) to close Modal and triger image refresh for this object
-                    //parent.imageEditingComplete();
-
-                    //hideGlobalLoader();
                     enableImagingControls();
-                    //showNotification(response.ErrorMessage, "Alert", null, 100);
                 }
 
             }
         });
-        //}
-
-
 
     }
 
     intializeEnhancementSliders = function () {
 
-        //Initialize Brightness Slider Control -------
-
+        //Initialize Brightness Slider Control
         $("#enhance-brightness").slider({
             range: "min",
             value: 0,
@@ -234,8 +180,7 @@
         });
         $("#enhance-amount-brightness").val($("#enhance-brightness").slider("value"));
 
-        //Initialize Contrast Slider Control -------
-
+        //Initialize Contrast Slider Control
         $("#enhance-contrast").slider({
             range: "min",
             value: 0,
@@ -251,8 +196,7 @@
         });
         $("#enhance-amount-contrast").val($("#enhance-contrast").slider("value"));
 
-        //Initialize Saturation Slider Control -------
-
+        //Initialize Saturation Slider Control
         $("#enhance-saturation").slider({
             range: "min",
             value: 0,
@@ -292,8 +236,6 @@
 
     updateJpgCheckbox = function () {
         jpgChecked = $("#jpgCheckbox").is(':checked')
-        //console.log("checked:" + jpgChecked);
-        //updateProcessingSpecs();
         if(jpgChecked)
         {
             $("#jpgCheckedMessage").show();
@@ -302,7 +244,6 @@
             $("#jpgUncheckedMessage2").hide();
 
             $("#jpgConvertCheckboxLabel").css("color", "Black");
-
         }
         else
         {
@@ -315,11 +256,9 @@
         }
     }
 
-
     var sepiaChecked = false;
     var polaroidChecked = false;
     var greyscaleChecked = false;
-
 
     updateSepiaCheckbox = function () {
         sepiaChecked = $("#sepiaCheckbox").is(':checked')
@@ -390,11 +329,9 @@
     }
 
     updateImageEnhancementPreview = function () {
-        //iiii
-        $("#previewUpdating").slideDown();
-        //showGlobalLoader();
 
-        //Disable sliders, filters & submit button:
+        $("#previewUpdating").slideDown();
+
         disableImagingControls();
 
         var date = new Date();
@@ -424,7 +361,6 @@
                 enableImagingControls();
 
                 if (response.isSuccess) {
-
 
                     var previewFileName = response.FileName;
                     //var previewFullPath = '@CoreServices.PlatformSettings.Urls.IntermediaryImagingCdnUri/@Model.SourceContainerName/' + previewFileName
@@ -464,29 +400,12 @@
                 "<b>CropRight:</b>" + cropRight + "</br>" +
                 "<b>CropBottom:</b>" + cropBottom + "</br>" //+
 
-                //"<b>Brightness:</b>" + $("#enhance-brightness").slider("value") + "</br>" +
-                //"<b>Contrast:</b>" + $("#enhance-contrast").slider("value") + "</br>" +
-               // "<b>Saturation:</b>" + $("#enhance-saturation").slider("value") + "</br>" +
-                //"<b>Sharpness:</b>" + $("#enhance-sharpness").slider("value") + "</br>" +
-
-                //"<b>Sepia:</b>" + sepiaChecked + "</br>" +
-                //"<b>polaroid:</b>" + polaroidChecked + "</br>" +
-               // "<b>greyscale:</b>" + greyscaleChecked + "</br>"
-
-
                 );
-
-            //Now, update the link 'href' (you could update a hidden field just as easily)
-            ////$('#submitImageJob').attr('href', updatedProcessUrl);
         }
 
         //We wait until the image is loaded AND it is not empty before bulding out our UI and our JCrop utility so that we can reference the source image dimensions
         imageLoaded = function () {
-
-            //console.log("image is loaded");
-
-            //var firstLoad = true;
-
+            
             //Get the image object and sizes
             var img = document.getElementById('cropTarget');
             var imgWidth = img.clientWidth;
@@ -497,9 +416,6 @@
                 //var firstLoad = false; //<-- We only need to run this when the FIRST image loads, not when the enahncement previews replace the origioan source on cropTarget
 
                 $(function () {
-
-
-                    //console.log("source image size:" + imgWidth + "," + imgHeight); //<-- If you are using boxHeight/boxWidth in JCrop settings, this may be inaccurate and reflect the smaller image size
 
                     //Define a function to execute when the cropping rectangle changes. (Captures the coordinates for server to crop, updates applyCropButton, Etc....)
                     var update = function (coords) {
@@ -517,13 +433,10 @@
                         cropBottom = (coords.y2 - coords.y);
                         cropRight = (coords.x2 - coords.x);
 
-
                         cropQueryString = cropCordinates;
 
                         updateProcessingSpecs();
-
                     }
-
 
                     // Formula OPTION 2 fill entire width/height possible:
                     var cropStartX1 = 0;
